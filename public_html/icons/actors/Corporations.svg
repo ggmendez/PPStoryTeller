@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   id="Layer_1"
+   data-name="Layer 1"
+   version="1.2"
+   viewBox="0 0 101824.81 105495.04"
+   sodipodi:docname="Corporations.svg"
+   width="101824.81"
+   height="105495.03"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs1" />
+  <sodipodi:namedview
+     id="namedview7"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:pagecheckerboard="0"
+     inkscape:pageopacity="0.0"
+     inkscape:showpageshadow="2"
+     pagecolor="#ffffff" />
+  <g
+     id="g1">
+    <polygon
+       id="polygon1"
+       points="262.2,310.8 262.2,3.1 79.2,68.9 79.2,310.8 88.7,310.8 95.4,310.8 "
+       fill="#dfdeed"
+       stroke-width="0" />
+    <polygon
+       id="polygon2"
+       points="310.8,310.8 319.1,310.8 319.1,295.5 319.1,61.3 270.2,0 262.2,3.1 262.2,310.8 302.8,310.8 "
+       fill="#9e9ea8"
+       stroke-width="0" />
+    <path
+       id="path2"
+       d="M 270.2,0 79.2,68.9 V 310.8 H 319.1 V 61.3 Z m 16.3,298.8 V 65.4 L 262,38.3 V 298.7 H 112.5 l -23,-3.3 V 76.6 L 262.1,15.3 305,64.1 v 234.6 h -18.5 z"
+       fill="#000000"
+       stroke-width="0" />
+    <g
+       id="g6">
+      <polygon
+         id="polygon3"
+         points="0,310.8 0,324.8 144.9,324.8 144.9,83.1 144.2,82.6 0,136.2 0,295.5 0,309.6 "
+         fill="#cac2a8"
+         stroke-width="0" />
+      <polygon
+         id="polygon4"
+         points="208.4,299 208.4,132.2 143.9,86.6 143.9,317 208.4,314.4 "
+         fill="#9c9581"
+         stroke-width="0" />
+      <polygon
+         id="polygon5"
+         points="111.7,143.9 40.4,167.7 40.7,197.5 111.7,174.6 "
+         fill="#000000"
+         stroke-width="0" />
+      <polygon
+         id="polygon6"
+         points="111.7,197.5 40.4,220.7 40.7,249.8 111.7,232.6 "
+         fill="#000000"
+         stroke-width="0" />
+      <path
+         id="path6"
+         d="M 144.2,82.6 0,136.2 v 188.6 h 209.4 v -14.1 0 -182.3 L 144.2,82.5 v 0 z m 0,15.4 53.5,35.2 0.2,180.8 h -34.8 l -0.8,-181.8 -18.1,-11.3 v 193 H 10.6 V 143.8 L 144.4,97.9 h -0.2 z"
+         fill="#000000"
+         stroke-width="0" />
+    </g>
+    <polygon
+       id="polygon7"
+       points="40.7,295.5 111.7,295.5 111.7,257.1 40.7,272.4 "
+       fill="#000000"
+       stroke-width="0" />
+  </g>
+</svg>

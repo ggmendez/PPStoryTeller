@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 299.1 156.6">
+  <g>
+    <path d="M188.2,94.8c0-19.6-15.8-35.4-35.4-35.4h-6.3c-19.6,0-35.4,15.8-35.4,35.4v58.8h77.1v-58.8h0Z" style="fill: #fed966; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+    <circle cx="149.7" cy="30.6" r="27.6" style="fill: #fed966; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+  </g>
+  <g>
+    <path d="M249.9,106.6c0-15.7-12.7-28.3-28.3-28.3h-5c-15.7,0-28.3,12.7-28.3,28.3v47h61.6v-47Z" style="fill: #fee69b; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+    <circle cx="219" cy="55.1" r="22.1" style="fill: #fee69b; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+  </g>
+  <g>
+    <path d="M111.1,106.6c0-15.7-12.7-28.3-28.3-28.3h-5c-15.7,0-28.3,12.7-28.3,28.3v47h61.6s0-47,0-47Z" style="fill: #fee69b; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+    <circle cx="80.2" cy="55.1" r="22.1" style="fill: #fee69b; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+  </g>
+  <g>
+    <path d="M49.4,118.3c0-11.8-9.5-21.3-21.3-21.3h-3.8c-11.8,0-21.3,9.5-21.3,21.3v35.3h46.2v-35.3s.2,0,.2,0Z" style="fill: #fef0c6; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+    <circle cx="26.2" cy="79.8" r="16.6" style="fill: #fef0c6; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+  </g>
+  <g>
+    <path d="M296.1,118.3c0-11.8-9.5-21.3-21.3-21.3h-3.8c-11.8,0-21.3,9.5-21.3,21.3v35.3h46.2v-35.3h.2,0Z" style="fill: #fef0c6; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+    <circle cx="273" cy="79.8" r="16.6" style="fill: #fef0c6; stroke: #000; stroke-miterlimit: 10; stroke-width: 6px;"/>
+  </g>
+</svg>

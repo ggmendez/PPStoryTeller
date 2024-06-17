@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:svg="http://www.w3.org/2000/svg" viewBox="0 0 364.4 349.1">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e53935;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6, .cls-7, .cls-8, .cls-9, .cls-10, .cls-11, .cls-12 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #000;
+      }
+
+      .cls-3 {
+        fill: #424242;
+      }
+
+      .cls-13 {
+        fill: none;
+        stroke: #000;
+        stroke-miterlimit: 10;
+        stroke-width: 6.7px;
+      }
+
+      .cls-4 {
+        fill: #212121;
+      }
+
+      .cls-5 {
+        fill: #d2e7fa;
+      }
+
+      .cls-5, .cls-6, .cls-7, .cls-9, .cls-11, .cls-12 {
+        fill-rule: evenodd;
+      }
+
+      .cls-6 {
+        fill: #a5cff5;
+      }
+
+      .cls-7 {
+        fill: #4ba0ea;
+      }
+
+      .cls-8 {
+        fill: #8bc34a;
+      }
+
+      .cls-9 {
+        fill: #78b8ef;
+      }
+
+      .cls-10 {
+        fill: #ff9800;
+      }
+
+      .cls-11 {
+        fill: #0f4473;
+      }
+
+      .cls-12 {
+        fill: #1e88e5;
+      }
+    </style>
+  </defs>
+  <sodipodi:namedview id="namedview23" bordercolor="#000000" borderopacity="0.25" inkscape:current-layer="Layer_1" inkscape:cx="182.18797" inkscape:cy="174.55" inkscape:deskcolor="#d1d1d1" inkscape:pagecheckerboard="0" inkscape:pageopacity="0.0" inkscape:showpageshadow="2" inkscape:window-height="991" inkscape:window-maximized="1" inkscape:window-width="1920" inkscape:window-x="-9" inkscape:window-y="-9" inkscape:zoom="2.2257232" pagecolor="#ffffff"/>
+  <g>
+    <path id="path7" class="cls-10" d="M89.3,130.6h15.7c5,0,8.7,4,8.7,8.7v121.7c0,4.7-3.7,8.7-8.7,8.7h-15.7c-4.7,0-8.7-4-8.7-8.7v-121.7c0-4.7,4-8.7,8.7-8.7Z"/>
+    <path id="path8" class="cls-8" d="M127.3,168.6h15.7c5,0,8.7,3.7,8.7,8.7v83.3c0,5-3.7,8.7-8.7,8.7h-15.7c-4.7,0-8.7-3.7-8.7-8.7v-83.3c0-5,4-8.7,8.7-8.7Z"/>
+    <path id="path1" class="cls-2" d="M97.2,92.6C43.5,92.6,0,136.1,0,189.8s43.5,97.2,97.2,97.2,97.2-43.5,97.2-97.2-43.5-97.2-97.2-97.2ZM97.2,264.9c-41.5,0-75.1-33.6-75.1-75.1s33.6-75.1,75.1-75.1,75.1,33.6,75.1,75.1-33.6,75.1-75.1,75.1Z"/>
+    <path id="path2" class="cls-13" d="M281.3,89l-26.3,65"/>
+    <path id="path3" class="cls-9" d="M267,77.8c6.5-7.9,18.4-9.7,25.9-3.2,7.9,6.5,9.3,18,2.8,25.9-6,8.3-18,9.7-25.9,3.7-7.3-6.5-8.7-18-2.8-26.3h0Z"/>
+    <path id="path4" class="cls-13" d="M228.7,219l26.3-65"/>
+    <path id="path5" class="cls-9" d="M242.1,229.7c-6.3,8-17.4,9.3-25,3.1-7.6-5.7-8.4-17-2.7-25,6.3-8,17.4-9.3,25-3.1,7.6,5.7,8.9,17.4,2.7,25Z"/>
+    <path id="path6" class="cls-13" d="M274.3,220.6l-23.3-66"/>
+    <path id="path9" class="cls-5" d="M287,219.6c.7,7.7-5,14-12.3,14.3-7,.3-13.3-5.3-14-12.7-.3-7.7,5-14,12.3-14.3s13.7,5.3,14,12.7Z"/>
+    <path id="path10" class="cls-4" d="M249.3,341.6h0c-10,10-26.3,10-36.3,0l-50.3-50.3,36.3-36.3,50.3,50.3c10,10,10,26.3,0,36.3h0Z"/>
+    <path id="path11" class="cls-3" d="M187.3,254l-9.7-9.7c-6.7,10-15.3,18.7-25.3,25.7h0l9.3,9.3,1,12,36.3-36.3-11.7-1h0Z"/>
+    <path id="path12" class="cls-1" d="M68.7,80.6h-19c-3.7,0-7,3-7,7v153.7c9,9.3,20.3,16.7,33,20.3V87.6c0-4-3-7-7-7h0Z"/>
+    <path id="path13" class="cls-13" d="M213.3,15.6l-19.7,60"/>
+    <path id="path14" class="cls-13" d="M342.3,213l-88-58"/>
+    <path id="path15" class="cls-13" d="M254.3,155l-61.3-77"/>
+    <path id="path16" class="cls-13" d="M193,78l-60-22"/>
+    <path id="path17" class="cls-13" d="M351,131l-96,23"/>
+    <path id="path18" class="cls-12" d="M174.7,63.3c8-10,22.3-11.7,32-4,10,7.7,11.3,22,3.7,32-8,10-22.3,11.7-32,4-10-7.7-11.3-22-3.7-32Z"/>
+    <path id="path19" class="cls-9" d="M201,6c5.3-6.7,15-8,21.3-2.7,6.7,5.3,8,15,2.7,21.7s-15.3,8-21.7,2.7c-6.7-5-7.7-15-2.3-21.7Z"/>
+    <path id="path20" class="cls-11" d="M228,135c11.7-14.7,32.3-17.3,47-5.7,14.3,11.3,16.7,32.3,5,46.7-11.3,14.7-32.3,17.3-46.7,6-14.3-11.3-16.7-32.7-5.3-47Z"/>
+    <path id="path21" class="cls-6" d="M121.7,47.3c5-6,14-7.3,20-2.3,6,4.7,7,13.7,2,19.7-5,6-13.7,7.3-19.7,2.3-6-4.7-7-13.7-2.3-19.7Z"/>
+    <path id="path22" class="cls-5" d="M340.7,122.6c4.7-6,13-7,18.7-2.7,5.7,4.7,6.7,13,2,19-4.3,5.7-13,7-18.7,2.3s-6.3-13-2-18.7h0Z"/>
+    <path id="path23" class="cls-7" d="M325.3,199.3c7.3-9,20.3-10.7,29-3.7,9,7,10.7,20.3,3.3,29.3-7.3,9-20,10.7-29,3.7-9-7.3-10.3-20.3-3.3-29.3Z"/>
+  </g>
+</svg>
