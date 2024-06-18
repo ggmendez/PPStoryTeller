@@ -779,7 +779,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const actorLabelNodes = svgActorIconLabels.nodes();
         actorLabelNodes.forEach((actorLabelNode, index) => {
             mainTimeline.fromTo(actorLabelNode, {
-                // opacity: 0,
+                opacity: 0,
                 scale: 0,
             }, {
                 opacity: 1,
@@ -1064,7 +1064,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     x: svgWidth * 1.25,
                     y: getRandomBetween(-100, svgHeight + 100),
                 }, {
-                    x: commonX + 80 + rectIndex * (targetSize * 2 + padding * 0.75),
+                    x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
                     // y: offsetY + (actorIconScale * actorGroupScale * actorIconHeight / 2) - targetSize/2,
                     y: offsetY + targetSize/2,
                     opacity: 1,
