@@ -17,6 +17,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let svgWidth = svgElement.clientWidth;
     let svgHeight = svgElement.clientHeight;
 
+    let originalTransformations = {};
+    let labelsOf = {};
+
     console.log("svgWidth: " + svgWidth);
     console.log("svgHeight: " + svgHeight);
 
@@ -107,23 +110,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         actorDataMap[cleanActorCategory][cleanDataCategory] = [];
                     }
 
-
-
-
-
-
-
                     actorDataMap[cleanActorCategory][cleanDataCategory].push({
                         name: dataName,
                         text: edge.text
                     });
                 });
 
-
                 console.log("***************** actorDataMap *****************");
                 console.log(actorDataMap);
-
-
 
             });
         })
@@ -131,25 +125,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
         })
         .catch(error => console.error('Error processing entities:', error));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function processActorEntities(entities) {
 
@@ -160,10 +135,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
         document.querySelector("#totalActorCategories").textContent = actorCategories.length;
 
-        const svgbb = svg.node().getBoundingClientRect();
-        const width = svg.node().clientWidth;
-        const height = svg.node().clientHeight;
-        const dimension = Math.min(width, height) / 3;
+        const dimension = Math.min(svgWidth, svgHeight) / 3;
         const angleStep = (2 * Math.PI) / actorCategories.length;
 
         // Shuffle the categories randomly
@@ -172,55 +144,74 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let svgPromises = shuffledCategories.map((category, index) => {  // Use map instead of forEach to return an array of promises
 
             const angle = index * angleStep;
-            const x = width / 2 + dimension * Math.cos(angle);
-            const y = height / 2 + dimension * Math.sin(angle);
+            const x = svgWidth / 2 + dimension * Math.cos(angle);
+            const y = svgHeight / 2 + dimension * Math.sin(angle);
             const nameNoSpaces = category.replace(/\s+/g, '');
 
             return d3.xml(`./icons/actors/${nameNoSpaces}.svg`).then(data => {
+
                 const importedNode = document.importNode(data.documentElement, true);
 
-                d3.select(importedNode).attr('class', 'actorIcon');
+                let actorID = generateUniqueId('actorIcon');
+
+                const iconElement = svg.append('g')
+                    .attr('class', 'actorIcon')
+                    .attr('id', actorID)
+                    .attr('opacity', '0');
 
                 var tempG = svg.append('g')
-                    .attr('opacity', 0)
                     .append(() => importedNode);
 
                 const bbox = importedNode.getBBox();
-                const iconWidth = bbox.width + 2 * Math.abs(bbox.x);
-                const iconHeight = bbox.height + 2 * Math.abs(bbox.y);
+                const iconWidth = bbox.width;
+                const iconHeight = bbox.height;
+
+                console.log("iconWidth: " + iconWidth);
+                console.log("iconHeight: " + iconHeight);
+
                 tempG.remove();
 
-                const group = svg.append('g')
-                    .style('transform-origin', `${iconWidth * actorIconScale / 2}px ${iconHeight * actorIconScale / 2}px`)
-                    .attr('transform', `translate(${x},${y})`)
-                    .attr('class', 'actorGroup')
-                    .attr('opacity', 0);
+                originalTransformations[actorID] = { originalX: x - iconWidth / 2, originalY: y - iconHeight / 2, originalScale: actorIconScale, originX: iconWidth / 2, originY: iconHeight / 2 };
 
-                console.log("group.style('transform-origin')");
-                console.log(group.style('transform-origin'));
 
-                const g = group.append('g')
-                    .attr('transform', `translate(${-iconWidth * actorIconScale / 2},${-iconHeight * actorIconScale / 2}) scale(${actorIconScale})`);
-                g.node().appendChild(importedNode);
+                iconElement.append(() => importedNode);
 
-                const text = group.append('text')
-                    .attr('class', 'categoryName actorCategoryName')
-                    .attr('x', 0)
-                    .attr('y', actorIconScale * (10 + iconHeight / 2))
+                iconElement
+                    .style('transform-origin', `${iconWidth / 2}px ${iconHeight / 2}px`)
+                    .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${actorIconScale})`);
+
+                // drawRectAt(x, y, 20, 20, 'red')
+
+                let labelID = generateUniqueId('actorLabel');
+
+                // Append the text label
+                const iconLabel = svg.append('text')
+                    .attr('class', 'actorCategoryName')
+                    .attr('id', labelID)
+                    .attr('x', x)
+                    .attr('y', y + (iconHeight * actorIconScale) / 2 + 10)
                     .attr('text-anchor', 'middle')
                     .attr('alignment-baseline', 'hanging')
+                    .attr('opacity', '0')
                     .text(category);
 
-                return group; // This ensures that the Promise.all receives the full groups
+                labelsOf[actorID] = labelID;
 
+                return { icon: iconElement, text: iconLabel };
             });
+
         });
 
-        // console.log("Almost done processing ACTORS");
-
         return Promise.all(svgPromises);
-
     }
+
+
+
+
+
+
+
+
 
     // Process entities and visualize
     function processDataEntities(entities) {
@@ -254,10 +245,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const sizeScale = d3.scaleSqrt()
             .domain([1, maxConnections])
             .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
-
-
-
-
 
         // Starting data with IDs from the Excel file
         rectData = d3.packSiblings(dataEntities.map(d => ({
@@ -321,7 +308,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             const categoryCenter = categoryPositions[category];
 
-
             const minX = d3.min(packedCategoryRects, c => c.x - c.width / 2);
             const maxX = d3.max(packedCategoryRects, c => c.x + c.width / 2);
             const offsetX = categoryCenter.x - (minX + (maxX - minX) / 2);
@@ -341,16 +327,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .data(rectData, d => d.id)
             .enter()
             .append('rect')
-            .attr('class', 'dataRect')  // Added class for selection
+            .attr('class', 'dataRect')
             .attr('x', d => d.x - (d.width / 2))
             .attr('y', d => d.y - (d.height / 2))
             .attr('width', d => d.width)
             .attr('height', d => d.height)
             .attr('rx', d => d.width / 2)
             .attr('ry', d => d.height / 2)
-            .attr('stroke', d => darkenColor(d.fill)) // Apply the darker border
+            .attr('stroke', d => darkenColor(d.fill))
             .attr('stroke-width', 1.5)
-            .attr('opacity', 1)  // Set initial opacity to 1 for visibility
+            .attr('opacity', 0)
             .attr('fill', d => d.fill);
 
         // Add labels to the rects
@@ -484,11 +470,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
 
-
-
-
     function drawRectsAndLabels(rectData) {
-
 
         svg.selectAll('.dataRect')
             .data(rectData, d => d.id)
@@ -555,33 +537,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 exit => exit.remove()
             );
 
-        // svg.selectAll('.dataRect')
-        //     .data(rectData, d => d.id)
-        //     .join(
-        //         enter => enter.append('rect')
-        //             .attr('class', 'dataRect')
-        //             .attr('x', d => d.x - ((d.width || 0) / 2))
-        //             .attr('y', d => d.y - ((d.height || 0) / 2))
-        //             .attr('width', d => Math.max(0, d.width || 0))
-        //             .attr('height', d => Math.max(0, d.height || 0))
-        //             .attr('rx', d => Math.max(0, d.rx || 0))
-        //             .attr('ry', d => Math.max(0, d.ry || 0))
-        //             .attr('fill', d => d.fill || 'none')
-        //             .attr('opacity', d => d.opacity || 1.0)
-        //             .attr('stroke', d => d.fill ? darkenColor(d.fill) : 'none'), // Safely update stroke color
-        //         update => update
-        //             .attr('x', d => d.x - ((d.width || 0) / 2))
-        //             .attr('y', d => d.y - ((d.height || 0) / 2))
-        //             .attr('width', d => Math.max(0, d.width || 0))
-        //             .attr('height', d => Math.max(0, d.height || 0))
-        //             .attr('rx', d => Math.max(0, d.rx || 0))
-        //             .attr('ry', d => Math.max(0, d.ry || 0))
-        //             .attr('fill', d => d.fill || 'none')
-        //             .attr('opacity', d => d.opacity || 1.0)
-        //             .attr('stroke', d => d.fill ? darkenColor(d.fill) : 'none'), // Safely update stroke
-        //         exit => exit.remove()
-        //     );
-
         svg.selectAll('.rect-label')
             .data(rectData.filter(d => Math.min(d.width, d.height) >= minLabelSize), d => d.id)
             .join(
@@ -611,23 +566,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function addScrollEvents() {
 
@@ -719,21 +657,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "categories+=0.75");
 
-
-
         // ***** DATA SHARED *****
         mainTimeline.addLabel("dataShared")
             .to(rectData, {
-                // x: (index) => splitRectData[index].targetX,
-                // y: (index) => splitRectData[index].targetY,
-                // x: width / 2,
-                // y: height / 2,
                 width: 0,
                 height: 0,
-                // width: targetSize * 2,
-                // height: targetSize * 2,
-                // rx: targetSize,
-                // ry: targetSize,
                 opacity: 0,
                 duration: animationDuration,
                 ease: "back.out(1.25)",
@@ -768,29 +696,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return { x, y };
         });
 
-        // Apply the transformations to each sorted category label
-        // sortedNodes.forEach((node, i) => {
-        //     const { x, y } = targetPositions[i];
-        //     const { x: startX, y: startY } = sortedCategoryStartPositions[i];
-        //     mainTimeline.fromTo(node, {
-        //         transform: `translate(${startX}px, ${startY}px)`,
-        //     }, {
-        //         // important to position the labels at bottom of the canvas
-        //         // transform: `translate(${x}px, ${y - 20}px) scale(0.9)`, 
-        //         // opacity: 0,
-        //         duration: animationDuration,
-        //         ease: "back.out(0.25)",
-        //         stagger: { amount: animationDuration * 0.75 }
-        //         // }, `dataShared+=${i * (animationDuration / targetPositions.length)}`);
-        //     }, "dataShared");
-        // });
-
-
-
-
-
-
-
         // Vertical spacing between labels
         const verticalSpacing = 5;  // You can adjust this value as needed
 
@@ -806,8 +711,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Calculate the starting y position to place all labels stacked at the bottom
         let currentY = svgHeight - totalHeight;
 
-        sortedCategoryGroupNodes.forEach((node, index) => {
-            const bbox = node.getBBox();
+        sortedCategoryGroupNodes.forEach((categoryNode, index) => {
+            const bbox = categoryNode.getBBox();
 
             // Calculate consistent x-coordinate based on the maximum width to align left
             const consistentX = svgWidth - maxWidth - 15;  // All labels aligned left at this x-coordinate
@@ -819,13 +724,70 @@ document.addEventListener("DOMContentLoaded", (event) => {
             currentY += bbox.height + verticalSpacing;
 
             // Apply transformations to position labels
-            mainTimeline.to(node, {
+            mainTimeline.to(categoryNode, {
                 transform: `translate(${consistentX}px, ${startY}px)`,  // New position aligned to the left at the bottom right
                 duration: animationDuration,
                 opacity: 0,
                 ease: "back.out(1.25)",
                 stagger: { amount: 0.1 }  // Stagger if needed for visual effect
             }, "dataShared+=0.1");  // Adjust timing if needed
+        });
+
+        // Bringing actors in
+        const svgActorIcons = svg.selectAll('.actorIcon');
+        const actorNodes = svgActorIcons.nodes();
+
+        actorNodes.forEach((actorNode, index) => {
+
+            let id = actorNode.id;
+            let originals = originalTransformations[id];
+            let x = originals.originalX;
+            let y = originals.originalY;
+
+            mainTimeline.fromTo(actorNode, {
+                opacity: 0,
+                x: x,
+                y: y,
+                scale: 0
+            }, {
+                opacity: 1,
+                x: x,
+                y: y,
+                scale: actorIconScale,
+                duration: animationDuration,
+                ease: "back.inOut(3)",
+                stagger: { amount: animationDuration * 0.75 },
+            }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
+
+        });
+
+
+        // mainTimeline.fromTo(actorNodes, {
+        //     opacity: 0,
+        //     // scale: 0,
+        //     // transform: `translate(${}, ${}) scale(${actorIconScale})`
+        // }, {
+        //     opacity: 1,
+        //     // scale: actorIconScale,
+        //     duration: animationDuration,
+        //     ease: "back.inOut(4)",
+        //     stagger: { amount: animationDuration * 0.75 },
+        // }, "dataShared");
+
+
+        const svgActorIconLabels = svg.selectAll('.actorCategoryName');
+        const actorLabelNodes = svgActorIconLabels.nodes();
+        actorLabelNodes.forEach((actorLabelNode, index) => {
+            mainTimeline.fromTo(actorLabelNode, {
+                // opacity: 0,
+                scale: 0,
+            }, {
+                opacity: 1,
+                scale: 1,
+                ease: "back.inOut(3)",
+                duration: animationDuration,
+                stagger: { amount: animationDuration * 0.75 },
+            }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
         });
 
 
@@ -835,35 +797,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        // Bringing actors in
-        const svgActorsGroups = svg.selectAll('.actorGroup');
-        const actorNodes = svgActorsGroups.nodes();
-
-        mainTimeline.fromTo(actorNodes, {
-            opacity: 0,
-            scale: 0,
-        }, {
-            opacity: 1,
-            scale: 1,
-            duration: animationDuration,
-            ease: "back.inOut(4)",
-            stagger: { amount: animationDuration * 0.75 },
-        }, "dataShared");
-
-
-
-
-
-
 
 
         // ***** ACTORS *****
-
-
         function sanitizeId(id) {
             return id.replace(/[^a-zA-Z0-9-_]/g, '_');
         }
-
 
         const globalFrequencyMap = {};
 
@@ -881,74 +820,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .sort((a, b) => b[1] - a[1])  // Sort descending by frequency
             .map(entry => entry[0]);       // Extract only the category names
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        function generateRectCopies_OLD(collectedData, actorIconCategory, commonX, offsetY) {
-            const newRects = [];
-            let rectIndex = 0;
-
-            // Iterate through globally sorted data categories
-            sortedGlobalDataCategories.forEach(dataCategory => {
-                if (collectedData[dataCategory]) {
-                    collectedData[dataCategory].forEach((dataName, innerIndex) => {
-                        const dataRect = splitRectData.find(d => d.name === dataName);
-                        if (dataRect) {
-                            const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
-                            const dataRectCopy = { ...dataRect, id: uniqueId };
-
-                            svg.append('rect')
-                                .attr('id', uniqueId)
-                                .attr('class', 'copyOfDataRect')
-                                .attr('opacity', 0)
-                                .attr('x', -targetSize)
-                                .attr('y', -targetSize)
-                                .attr('width', targetSize * 2)
-                                .attr('height', targetSize * 2)
-                                .attr('rx', targetSize)
-                                .attr('ry', targetSize)
-                                .attr('fill', dataRectCopy.fill)
-                                .attr('stroke', dataRectCopy.stroke);
-
-                            // Calculate and store positions for animation
-                            dataRectCopy.targetX = commonX + rectIndex * (targetSize * 2 + padding);
-                            dataRectCopy.targetY = offsetY;
-
-                            newRects.push(dataRectCopy);
-                            rectIndex++;
-                        } else {
-                            console.error("Could not find the rect associated to " + dataName);
-                        }
-                    });
-                }
-            });
-
-            return newRects;
-        }
-
-
-
-
         function generateRectCopies(collectedData, actorIconCategory, commonX, offsetY) {
             const newRects = [];
             let rectIndex = 0;
@@ -964,9 +835,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 items.forEach((item, innerIndex) => {
 
-                    // console.log("+++ item:");
-                    // console.log(item);
-
                     const dataRect = splitRectData.find(d => d.name === item.name);
                     if (dataRect) {
                         const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
@@ -974,10 +842,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             ...dataRect,
                             id: uniqueId,
                             name: item.name,
-                            tooltipText: item.text  // Assuming 'text' is the property containing the tooltip text
+                            tooltipText: item.text
                         };
-
-                        // Here you would append your rectangle as you did, but ensure the data is bound
+                        
                         let theRect = svg.append('rect')
                             .data([dataRectCopy]) // Binding data here
                             .attr('id', uniqueId)
@@ -1032,128 +899,136 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return newRects;
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         console.log("!!!!!!!!!!!!!!!!!!! rectData[rectData.length - 1]");
         console.log(rectData[rectData.length - 1]);
 
-
-
-
-
-
         // ***** ACTORS COLUMNS *****
-        const rightAlignX = 180;
+        const rightAlignX = 250;
         const startY = 175;
         const spacing = 65;
         const actorGroupScale = 0.55;
-        const actorGroups = svg.selectAll('.actorGroup').nodes();
+        const actorGroups = svg.selectAll('.actorIcon').nodes();
+        // const actorGroups = svg.selectAll('.actorIcon, .actorCategoryName').nodes();
+
+        window.actorGroups = actorGroups;
+
+        console.log("actorGroups");
+        console.log(actorGroups);
 
         let totalClones = 0;
         let currentClones = 0;
 
         mainTimeline.addLabel("actorsColumn");
 
-
-
-
-
-
         actorGroups.sort((a, b) => {
 
-            const actorTypeA = removeSpaces(d3.select(a).select('text.categoryName').text().toUpperCase());
-            const actorTypeB = removeSpaces(d3.select(b).select('text.categoryName').text().toUpperCase());
 
-            const dataSizeA = Object.keys(actorDataMap[actorTypeA] || {}).reduce((sum, key) => sum + actorDataMap[actorTypeA][key].length, 0);
-            const dataSizeB = Object.keys(actorDataMap[actorTypeB] || {}).reduce((sum, key) => sum + actorDataMap[actorTypeB][key].length, 0);
+            const labelA = labelsOf[a.id];
+            const labelB = labelsOf[b.id];
+
+            console.log("labelA: " + labelA);
+            console.log("labelB: " + labelB);
+
+            const actorTypeAElement = d3.select("#" + labelA);
+            const actorTypeBElement = d3.select("#" + labelB);
+
+            if (actorTypeAElement.empty() || actorTypeBElement.empty()) {
+                console.error("actorCategoryName elements not found for actorGroups");
+                return 0;
+            }
+
+            console.log("actorTypeAElement: ");
+            console.log(actorTypeAElement);
+            console.log("actorTypeBElement: ");
+            console.log(actorTypeBElement);
+
+            const actorTypeA = actorTypeAElement.text().toUpperCase();
+            const actorTypeB = actorTypeBElement.text().toUpperCase();
+
+            console.log("actorTypeA: " + actorTypeA);
+            console.log("actorTypeB: " + actorTypeB);
+
+            const dataSizeA = Object.keys(actorDataMap[removeSpaces(actorTypeA)] || {}).reduce((sum, key) => sum + actorDataMap[removeSpaces(actorTypeA)][key].length, 0);
+            const dataSizeB = Object.keys(actorDataMap[removeSpaces(actorTypeB)] || {}).reduce((sum, key) => sum + actorDataMap[removeSpaces(actorTypeB)][key].length, 0);
+
+            console.log("dataSizeA: " + dataSizeA);
+            console.log("dataSizeB: " + dataSizeB);
 
             return dataSizeB - dataSizeA; // Sort descending
         });
 
-
-
-
-
+        // console.log("SORTED actorGroups:");
+        // console.log(actorGroups);
 
         actorGroups.forEach((actorGroup, index) => {
+
+            const labelID = labelsOf[actorGroup.id];
+            const actorLabelElement = d3.select("#" + labelID);
+            const actorLabelText = actorLabelElement.text();
+
+            console.log("*********************");
+            console.log("actorLabelText: " + actorLabelText);
+
             const groupBBox = actorGroup.getBBox();
-            const scaledWidth = groupBBox.width * actorGroupScale;
-            const scaledHeight = groupBBox.height * actorGroupScale;
-            const offsetX = rightAlignX;
+            // const scaledWidth = groupBBox.width * actorGroupScale;
+            // const scaledHeight = groupBBox.height * actorGroupScale;
+            // const offsetX = rightAlignX;
 
             const groupStartTime = index * 0.1;
-            const actorIcon = d3.select(actorGroup).select('.actorIcon');
-            const label = d3.select(actorGroup).select('text.categoryName');
+            // const actorIcon = d3.select(actorGroup);
+            // const label = d3.select(actorGroup.parentNode.parentNode).select('.actorCategoryName');
+            const label = d3.select("#" + labelID);
 
-            const actorIconWidth = actorIcon.node().getBBox().width;
-            const actorIconHeight = actorIcon.node().getBBox().height;
+            // const actorIconWidth = groupBBox.width;
+            const actorIconHeight = groupBBox.height;
 
             const offsetY = startY + index * spacing;
 
-
             const labelBBox = label.node().getBBox();
             const labelWidth = labelBBox.width;
-            const labelHeight = labelBBox.height;
-            const labelScale = 1.5;
+            // const labelHeight = labelBBox.height;
+            // const labelScale = 1.5;
 
+            // drawRectAt(rightAlignX, offsetY, 20, 20, 'purple')
+
+
+
+
+            const bbox = actorGroup.getBBox();
+            const iconWidth = bbox.width;
+            const iconHeight = bbox.height;
+
+
+            let x = rightAlignX - iconWidth / 2;
+            let y = offsetY - iconHeight / 2;
 
             mainTimeline.to(actorGroup, {
-                transform: `translate(${rightAlignX}px, ${offsetY}px) scale(${actorGroupScale})`,
+                // transform: `translate(${rightAlignX}px, ${offsetY}px) scale(${actorGroupScale * actorIconScale})`,            
+                x: x,
+                y: y,
+                scale: actorGroupScale * actorIconScale,
                 duration: animationDuration,
                 ease: "power1.inOut",
             }, "actorsColumn");
 
+            // let labelX = -(actorIconWidth * actorIconScale) / 2 - (labelWidth * labelScale) / 2 - (labelWidth / labelScale) / 2 - 5;
+            // let labelY = - (labelHeight * labelScale) / 2 + actorIconScale * labelHeight / 2 - (actorIconHeight * actorIconScale) / 2;
+            // labelX = parseFloat(labelX.toFixed(3));
+            // labelY = parseFloat(labelY.toFixed(3));
 
+            const theLabel = label.node();
 
-
-
-            let labelX = -(actorIconWidth * actorIconScale) / 2 - (labelWidth * labelScale) / 2 - (labelWidth / labelScale) / 2 - 5;
-            let labelY = - (labelHeight * labelScale) / 2 + actorIconScale * labelHeight / 2 - (actorIconHeight * actorIconScale) / 2;
-            labelX = parseFloat(labelX.toFixed(3));
-            labelY = parseFloat(labelY.toFixed(3));
-
-            mainTimeline.to(label.node(), {
-                x: labelX,
-                y: labelY,
-                scale: labelScale,
+            mainTimeline.to(theLabel, {
+                attr: {
+                    x: rightAlignX - labelWidth / 2 - actorGroupScale * actorIconScale * iconWidth / 2 - 10,
+                    y: offsetY
+                },
                 duration: animationDuration,
-                ease: "power4.out"
-            }, `actorsColumn+=${groupStartTime}`);
+                ease: "power1.inOut",
+            }, "actorsColumn");
 
-
-            let actorType = d3.select(actorGroup).select('text.categoryName').text();
-            actorType = removeSpaces(actorType.toUpperCase());
+            // let actorType = d3.select(actorGroup.parentNode.parentNode).select('.actorCategoryName').text();
+            actorType = removeSpaces(actorLabelText.toUpperCase());
 
             console.log("--- actorIconCategory: " + actorType);
 
@@ -1164,11 +1039,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             const commonX = rightAlignX;
 
-
-
             // Generate rect copies first
             const newRects = generateRectCopies(collectedData, actorType, commonX, offsetY);
-
 
             console.log("newRects.length:");
             console.log(newRects.length);
@@ -1180,78 +1052,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             window.mainTimeline = mainTimeline;
 
-
-
             totalClones += newRects.length;
 
-
-
-
-
-            // Apply timeline modifications after data generation
-            // newRects.forEach(({ id, targetX, targetY, dataRectCopy }, rectIndex) => {
             newRects.forEach((rect, rectIndex) => {
 
                 currentClones++;
 
                 console.log("+++++++++ " + currentClones);
 
-                // console.log("!!!!!!!!!!!!!!!!!!! dataRectCopy");
-                // console.log(dataRectCopy);
-
-                // console.log("width / 2: " + width / 2);
-                // console.log("height / 2: " + height / 2);
-
-                // mainTimeline.to('.dataRect', {
-                //     opacity: 0,
-                //     duration: 0,
-                // }, `actorsColumn+=${0.01}`);
-
-                // mainTimeline.to(`#${rect.id}`, {
-                //     opacity: 1,
-                //     duration: 0,
-                // }, `actorsColumn+=${0.01}`);
-
                 mainTimeline.fromTo(`#${rect.id}`, {
-                    // x: rect.targetX,
-                    // y: rect.targetY,
                     x: svgWidth * 1.25,
                     y: getRandomBetween(-100, svgHeight + 100),
                 }, {
-                    // the number added to commonX should at some point be the largest icon
                     x: commonX + 80 + rectIndex * (targetSize * 2 + padding * 0.75),
-                    y: offsetY + (actorIconScale * actorGroupScale * actorIconHeight / 2),
+                    // y: offsetY + (actorIconScale * actorGroupScale * actorIconHeight / 2) - targetSize/2,
+                    y: offsetY + targetSize/2,
                     opacity: 1,
                     rx: 0,
                     ry: 0,
                     duration: animationDuration,
                     ease: "power1.inOut",
-                    // onUpdate: (self) => {
-
-                    //     const element = document.getElementById(rect.id);
-                    //     // Get current computed style of the element
-                    //     const computedStyle = window.getComputedStyle(element);
-                    //     // Access the opacity value from the computed style
-                    //     const currentOpacity = computedStyle.opacity;
-
-
-                    //     console.log("currentOpacity:");
-                    //     console.log(currentOpacity);
-
-                    //     svg.selectAll('.dataRect').attr('opacity', 1 - currentOpacity);
-                    // },
-                // }, `actorsColumn+=${groupStartTime + animationDuration + rectIndex * 0.01}`);
                 }, `actorsColumn+=${groupStartTime + rectIndex * 0.01}`);
-
-                // rectData.push(dataRectCopy);
-
-
-
             });
 
 
 
+
+
+
+
         });
+
+
+
 
         if (currentClones == totalClones) {
 
@@ -1266,58 +1099,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("maxDelay:");
             console.log(maxDelay);
 
-            // mainTimeline.to(d3.selectAll('.copyOfDataRect').nodes(), {
-            //     rx: 0,
-            //     ry: 0,
-            //     duration: animationDuration,
-            // }, `actorsColumn+=${maxDelay + 0.01}`);
-
             sortedCategoryGroupNodes.forEach((node, index) => {
-                // Apply transformations to position labels
                 mainTimeline.to(node, {
                     duration: animationDuration,
                     opacity: 1,
-                // }, `actorsColumn+=${maxDelay + 0.01}`);
-                }, `actorsColumn+=${2*animationDuration}`);
+                }, `actorsColumn+=${2 * animationDuration}`);
             });
-
 
         }
 
-
-
-
-
-
-
-
-
-
-        // drawRectAt(width / 2, height / 2, 10, 10, 'purple');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // Initial conditions
         function calculateRectPositions(rect, data) {
             const columns = Math.floor(rect.width / (targetSize * 2 + padding));
             const rows = Math.floor(rect.height / (targetSize * 2 + padding));
@@ -1541,6 +1331,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
+
+
+    // Function to load and place an SVG icon
+    function loadAndPlaceSVGIcon(url, x, y, scale) {
+        d3.xml(url).then(data => {
+            const importedNode = document.importNode(data.documentElement, true);
+
+            // Create a wrapper <g> element
+            const wrapper = svg.append('g')
+                .attr('class', 'actorIconWrapper')
+                .attr('transform', `translate(${x}, ${y}) scale(${scale})`);
+
+            // Append the imported SVG node to the wrapper
+            wrapper.append(() => importedNode);
+
+        }).catch(error => {
+            console.error('Error loading SVG:', error);
+        });
+    }
+
+    function generateUniqueId(prefix = 'id') {
+        // Create a random alphanumeric string with a prefix
+        const randomString = Math.random().toString(36).substr(2, 9); // Generate a random string
+        const timestamp = Date.now(); // Get the current timestamp
+        return `${prefix}_${randomString}_${timestamp}`;
+    }
+
+
+
+
+
 });
-
-
