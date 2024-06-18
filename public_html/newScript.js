@@ -25,6 +25,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let rectData = [];
 
+    let originalNames = {};
+
+    
+
 
     var actorIconScale = 0.35;
 
@@ -88,10 +92,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         console.error(`Actor category for ${actorName} not found.`);
                         return;
                     }
-                    actorCategory = removeSpaces(actorCategory.toUpperCase());
+                    let cleanActorCategory = removeSpaces(actorCategory.toUpperCase());
+                    originalNames[cleanActorCategory] = actorCategory;
+                    
 
-                    if (!actorDataMap[actorCategory]) {
-                        actorDataMap[actorCategory] = {};
+                    if (!actorDataMap[cleanActorCategory]) {
+                        actorDataMap[cleanActorCategory] = {};
                     }
 
                     // console.log("dataName: " + dataName);
@@ -100,14 +106,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         console.error(`Data category for ${dataCategory} not found.`);
                         return;
                     }
-                    dataCategory = removeSpaces(dataCategory.toUpperCase());
+                    
+                    let cleanDataCategory = removeSpaces(dataCategory.toUpperCase());
+                    originalNames[cleanDataCategory] = dataCategory;
 
-
-                    if (!actorDataMap[actorCategory][dataCategory]) {
-                        actorDataMap[actorCategory][dataCategory] = [];
+                    if (!actorDataMap[cleanActorCategory][cleanDataCategory]) {
+                        actorDataMap[cleanActorCategory][cleanDataCategory] = [];
                     }
-                    // actorDataMap[actorCategory][dataCategory].push(dataName);
-                    actorDataMap[actorCategory][dataCategory].push({
+                    
+
+                    
+                    
+
+
+
+                    actorDataMap[cleanActorCategory][cleanDataCategory].push({
                         name: dataName,
                         text: edge.text
                     });
@@ -742,46 +755,96 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, "dataShared");
 
         // Extract nodes and sort them alphabetically by the text content
-        const sortedNodes = svgCategoryGroups.nodes().sort((a, b) => {
+        const sortedCategoryGroupNodes = svgCategoryGroups.nodes().sort((a, b) => {
             const textA = d3.select(a).select('text').text().toUpperCase();
             const textB = d3.select(b).select('text').text().toUpperCase();
             return textA.localeCompare(textB);
         });
 
         // Sort categoryStartPositions to match the sorted nodes
-        const sortedCategoryStartPositions = sortedNodes.map(node => {
+        const sortedCategoryStartPositions = sortedCategoryGroupNodes.map(node => {
             const index = svgCategoryGroups.nodes().indexOf(node);
             return categoryStartPositions[index];
         });
 
         // Calculate the target positions for the sorted category labels
-        const targetPositions = sortedNodes.map((node, i) => {
-            const columns = Math.ceil(Math.sqrt(sortedNodes.length));
+        const targetPositions = sortedCategoryGroupNodes.map((node, i) => {
+            const columns = Math.ceil(Math.sqrt(sortedCategoryGroupNodes.length));
             const column = i % columns;
             const row = Math.floor(i / columns);
             const cellWidth = width / columns;
             const cellHeight = 30; // Adjust height as needed
             const x = column * cellWidth + cellWidth / 2;
-            const y = height - (Math.ceil(sortedNodes.length / columns) * cellHeight) + row * cellHeight + cellHeight / 2;
+            const y = height - (Math.ceil(sortedCategoryGroupNodes.length / columns) * cellHeight) + row * cellHeight + cellHeight / 2;
             return { x, y };
         });
 
         // Apply the transformations to each sorted category label
-        sortedNodes.forEach((node, i) => {
-            const { x, y } = targetPositions[i];
-            const { x: startX, y: startY } = sortedCategoryStartPositions[i];
-            mainTimeline.fromTo(node, {
-                transform: `translate(${startX}px, ${startY}px)`,
-            }, {
-                // important to position the labels at bottom of the canvas
-                // transform: `translate(${x}px, ${y - 20}px) scale(0.9)`, 
-                opacity: 0,
-                duration: animationDuration,
-                ease: "back.out(0.25)",
-                stagger: { amount: animationDuration * 0.75 }
-                // }, `dataShared+=${i * (animationDuration / targetPositions.length)}`);
-            }, "dataShared");
+        // sortedNodes.forEach((node, i) => {
+        //     const { x, y } = targetPositions[i];
+        //     const { x: startX, y: startY } = sortedCategoryStartPositions[i];
+        //     mainTimeline.fromTo(node, {
+        //         transform: `translate(${startX}px, ${startY}px)`,
+        //     }, {
+        //         // important to position the labels at bottom of the canvas
+        //         // transform: `translate(${x}px, ${y - 20}px) scale(0.9)`, 
+        //         // opacity: 0,
+        //         duration: animationDuration,
+        //         ease: "back.out(0.25)",
+        //         stagger: { amount: animationDuration * 0.75 }
+        //         // }, `dataShared+=${i * (animationDuration / targetPositions.length)}`);
+        //     }, "dataShared");
+        // });
+
+
+
+
+
+
+
+        // Vertical spacing between labels
+        const verticalSpacing = 5;  // You can adjust this value as needed
+
+        // Calculate starting positions
+        let maxWidth = 0;
+        let totalHeight = 0;
+        sortedCategoryGroupNodes.forEach(node => {
+            const bbox = node.getBBox();
+            maxWidth = Math.max(maxWidth, bbox.width);  // Find the widest label
+            totalHeight += bbox.height + verticalSpacing;  // Accumulate total height
         });
+
+        // Calculate the starting y position to place all labels stacked at the bottom
+        let currentY = svgHeight - totalHeight;
+
+        sortedCategoryGroupNodes.forEach((node, index) => {
+            const bbox = node.getBBox();
+
+            // Calculate consistent x-coordinate based on the maximum width to align left
+            const consistentX = svgWidth - maxWidth - 15;  // All labels aligned left at this x-coordinate
+
+            // Calculate the y position for each label
+            const startY = currentY;
+
+            // Update currentY for the next label
+            currentY += bbox.height + verticalSpacing;
+
+            // Apply transformations to position labels
+            mainTimeline.to(node, {
+                transform: `translate(${consistentX}px, ${startY}px)`,  // New position aligned to the left at the bottom right
+                duration: animationDuration,
+                opacity: 0,
+                ease: "back.out(1.25)",
+                stagger: { amount: 0.1 }  // Stagger if needed for visual effect
+            }, "dataShared+=0.1");  // Adjust timing if needed
+        });
+
+
+
+
+
+
+
 
         // Bringing actors in
         const svgActorsGroups = svg.selectAll('.actorGroup');
@@ -953,11 +1016,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     })
                                     .map((line, index) => `<b>${index + 1}.</b> ${line}`)  // Add bold to line numbers
                                     .join('<br>');
-                            
+
                                 // Wrap the tooltip text in a div and apply inline CSS for left text alignment
                                 tooltip.style("visibility", "visible").html(`
                                     <div>
-                                        <div style="font-size: 14px;"><b>${d.name + ' ( ' + dataCategory + ' )'}</b><br/></div>
+                                        <div style="font-size: 14px;"><b>${d.name + ' ( ' + originalNames[dataCategory] + ' )'}</b><br/></div>
                                         <div style="margin-top: 10px; padding-left: 20px; text-align: left;">${formattedTooltipText}</div>
                                     </div>
                                 `);
@@ -1219,8 +1282,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
             }, `actorsColumn+=${maxDelay + 0.01}`);
 
+            sortedCategoryGroupNodes.forEach((node, index) => {
+                // Apply transformations to position labels
+                mainTimeline.to(node, {
+                    duration: animationDuration,
+                    opacity: 1,
+                }, `actorsColumn+=${maxDelay + 0.01}`);
+            });
+
 
         }
+
+
+
+
+
+
+
+
 
 
         // drawRectAt(width / 2, height / 2, 10, 10, 'purple');
@@ -1376,8 +1455,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 mainTimeline.tweenFromTo("categories", "dataShared");
             } else if (element.id === "divDataShared") {
                 mainTimeline.tweenFromTo("dataShared", "actorsColumn");
-            } else if (element.id === "divTotalActorCategories") {
-                mainTimeline.tweenFromTo("actorsColumn", "actorsColumn");
             } else if (element.id === "divDataPerActor") {
                 mainTimeline.play("actorsColumn");
             }
@@ -1390,8 +1467,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 mainTimeline.tweenFromTo("dataShared", "categories");
             } else if (element.id === "divDataShared") {
                 mainTimeline.tweenFromTo("actorsColumn", "dataShared");
-            } else if (element.id === "divTotalActorCategories") {
-                mainTimeline.tweenFromTo("actorsColumn", "actorsColumn");
             } else if (element.id === "divDataPerActor") {
                 mainTimeline.tweenFromTo(mainTimeline.nextLabel(), "actorsColumn");
             }
