@@ -12,6 +12,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .style("padding", "5px")
         .style("border-radius", "5px");
 
+
+
+
     const svg = d3.select('#circle-packing-svg');
     const svgElement = document.getElementById('circle-packing-svg');
     let svgWidth = svgElement.clientWidth;
@@ -40,6 +43,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let arrowRight = document.querySelector('.arrow-right');
     let actorsTimeline;
 
+    // Create the centerText element at the beginning
+    let centerText = svg.append('text')
+        .attr('class', 'centerText')
+        .attr('text-anchor', 'middle')
+        .attr('alignment-baseline', 'middle')
+        .attr('x', svgWidth / 2)
+        .attr('y', svgHeight / 2)
+        .style('font-size', '16px')
+        .style('fill', '#333')
+        .style('opacity', 0)
+        .style('transform-origin', 'center')  // Set transform-origin to center
+
+
     if (arrow) {
         gsap.to(arrow, { y: 12, ease: "power1.inOut", repeat: -1, yoyo: true });
     }
@@ -58,6 +74,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let entities;
 
     const actorDataMap = {};
+
+    window.actorDataMap = actorDataMap;
 
     // Fetch the Excel file and process it
     fetch('allNodes.xlsx')
@@ -179,6 +197,91 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 iconElement
                     .style('transform-origin', `${iconWidth / 2}px ${iconHeight / 2}px`)
                     .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${actorIconScale})`);
+
+
+
+
+
+
+
+
+
+
+
+                // Define a GSAP timeline for the animations
+                let timeline = gsap.timeline({ paused: true });
+
+                // Add event listener to the actor icons
+                iconElement.on('click', function (event) {
+                    const cleanCategory = removeSpaces(category.toUpperCase());
+                    const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
+
+                    // Clear existing content
+                    centerText.selectAll('tspan').remove();
+
+                    // Add the category name part with bold style
+                    centerText.append('tspan')
+                        .attr('x', svgWidth / 2)
+                        .attr('dy', '0em')
+                        .style('font-weight', 'bold')
+                        .text(category + ':');
+
+                    // Add each actor name as a new line
+                    actorNames.forEach((name, index) => {
+                        centerText.append('tspan')
+                            .attr('x', svgWidth / 2)
+                            .attr('dy', '1.2em')
+                            .style('font-weight', 'normal')
+                            .text(`${index + 1}. ${name}`);
+                    });
+
+                    // Reset the disappearance timer
+                    gsap.killTweensOf(centerText.node());
+
+                    // Clear the previous timeline animations
+                    timeline.clear();
+
+                    // Animate the text appearance with GSAP
+                    timeline.fromTo(centerText.node(),
+                        {
+                            opacity: 0,
+                            y: "+=25",
+                            transformOrigin: '50% 50%'
+                        },
+                        {
+                            opacity: 1,
+                            y: 0,
+                            duration: animationDuration,
+                            ease: 'back.out(1.7)'
+                        }
+                    );
+
+
+                    gsap.fromTo(centerText.node(),
+                        {
+                            transformOrigin: '50% 50%',
+                        },
+                        {
+                            opacity: 0,
+                            duration: animationDuration,
+                            ease: 'back.in(1.7)',
+                            delay: 3
+                        }
+                    );
+
+                    // Play the timeline
+                    timeline.play();
+                });
+
+
+
+
+
+
+
+
+
+
 
                 // drawRectAt(x, y, 20, 20, 'red')
 
@@ -844,7 +947,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             name: item.name,
                             tooltipText: item.text
                         };
-                        
+
                         let theRect = svg.append('rect')
                             .data([dataRectCopy]) // Binding data here
                             .attr('id', uniqueId)
@@ -1066,7 +1169,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }, {
                     x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
                     // y: offsetY + (actorIconScale * actorGroupScale * actorIconHeight / 2) - targetSize/2,
-                    y: offsetY + targetSize/2,
+                    y: offsetY + targetSize / 2,
                     opacity: 1,
                     rx: 0,
                     ry: 0,
@@ -1328,27 +1431,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const lower = Math.min(a, b);
         const upper = Math.max(a, b);
         return Math.random() * (upper - lower) + lower;
-    }
-
-
-
-
-    // Function to load and place an SVG icon
-    function loadAndPlaceSVGIcon(url, x, y, scale) {
-        d3.xml(url).then(data => {
-            const importedNode = document.importNode(data.documentElement, true);
-
-            // Create a wrapper <g> element
-            const wrapper = svg.append('g')
-                .attr('class', 'actorIconWrapper')
-                .attr('transform', `translate(${x}, ${y}) scale(${scale})`);
-
-            // Append the imported SVG node to the wrapper
-            wrapper.append(() => importedNode);
-
-        }).catch(error => {
-            console.error('Error loading SVG:', error);
-        });
     }
 
     function generateUniqueId(prefix = 'id') {
