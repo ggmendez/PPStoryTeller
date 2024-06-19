@@ -3,141 +3,155 @@
    id="Layer_1"
    data-name="Layer 1"
    version="1.2"
-   viewBox="0 0 47611.239 68486.887"
+   viewBox="0 0 47917.212 51574.409"
    sodipodi:docname="CommercialEntities.svg"
-   width="47611.238"
-   height="68486.891"
+   width="47917.211"
+   height="51574.41"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs8" />
+     id="defs5" />
   <sodipodi:namedview
      id="namedview8"
-     pagecolor="#ffffff"
      bordercolor="#000000"
      borderopacity="0.25"
-     inkscape:showpageshadow="2"
-     inkscape:pageopacity="0.0"
+     inkscape:deskcolor="#d1d1d1"
      inkscape:pagecheckerboard="0"
-     inkscape:deskcolor="#d1d1d1" />
+     inkscape:pageopacity="0.0"
+     inkscape:showpageshadow="2"
+     pagecolor="#ffffff" />
   <g
-     id="g6">
+     id="g5">
+    <rect
+       width="218.60001"
+       height="227.10001"
+       fill="#ffffff"
+       stroke-width="0"
+       id="rect1"
+       x="0"
+       y="0" />
     <g
-       id="g4">
+       id="g2">
       <g
-         id="g1">
-        <path
-           d="m 159.8,126.1 c 0,-15 -12.1,-27.1 -27.1,-27.1 h -4.8 c -15,0 -27.1,12.1 -27.1,27.1 v 45 h 59 z"
-           fill="#ffffff"
+         id="g6">
+        <g
+           id="g4">
+          <g
+             id="g1">
+            <path
+               id="path1"
+               d="m 159.8,112.3 c 0,-15 -12.1,-27.1 -27.1,-27.1 h -4.8 c -15,0 -27.1,12.1 -27.1,27.1 v 45 h 59 z"
+               fill="#ffffff"
+               stroke="#000000"
+               stroke-miterlimit="10"
+               stroke-width="6" />
+            <circle
+               id="circle1"
+               cx="130.3"
+               cy="62.099998"
+               r="17.299999"
+               fill="#ffffff"
+               stroke="#000000"
+               stroke-miterlimit="10"
+               stroke-width="6" />
+          </g>
+          <path
+             id="path2"
+             d="m 146.3,115.1 c 0,-6.6 -3.6,-12 -8,-12 h -15.6 c -4.4,0 -8,5.4 -8,12 v 26.7 h 31.6 z"
+             fill="#89e177"
+             stroke="#000000"
+             stroke-linecap="round"
+             stroke-linejoin="round"
+             stroke-width="6" />
+          <g
+             id="g3">
+            <line
+               id="line2"
+               x1="118.6"
+               y1="89.199997"
+               x2="120.6"
+               y2="104.7"
+               fill="none"
+               stroke="#000000"
+               stroke-miterlimit="10"
+               stroke-width="4" />
+            <line
+               id="line3"
+               x1="142.3"
+               y1="89.199997"
+               x2="140.39999"
+               y2="104.7"
+               fill="none"
+               stroke="#000000"
+               stroke-miterlimit="10"
+               stroke-width="4" />
+          </g>
+        </g>
+        <rect
+           id="rect4"
+           x="38"
+           y="123.9"
+           width="41.700001"
+           height="19.299999"
+           fill="#e3a76f"
            stroke="#000000"
            stroke-miterlimit="10"
-           stroke-width="6"
-           id="path1" />
-        <circle
-           cx="130.3"
-           cy="76.900002"
-           r="21.1"
-           fill="#ffffff"
+           stroke-width="6" />
+        <rect
+           id="rect5"
+           x="30"
+           y="108.8"
+           width="56.900002"
+           height="14.3"
+           fill="#e3a76f"
            stroke="#000000"
            stroke-miterlimit="10"
-           stroke-width="6"
-           id="circle1" />
+           stroke-width="6" />
+        <rect
+           id="rect6"
+           x="50.700001"
+           y="76.300003"
+           width="32.700001"
+           height="20.200001"
+           fill="#f2d1a5"
+           stroke="#000000"
+           stroke-miterlimit="10"
+           stroke-width="6" />
+        <polyline
+           id="polyline6"
+           points="50.7 86.4 35.9 86.4 35.9 108.8"
+           fill="none"
+           stroke="#000000"
+           stroke-miterlimit="10"
+           stroke-width="6" />
       </g>
+      <rect
+         id="rect7"
+         x="8.6000004"
+         y="144.3"
+         width="198.10001"
+         height="17.4"
+         fill="#dbdbdb"
+         stroke="#000000"
+         stroke-miterlimit="10"
+         stroke-width="6" />
       <path
-         d="m 146.3,128.9 c 0,-6.6 -3.6,-12 -8,-12 h -15.6 c -4.4,0 -8,5.4 -8,12 v 26.7 h 31.6 z"
-         fill="#89e177"
+         id="path7"
+         d="m 14.2,161.7 h 187.4 v 48.6 c 0,7.5 -6.1,13.7 -13.7,13.7 H 27.8 c -7.5,0 -13.7,-6.1 -13.7,-13.7 v -48.6 z"
+         fill="#ededed"
+         stroke="#000000"
+         stroke-miterlimit="10"
+         stroke-width="6" />
+      <path
+         id="path8"
+         d="M 201.7,3.2 H 18.4 L 3.1,18.8 c 0,0.6 7,16.7 15.7,16.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.9 c 0,0 6.3,11.8 15.7,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.7 c 0,0.6 0,0 0,0 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.6 c 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.6 c 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.6 c 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-16.7 15.8,-16.7 L 202.4,3.2 Z"
+         fill="#ffe177"
          stroke="#000000"
          stroke-linecap="round"
          stroke-linejoin="round"
-         stroke-width="6"
-         id="path2" />
-      <g
-         id="g3">
-        <line
-           x1="118.6"
-           y1="103"
-           x2="120.6"
-           y2="118.5"
-           fill="none"
-           stroke="#000000"
-           stroke-miterlimit="10"
-           stroke-width="4"
-           id="line2" />
-        <line
-           x1="142.3"
-           y1="103"
-           x2="140.39999"
-           y2="118.5"
-           fill="none"
-           stroke="#000000"
-           stroke-miterlimit="10"
-           stroke-width="4"
-           id="line3" />
-      </g>
+         stroke-width="6" />
     </g>
-    <rect
-       x="38"
-       y="137.7"
-       width="41.700001"
-       height="19.299999"
-       fill="#e3a76f"
-       stroke="#000000"
-       stroke-miterlimit="10"
-       stroke-width="6"
-       id="rect4" />
-    <rect
-       x="30"
-       y="122.6"
-       width="56.900002"
-       height="14.3"
-       fill="#e3a76f"
-       stroke="#000000"
-       stroke-miterlimit="10"
-       stroke-width="6"
-       id="rect5" />
-    <rect
-       x="50.700001"
-       y="90.099998"
-       width="32.700001"
-       height="20.200001"
-       fill="#f2d1a5"
-       stroke="#000000"
-       stroke-miterlimit="10"
-       stroke-width="6"
-       id="rect6" />
-    <polyline
-       points="50.7 100.2 35.9 100.2 35.9 122.6"
-       fill="none"
-       stroke="#000000"
-       stroke-miterlimit="10"
-       stroke-width="6"
-       id="polyline6" />
   </g>
-  <rect
-     x="8.6000004"
-     y="158.10001"
-     width="198.10001"
-     height="17.4"
-     fill="#dbdbdb"
-     stroke="#000000"
-     stroke-miterlimit="10"
-     stroke-width="6"
-     id="rect7" />
-  <path
-     d="m 14.2,175.5 h 187.4 v 69.6 c 0,7.5 -6.1,13.7 -13.7,13.7 H 27.8 c -7.5,0 -13.7,-6.1 -13.7,-13.7 v -69.6 z"
-     fill="#ededed"
-     stroke="#000000"
-     stroke-miterlimit="10"
-     stroke-width="6"
-     id="path7" />
-  <path
-     d="M 201.7,3 H 18.4 L 3.1,30.6 c 0,0.6 7,16.7 15.7,16.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.9 c 0,0 6.3,11.8 15.7,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.7 c 0,0.6 0,0 0,0 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.6 c 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.6 c 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-11.7 15.8,-11.7 h 4.6 c 0,0 7.1,11.7 15.8,11.7 8.7,0 15.8,-16.7 15.8,-16.7 L 202.4,3 Z"
-     fill="#ffe177"
-     stroke="#000000"
-     stroke-linecap="round"
-     stroke-linejoin="round"
-     stroke-width="6"
-     id="path8" />
 </svg>

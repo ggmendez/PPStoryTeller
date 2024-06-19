@@ -256,7 +256,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         }
                     );
 
-
                     gsap.fromTo(centerText.node(),
                         {
                             transformOrigin: '50% 50%',
@@ -717,7 +716,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: 1,
                 opacity: 1,
                 duration: animationDuration,
-                ease: "back.out(1.4)",
+                ease: "back.out(1.7)",
+                stagger: { amount: animationDuration/2},
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 },
