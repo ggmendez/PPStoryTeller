@@ -979,12 +979,12 @@ code .token.url {
 }
 
 .left {
-  width: 15%;
+  width: 30%;
   background-color: white;
 }
 
 .right {
-  width: 85%;
+  width: 70%;
   position: fixed;
   top: 0px;
   right: 0px;

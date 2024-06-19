@@ -23,6 +23,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let originalTransformations = {};
     let labelsOf = {};
 
+    let categoryStartPositions = {};
+
+    const targetSize = 10;
+
     console.log("svgWidth: " + svgWidth);
     console.log("svgHeight: " + svgHeight);
 
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let animationDuration = 0.85;
 
     // making all this global
-    let movedRectData, svgRects, svgCategoryGroups, categoryStartPositions, packedRectData;
+    let movedRectData, svgRects, svgCategoryGroups, packedRectData;
 
     let rectData = [];
 
@@ -463,6 +467,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 });
             });
 
+
+
         // Create category labels with colored squares
         svgCategoryGroups = svg.selectAll('.category-label')
             .data(uniqueCategories)
@@ -471,12 +477,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('class', 'category-label')
             .attr('opacity', 0);
 
-        const categoryRectSize = 6;
+        const categoryRectSize = targetSize;
         svgCategoryGroups.append('rect')
-            .attr('x', categoryRectSize / 2)
-            .attr('y', 0)
-            .attr('width', categoryRectSize)
-            .attr('height', categoryRectSize)
+            .attr('x', -categoryRectSize)
+            .attr('y', -categoryRectSize)
+            .attr('width', categoryRectSize * 2)
+            .attr('height', categoryRectSize * 2)
             .attr('fill', d => colorScale(d))
             .attr('stroke', d => darkenColor(colorScale(d)));
 
@@ -489,15 +495,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('x', categoryRectSize + 8)
             .attr('y', 5);
 
-        categoryStartPositions = new Array();
-
         svgCategoryGroups.each(function (d) {
             const bbox = this.getBBox();
             const centerX = categoryPositions[d].x - bbox.width / 2;
-            const centerY = categoryPositions[d].y - bbox.height / 2 + cellHeight / 2 - 50;
-            d3.select(this).attr('transform', `translate(${centerX}, ${centerY})`);
-            categoryStartPositions.push({ x: centerX, y: centerY });
+            const centerY = categoryPositions[d].y - bbox.height / 2 + cellHeight / 2 - 40;
+            let id = generateUniqueId('categoryGroup');
+            d3.select(this)
+                .attr('transform', `translate(${centerX}, ${centerY})`)
+                .attr('id', id);
+            console.log("id: " + id);
+            categoryStartPositions[id] = { x: centerX, y: centerY };
         });
+
+        // console.log("$$$ categoryStartPositions:");
+        // console.log(categoryStartPositions);
 
         // Update tooltip content on mouseover after animation
         svgRects.on("mouseover", function (event, d) {
@@ -717,7 +728,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 opacity: 1,
                 duration: animationDuration,
                 ease: "back.out(1.7)",
-                stagger: { amount: animationDuration/2},
+                stagger: { amount: 0.5 * animationDuration },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 },
@@ -726,7 +737,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "packing");
 
-        const targetSize = 10;
+
         const deltaX = 50;
         const deltaY = 220;
 
@@ -746,19 +757,38 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "categories")
-            .fromTo(svgCategoryGroups.nodes(), {
+            }, "categories");
+
+
+        // console.log("%%% categoryStartPositions:");
+        // console.log(categoryStartPositions);
+
+
+        svgCategoryGroups.nodes().forEach((svgCategoryGroup, index) => {
+            let id = svgCategoryGroup.id;
+            let position = categoryStartPositions[id];
+            console.log("svgCategoryGroup.id: " + svgCategoryGroup.id);
+            mainTimeline.fromTo(svgCategoryGroup, {
                 opacity: 0
             }, {
                 opacity: 1,
                 duration: animationDuration,
                 stagger: { amount: animationDuration / 2 },
-                onUpdate: () => {
-                    svgCategoryGroups.attr("transform", (d, i) => {
-                        return `translate(${categoryStartPositions[i].x}, ${categoryStartPositions[i].y})`;
-                    });
-                }
+                // transform: `translate(${position.x}px, ${position.y}px)`,
+                // onUpdate: () => {
+                //     d3.select(svgCategoryGroup).attr("transform", (d, i) => {
+
+                //         return `translate(${position.x}, ${position.y})`;
+                //     });
+                // }
             }, "categories+=0.75");
+        });
+
+
+
+
+
+
 
         // ***** DATA SHARED *****
         mainTimeline.addLabel("dataShared")
@@ -774,17 +804,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "dataShared");
 
+        mainTimeline.to(svgCategoryGroups.nodes(), {
+            duration: animationDuration,
+            opacity: 0,
+            ease: "back.out(1.25)",
+            stagger: { amount: 0.1 }  // Stagger if needed for visual effect
+        }, "dataShared");
+
         // Extract nodes and sort them alphabetically by the text content
         const sortedCategoryGroupNodes = svgCategoryGroups.nodes().sort((a, b) => {
             const textA = d3.select(a).select('text').text().toUpperCase();
             const textB = d3.select(b).select('text').text().toUpperCase();
             return textA.localeCompare(textB);
-        });
-
-        // Sort categoryStartPositions to match the sorted nodes
-        const sortedCategoryStartPositions = sortedCategoryGroupNodes.map(node => {
-            const index = svgCategoryGroups.nodes().indexOf(node);
-            return categoryStartPositions[index];
         });
 
         // Calculate the target positions for the sorted category labels
@@ -814,27 +845,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Calculate the starting y position to place all labels stacked at the bottom
         let currentY = svgHeight - totalHeight;
 
-        sortedCategoryGroupNodes.forEach((categoryNode, index) => {
-            const bbox = categoryNode.getBBox();
 
-            // Calculate consistent x-coordinate based on the maximum width to align left
-            const consistentX = svgWidth - maxWidth - 15;  // All labels aligned left at this x-coordinate
-
-            // Calculate the y position for each label
-            const startY = currentY;
-
-            // Update currentY for the next label
-            currentY += bbox.height + verticalSpacing;
-
-            // Apply transformations to position labels
-            mainTimeline.to(categoryNode, {
-                transform: `translate(${consistentX}px, ${startY}px)`,  // New position aligned to the left at the bottom right
-                duration: animationDuration,
-                opacity: 0,
-                ease: "back.out(1.25)",
-                stagger: { amount: 0.1 }  // Stagger if needed for visual effect
-            }, "dataShared+=0.1");  // Adjust timing if needed
-        });
 
         // Bringing actors in
         const svgActorIcons = svg.selectAll('.actorIcon');
@@ -1203,10 +1214,40 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log(maxDelay);
 
             sortedCategoryGroupNodes.forEach((node, index) => {
+
+                const bbox = node.getBBox();
+
+                // Calculate consistent x-coordinate based on the maximum width to align left
+                const consistentX = svgWidth - maxWidth - 15;  // All labels aligned left at this x-coordinate
+
+                // Calculate the y position for each label
+                const startY = currentY;
+
+                // Update currentY for the next label
+                currentY += bbox.height + verticalSpacing;
+
+                // gsap.to(node, {
+                //     transform: `translate(${consistentX}px, ${startY}px)`,
+                // });
+
+
+                // console.log("node.id: " + node.id);
+
+
+                let position = categoryStartPositions[node.id];
+
+                mainTimeline.fromTo(node, {
+                    transform: `translate(${position.x}px, ${position.y}px)`,
+                }, {
+                    transform: `translate(${consistentX}px, ${startY}px)`,
+                    duration: 0,
+                }, "actorsColumn");
+
                 mainTimeline.to(node, {
                     duration: animationDuration,
                     opacity: 1,
                 }, `actorsColumn+=${2 * animationDuration}`);
+
             });
 
         }
