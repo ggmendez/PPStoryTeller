@@ -3,16 +3,16 @@
    id="Layer_1"
    data-name="Layer 1"
    version="1.2"
-   viewBox="0 0 96162.014 88090.238"
+   viewBox="0 0 108966.01 101314.89"
    sodipodi:docname="Corporations.svg"
-   width="96162.016"
-   height="88090.234"
+   width="108966.01"
+   height="101314.89"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs1" />
+     id="defs9" />
   <sodipodi:namedview
      id="namedview7"
      bordercolor="#000000"
@@ -23,54 +23,71 @@
      inkscape:showpageshadow="2"
      pagecolor="#ffffff" />
   <g
-     id="g1">
+     id="g9">
     <polygon
-       id="polygon1"
-       points="79.2,56.9 79.2,282.8 88.7,282.8 95.4,282.8 253.2,282.8 253.2,2.1 "
-       fill="#dfdeed"
-       stroke-width="0" />
-    <polygon
-       id="polygon2"
-       points="310.1,267.5 310.1,58.3 258.2,0 253.2,2.1 253.2,282.8 293.8,282.8 301.8,282.8 310.1,282.8 "
-       fill="#9e9ea8"
-       stroke-width="0" />
-    <path
-       id="path2"
-       d="M 258.2,0 79.2,56.9 V 282.8 H 310.1 V 58.3 Z m 19.3,270.8 V 62.4 L 253,35.3 V 270.7 H 112.5 l -23,-3.3 V 64.6 L 253.1,14.3 296,61.1 v 209.6 h -18.5 z"
-       fill="#000000"
-       stroke-width="0" />
+       points="79.2,86.8 0,112.4 0,318.3 229.4,318.3 229.4,304.3 330.1,304.3 330.1,66 271.4,0 79.2,61.1 "
+       fill="#ffffff"
+       stroke-width="0"
+       id="polygon1" />
     <g
-       id="g6">
+       id="g8">
+      <polygon
+         id="polygon2"
+         points="98.7,293.5 105.4,293.5 263.2,293.5 263.2,12.8 89.2,67.6 89.2,293.5 "
+         fill="#dfdeed"
+         stroke-width="0" />
       <polygon
          id="polygon3"
-         points="144.9,296.8 144.9,62.1 144.2,61.6 0,108.2 0,267.5 0,281.6 0,282.8 0,296.8 "
-         fill="#cac2a8"
-         stroke-width="0" />
-      <polygon
-         id="polygon4"
-         points="143.9,65.6 143.9,289 208.4,286.4 208.4,271 208.4,104.2 "
-         fill="#9c9581"
-         stroke-width="0" />
-      <polygon
-         id="polygon5"
-         points="40.7,169.5 111.7,146.6 111.7,115.9 40.4,139.7 "
-         fill="#000000"
-         stroke-width="0" />
-      <polygon
-         id="polygon6"
-         points="40.7,221.8 111.7,204.6 111.7,169.5 40.4,192.7 "
-         fill="#000000"
+         points="268.2,10.7 263.2,12.8 263.2,293.5 303.8,293.5 311.8,293.5 320.1,293.5 320.1,278.2 320.1,69 "
+         fill="#9e9ea8"
          stroke-width="0" />
       <path
-         id="path6"
-         d="M 144.2,61.6 0,108.2 v 188.6 h 209.4 v -14.1 0 -182.3 L 144.2,61.5 v 0 z m 0,15.4 53.5,28.2 0.2,180.8 h -34.8 l -0.8,-181.8 -18.1,-9.3 v 191 H 10.6 V 115.8 L 144.4,76.9 h -0.2 z"
+         id="path2"
+         d="M 268.2,10.7 89.2,67.6 V 293.5 H 320.1 V 69 Z m 19.3,270.8 V 73.1 L 263,46 V 281.4 H 122.5 l -23,-3.3 V 75.3 L 263.1,25 306,71.8 v 209.6 h -18.5 z"
+         fill="#000000"
+         stroke-width="0" />
+      <g
+         id="g6">
+        <polygon
+           id="polygon4"
+           points="154.2,72.3 10,118.9 10,278.2 10,292.3 10,293.5 10,307.5 154.9,307.5 154.9,72.8 "
+           fill="#cac2a8"
+           stroke-width="0" />
+        <polygon
+           id="polygon5"
+           points="218.4,297.1 218.4,281.7 218.4,114.9 153.9,76.3 153.9,299.7 "
+           fill="#9c9581"
+           stroke-width="0" />
+        <polygon
+           id="polygon6"
+           points="121.7,126.6 50.4,150.4 50.7,180.2 121.7,157.3 "
+           fill="#000000"
+           stroke-width="0" />
+        <polygon
+           id="polygon7"
+           points="121.7,180.2 50.4,203.4 50.7,232.5 121.7,215.3 "
+           fill="#000000"
+           stroke-width="0" />
+        <path
+           id="path6"
+           d="M 154.2,72.3 10,118.9 v 188.6 h 209.4 v -14.1 0 -182.3 L 154.2,72.2 v 0 z m 0,15.4 53.5,28.2 0.2,180.8 h -34.8 l -0.8,-181.8 -18.1,-9.3 v 191 H 20.6 V 126.5 L 154.4,87.6 h -0.2 z"
+           fill="#000000"
+           stroke-width="0" />
+      </g>
+      <polygon
+         id="polygon8"
+         points="50.7,278.2 121.7,278.2 121.7,239.8 50.7,255.1 "
          fill="#000000"
          stroke-width="0" />
     </g>
-    <polygon
-       id="polygon7"
-       points="111.7,229.1 40.7,244.4 40.7,267.5 111.7,267.5 "
-       fill="#000000"
-       stroke-width="0" />
+    <sodipodi:namedview
+       id="namedview8"
+       bordercolor="#000000"
+       borderopacity="0.25"
+       inkscape:deskcolor="#d1d1d1"
+       inkscape:pagecheckerboard="0"
+       inkscape:pageopacity="0.0"
+       inkscape:showpageshadow="2"
+       pagecolor="#ffffff" />
   </g>
 </svg>

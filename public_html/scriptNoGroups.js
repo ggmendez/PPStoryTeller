@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let categoryStartPositions = {};
 
-    const targetSize = 10;
+    const targetSize = 8;
 
     console.log("svgWidth: " + svgWidth);
     console.log("svgHeight: " + svgHeight);
@@ -176,8 +176,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 let actorID = generateUniqueId('actorIcon');
 
-                const iconElement = svg.append('g')
-                    .attr('class', 'actorIcon')
+                const iconElement = svg.append('g')                
+                    .attr('class', 'actorIcon icon-hover')
                     .attr('id', actorID)
                     .attr('opacity', '0');
 
@@ -767,20 +767,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         svgCategoryGroups.nodes().forEach((svgCategoryGroup, index) => {
             let id = svgCategoryGroup.id;
             let position = categoryStartPositions[id];
-            console.log("svgCategoryGroup.id: " + svgCategoryGroup.id);
             mainTimeline.fromTo(svgCategoryGroup, {
-                opacity: 0
+                opacity: 0,
+                transform: `translate(${position.x}px, ${position.y}px)`,
             }, {
                 opacity: 1,
+                transform: `translate(${position.x}px, ${position.y}px)`,
                 duration: animationDuration,
                 stagger: { amount: animationDuration / 2 },
-                // transform: `translate(${position.x}px, ${position.y}px)`,
-                // onUpdate: () => {
-                //     d3.select(svgCategoryGroup).attr("transform", (d, i) => {
-
-                //         return `translate(${position.x}, ${position.y})`;
-                //     });
-                // }
             }, "categories+=0.75");
         });
 
@@ -818,8 +812,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return textA.localeCompare(textB);
         });
 
-        // Calculate the target positions for the sorted category labels
-        const targetPositions = sortedCategoryGroupNodes.map((node, i) => {
+        // Calculating the target positions for the sorted category labels
+        const categoryTargetPositions = {};
+        sortedCategoryGroupNodes.map((node, i) => {
             const columns = Math.ceil(Math.sqrt(sortedCategoryGroupNodes.length));
             const column = i % columns;
             const row = Math.floor(i / columns);
@@ -827,8 +822,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const cellHeight = 30; // Adjust height as needed
             const x = column * cellWidth + cellWidth / 2;
             const y = svgHeight - (Math.ceil(sortedCategoryGroupNodes.length / columns) * cellHeight) + row * cellHeight + cellHeight / 2;
-            return { x, y };
+            // drawRectAt(x, y, 20, 20, 'red')
+            categoryTargetPositions[node.id] = { x: x, y: y - 20 };
         });
+        console.log("categorTargetPositions");
+        console.log(categoryTargetPositions);
 
         // Vertical spacing between labels
         const verticalSpacing = 5;  // You can adjust this value as needed
@@ -1117,7 +1115,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             let y = offsetY - iconHeight / 2;
 
             mainTimeline.to(actorGroup, {
-                // transform: `translate(${rightAlignX}px, ${offsetY}px) scale(${actorGroupScale * actorIconScale})`,            
+                // transform: `translate(${rightAlignX}px, ${offsetY}px) scale(${actorGroupScale * actorIconScale})`,
                 x: x,
                 y: y,
                 scale: actorGroupScale * actorIconScale,
@@ -1229,17 +1227,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // gsap.to(node, {
                 //     transform: `translate(${consistentX}px, ${startY}px)`,
                 // });
-
-
                 // console.log("node.id: " + node.id);
 
-
                 let position = categoryStartPositions[node.id];
+                let targetPosition = categoryTargetPositions[node.id];
+                // let targetPosition = {x: consistentX, y: startY};
 
                 mainTimeline.fromTo(node, {
                     transform: `translate(${position.x}px, ${position.y}px)`,
                 }, {
-                    transform: `translate(${consistentX}px, ${startY}px)`,
+                    transform: `translate(${targetPosition.x}px, ${targetPosition.y}px)`,
                     duration: 0,
                 }, "actorsColumn");
 
