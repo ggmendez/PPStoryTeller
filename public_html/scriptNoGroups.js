@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let originalTransformations = {};
     let labelsOf = {};
+    let dataRectStrokeWidth = 1.5;
 
     let categoryStartPositions = {};
 
@@ -176,7 +177,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 let actorID = generateUniqueId('actorIcon');
 
-                const iconElement = svg.append('g')                
+                const iconElement = svg.append('g')
                     .attr('class', 'actorIcon icon-hover')
                     .attr('id', actorID)
                     .attr('opacity', '0');
@@ -215,6 +216,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // Define a GSAP timeline for the animations
                 let timeline = gsap.timeline({ paused: true });
 
+                iconElement.on('mouseover', function (event) {
+                    d3.select('#' + labelsOf[actorID]).style('font-weight', 'bolder');
+                });
+                iconElement.on('mouseout', function (event) {
+                    d3.select('#' + labelsOf[actorID]).style('font-weight', 'normal');
+                });
+
                 // Add event listener to the actor icons
                 iconElement.on('click', function (event) {
                     const cleanCategory = removeSpaces(category.toUpperCase());
@@ -228,6 +236,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('x', svgWidth / 2)
                         .attr('dy', '0em')
                         .style('font-weight', 'bold')
+                        .style('margin-bottom', '100px')
                         .text(category + ':');
 
                     // Add each actor name as a new line
@@ -236,8 +245,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('x', svgWidth / 2)
                             .attr('dy', '1.2em')
                             .style('font-weight', 'normal')
-                            .text(`${index + 1}. ${name}`);
+                            .text(`${index + 1}. ${name.charAt(0).toUpperCase() + name.slice(1)}`);
                     });
+
+
+
 
                     // Reset the disappearance timer
                     gsap.killTweensOf(centerText.node());
@@ -441,7 +453,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('rx', d => d.width / 2)
             .attr('ry', d => d.height / 2)
             .attr('stroke', d => darkenColor(d.fill))
-            .attr('stroke-width', 1.5)
+            .attr('stroke-width', dataRectStrokeWidth)
             .attr('opacity', 0)
             .attr('fill', d => d.fill);
 
@@ -902,18 +914,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
         });
 
-
-
-
-
-
-
-
-
-
         // ***** ACTORS *****
-        function sanitizeId(id) {
-            return id.replace(/[^a-zA-Z0-9-_]/g, '_');
+        function sanitizeId(inputString) {
+            // Replace any invalid character with an underscore
+            let sanitized = inputString.replace(/[^a-zA-Z0-9-_]/g, '_');
+
+            // Ensure the ID does not start with a digit, two hyphens, or a hyphen followed by a digit
+            if (/^[0-9]/.test(sanitized)) {
+                sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with a digit
+            } else if (/^--/.test(sanitized) || /^-\d/.test(sanitized)) {
+                sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with two hyphens or a hyphen followed by a digit
+            }
+
+            return sanitized;
         }
 
         const globalFrequencyMap = {};
@@ -960,7 +973,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         let theRect = svg.append('rect')
                             .data([dataRectCopy]) // Binding data here
                             .attr('id', uniqueId)
-                            .attr('class', 'copyOfDataRect')
+                            .attr('class', 'copyOfDataRect ' + sanitizeId(actorIconCategory) + ' ' + sanitizeId(dataCategory))
                             .attr('opacity', 0)
                             .attr('x', -targetSize)
                             .attr('y', -targetSize)
@@ -969,7 +982,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('rx', targetSize)
                             .attr('ry', targetSize)
                             .attr('fill', dataRectCopy.fill)
-                            .attr('stroke', dataRectCopy.stroke)
+                            .attr('stroke-width', 0)
+                            .attr('stroke', darkenColor(dataRectCopy.fill))
                             .on("mouseover", function (event, d) {
                                 let lines = d.tooltipText.split('\n');
                                 let uniqueLines = new Set();  // Create a set to track unique lines
@@ -1243,7 +1257,41 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 mainTimeline.to(node, {
                     duration: animationDuration,
                     opacity: 1,
-                }, `actorsColumn+=${2 * animationDuration}`);
+                }, `actorsColumn+=${2 * animationDuration + 0.5}`);
+
+
+                d3.select(node).on('mouseover', function (event) {
+                    d3.select(this).style('font-weight', 'bolder');
+
+                    // Get the class that identifies the related rectangles
+                    let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                    let rectClasses = '.copyOfDataRect.' + cleanDataType;
+                    console.log(rectClasses);
+
+                    // First, ensure all rects are reset to full opacity
+                    svg.selectAll('.copyOfDataRect')
+                        .transition()
+                        .duration(200)
+                        .attr('stroke-width', dataRectStrokeWidth)
+                        .style('opacity', 1);
+
+                    // Reduce the opacity of rects that do not have the specific class
+                    svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
+                        .transition()
+                        .duration(200)
+                        .style('opacity', 0.3);
+                });
+
+                d3.select(node).on('mouseout', function (event) {
+                    d3.select(this).style('font-weight', 'normal');
+                    svg.selectAll('.copyOfDataRect')
+                        .transition()
+                        .duration(200)
+                        .attr('stroke-width', 0)
+                        .style('opacity', 1); // Restore opacity for all rects
+                });
+
+
 
             });
 
@@ -1477,6 +1525,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const timestamp = Date.now(); // Get the current timestamp
         return `${prefix}_${randomString}_${timestamp}`;
     }
+
+
 
 
 
