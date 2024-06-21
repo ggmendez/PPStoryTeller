@@ -204,15 +204,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${actorIconScale})`);
 
 
-
-
-
-
-
-
-
-
-
                 // Define a GSAP timeline for the animations
                 let timeline = gsap.timeline({ paused: true });
 
@@ -236,8 +227,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('x', svgWidth / 2)
                         .attr('dy', '0em')
                         .style('font-weight', 'bold')
-                        .style('margin-bottom', '100px')
-                        .text(category + ':');
+                        .text(category + ':\n'); // category
+
+                    // Create a spacing after the category
+                    centerText.append('tspan')
+                        .attr('x', svgWidth / 2)
+                        .attr('dy', '1em') // Move down one line height from the last line
+                        .text('\u00A0'); // Non-breaking space as content for spacing
 
                     // Add each actor name as a new line
                     actorNames.forEach((name, index) => {
@@ -826,17 +822,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Calculating the target positions for the sorted category labels
         const categoryTargetPositions = {};
+        // sortedCategoryGroupNodes.map((node, i) => {
+        //     const columns = Math.ceil(Math.sqrt(sortedCategoryGroupNodes.length));
+        //     const column = i % columns;
+        //     const row = Math.floor(i / columns);
+        //     const cellWidth = svgWidth / columns;
+        //     const cellHeight = 30; // Adjust height as needed
+        //     const x = column * cellWidth + cellWidth / 2;
+        //     const y = svgHeight - (Math.ceil(sortedCategoryGroupNodes.length / columns) * cellHeight) + row * cellHeight + cellHeight / 2;
+        //     // drawRectAt(x, y, 20, 20, 'red')
+        //     categoryTargetPositions[node.id] = { x: x, y: y - 20 };
+        // });
+
+
+
         sortedCategoryGroupNodes.map((node, i) => {
             const columns = Math.ceil(Math.sqrt(sortedCategoryGroupNodes.length));
-            const column = i % columns;
-            const row = Math.floor(i / columns);
-            const cellWidth = svgWidth / columns;
+            const rows = Math.ceil(sortedCategoryGroupNodes.length / columns);
+            const column = Math.floor(i / rows); // Change: Compute column based on rows
+            const row = i % rows; // Change: Fill columns first
+            const cellWidth = (svgWidth / columns) - 10;
             const cellHeight = 30; // Adjust height as needed
             const x = column * cellWidth + cellWidth / 2;
-            const y = svgHeight - (Math.ceil(sortedCategoryGroupNodes.length / columns) * cellHeight) + row * cellHeight + cellHeight / 2;
+            const y = svgHeight - (rows * cellHeight) + row * cellHeight + cellHeight / 2;
             // drawRectAt(x, y, 20, 20, 'red')
             categoryTargetPositions[node.id] = { x: x, y: y - 20 };
         });
+
+
         console.log("categorTargetPositions");
         console.log(categoryTargetPositions);
 
@@ -1191,7 +1204,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     y: getRandomBetween(-100, svgHeight + 100),
                 }, {
                     x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
-                    // y: offsetY + (actorIconScale * actorGroupScale * actorIconHeight / 2) - targetSize/2,
                     y: offsetY + targetSize / 2,
                     opacity: 1,
                     rx: 0,
@@ -1251,8 +1263,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     transform: `translate(${position.x}px, ${position.y}px)`,
                 }, {
                     transform: `translate(${targetPosition.x}px, ${targetPosition.y}px)`,
-                    duration: 0,
-                }, "actorsColumn");
+                    duration: 0.1,
+                }, "actorsColumn+=0.1");
 
                 mainTimeline.to(node, {
                     duration: animationDuration,
@@ -1272,7 +1284,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     svg.selectAll('.copyOfDataRect')
                         .transition()
                         .duration(200)
-                        .attr('stroke-width', dataRectStrokeWidth)
+                        .attr('stroke-width', 1)
                         .style('opacity', 1);
 
                     // Reduce the opacity of rects that do not have the specific class
