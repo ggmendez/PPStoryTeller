@@ -1023,7 +1023,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     trigger: 'click',
                                     interactive: true,
                                     delay: [100, 100],
-                                    placement: 'bottom',
+                                    placement: 'right',
                                     appendTo: () => document.body,
                                     onShow(instance) {
                                         const linksContainer = instance.popper.querySelector('.tooltip-links');
