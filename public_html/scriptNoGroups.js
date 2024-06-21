@@ -997,35 +997,118 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('fill', dataRectCopy.fill)
                             .attr('stroke-width', 0)
                             .attr('stroke', darkenColor(dataRectCopy.fill))
-                            .on("mouseover", function (event, d) {
-                                let lines = d.tooltipText.split('\n');
-                                let uniqueLines = new Set();  // Create a set to track unique lines
-                                let formattedTooltipText = lines
+                            .each(function (d) {
+                                // Prepare unique lines and formatted text
+
+                                let uniqueLines = new Set();
+                                let lines = item.text.split('\n')
                                     .filter(line => {
                                         const trimmedLine = line.trim();
                                         if (trimmedLine !== '' && !uniqueLines.has(trimmedLine)) {
-                                            uniqueLines.add(trimmedLine);  // Add to set if not already present
+                                            uniqueLines.add(trimmedLine);
                                             return true;
                                         }
                                         return false;
-                                    })
-                                    .map((line, index) => `<b>${index + 1}.</b> ${line}`)  // Add bold to line numbers
-                                    .join('<br>');
+                                    });
 
-                                // Wrap the tooltip text in a div and apply inline CSS for left text alignment
-                                tooltip.style("visibility", "visible").html(`
-                                    <div>
-                                        <div style="font-size: 14px;"><b>${d.name + ' ( ' + originalNames[dataCategory] + ' )'}</b><br/></div>
-                                        <div style="margin-top: 10px; padding-left: 20px; text-align: left;">${formattedTooltipText}</div>
-                                    </div>
-                                `);
-                            })
-                            .on("mousemove", function (event) {
-                                tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
-                            })
-                            .on("mouseout", function () {
-                                tooltip.style("visibility", "hidden");
+                                let tooltipContent = generateInitialTooltipContent(item.name.charAt(0).toUpperCase() + item.name.slice(1), originalNames[dataCategory], lines);
+
+
+                                // Assuming `d` and `lines` are already defined and accessible here
+
+                                tippy(this, {
+                                    theme: 'light-border',
+                                    content: tooltipContent.header + tooltipContent.links + tooltipContent.content,
+                                    allowHTML: true,
+                                    trigger: 'click',
+                                    interactive: true,
+                                    delay: [100, 100],
+                                    placement: 'bottom',
+                                    appendTo: () => document.body,
+                                    onShow(instance) {
+                                        const linksContainer = instance.popper.querySelector('.tooltip-links');
+                                        const contentContainer = instance.popper.querySelector('.tooltip-content');
+
+                                        linksContainer.querySelectorAll('.tooltip-link').forEach((link, idx) => {
+                                            link.addEventListener('click', function () {
+                                                updateTooltipContent(contentContainer, tooltipContent.highlightedLines, idx + 1);
+                                            });
+                                        });
+                                    }
+                                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                             });
+
+
+                        // .on("mouseover", function (event, d) {
+                        //     let lines = d.tooltipText.split('\n');
+                        //     let uniqueLines = new Set();  // Create a set to track unique lines
+                        //     let formattedTooltipText = lines
+                        //         .filter(line => {
+                        //             const trimmedLine = line.trim();
+                        //             if (trimmedLine !== '' && !uniqueLines.has(trimmedLine)) {
+                        //                 uniqueLines.add(trimmedLine);  // Add to set if not already present
+                        //                 return true;
+                        //             }
+                        //             return false;
+                        //         })
+                        //         .map((line, index) => `<b>${index + 1}.</b> ${line}`)  // Add bold to line numbers
+                        //         .join('<br>');
+
+                        //     // Wrap the tooltip text in a div and apply inline CSS for left text alignment
+                        //     tooltip.style("visibility", "visible").html(`
+                        //         <div>
+                        //             <div style="font-size: 14px;"><b>${d.name + ' ( ' + originalNames[dataCategory] + ' )'}</b><br/></div>
+                        //             <div style="margin-top: 10px; padding-left: 20px; text-align: left;">${formattedTooltipText}</div>
+                        //         </div>
+                        //     `);
+                        // })
+
+
+                        // .on("mousemove", function (event) {
+                        //     tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
+                        // })
+                        // .on("mouseout", function () {
+                        //     tooltip.style("visibility", "hidden");
+                        // })
+                        // .on("click", function (event, d) {
+
+                        //     let lines = d.tooltipText.split('\n');
+                        //     let uniqueLines = new Set();
+                        //     let formattedTooltipText = lines
+                        //         .filter(line => {
+                        //             const trimmedLine = line.trim();
+                        //             if (trimmedLine !== '' && !uniqueLines.has(trimmedLine)) {
+                        //                 uniqueLines.add(trimmedLine);  // Add to set if not already present
+                        //                 return true;
+                        //             }
+                        //             return false;
+                        //         });
+                        //     let text = formattedTooltipText[0];
+                        //     let url = "https://www.tiktok.com/legal/page/eea/privacy-policy/en";
+                        //     let link = generateHighlightLink(url, text);
+                        //     console.log("link:");
+                        //     console.log(link);
+                        // });
+
+
+
 
                         newRects.push(dataRectCopy);
                         rectIndex++;
@@ -1291,7 +1374,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
                         .transition()
                         .duration(200)
-                        .style('opacity', 0.3);
+                        .style('opacity', 0.2);
                 });
 
                 d3.select(node).on('mouseout', function (event) {
@@ -1536,6 +1619,58 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const randomString = Math.random().toString(36).substr(2, 9); // Generate a random string
         const timestamp = Date.now(); // Get the current timestamp
         return `${prefix}_${randomString}_${timestamp}`;
+    }
+
+
+    function generateHighlightLink(url, text) {
+        // Encode the text to handle special characters properly
+        const encodedText = encodeURIComponent(text);
+
+        // Construct the URL with the text fragment
+        const highlightLink = `${url}#:~:text=${encodedText}`;
+
+        return highlightLink;
+    }
+
+
+
+
+
+    function generateInitialTooltipContent(name, dataCategory, lines) {
+        let links = [];
+        // Highlight all lines initially and store them
+        let highlightedLines = lines.map(line => highlightNameInText(line, name));
+        let initialContent = highlightedLines[0]; // Start with the first line highlighted
+        for (let i = 1; i <= lines.length; i++) {
+            links.push(`<a href="javascript:void(0);" class="tooltip-link${i === 1 ? ' active' : ''}" data-index="${i}">${i}</a>`);
+        }
+        return {
+            header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>
+                     <div style="margin-top: 8px; border-top: 1px solid #eee;"></div>`,
+            links: `<div class="tooltip-links">${links.join(', ')}</div>`,
+            content: `<div class="tooltip-content">${initialContent}</div>`,
+            highlightedLines: highlightedLines // store highlighted lines for later use
+        };
+    }
+
+    function updateTooltipContent(contentContainer, allHighlightedLines, index) {
+        // Directly use pre-highlighted lines for display
+        contentContainer.innerHTML = allHighlightedLines[parseInt(index) - 1];
+        const links = contentContainer.parentNode.querySelector('.tooltip-links').children;
+        Array.from(links).forEach(link => {
+            link.classList.remove('active');
+        });
+        links[index - 1].classList.add('active');
+    }
+
+
+
+
+    function highlightNameInText(text, name) {
+        // Adjust the regular expression to match the name as a substring of words, without word boundaries
+        const regex = new RegExp(`${name}`, 'gi'); // 'gi' for global and case-insensitive matching
+        // Replace and wrap with a span for styling
+        return text.replace(regex, match => `<span class="highlight">${match}</span>`);
     }
 
 

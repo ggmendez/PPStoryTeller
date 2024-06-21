@@ -1032,3 +1032,46 @@ code .token.url {
 .icon-hover:hover {
   filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
 }
+
+
+
+
+
+
+
+.tippy-box[data-theme~='light-border'] {
+  background-color: #fff; /* Light background */
+  color: #333; /* Dark text for better readability */
+  border: 1px solid #ccc; /* Light border */
+  width: 300px; /* Fixed width for all tooltips */
+  max-width: none; /* Override default Tippy.js max-width */
+}
+
+.tooltip-links a {
+  color: #555; /* Subtle link color */
+  padding: 0 5px;
+  text-decoration: none;
+}
+
+.tooltip-links a.active {
+  color: #d00; /* Highlight the active link */
+  font-weight: bold;
+}
+
+.tooltip-content {
+  padding: 10px 0;
+  border-top: 1px solid #eee; /* Horizontal divider */
+  white-space: normal; /* Allow text to wrap */
+  overflow-wrap: break-word; /* Break words that are too long to fit */
+}
+
+.tippy-box[data-theme~='light-border'] {
+  min-width: 300px; /* Ensures tooltip is never narrower than 300px */
+  max-width: 400px; /* Ensures tooltip does not exceed 400px */
+}
+
+.highlight {
+  background-color: yellow; /* Highlight with a yellow background */
+  color: black; /* Text color */
+  font-weight: bold; /* Make the text bold */
+}
