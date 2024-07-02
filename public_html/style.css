@@ -1089,7 +1089,22 @@ code .token.url {
 
 .tooltip-links .navButton {
   font-weight: bold;
-  font-size: larger;
+  font-size: xx-large;
+  color: rgb(15, 92, 216);
+}
+
+.navButton:hover {
+  text-decoration: none; /* Ensure no underline on hover */
+}
+
+.navButton {
+  flex: 0 0 auto;
+  padding: 0 10px;
+  cursor: pointer;
+  color: rgb(15, 92, 216);
+  font-size: x-large;
+  font-weight: bold;
+  text-decoration: none;
 }
 
 
@@ -1110,10 +1125,7 @@ code .token.url {
   overflow: hidden;
 }
 
-.navButton {
-  flex: 0 0 auto;
-  /* Prevent grow and shrink */
-}
+
 
 .numbered-links {
   display: flex;
@@ -1165,9 +1177,10 @@ code .token.url {
 
 
 .nav-container {
-  display: inline-block;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
+  margin-top: 5px;
 }
 
 .nav-label {
@@ -1186,10 +1199,8 @@ code .token.url {
   overflow: hidden;
 }
 
-.navButton {
-  flex: 0 0 auto;
-  /* Prevent grow and shrink */
-}
+
+
 
 .numbered-links {
   display: flex;
@@ -1202,15 +1213,13 @@ code .token.url {
 
 .numbered-links a {
   white-space: nowrap;
-  /* Ensure links don't wrap */
   display: inline-block;
-  /* Ensure links stay inline */
 }
 
 
 .page-number-display {
-  border-top: 1px solid #eee;
-  padding-top: 8px;
+  padding-top: 0px;
+  padding-bottom: 5px;
   text-align: center;
   top: 0;
   left: 50%;
@@ -1219,6 +1228,7 @@ code .token.url {
 }
 
 .tooltip-content {
+  border-top: 1px solid #eee;
   padding: 10px 0;
   white-space: normal;
   overflow-wrap: break-word;
@@ -1240,7 +1250,7 @@ code .token.url {
   left: 2%;
   transform: translateY(-50%);
   width: 28%;
-  height: 80%;
+  height: 92%;
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   overflow: hidden;
@@ -1285,15 +1295,19 @@ code .token.url {
 #contextButton {
   font-size: 12px;
   padding: 5px 10px;
-  color: #fff; /* Default text color */
-  background-color: rgb(75, 137, 236); /* Default background color */
+  color: #fff;
+  /* Default text color */
+  background-color: rgb(75, 137, 236);
+  /* Default background color */
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: Arial, sans-serif; /* Default font style */
+  font-family: Arial, sans-serif;
+  /* Default font style */
   text-transform: none;
 }
 
 #contextButton:hover {
-  background-color: rgb(15, 92, 216); /* Darker background color on hover */
+  background-color: rgb(15, 92, 216);
+  /* Darker background color on hover */
 }

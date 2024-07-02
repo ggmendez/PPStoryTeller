@@ -1260,81 +1260,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 tippy(this, {
                                     theme: 'light-border',
-                                    content: tooltipContent.header + tooltipContent.links + tooltipContent.pagination + tooltipContent.content + tooltipContent.button,
-                                    allowHTML: true,
-                                    trigger: 'click',
-                                    interactive: true,
-                                    delay: [100, 100],
-                                    placement: 'right',
-                                    fallbackPlacements: ['top', 'bottom', 'left'],
-                                    appendTo: () => document.body,
-                                    onShow(instance) {
-                                        const linksContainer = instance.popper.querySelector('.tooltip-links');
-                                        const contentContainer = instance.popper.querySelector('.tooltip-content');
-                                        const paginator = instance.popper.querySelector('.page-number-display');
+    content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
+    allowHTML: true,
+    trigger: 'click',
+    interactive: true,
+    delay: [100, 100],
+    placement: 'right',
+    fallbackPlacements: ['top', 'bottom', 'left'],
+    appendTo: () => document.body,
+    onShow(instance) {
+        const contentContainer = instance.popper.querySelector('.tooltip-content');
+        const paginator = instance.popper.querySelector('.page-number-display');
 
-                                        let currentIndex = 0;
-                                        const totalLinks = tooltipContent.highlightedLines.length;
-                                        const maxVisibleLinks = tooltipContent.maxVisibleLinks;
+        let currentIndex = 0;
+        const totalLinks = tooltipContent.highlightedLines.length;
 
-                                        updatePagination(paginator, currentIndex, totalLinks, maxVisibleLinks);
+        updatePagination(paginator, currentIndex, totalLinks);
 
-                                        linksContainer.querySelectorAll('.tooltip-link').forEach((link, idx) => {
-                                            link.addEventListener('click', function () {
-                                                currentIndex = idx;
-                                                updateTooltipContent(contentContainer, tooltipContent.highlightedLines, idx, linksContainer);
-                                                updatePagination(paginator, currentIndex, totalLinks, maxVisibleLinks);
+        instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
+            nav.addEventListener('click', function () {
+                const direction = nav.getAttribute('data-nav');
+                currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
 
-                                                const currentText = normalizeText(contentContainer.textContent);
-                                                if (popup.style.display === 'block') {
-                                                    scrollToAndHighlightInIframe(currentText);
-                                                }
-                                            });
-                                        });
+                const currentText = normalizeText(contentContainer.textContent);
+                if (popup.style.display === 'block') {
+                    scrollToAndHighlightInIframe(currentText);
+                }
+            });
+        });
 
-                                        linksContainer.querySelectorAll('.tooltip-nav').forEach(nav => {
-                                            nav.addEventListener('click', function () {
-                                                const direction = nav.getAttribute('data-nav');
-                                                currentIndex = handleTooltipNavigation(contentContainer, linksContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, maxVisibleLinks, paginator);
-
-                                                const currentText = normalizeText(contentContainer.textContent);
-                                                if (popup.style.display === 'block') {
-                                                    scrollToAndHighlightInIframe(currentText);
-                                                }
-                                            });
-                                        });
-
-
-
-                                        // Add event listener for Escape key to close the tooltip
-                                        const escKeyListener = (event) => {
-                                            if (event.key === 'Escape') {
-                                                instance.hide();
-                                                document.removeEventListener('keydown', escKeyListener);
-                                            }
-                                        };
-                                        document.addEventListener('keydown', escKeyListener);
-
-                                        // Ensure the event listener is removed when the tooltip is hidden
-                                        instance.reference.addEventListener('click', () => {
-                                            if (!instance.state.isVisible) {
-                                                document.removeEventListener('keydown', escKeyListener);
-                                            }
-                                        });
-
-                                        // Remove the event listener when the tooltip is hidden
-                                        instance.popper.addEventListener('mouseleave', () => {
-                                            if (!instance.state.isVisible) {
-                                                document.removeEventListener('keydown', escKeyListener);
-                                            }
-                                        });
-
-                                        // Clean up the event listener when the tooltip is hidden
-                                        instance.popper.addEventListener('hidden', () => {
-                                            document.removeEventListener('keydown', escKeyListener);
-                                        });
-                                    }
-                                });
+        // Add event listener for Escape key to close the tooltip
+        const escKeyListener = (event) => {
+            if (event.key === 'Escape') {
+                instance.hide();
+                document.removeEventListener('keydown', escKeyListener);
+            }
+        };
+        document.addEventListener('keydown', escKeyListener);
+    }
+});
 
 
 
@@ -1895,34 +1859,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function generateInitialTooltipContent(name, dataCategory, lines) {
-        let links = [];
-        let numberedLinks = [];
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
         let initialContent = highlightedLines[0];
-        for (let i = 1; i <= lines.length; i++) {
-            numberedLinks.push(`<a href="javascript:void(0);" class="tooltip-link${i === 1 ? ' active' : ''}" data-index="${i - 1}">${i}</a>`);
-        }
-        links.push(`
+    
+        let navContainer = `
             <div class="nav-container">
-                <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">
-                    &#9664;
-                </a>
+                <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>
+                <div class="page-number-display">1/${lines.length}</div>
+                <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>
             </div>
-        `);
-        links.push(`<div class="numbered-links">${numberedLinks.join(' ')}</div>`);
-        links.push(`
-            <div class="nav-container">
-                <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">
-                    &#9654;
-                </a>
-            </div>
-        `);
-
+        `;
+    
         return {
             header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>
                      <div style="margin-top: 8px; border-top: 1px solid #eee;"></div>`,
-            links: `<div class="tooltip-links">${links.join(' ')}</div>`,
-            pagination: `<div class="page-number-display">1/${lines.length}</div>`,
+            links: navContainer,
             content: `<div class="tooltip-content">${initialContent}</div>`,
             button: `<div class="tooltip-button"><button id="contextButton">View in Policy</button></div>`,
             highlightedLines: highlightedLines,
@@ -1930,6 +1881,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             maxVisibleLinks: 10
         };
     }
+    
+
 
 
 
@@ -1973,32 +1926,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    function handleTooltipNavigation(contentContainer, linksContainer, highlightedLines, currentIndex, direction, totalLinks, maxVisibleLinks, paginator) {
+    function handleTooltipNavigation(contentContainer, highlightedLines, currentIndex, direction, totalLinks, paginator) {
         let newIndex;
         if (direction === 'previous') {
             newIndex = (currentIndex - 1 + highlightedLines.length) % highlightedLines.length;
         } else if (direction === 'next') {
             newIndex = (currentIndex + 1) % highlightedLines.length;
         }
-
+    
         contentContainer.innerHTML = highlightedLines[newIndex];
-        const numberedLinks = linksContainer.querySelectorAll('.tooltip-link');
-        numberedLinks.forEach(link => {
-            link.classList.remove('active');
-        });
-        if (numberedLinks[newIndex]) {
-            numberedLinks[newIndex].classList.add('active');
-        }
-
-        updatePagination(paginator, newIndex, highlightedLines.length, maxVisibleLinks);
-
+        updatePagination(paginator, newIndex, highlightedLines.length);
+    
         const currentText = normalizeText(contentContainer.textContent);
         if (popup.style.display === 'block') {
             scrollToAndHighlightInIframe(currentText);
         }
-
+    
         return newIndex;
     }
+    
 
     function updateTooltipContent(contentContainer, highlightedLines, idx, linksContainer) {
         contentContainer.innerHTML = highlightedLines[idx];
