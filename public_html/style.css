@@ -518,15 +518,19 @@ button {
 /* SCROLL DOWN */
 .scroll-down {
   position: relative;
-  top: 150px; /* Positions 30px from the bottom of #one */
-  left: 50%; /* Center horizontally relative to #one */
-  transform: translateX(-50%); /* Correctly center the div */
+  top: 150px;
+  /* Positions 30px from the bottom of #one */
+  left: 50%;
+  /* Center horizontally relative to #one */
+  transform: translateX(-50%);
+  /* Correctly center the div */
   color: black;
   font-weight: 400;
   text-transform: uppercase;
   font-size: 16px;
   text-align: center;
-  padding: 5px; /* Adjust for visual appeal */
+  padding: 5px;
+  /* Adjust for visual appeal */
 }
 
 
@@ -947,7 +951,8 @@ code .token.url {
 
 
 
-.categoryName, .category-label {
+.categoryName,
+.category-label {
   /* font-family: "Roboto", sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -1017,9 +1022,12 @@ code .token.url {
 
 
 .explanationText {
-  opacity: 0; /* Start with text hidden */
-  transform: translateY(100px); /* Start lower and move up */
-  transition: all 0.3s ease-out; /* Smooth transition for the animation */
+  opacity: 0;
+  /* Start with text hidden */
+  transform: translateY(100px);
+  /* Start lower and move up */
+  transition: all 0.3s ease-out;
+  /* Smooth transition for the animation */
 }
 
 
@@ -1040,38 +1048,252 @@ code .token.url {
 
 
 .tippy-box[data-theme~='light-border'] {
-  background-color: #fff; /* Light background */
-  color: #333; /* Dark text for better readability */
-  border: 1px solid #ccc; /* Light border */
-  width: 300px; /* Fixed width for all tooltips */
-  max-width: none; /* Override default Tippy.js max-width */
+  background-color: #fff;
+  /* Light background */
+  color: #333;
+  /* Dark text for better readability */
+  border: 1px solid #ccc;
+  /* Light border */
+  width: 300px;
+  /* Fixed width for all tooltips */
+  max-width: none;
+  /* Override default Tippy.js max-width */
+}
+
+
+
+.tippy-box[data-theme~='light-border'] {
+  min-width: 300px;
+  /* Ensures tooltip is never narrower than 300px */
+  max-width: 400px;
+  /* Ensures tooltip does not exceed 400px */
+}
+
+.highlight {
+  background-color: rgba(145, 145, 145, 0.25);
+  /* Highlight with a yellow background */
+  color: black;
+  /* Text color */
+  font-weight: bold;
+  /* Make the text bold */
 }
 
 .tooltip-links a {
-  color: #555; /* Subtle link color */
+  color: rgb(15, 92, 216);
+  /* Subtle link color */
   padding: 0 5px;
   text-decoration: none;
+  cursor: pointer;
+  font-weight: normal;
 }
 
-.tooltip-links a.active {
-  color: #d00; /* Highlight the active link */
+.tooltip-links .navButton {
+  font-weight: bold;
+  font-size: larger;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.tooltip-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.navButton {
+  flex: 0 0 auto;
+  /* Prevent grow and shrink */
+}
+
+.numbered-links {
+  display: flex;
+  flex-grow: 1;
+  overflow: hidden;
+  /* Hide anything outside the boundary */
+  justify-content: center;
+  /* Center the numbered links */
+  list-style: none;
+  /* Remove list styles */
+  padding: 0;
+  /* Remove padding */
+  margin: 0 10px;
+  /* Provide some space from buttons */
+}
+
+.numbered-links a {
+  color: rgb(15, 92, 216);
+  padding: 0 5px;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: normal;
+  white-space: nowrap;
+  /* Ensure links don't wrap */
+}
+
+.numbered-links a.active {
+  color: black;
+  font-weight: bold;
+}
+
+
+
+.tooltip-links .numbered-links {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+  /* Hide anything outside the boundary */
+}
+
+.numbered-links a {
+  white-space: nowrap;
+  /* Ensure links don't wrap */
+}
+
+
+
+
+.nav-container {
+  display: inline-block;
+  text-align: center;
+  align-items: center;
+}
+
+.nav-label {
+  font-size: 9px;
+  margin-top: 0px;
+  display: block;
+  font-weight: normal;
+}
+
+
+
+.tooltip-links {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.navButton {
+  flex: 0 0 auto;
+  /* Prevent grow and shrink */
+}
+
+.numbered-links {
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  transition: transform 0.3s ease-in-out;
+  overflow: hidden;
+  /* Hide anything outside the boundary */
+}
+
+.numbered-links a {
+  white-space: nowrap;
+  /* Ensure links don't wrap */
+  display: inline-block;
+  /* Ensure links stay inline */
+}
+
+
+.page-number-display {
+  border-top: 1px solid #eee;
+  padding-top: 8px;
+  text-align: center;
+  top: 0;
+  left: 50%;
+  width: 100%;
   font-weight: bold;
 }
 
 .tooltip-content {
   padding: 10px 0;
-  border-top: 1px solid #eee; /* Horizontal divider */
-  white-space: normal; /* Allow text to wrap */
-  overflow-wrap: break-word; /* Break words that are too long to fit */
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
-.tippy-box[data-theme~='light-border'] {
-  min-width: 300px; /* Ensures tooltip is never narrower than 300px */
-  max-width: 400px; /* Ensures tooltip does not exceed 400px */
+
+
+
+
+
+
+
+
+
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 2%;
+  transform: translateY(-50%);
+  width: 28%;
+  height: 80%;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  z-index: 1000;
 }
 
-.highlight {
-  background-color: yellow; /* Highlight with a yellow background */
-  color: black; /* Text color */
-  font-weight: bold; /* Make the text bold */
+.popup-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.popup-close {
+  position: absolute;
+  top: 2px;
+  right: 25px;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: bold;
+  color: black;
+}
+
+#iframe-container {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+}
+
+#iframe-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.tooltip-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+#contextButton {
+  font-size: 12px;
+  padding: 5px 10px;
+  color: #fff; /* Default text color */
+  background-color: rgb(75, 137, 236); /* Default background color */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Arial, sans-serif; /* Default font style */
+  text-transform: none;
+}
+
+#contextButton:hover {
+  background-color: rgb(15, 92, 216); /* Darker background color on hover */
 }
