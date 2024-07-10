@@ -379,7 +379,8 @@ nav a.active {
 
 body {
   color: var(--color-surface-white);
-  background-color: var(--dark);
+  background-color: white;
+  /*background-color: var(--dark);*/
   font-family: Mori, sans-serif;
   font-weight: 400;
   margin: 0;

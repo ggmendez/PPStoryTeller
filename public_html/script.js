@@ -187,7 +187,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             if (popup.style.display === 'block') {
                 scrollToAndHighlightInIframe(currentText);
             } else {
-                iframe.src = "./tiktok/cleaned.html"; // Set the source of the iframe
+                // iframe.src = "./tiktok/tiktokOriginal.html"; // Set the source of the iframe
+                iframe.src = "./" + who + ".html"; // Set the source of the iframe                
                 popup.style.display = 'block';
 
                 iframe.onload = function () {
@@ -311,8 +312,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     window.actorDataMap = actorDataMap;
 
+    // let who = "tiktok";
+    let who = "openai";
+
+    let formatedNames = {};
+    formatedNames.tiktok = "TikTok"
+    formatedNames.openai = "OpenAI"
+
+    document.querySelector("#who").textContent = formatedNames[who];
+
+
     // Fetch the Excel file and process it
-    fetch('allNodes.xlsx')
+    fetch(who + '_nodes.xlsx')
         .then(response => response.arrayBuffer())
         .then(data => {
             const workbook = XLSX.read(data, { type: 'array' });
@@ -326,7 +337,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("Actor entities processed (and XML files loaded)");
 
             // Load and process edges.csv
-            return d3.csv('edges.csv').then(edges => {
+            return d3.csv(who + '_edges.csv').then(edges => {
                 edges.forEach(edge => {
 
                     let [actorName, dataName] = edge.name.split(' (-) ');
@@ -348,7 +359,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         actorDataMap[cleanActorCategory] = {};
                     }
 
-                    // console.log("dataName: " + dataName);
+                    console.log("dataName: " + dataName);
                     let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
                     if (!dataCategory) {
                         console.error(`Data category for ${dataCategory} not found.`);
@@ -580,6 +591,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         });
 
+
+        uniqueCategories.sort();
         const colorScale = d3.scaleOrdinal(customSchemePaired).domain(uniqueCategories);
 
         // Define a scale for the rectangle sizes based on IncomingConnections
@@ -1260,45 +1273,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 tippy(this, {
                                     theme: 'light-border',
-    content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
-    allowHTML: true,
-    trigger: 'click',
-    interactive: true,
-    delay: [100, 100],
-    placement: 'right',
-    fallbackPlacements: ['top', 'bottom', 'left'],
-    appendTo: () => document.body,
-    onShow(instance) {
-        const contentContainer = instance.popper.querySelector('.tooltip-content');
-        const paginator = instance.popper.querySelector('.page-number-display');
+                                    content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
+                                    allowHTML: true,
+                                    trigger: 'click',
+                                    interactive: true,
+                                    delay: [100, 100],
+                                    placement: 'right',
+                                    fallbackPlacements: ['top', 'bottom', 'left'],
+                                    appendTo: () => document.body,
+                                    onShow(instance) {
+                                        const contentContainer = instance.popper.querySelector('.tooltip-content');
+                                        const paginator = instance.popper.querySelector('.page-number-display');
 
-        let currentIndex = 0;
-        const totalLinks = tooltipContent.highlightedLines.length;
+                                        let currentIndex = 0;
+                                        const totalLinks = tooltipContent.highlightedLines.length;
 
-        updatePagination(paginator, currentIndex, totalLinks);
+                                        updatePagination(paginator, currentIndex, totalLinks);
 
-        instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
-            nav.addEventListener('click', function () {
-                const direction = nav.getAttribute('data-nav');
-                currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
+                                        instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
+                                            nav.addEventListener('click', function () {
+                                                const direction = nav.getAttribute('data-nav');
+                                                currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
 
-                const currentText = normalizeText(contentContainer.textContent);
-                if (popup.style.display === 'block') {
-                    scrollToAndHighlightInIframe(currentText);
-                }
-            });
-        });
+                                                const currentText = normalizeText(contentContainer.textContent);
+                                                if (popup.style.display === 'block') {
+                                                    scrollToAndHighlightInIframe(currentText);
+                                                }
+                                            });
+                                        });
 
-        // Add event listener for Escape key to close the tooltip
-        const escKeyListener = (event) => {
-            if (event.key === 'Escape') {
-                instance.hide();
-                document.removeEventListener('keydown', escKeyListener);
-            }
-        };
-        document.addEventListener('keydown', escKeyListener);
-    }
-});
+                                        // Add event listener for Escape key to close the tooltip
+                                        const escKeyListener = (event) => {
+                                            if (event.key === 'Escape') {
+                                                instance.hide();
+                                                document.removeEventListener('keydown', escKeyListener);
+                                            }
+                                        };
+                                        document.addEventListener('keydown', escKeyListener);
+                                    }
+                                });
 
 
 
@@ -1747,7 +1760,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // TMP
-        mainTimeline.tweenFromTo("actorsColumn");
+        // mainTimeline.tweenFromTo("actorsColumn");
 
 
     }
@@ -1861,7 +1874,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function generateInitialTooltipContent(name, dataCategory, lines) {
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
         let initialContent = highlightedLines[0];
-    
+
         let navContainer = `
             <div class="nav-container">
                 <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>
@@ -1869,7 +1882,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>
             </div>
         `;
-    
+
         return {
             header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>
                      <div style="margin-top: 8px; border-top: 1px solid #eee;"></div>`,
@@ -1881,7 +1894,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             maxVisibleLinks: 10
         };
     }
-    
+
 
 
 
@@ -1933,18 +1946,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         } else if (direction === 'next') {
             newIndex = (currentIndex + 1) % highlightedLines.length;
         }
-    
+
         contentContainer.innerHTML = highlightedLines[newIndex];
         updatePagination(paginator, newIndex, highlightedLines.length);
-    
+
         const currentText = normalizeText(contentContainer.textContent);
         if (popup.style.display === 'block') {
             scrollToAndHighlightInIframe(currentText);
         }
-    
+
         return newIndex;
     }
-    
+
 
     function updateTooltipContent(contentContainer, highlightedLines, idx, linksContainer) {
         contentContainer.innerHTML = highlightedLines[idx];
