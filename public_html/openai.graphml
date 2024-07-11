@@ -1,0 +1,736 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d3" for="edge" attr.name="text" attr.type="string"/>
+<key id="d2" for="edge" attr.name="relationship" attr.type="string"/>
+<key id="d1" for="node" attr.name="type" attr.type="string"/>
+<key id="d0" for="node" attr.name="label" attr.type="string"/>
+<graph edgedefault="directed"><node id="we">
+  <data key="d0">we</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information associate with account">
+  <data key="d0">information associate with account</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="person name">
+  <data key="d0">person name</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="contact information">
+  <data key="d0">contact information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="account credential">
+  <data key="d0">account credential</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="credit / debit card number">
+  <data key="d0">credit / debit card number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="transaction history">
+  <data key="d0">transaction history</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="account information">
+  <data key="d0">account information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="communication information">
+  <data key="d0">communication information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="content of message you send">
+  <data key="d0">content of message you send</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal information">
+  <data key="d0">personal information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="account">
+  <data key="d0">account</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal data you choose">
+  <data key="d0">personal data you choose</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="social media information">
+  <data key="d0">social media information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="social media">
+  <data key="d0">social media</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="Facebook">
+  <data key="d0">Facebook</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="Medium">
+  <data key="d0">Medium</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="x">
+  <data key="d0">x</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="youtube">
+  <data key="d0">youtube</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="Microsoft">
+  <data key="d0">Microsoft</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="log datum">
+  <data key="d0">log datum</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="ip address">
+  <data key="d0">ip address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="browser type">
+  <data key="d0">browser type</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="setting">
+  <data key="d0">setting</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="date">
+  <data key="d0">date</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="time">
+  <data key="d0">time</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about use of services">
+  <data key="d0">information about use of services</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="type of content">
+  <data key="d0">type of content</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="time zone">
+  <data key="d0">time zone</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="country">
+  <data key="d0">country</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="user agent">
+  <data key="d0">user agent</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="computer connection">
+  <data key="d0">computer connection</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="device information">
+  <data key="d0">device information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="name of device">
+  <data key="d0">name of device</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="operating system">
+  <data key="d0">operating system</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="device identifier">
+  <data key="d0">device identifier</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="aggregate / deidentified / pseudonymized information">
+  <data key="d0">aggregate / deidentified / pseudonymized information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="service provider">
+  <data key="d0">service provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="provider of hosting service">
+  <data key="d0">provider of hosting service</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="customer service vendor">
+  <data key="d0">customer service vendor</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="cloud service">
+  <data key="d0">cloud service</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="content delivery service">
+  <data key="d0">content delivery service</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="datum warehouse service">
+  <data key="d0">datum warehouse service</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="support monitoring service">
+  <data key="d0">support monitoring service</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="email communication software">
+  <data key="d0">email communication software</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="analytic provider">
+  <data key="d0">analytic provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="payment provider">
+  <data key="d0">payment provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information technology service provider">
+  <data key="d0">information technology service provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="email address">
+  <data key="d0">email address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="chatgpt">
+  <data key="d0">chatgpt</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="UNSPECIFIED_DATA">
+  <data key="d0">UNSPECIFIED_DATA</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal datum relate to you">
+  <data key="d0">personal datum relate to you</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal data include in input you provide to service">
+  <data key="d0">personal data include in input you provide to service</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information you provide to we">
+  <data key="d0">information you provide to we</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information you provide">
+  <data key="d0">information you provide</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="technical information">
+  <data key="d0">technical information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="internet activity">
+  <data key="d0">internet activity</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="cookie / pixel tag">
+  <data key="d0">cookie / pixel tag</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="UNSPECIFIED_ACTOR">
+  <data key="d0">UNSPECIFIED_ACTOR</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="counterpartie">
+  <data key="d0">counterpartie</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="other">
+  <data key="d0">other</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="successor">
+  <data key="d0">successor</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="business transfer">
+  <data key="d0">business transfer</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="government authority">
+  <data key="d0">government authority</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="personal data we share">
+  <data key="d0">personal data we share</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="administrator of account">
+  <data key="d0">administrator of account</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="openai account">
+  <data key="d0">openai account</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="business account administrator">
+  <data key="d0">business account administrator</data>
+  <data key="d1">ACTOR</data>
+</node>
+<edge source="we" target="chatgpt" id="e0">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">A note about accuracy: Services like ChatGPT generate responses by reading a user's request and, in response, predicting the words most likely to appear next.
+A note about accuracy: Services like ChatGPT generate responses by reading a user's request and, in response, predicting the words most likely to appear next.</data>
+</edge>
+<edge source="we" target="personal datum relate to you" id="e1">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect personal data relating to you ("Personal Data") as described below:
+We collect personal data relating to you ("Personal Data") as described below:</data>
+</edge>
+<edge source="we" target="personal information" id="e2">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect personal data relating to you ("Personal Data") as described below:
+We collect personal data relating to you ("Personal Data") as described below:
+Personal Data You Provide : We collect the following Personal Data when you create an account or communicate with us-
+Personal Data You Provide : We collect the following Personal Data when you create an account or communicate with us-
+We may use Personal Data for the following purposes:
+We may use Personal Data for the following purposes:
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+In certain circumstances we may disclose your Personal Data to: Government Authorities or Other Third Parties : We may share your Personal Data, including information about your interaction with our Services, with government authorities, industry peers, or other third parties in compliance with the law (i) if required to do so by law or in the good faith belief that such action is necessary to comply with a legal obligation, (ii) to protect and defend our rights or property, (iii) if we determine, in our sole discretion, that there is a violation of our terms, policies, or the law; (iv) to detect or prevent fraud or other illegal activity; (v) to protect the safety, security, and integrity of our products, employees, or users, or the public, or (vi) to protect against legal liability.
+In certain circumstances we may disclose your Personal Data to: Government Authorities or Other Third Parties : We may share your Personal Data, including information about your interaction with our Services, with government authorities, industry peers, or other third parties in compliance with the law (i) if required to do so by law or in the good faith belief that such action is necessary to comply with a legal obligation, (ii) to protect and defend our rights or property, (iii) if we determine, in our sole discretion, that there is a violation of our terms, policies, or the law; (iv) to detect or prevent fraud or other illegal activity; (v) to protect the safety, security, and integrity of our products, employees, or users, or the public, or (vi) to protect against legal liability.
+We may disclose Personal Data to our affiliates, meaning an entity that controls, is controlled by, or is under common control with OpenAI.
+We may disclose Personal Data to our affiliates, meaning an entity that controls, is controlled by, or is under common control with OpenAI.
+We may disclose Personal Data to our affiliates, meaning an entity that controls, is controlled by, or is under common control with OpenAI.
+We'll retain your Personal Data for only as long as we need in order to provide our Service to you, or for other legitimate business purposes such as resolving disputes, safety and security reasons, or complying with our legal obligations.
+We'll retain your Personal Data for only as long as we need in order to provide our Service to you, or for other legitimate business purposes such as resolving disputes, safety and security reasons, or complying with our legal obligations.
+We will transfer your Personal Data to recipients outside of the EEA, Switzerland and the UK for the purposes described in this Privacy Policy.
+We will transfer your Personal Data to recipients outside of the EEA, Switzerland and the UK for the purposes described in this Privacy Policy.
+However_,_ we transfer Personal Data pursuant to applicable data protection laws.
+However_,_ we transfer Personal Data pursuant to applicable data protection laws.</data>
+</edge>
+<edge source="we" target="information associate with account" id="e3">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="we" target="account information" id="e4">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="we" target="personal data include in input you provide to service" id="e5">
+  <data key="d2">COLLECT</data>
+  <data key="d3">User Content: When you use our Services, we collect Personal Data that is included in the input, file uploads, or feedback that you provide to our Services ("Content").
+User Content: When you use our Services, we collect Personal Data that is included in the input, file uploads, or feedback that you provide to our Services ("Content").</data>
+</edge>
+<edge source="we" target="person name" id="e6">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="we" target="communication information" id="e7">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="we" target="personal data you choose" id="e8">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you interact with our social media pages, we collect Personal Data that you choose to provide to us, such as your contact details (collectively, "Social Media Information").
+When you interact with our social media pages, we collect Personal Data that you choose to provide to us, such as your contact details (collectively, "Social Media Information").</data>
+</edge>
+<edge source="we" target="aggregate / deidentified / pseudonymized information" id="e9">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition, the companies that host our social media pages may provide us with aggregate information and analytics about our social media activity.
+In addition, the companies that host our social media pages may provide us with aggregate information and analytics about our social media activity.
+In addition, from time to time, we may share or publish aggregated information like general user statistics with third parties.
+In addition, from time to time, we may share or publish aggregated information like general user statistics with third parties.
+We collect this information through the Services, through cookies, and through other means described in this Privacy Policy.
+We will maintain and use de-identified information in anonymous or de-identified form and we will not attempt to re-identify the information, unless required by law.
+We will maintain and use de-identified information in anonymous or de-identified form and we will not attempt to re-identify the information, unless required by law.</data>
+</edge>
+<edge source="we" target="information you provide to we" id="e10">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Other Information You Provide : We collect other information that you may provide to us, such as when you participate in our events or surveys or provide us with information to establish your age or identity (collectively, "Other Information You Provide").
+2. Personal Data we collect
+
+Other Information You Provide : We collect other information that you may provide to us, such as when you participate in our events or surveys or provide us with information to establish your age or identity (collectively, "Other Information You Provide").</data>
+</edge>
+<edge source="we" target="information you provide" id="e11">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Other Information You Provide : We collect other information that you may provide to us, such as when you participate in our events or surveys or provide us with information to establish your age or identity (collectively, "Other Information You Provide").
+2. Personal Data we collect
+
+Other Information You Provide : We collect other information that you may provide to us, such as when you participate in our events or surveys or provide us with information to establish your age or identity (collectively, "Other Information You Provide").</data>
+</edge>
+<edge source="we" target="technical information" id="e12">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"):
+2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"):</data>
+</edge>
+<edge source="we" target="device information" id="e13">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.</data>
+</edge>
+<edge source="we" target="cookie / pixel tag" id="e14">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"):
+When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Cookies and Similar Technologies : We use cookies and similar technologies to operate and administer our Services, and improve your experience.
+When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Cookies and Similar Technologies : We use cookies and similar technologies to operate and administer our Services, and improve your experience.
+When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Cookies and Similar Technologies : We use cookies and similar technologies to operate and administer our Services, and improve your experience.</data>
+</edge>
+<edge source="we" target="log datum" id="e15">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Log Data : Information that your browser or device automatically sends when you use our Services.</data>
+</edge>
+<edge source="we" target="internet activity" id="e16">
+  <data key="d2">COLLECT</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"):
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="we" target="information about use of services" id="e17">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="we" target="UNSPECIFIED_DATA" id="e18">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect information from other sources, like information that is publicly available on the internet, in particular to develop the models that power our Services.
+We collect information from other sources, like information that is publicly available on the internet, in particular to develop the models that power our Services.
+We also receive information from our trusted partners, such as security partners to protect against fraud, abuse, and other security threats to our Services or marketing vendors who provide us with information about potential customers of our business services.
+We also receive information from our trusted partners, such as security partners to protect against fraud, abuse, and other security threats to our Services or marketing vendors who provide us with information about potential customers of our business services.</data>
+</edge>
+<edge source="we" target="personal data we share" id="e19">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Our affiliates may use the Personal Data we share in a manner consistent with this Privacy Policy.
+Our affiliates may use the Personal Data we share in a manner consistent with this Privacy Policy.</data>
+</edge>
+<edge source="information associate with account" target="person name" id="e20">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="information associate with account" target="contact information" id="e21">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="information associate with account" target="account credential" id="e22">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="information associate with account" target="transaction history" id="e23">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="information associate with account" target="credit / debit card number" id="e24">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="account information" target="information associate with account" id="e25">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").
+Account Information: When you create an account with us, we collect information associated with your account, including your name, contact information, account credentials, payment card information, and transaction history (collectively, "Account Information").</data>
+</edge>
+<edge source="account information" target="email address" id="e26">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">In addition, if you create an account using an email address belonging to your employer or organization, we may share the fact that you have an account and certain account information, such as your email address, with your employer or organization to, for example, enable you to be added to their business account.
+In addition, if you create an account using an email address belonging to your employer or organization, we may share the fact that you have an account and certain account information, such as your email address, with your employer or organization to, for example, enable you to be added to their business account.</data>
+</edge>
+<edge source="communication information" target="personal information" id="e27">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Personal Data You Provide : We collect the following Personal Data when you create an account or communicate with us-
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="communication information" target="content of message you send" id="e28">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="communication information" target="person name" id="e29">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="communication information" target="account" id="e30">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Personal Data You Provide : We collect the following Personal Data when you create an account or communicate with us-
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="communication information" target="contact information" id="e31">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").
+Communication Information : If you communicate with us, we collect your name, contact information, and the contents of any messages you send (collectively, "Communication Information").</data>
+</edge>
+<edge source="personal information" target="social media information" id="e32">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Personal Data You Provide : We collect the following Personal Data when you create an account or communicate with us-
+Social Media Information :</data>
+</edge>
+<edge source="personal data you choose" target="social media information" id="e33">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you interact with our social media pages, we collect Personal Data that you choose to provide to us, such as your contact details (collectively, "Social Media Information").
+When you interact with our social media pages, we collect Personal Data that you choose to provide to us, such as your contact details (collectively, "Social Media Information").</data>
+</edge>
+<edge source="social media information" target="contact information" id="e34">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you interact with our social media pages, we collect Personal Data that you choose to provide to us, such as your contact details (collectively, "Social Media Information").
+When you interact with our social media pages, we collect Personal Data that you choose to provide to us, such as your contact details (collectively, "Social Media Information").</data>
+</edge>
+<edge source="social media" target="youtube" id="e35">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.
+We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.</data>
+</edge>
+<edge source="social media" target="Medium" id="e36">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.
+We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.</data>
+</edge>
+<edge source="social media" target="Microsoft" id="e37">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.
+We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.</data>
+</edge>
+<edge source="social media" target="Facebook" id="e38">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.
+We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.
+We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.</data>
+</edge>
+<edge source="social media" target="x" id="e39">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.
+We have pages on social media sites like Instagram, Facebook, Medium, X, YouTube and LinkedIn.</data>
+</edge>
+<edge source="social media" target="aggregate / deidentified / pseudonymized information" id="e40">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition, the companies that host our social media pages may provide us with aggregate information and analytics about our social media activity.
+In addition, the companies that host our social media pages may provide us with aggregate information and analytics about our social media activity.</data>
+</edge>
+<edge source="log datum" target="ip address" id="e41">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.
+Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.</data>
+</edge>
+<edge source="log datum" target="setting" id="e42">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.
+Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.</data>
+</edge>
+<edge source="log datum" target="date" id="e43">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.
+Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.</data>
+</edge>
+<edge source="log datum" target="time" id="e44">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.
+Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.</data>
+</edge>
+<edge source="log datum" target="browser type" id="e45">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.
+Log data includes your Internet Protocol address, browser type and settings, the date and time of your request, and how you interact with our Services.</data>
+</edge>
+<edge source="information about use of services" target="type of content" id="e46">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="type of content" target="computer connection" id="e47">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="type of content" target="time zone" id="e48">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="type of content" target="user agent" id="e49">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="type of content" target="country" id="e50">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="type of content" target="date" id="e51">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.
+: When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Usage Data : We may automatically collect information about your use of the Services, such as the types of content that you view or engage with, the features you use and the actions you take, as well as your time zone, country, the dates and times of access, user agent and version, type of computer or mobile device, and your computer connection.</data>
+</edge>
+<edge source="device information" target="name of device" id="e52">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.
+2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.</data>
+</edge>
+<edge source="device information" target="operating system" id="e53">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.
+2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.</data>
+</edge>
+<edge source="device information" target="device identifier" id="e54">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.
+2. Personal Data we collect
+
+Personal Data We Receive Automatically From Your Use of the Services : When you visit, use, or interact with the Services, we receive the following information ("Technical Information"): Device Information : Includes name of the device, operating system, device identifiers, and browser you are using.</data>
+</edge>
+<edge source="service provider" target="support monitoring service" id="e55">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="content delivery service" id="e56">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="customer service vendor" id="e57">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="cloud service" id="e58">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="analytic provider" id="e59">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="provider of hosting service" id="e60">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="information technology service provider" id="e61">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="email communication software" id="e62">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="datum warehouse service" id="e63">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="payment provider" id="e64">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.</data>
+</edge>
+<edge source="service provider" target="personal information" id="e65">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In certain circumstances we may disclose your Personal Data to: Vendors and Service Providers
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+By using our Services, you understand and acknowledge that your Personal Data will be processed and stored in our facilities and servers in the United States and may be disclosed to our service providers and affiliates in other jurisdictions.
+By using our Services, you understand and acknowledge that your Personal Data will be processed and stored in our facilities and servers in the United States and may be disclosed to our service providers and affiliates in other jurisdictions.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="personal information" id="e66">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In certain circumstances we may disclose your Personal Data to: Vendors and Service Providers
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+: To assist us in meeting business operations needs and to perform certain services and functions, we may disclose Personal Data to vendors and service providers, including providers of hosting services, customer service vendors, cloud services, content delivery services, data warehouse services, support and safety monitoring services, email communication software, web analytics services, payment and transaction providers, and other information technology services providers.
+Pursuant to our instructions, these parties will access, process, or store Personal Data only in the course of performing their duties to us.
+Pursuant to our instructions, these parties will access, process, or store Personal Data only in the course of performing their duties to us.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+In certain circumstances we may disclose your Personal Data to: Government Authorities or Other Third Parties : We may share your Personal Data, including information about your interaction with our Services, with government authorities, industry peers, or other third parties in compliance with the law (i) if required to do so by law or in the good faith belief that such action is necessary to comply with a legal obligation, (ii) to protect and defend our rights or property, (iii) if we determine, in our sole discretion, that there is a violation of our terms, policies, or the law; (iv) to detect or prevent fraud or other illegal activity; (v) to protect the safety, security, and integrity of our products, employees, or users, or the public, or (vi) to protect against legal liability.
+In certain circumstances we may disclose your Personal Data to: Affiliates
+You have the following statutory rights in relation to your Personal Data: Transfer your Personal Data to a third party (right to data portability).
+You have the following statutory rights in relation to your Personal Data: Transfer your Personal Data to a third party (right to data portability).
+By using our Services, you understand and acknowledge that your Personal Data will be processed and stored in our facilities and servers in the United States and may be disclosed to our service providers and affiliates in other jurisdictions.
+By using our Services, you understand and acknowledge that your Personal Data will be processed and stored in our facilities and servers in the United States and may be disclosed to our service providers and affiliates in other jurisdictions.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="UNSPECIFIED_DATA" id="e67">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="counterpartie" target="personal information" id="e68">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="counterpartie" target="UNSPECIFIED_DATA" id="e69">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="other" target="personal information" id="e70">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="other" target="UNSPECIFIED_DATA" id="e71">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="successor" target="personal information" id="e72">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="successor" target="UNSPECIFIED_DATA" id="e73">
+  <data key="d2">COLLECT</data>
+  <data key="d3">: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.
+: If we are involved in strategic transactions, reorganization, bankruptcy, receivership, or transition of service to another provider (collectively, a "Transaction"), your Personal Data and other information may be disclosed in the diligence process with counterparties and others assisting with the Transaction and transferred to a successor or affiliate as part of that Transaction along with other assets.</data>
+</edge>
+<edge source="business transfer" target="personal information" id="e74">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In certain circumstances we may disclose your Personal Data to: Business Transfers</data>
+</edge>
+<edge source="government authority" target="personal information" id="e75">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In certain circumstances we may disclose your Personal Data to: Government Authorities or Other Third Parties : We may share your Personal Data, including information about your interaction with our Services, with government authorities, industry peers, or other third parties in compliance with the law (i) if required to do so by law or in the good faith belief that such action is necessary to comply with a legal obligation, (ii) to protect and defend our rights or property, (iii) if we determine, in our sole discretion, that there is a violation of our terms, policies, or the law; (iv) to detect or prevent fraud or other illegal activity; (v) to protect the safety, security, and integrity of our products, employees, or users, or the public, or (vi) to protect against legal liability.</data>
+</edge>
+<edge source="administrator of account" target="openai account" id="e76">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you join a ChatGPT Enterprise or business account, the administrator of that account may access and control your OpenAI account.
+When you join a ChatGPT Enterprise or business account, the administrator of that account may access and control your OpenAI account.</data>
+</edge>
+<edge source="business account administrator" target="personal information" id="e77">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In certain circumstances we may disclose your Personal Data to: Business Account Administrators</data>
+</edge>
+</graph></graphml>

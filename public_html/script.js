@@ -323,76 +323,263 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     // Fetch the Excel file and process it
-    fetch(who + '_nodes.xlsx')
-        .then(response => response.arrayBuffer())
+    // fetch(who + '_nodes.xlsx')
+    //     .then(response => response.arrayBuffer())
+    //     .then(data => {
+    //         const workbook = XLSX.read(data, { type: 'array' });
+    //         const firstSheetName = workbook.SheetNames[0];
+    //         const worksheet = workbook.Sheets[firstSheetName];
+    //         entities = XLSX.utils.sheet_to_json(worksheet);
+    //         processDataEntities(entities);
+    //         return processActorEntities(entities);
+    //     })
+    //     .then(() => {
+    //         console.log("Actor entities processed (and XML files loaded)");
+
+    //         // Load and process edges.csv
+    //         return d3.csv(who + '_edges.csv').then(edges => {
+    //             edges.forEach(edge => {
+
+    //                 let [actorName, dataName] = edge.name.split(' (-) ');
+
+    //                 const actorsEntities = entities.filter(d => d.type === 'ACTOR');
+    //                 const dataEntities = entities.filter(d => d.type === 'DATA');
+
+    //                 let actorCategory = actorsEntities.find(d => d.label === actorName)?.category;
+
+    //                 if (!actorCategory) {
+    //                     console.error(`Actor category for ${actorName} not found.`);
+    //                     return;
+    //                 }
+    //                 let cleanActorCategory = removeSpaces(actorCategory.toUpperCase());
+    //                 originalNames[cleanActorCategory] = actorCategory;
+
+
+    //                 if (!actorDataMap[cleanActorCategory]) {
+    //                     actorDataMap[cleanActorCategory] = {};
+    //                 }
+
+    //                 console.log("dataName: " + dataName);
+    //                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
+    //                 if (!dataCategory) {
+    //                     console.error(`Data category for ${dataCategory} not found.`);
+    //                     return;
+    //                 }
+
+    //                 let cleanDataCategory = removeSpaces(dataCategory.toUpperCase());
+    //                 originalNames[cleanDataCategory] = dataCategory;
+
+    //                 if (!actorDataMap[cleanActorCategory][cleanDataCategory]) {
+    //                     actorDataMap[cleanActorCategory][cleanDataCategory] = [];
+    //                 }
+
+    //                 actorDataMap[cleanActorCategory][cleanDataCategory].push({
+    //                     name: dataName,
+    //                     text: edge.text
+    //                 });
+    //             });
+
+    //             console.log("***************** actorDataMap *****************");
+    //             console.log(actorDataMap);
+
+    //         });
+    //     })
+    //     .then(() => {
+    //         addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
+    //     })
+    //     .catch(error => console.error('Error processing entities:', error));
+
+
+
+
+    const actorCategories = {
+        "Advertisers": ["advertiser"],
+        "Analytic Providers": ["analytic provider", "gemini"],
+        "Corporations": ["Amazon.com", "Google", "Microsoft", "amazon", "Facebook", "x", "youtube", "Samsung"],
+        "Geographic Entities": ["republic of korea", "country with adequacy decision", "country list"],
+        "We": ["we", "chatgpt"],
+        "Researchers": ["researcher", "independent researcher"],
+        "Law Enforcement": ["law enforcement agency"],
+        "Service Providers": [
+            "service provider", "provider of hosting service", "customer service vendor",
+            "cloud service", "content delivery service", "datum warehouse service", "support monitoring service",
+            "email communication software", "payment provider", "information technology service provider",
+            "network", "wireless carrier"
+        ],
+        "Commercial Entities": ["physical store", "imdbpro", "prime video"],
+        "Other": [
+            "UNSPECIFIED_ACTOR", "page", "ad", "action take on website", "financing partner",
+            "Medium", "social media", "counterpartie", "other", "successor",
+            "business transfer", "government authority", "administrator of account", "business account administrator",
+            "merchant", "public authority", "company in eea", "tiktok", "entity within corporate group",
+            "creator", "measurement"
+        ]
+    };
+    
+    const dataCategories = {
+        "Identifiers": [
+            "advertising id", "cookie / pixel tag", "email address", "device identifier", 
+            "personal identifier", "ip address"
+        ],
+        "Personal Information": [
+            "personal information", "information you give we", "contact information"
+        ],
+        "Aggregated & Inferred Data": [
+            "aggregated / deidentified / pseudonymized information", "inference", 
+            "aggregate statistic", "aggregate demographic information about follower"
+        ],
+        "Metadata": ["metadata", "associate metadata"],
+        "Media Content": ["media content", "video content"],
+        "General Data": [
+            "information about interaction with product available", "UNSPECIFIED_DATA", 
+            "information you send we", "identity", "relate information", "crash report", 
+            "performance log", "device model", "operating system", "keystroke pattern", 
+            "rhythm", "system language", "technical information", "sim card", "coarse geolocation", 
+            "information about", "information about content you view", "engagement with user", 
+            "setting", "information about you", "profile information", "user content", 
+            "category of information", "information we have", "public profile information", 
+            "profile", "contact", "information from form you use", "collect information", 
+            "characteristic", "content characteristic", "basic account information", 
+            "information describe in", "information we collect", "information about processing", 
+            "information describe in information we collect section", "purchase information", 
+            "infer information"
+        ],
+        "Behavioral Data": [
+            "usage information", "behavioral data"
+        ],
+        "Location Data": [
+            "location", "geolocation", "point of interest"
+        ],
+        "Tracking": ["tracking"],
+        "Message Data": [
+            "message data", "message", "direct message", "content of message", "message you send"
+        ],
+        "Technical Data": [
+            "technical data", "technical information about device"
+        ],
+        "Financial Data": [
+            "financial data", "information about purchase transaction", 
+            "credit / debit card number", "payment confirmation detail", "order item", "delivery information"
+        ]
+    };
+    
+
+
+
+
+
+
+    fetch(who + '.graphml')
+        .then(response => response.text())
         .then(data => {
-            const workbook = XLSX.read(data, { type: 'array' });
-            const firstSheetName = workbook.SheetNames[0];
-            const worksheet = workbook.Sheets[firstSheetName];
-            entities = XLSX.utils.sheet_to_json(worksheet);
-            processDataEntities(entities);
-            return processActorEntities(entities);
-        })
-        .then(() => {
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(data, 'application/xml');
+
+            const nodes = Array.from(xmlDoc.querySelectorAll('node')).map(node => ({
+                id: node.getAttribute('id'),
+                label: node.getAttribute('id'),
+                category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? 'Other' : 'Personal Information',
+                type: node.querySelector('data[key="d1"]')?.textContent,
+                name: node.querySelector('data[key="d0"]')?.textContent,
+                Indegree: 0  // Initialize Indegree as 0, will be computed later
+            }));
+
+            console.log("nodes");
+            console.log(nodes);
+
+            entities = nodes;
+
             console.log("Actor entities processed (and XML files loaded)");
 
-            // Load and process edges.csv
-            return d3.csv(who + '_edges.csv').then(edges => {
-                edges.forEach(edge => {
+            // Load and process edges from GraphML
+            const edges = Array.from(xmlDoc.querySelectorAll('edge'))
+                .filter(edge => edge.querySelector('data[key="d2"]')?.textContent === 'COLLECT')
+                .map(edge => ({
+                    source: edge.getAttribute('source'),
+                    target: edge.getAttribute('target'),
+                    text: edge.querySelector('data[key="d3"]')?.textContent || '',
+                    category: 'Other',
+                }));
 
-                    let [actorName, dataName] = edge.name.split(' (-) ');
-
-                    const actorsEntities = entities.filter(d => d.type === 'ACTOR');
-                    const dataEntities = entities.filter(d => d.type === 'DATA');
-
-                    let actorCategory = actorsEntities.find(d => d.label === actorName)?.category;
-
-                    if (!actorCategory) {
-                        console.error(`Actor category for ${actorName} not found.`);
-                        return;
-                    }
-                    let cleanActorCategory = removeSpaces(actorCategory.toUpperCase());
-                    originalNames[cleanActorCategory] = actorCategory;
-
-
-                    if (!actorDataMap[cleanActorCategory]) {
-                        actorDataMap[cleanActorCategory] = {};
-                    }
-
-                    console.log("dataName: " + dataName);
-                    let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
-                    if (!dataCategory) {
-                        console.error(`Data category for ${dataCategory} not found.`);
-                        return;
-                    }
-
-                    let cleanDataCategory = removeSpaces(dataCategory.toUpperCase());
-                    originalNames[cleanDataCategory] = dataCategory;
-
-                    if (!actorDataMap[cleanActorCategory][cleanDataCategory]) {
-                        actorDataMap[cleanActorCategory][cleanDataCategory] = [];
-                    }
-
-                    actorDataMap[cleanActorCategory][cleanDataCategory].push({
-                        name: dataName,
-                        text: edge.text
-                    });
-                });
-
-                console.log("***************** actorDataMap *****************");
-                console.log(actorDataMap);
-
+            // Compute Indegree for each node
+            edges.forEach(edge => {
+                const targetNode = entities.find(node => node.id === edge.target);
+                if (targetNode) {
+                    targetNode.Indegree += 1;
+                }
             });
+
+            console.log("Updated nodes with Indegree");
+            console.log(entities);
+
+            edges.forEach(edge => {
+                const actorName = edge.source;
+                const dataName = edge.target;
+
+                let actorCategory = edge.category;
+
+                if (!actorCategory) {
+                    console.error(`Actor category for ${actorName} not found.`);
+                    return;
+                }
+                let cleanActorCategory = removeSpaces(actorCategory.toUpperCase());
+                originalNames[cleanActorCategory] = actorCategory;
+
+                if (!actorDataMap[cleanActorCategory]) {
+                    actorDataMap[cleanActorCategory] = {};
+                }
+
+                const dataEntities = entities.filter(d => d.type === 'DATA');
+                console.log("dataEntities:");
+                console.log(dataEntities);
+
+                console.log("dataName: " + dataName);
+                let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
+                if (!dataCategory) {
+                    console.error(`Data category for ${dataCategory} not found.`);
+                    return;
+                }
+
+                let cleanDataCategory = removeSpaces(dataCategory.toUpperCase());
+                originalNames[cleanDataCategory] = dataCategory;
+
+                if (!actorDataMap[cleanActorCategory][cleanDataCategory]) {
+                    actorDataMap[cleanActorCategory][cleanDataCategory] = [];
+                }
+
+                actorDataMap[cleanActorCategory][cleanDataCategory].push({
+                    name: dataName,
+                    text: edge.text
+                });
+            });
+
+            console.log("***************** actorDataMap *****************");
+            console.log(actorDataMap);
+
+            processActorEntities(entities);
+            processDataEntities(entities);
+
         })
         .then(() => {
             addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
         })
-        .catch(error => console.error('Error processing entities:', error));
+
+
+
+
+
+
+
+
+
 
     function processActorEntities(entities) {
 
         // Actor entities
         const actorsEntities = entities.filter(d => d.type === 'ACTOR');
+
+        console.log("actorsEntities:");
+        console.log(actorsEntities);
 
         const excludedCategoryName = "WeXXXX";  // Name of the category to exclude
         const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
@@ -571,6 +758,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function processDataEntities(entities) {
 
         const dataEntities = entities.filter(d => d.type === 'DATA');
+
+        console.log("dataEntities:");
+        console.log(dataEntities);
 
         document.querySelector("#piecesOfData").textContent = dataEntities.length;
 
@@ -1775,6 +1965,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Function to split text into multiple lines based on rectangle dimension
     function splitText(text, maxDimension) {
+
+        console.log("*** text " + text);
+
         text = text.trim();
         text = text.charAt(0).toUpperCase() + text.slice(1);
 

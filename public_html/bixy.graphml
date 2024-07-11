@@ -1,0 +1,461 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d3" for="edge" attr.name="text" attr.type="string"/>
+<key id="d2" for="edge" attr.name="relationship" attr.type="string"/>
+<key id="d1" for="node" attr.name="type" attr.type="string"/>
+<key id="d0" for="node" attr.name="label" attr.type="string"/>
+<graph edgedefault="directed"><node id="contact information">
+  <data key="d0">contact information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="phone number">
+  <data key="d0">phone number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="email address">
+  <data key="d0">email address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="serial number">
+  <data key="d0">serial number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="cookie / pixel tag">
+  <data key="d0">cookie / pixel tag</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="imei">
+  <data key="d0">imei</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Samsung">
+  <data key="d0">Samsung</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="publicly available information">
+  <data key="d0">publicly available information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information from social network you use">
+  <data key="d0">information from social network you use</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal information">
+  <data key="d0">personal information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="we">
+  <data key="d0">we</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="UNSPECIFIED_DATA">
+  <data key="d0">UNSPECIFIED_DATA</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="advertiser">
+  <data key="d0">advertiser</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="republic of korea">
+  <data key="d0">republic of korea</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="page">
+  <data key="d0">page</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="ad">
+  <data key="d0">ad</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="action take on website">
+  <data key="d0">action take on website</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="UNSPECIFIED_ACTOR">
+  <data key="d0">UNSPECIFIED_ACTOR</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="service provider">
+  <data key="d0">service provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="financing partner">
+  <data key="d0">financing partner</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="biometric information">
+  <data key="d0">biometric information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="network">
+  <data key="d0">network</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information about use of service">
+  <data key="d0">information about use of service</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="geolocation">
+  <data key="d0">geolocation</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="router ssid">
+  <data key="d0">router ssid</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="precise geolocation">
+  <data key="d0">precise geolocation</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="zip code">
+  <data key="d0">zip code</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="postal code">
+  <data key="d0">postal code</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="recording of voice">
+  <data key="d0">recording of voice</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="voice command">
+  <data key="d0">voice command</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about you you choose">
+  <data key="d0">information about you you choose</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="browsing / search history">
+  <data key="d0">browsing / search history</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="internet activity">
+  <data key="d0">internet activity</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information we obtain">
+  <data key="d0">information we obtain</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information we collect">
+  <data key="d0">information we collect</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information we collect about you from service">
+  <data key="d0">information we collect about you from service</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information you provide through source">
+  <data key="d0">information you provide through source</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about">
+  <data key="d0">information about</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="wireless carrier">
+  <data key="d0">wireless carrier</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information about you">
+  <data key="d0">information about you</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="beacon">
+  <data key="d0">beacon</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="tracking pixel">
+  <data key="d0">tracking pixel</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about use of services">
+  <data key="d0">information about use of services</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="sign information">
+  <data key="d0">sign information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal information about united states resident">
+  <data key="d0">personal information about united states resident</data>
+  <data key="d1">DATA</data>
+</node>
+<edge source="contact information" target="email address" id="e0">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">For example: When you create an account or profile with us, we ask for information such as your name, date of birth, or contact information such as phone number and email address.
+For example: When you create an account or profile with us, we ask for information such as your name, date of birth, or contact information such as phone number and email address.</data>
+</edge>
+<edge source="contact information" target="phone number" id="e1">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">For example: When you create an account or profile with us, we ask for information such as your name, date of birth, or contact information such as phone number and email address.
+For example: When you create an account or profile with us, we ask for information such as your name, date of birth, or contact information such as phone number and email address.</data>
+</edge>
+<edge source="Samsung" target="personal information" id="e2">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Samsung processes personal information for the purposes described above.
+Samsung processes personal information for the purposes described above.</data>
+</edge>
+<edge source="publicly available information" target="information from social network you use" id="e3">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We sometimes gather publicly or commercially available information, including information from social networks you use, and combine this with other information about you so that we can better understand your needs, interests, and preferences.
+We sometimes gather publicly or commercially available information, including information from social networks you use, and combine this with other information about you so that we can better understand your needs, interests, and preferences.</data>
+</edge>
+<edge source="we" target="Samsung" id="e4">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">* to protect the legal rights and interests, property, or safety of Samsung Electronics, or any of our affiliates, business partners, or customers, including protecting against, identifying, and preventing fraud and other criminal activity, claims, and other liabilities;
+* to protect the legal rights and interests, property, or safety of Samsung Electronics, or any of our affiliates, business partners, or customers, including protecting against, identifying, and preventing fraud and other criminal activity, claims, and other liabilities;</data>
+</edge>
+<edge source="we" target="phone number" id="e5">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example: If you share your contacts, we will collect their phone numbers and other contact information to facilitate file sharing and messaging.
+For example: If you share your contacts, we will collect their phone numbers and other contact information to facilitate file sharing and messaging.</data>
+</edge>
+<edge source="we" target="contact information" id="e6">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example: If you share your contacts, we will collect their phone numbers and other contact information to facilitate file sharing and messaging.
+For example: If you share your contacts, we will collect their phone numbers and other contact information to facilitate file sharing and messaging.</data>
+</edge>
+<edge source="we" target="information about use of service" id="e7">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition to the information you provide, we collect information about your use of our Services through software on your devices and by other means.
+In addition to the information you provide, we collect information about your use of our Services through software on your devices and by other means.</data>
+</edge>
+<edge source="we" target="geolocation" id="e8">
+  <data key="d2">COLLECT</data>
+  <data key="d3">3. Location information: Information about nearby WiFi access points, cell towers, and, with your separate consent, precise geolocation, may be transmitted to us when you use certain Services.
+3. Location information: Information about nearby WiFi access points, cell towers, and, with your separate consent, precise geolocation, may be transmitted to us when you use certain Services.
+In addition, for certain Services, zip codes or postal codes and inferred locations using IP addresses may be transmitted to us when you use such Services.
+In addition, for certain Services, zip codes or postal codes and inferred locations using IP addresses may be transmitted to us when you use such Services.</data>
+</edge>
+<edge source="we" target="router ssid" id="e9">
+  <data key="d2">COLLECT</data>
+  <data key="d3">3. Location information: Information about nearby WiFi access points, cell towers, and, with your separate consent, precise geolocation, may be transmitted to us when you use certain Services.
+3. Location information: Information about nearby WiFi access points, cell towers, and, with your separate consent, precise geolocation, may be transmitted to us when you use certain Services.</data>
+</edge>
+<edge source="we" target="precise geolocation" id="e10">
+  <data key="d2">COLLECT</data>
+  <data key="d3">3. Location information: Information about nearby WiFi access points, cell towers, and, with your separate consent, precise geolocation, may be transmitted to us when you use certain Services.
+3. Location information: Information about nearby WiFi access points, cell towers, and, with your separate consent, precise geolocation, may be transmitted to us when you use certain Services.</data>
+</edge>
+<edge source="we" target="zip code" id="e11">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition, for certain Services, zip codes or postal codes and inferred locations using IP addresses may be transmitted to us when you use such Services.
+In addition, for certain Services, zip codes or postal codes and inferred locations using IP addresses may be transmitted to us when you use such Services.</data>
+</edge>
+<edge source="we" target="postal code" id="e12">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition, for certain Services, zip codes or postal codes and inferred locations using IP addresses may be transmitted to us when you use such Services.
+In addition, for certain Services, zip codes or postal codes and inferred locations using IP addresses may be transmitted to us when you use such Services.</data>
+</edge>
+<edge source="we" target="recording of voice" id="e13">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also collect and store recordings of your voice when you contact our Customer Service team.
+We also collect and store recordings of your voice when you contact our Customer Service team.</data>
+</edge>
+<edge source="we" target="publicly available information" id="e14">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We sometimes gather publicly or commercially available information, including information from social networks you use, and combine this with other information about you so that we can better understand your needs, interests, and preferences.
+We sometimes gather publicly or commercially available information, including information from social networks you use, and combine this with other information about you so that we can better understand your needs, interests, and preferences.</data>
+</edge>
+<edge source="we" target="personal information" id="e15">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We obtain information, including personal information, from third parties and sources other than our Services, such as our business customers and partners.
+We obtain information, including personal information, from third parties and sources other than our Services, such as our business customers and partners.
+We may transfer your personal information to countries which have been found to provide adequate protection of personal information by the relevant data protection authority, including the Republic of Korea.
+We may transfer your personal information to countries which have been found to provide adequate protection of personal information by the relevant data protection authority, including the Republic of Korea.
+You have the right to data portability, which means you can ask us to provide your personal information to you or a third party in a machine-readable format.
+You have the right to data portability, which means you can ask us to provide your personal information to you or a third party in a machine-readable format.
+To serve interest-based ads, we may share your personal information by allowing certain third parties (such as online advertising services) to collect your personal information via automated technologies and server-to-server connections on the Services.
+To serve interest-based ads, we may share your personal information by allowing certain third parties (such as online advertising services) to collect your personal information via automated technologies and server-to-server connections on the Services.</data>
+</edge>
+<edge source="we" target="information about you you choose" id="e16">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also collect other information about you, your devices, or your use of Services that you choose to send us.
+We also collect other information about you, your devices, or your use of Services that you choose to send us.</data>
+</edge>
+<edge source="we" target="internet activity" id="e17">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Through certain Services, we collect personal information about your online activities on websites and connected devices over time and across third-party websites, devices, apps, and other online features and services through cookies and similar technologies.
+Through certain Services, we collect personal information about your online activities on websites and connected devices over time and across third-party websites, devices, apps, and other online features and services through cookies and similar technologies.
+Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.
+Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.</data>
+</edge>
+<edge source="we" target="browsing / search history" id="e18">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Through certain Services, we collect personal information about your online activities on websites and connected devices over time and across third-party websites, devices, apps, and other online features and services through cookies and similar technologies.
+Through certain Services, we collect personal information about your online activities on websites and connected devices over time and across third-party websites, devices, apps, and other online features and services through cookies and similar technologies.
+Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.
+Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.</data>
+</edge>
+<edge source="we" target="information we collect" id="e19">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We use the information we collect for the following purposes.
+We use the information we collect for the following purposes.</data>
+</edge>
+<edge source="we" target="imei" id="e20">
+  <data key="d2">COLLECT</data>
+  <data key="d3">* to ensure product safety and to prevent fraud when your products are out of warranty (in such cases, we will collect your IMEI and serial number);
+* to ensure product safety and to prevent fraud when your products are out of warranty (in such cases, we will collect your IMEI and serial number);</data>
+</edge>
+<edge source="we" target="serial number" id="e21">
+  <data key="d2">COLLECT</data>
+  <data key="d3">* to ensure product safety and to prevent fraud when your products are out of warranty (in such cases, we will collect your IMEI and serial number);
+* to ensure product safety and to prevent fraud when your products are out of warranty (in such cases, we will collect your IMEI and serial number);</data>
+</edge>
+<edge source="we" target="information we collect about you from service" id="e22">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We use and combine the information we collect about you from our Services, devices, or other sources for the purposes described above.
+We use and combine the information we collect about you from our Services, devices, or other sources for the purposes described above.</data>
+</edge>
+<edge source="we" target="information you provide through source" id="e23">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also use the information you provide directly or through other sources as described above to provide content you may like or that you have personalized.
+We also use the information you provide directly or through other sources as described above to provide content you may like or that you have personalized.</data>
+</edge>
+<edge source="we" target="information about" id="e24">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When we ask for your consent, we will give you information about what information we are using, and how you can revoke your consent.
+When we ask for your consent, we will give you information about what information we are using, and how you can revoke your consent.</data>
+</edge>
+<edge source="we" target="UNSPECIFIED_DATA" id="e25">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As you use our Services, we share the types of information we collect (as described in the WHAT INFORMATION DO WE COLLECT? section above) to the following entities, for the purposes described above.
+As you use our Services, we share the types of information we collect (as described in the WHAT INFORMATION DO WE COLLECT? section above) to the following entities, for the purposes described above.
+For example, we may share your information with wireless carriers or financing partners when you apply for and use credit or financing programs.
+For example, we may share your information with wireless carriers or financing partners when you apply for and use credit or financing programs.
+We may disclose your information to a third party as part of a merger or transfer, acquisition or sale, or in the event of a bankruptcy.
+We may disclose your information to a third party as part of a merger or transfer, acquisition or sale, or in the event of a bankruptcy.
+Please note that there are legal exceptions and limitations to each of these rights, and we may need to retain information for backups, archiving, prevention of fraud and abuse, compliance with legal obligations, or where we otherwise have a legitimate and legal reason to do so.
+Please note that there are legal exceptions and limitations to each of these rights, and we may need to retain information for backups, archiving, prevention of fraud and abuse, compliance with legal obligations, or where we otherwise have a legitimate and legal reason to do so.
+For some apps and services, including social networks, we receive and store sign-in information, as well as other information that you allow us to receive when you connect with these apps and services.
+For some apps and services, including social networks, we receive and store sign-in information, as well as other information that you allow us to receive when you connect with these apps and services.</data>
+</edge>
+<edge source="we" target="information about you" id="e26">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition to the disclosures described in this Privacy Policy, we share information about you with third parties when you separately consent to or request such sharing.
+In addition to the disclosures described in this Privacy Policy, we share information about you with third parties when you separately consent to or request such sharing.</data>
+</edge>
+<edge source="we" target="sign information" id="e27">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For some apps and services, including social networks, we receive and store sign-in information, as well as other information that you allow us to receive when you connect with these apps and services.
+For some apps and services, including social networks, we receive and store sign-in information, as well as other information that you allow us to receive when you connect with these apps and services.</data>
+</edge>
+<edge source="we" target="personal information about united states resident" id="e28">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition to the purposes described above in the HOW DO WE USE YOUR INFORMATION SECTION? we may also use personal information about United States residents for other purposes, such as to develop and train our artificial intelligence algorithms and models.
+In addition to the purposes described above in the HOW DO WE USE YOUR INFORMATION SECTION? we may also use personal information about United States residents for other purposes, such as to develop and train our artificial intelligence algorithms and models.</data>
+</edge>
+<edge source="advertiser" target="page" id="e29">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.
+The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.</data>
+</edge>
+<edge source="advertiser" target="action take on website" id="e30">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.
+The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.</data>
+</edge>
+<edge source="advertiser" target="ad" id="e31">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.
+The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.</data>
+</edge>
+<edge source="advertiser" target="UNSPECIFIED_DATA" id="e32">
+  <data key="d2">COLLECT</data>
+  <data key="d3">The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.
+The information our ad networks may collect includes data about users' visits to websites and apps that participate in the relevant ad networks, such as the pages or ads viewed and the actions taken on the websites or apps.</data>
+</edge>
+<edge source="advertiser" target="personal information" id="e33">
+  <data key="d2">COLLECT</data>
+  <data key="d3">To serve interest-based ads, we may share your personal information by allowing certain third parties (such as online advertising services) to collect your personal information via automated technologies and server-to-server connections on the Services.
+To serve interest-based ads, we may share your personal information by allowing certain third parties (such as online advertising services) to collect your personal information via automated technologies and server-to-server connections on the Services.</data>
+</edge>
+<edge source="republic of korea" target="personal information" id="e34">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In particular, your personal information will be transferred to the Republic of Korea.
+In particular, your personal information will be transferred to the Republic of Korea.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="voice command" id="e35">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Note that if we work with a third party service rovider that provides speech-to-text conversion services or call center services on our behalf, this provider may also receive and store certain voice commands in accordance with the contract concluded between us and the trusted third-party service provider.
+Note that if we work with a third party service rovider that provides speech-to-text conversion services or call center services on our behalf, this provider may also receive and store certain voice commands in accordance with the contract concluded between us and the trusted third-party service provider.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="information we obtain" id="e36">
+  <data key="d2">COLLECT</data>
+  <data key="d3">The information we obtain may be disclosed to or collected directly by these providers and other relevant third parties who use the information, for example, to evaluate use of the Services, help administer the Services, and diagnose technical issues.
+The information we obtain may be disclosed to or collected directly by these providers and other relevant third parties who use the information, for example, to evaluate use of the Services, help administer the Services, and diagnose technical issues.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="UNSPECIFIED_DATA" id="e37">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may disclose your information to a third party as part of a merger or transfer, acquisition or sale, or in the event of a bankruptcy.
+We may disclose your information to a third party as part of a merger or transfer, acquisition or sale, or in the event of a bankruptcy.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="information about you" id="e38">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition to the disclosures described in this Privacy Policy, we share information about you with third parties when you separately consent to or request such sharing.
+In addition to the disclosures described in this Privacy Policy, we share information about you with third parties when you separately consent to or request such sharing.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="personal information" id="e39">
+  <data key="d2">COLLECT</data>
+  <data key="d3">You have the right to data portability, which means you can ask us to provide your personal information to you or a third party in a machine-readable format.
+You have the right to data portability, which means you can ask us to provide your personal information to you or a third party in a machine-readable format.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="biometric information" id="e40">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition to the categories of personal information Samsung may obtain described above, certain Services may use your biometric data that is stored on your device to provide product or service functionality (e.g. use your fingerprint data to unlock your device or grant you access to certain Services, or your voiceprint data to create a customized Bixby Voice wake-up command).
+In addition to the categories of personal information Samsung may obtain described above, certain Services may use your biometric data that is stored on your device to provide product or service functionality (e.g. use your fingerprint data to unlock your device or grant you access to certain Services, or your voiceprint data to create a customized Bixby Voice wake-up command).</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="internet activity" id="e41">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.
+Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="browsing / search history" id="e42">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.
+Through certain Services, both we and various third parties may collect information about your online activities to provide you with advertising about products and services tailored to your individual interests.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="cookie / pixel tag" id="e43">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Some of the content, advertising, and functionality in our Services is provided by third parties.
+These third parties may use cookies, beacons, tracking pixels, and other tools to collect information about your use of these Services.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="beacon" id="e44">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Some of the content, advertising, and functionality in our Services is provided by third parties.
+These third parties may use cookies, beacons, tracking pixels, and other tools to collect information about your use of these Services.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="tracking pixel" id="e45">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Some of the content, advertising, and functionality in our Services is provided by third parties.
+These third parties may use cookies, beacons, tracking pixels, and other tools to collect information about your use of these Services.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="information about use of services" id="e46">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Some of the content, advertising, and functionality in our Services is provided by third parties.
+These third parties may use cookies, beacons, tracking pixels, and other tools to collect information about your use of these Services.</data>
+</edge>
+<edge source="service provider" target="information we obtain" id="e47">
+  <data key="d2">COLLECT</data>
+  <data key="d3">The service providers that administer these analytics services help us to analyze your use of the Services and to improve the Services.
+The information we obtain may be disclosed to or collected directly by these providers and other relevant third parties who use the information, for example, to evaluate use of the Services, help administer the Services, and diagnose technical issues.</data>
+</edge>
+<edge source="financing partner" target="UNSPECIFIED_DATA" id="e48">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, we may share your information with wireless carriers or financing partners when you apply for and use credit or financing programs.
+For example, we may share your information with wireless carriers or financing partners when you apply for and use credit or financing programs.</data>
+</edge>
+<edge source="network" target="UNSPECIFIED_DATA" id="e49">
+  <data key="d2">COLLECT</data>
+  <data key="d3">These networks can track users' online activities over time by collecting information through automated means, including through the use of browser cookies, web beacons, pixels, device identifiers, server logs, and other similar technologies.
+The networks use this information to show ads that may be tailored to individuals' interests, to track users' browsers or devices across multiple websites and apps, and to build a profile of users' online browsing and app usage activities.</data>
+</edge>
+<edge source="wireless carrier" target="UNSPECIFIED_DATA" id="e50">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, we may share your information with wireless carriers or financing partners when you apply for and use credit or financing programs.
+For example, we may share your information with wireless carriers or financing partners when you apply for and use credit or financing programs.</data>
+</edge>
+</graph></graphml>

@@ -1,0 +1,794 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d3" for="edge" attr.name="text" attr.type="string"/>
+<key id="d2" for="edge" attr.name="relationship" attr.type="string"/>
+<key id="d1" for="node" attr.name="type" attr.type="string"/>
+<key id="d0" for="node" attr.name="label" attr.type="string"/>
+<graph edgedefault="directed"><node id="amazon">
+  <data key="d0">amazon</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="Amazon.com">
+  <data key="d0">Amazon.com</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="personal information">
+  <data key="d0">personal information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information you give we">
+  <data key="d0">information you give we</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about interaction with product available">
+  <data key="d0">information about interaction with product available</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="UNSPECIFIED_DATA">
+  <data key="d0">UNSPECIFIED_DATA</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="advertising id">
+  <data key="d0">advertising id</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="cookie / pixel tag">
+  <data key="d0">cookie / pixel tag</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="email address">
+  <data key="d0">email address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="specific shopping action">
+  <data key="d0">specific shopping action</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="product view">
+  <data key="d0">product view</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="person name">
+  <data key="d0">person name</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="postal address">
+  <data key="d0">postal address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="we">
+  <data key="d0">we</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="prime video">
+  <data key="d0">prime video</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="identify information">
+  <data key="d0">identify information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="phone number">
+  <data key="d0">phone number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="payment information">
+  <data key="d0">payment information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="geolocation">
+  <data key="d0">geolocation</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="ip address">
+  <data key="d0">ip address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="people">
+  <data key="d0">people</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="email to we">
+  <data key="d0">email to we</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal description">
+  <data key="d0">personal description</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="photograph">
+  <data key="d0">photograph</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="profile">
+  <data key="d0">profile</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="voiceprint">
+  <data key="d0">voiceprint</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="image">
+  <data key="d0">image</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="document regard identity">
+  <data key="d0">document regard identity</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="ssn">
+  <data key="d0">ssn</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="driver's license number">
+  <data key="d0">driver's license number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="corporate information">
+  <data key="d0">corporate information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="credit history information">
+  <data key="d0">credit history information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="configuration">
+  <data key="d0">configuration</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="wifi credential">
+  <data key="d0">wifi credential</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="device log file">
+  <data key="d0">device log file</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="automatic information">
+  <data key="d0">automatic information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="UNSPECIFIED_ACTOR">
+  <data key="d0">UNSPECIFIED_ACTOR</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information you access">
+  <data key="d0">information you access</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="recommendation">
+  <data key="d0">recommendation</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="product review">
+  <data key="d0">product review</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="reminder">
+  <data key="d0">reminder</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal profile">
+  <data key="d0">personal profile</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="communication with amazon employee">
+  <data key="d0">communication with amazon employee</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="return exchange item">
+  <data key="d0">return exchange item</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="carrier info">
+  <data key="d0">carrier info</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="shipping carrier information">
+  <data key="d0">shipping carrier information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="amazon business card">
+  <data key="d0">amazon business card</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="balance">
+  <data key="d0">balance</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="movie box office datum">
+  <data key="d0">movie box office datum</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="info entertainment professional need">
+  <data key="d0">info entertainment professional need</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="zappos shoe">
+  <data key="d0">zappos shoe</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="amazon subscription box">
+  <data key="d0">amazon subscription box</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="top subscription box">
+  <data key="d0">top subscription box</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="advertiser">
+  <data key="d0">advertiser</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="feedback">
+  <data key="d0">feedback</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information you provide in relation to amazon services">
+  <data key="d0">information you provide in relation to amazon services</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="identifier">
+  <data key="d0">identifier</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="physical store">
+  <data key="d0">physical store</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="sensor">
+  <data key="d0">sensor</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about you">
+  <data key="d0">information about you</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="voice input">
+  <data key="d0">voice input</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information regard place of establishment bank account information">
+  <data key="d0">information regard place of establishment bank account information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information regard place of establishment bank account information for identity verification">
+  <data key="d0">information regard place of establishment bank account information for identity verification</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="scoring method">
+  <data key="d0">scoring method</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal information relate to transaction">
+  <data key="d0">personal information relate to transaction</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="personal information need">
+  <data key="d0">personal information need</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="account">
+  <data key="d0">account</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="device identifier">
+  <data key="d0">device identifier</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="code">
+  <data key="d0">code</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="datum about event">
+  <data key="d0">datum about event</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="estimate">
+  <data key="d0">estimate</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="browsing">
+  <data key="d0">browsing</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="technical information">
+  <data key="d0">technical information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="imdbpro">
+  <data key="d0">imdbpro</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="order">
+  <data key="d0">order</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="shipping rate">
+  <data key="d0">shipping rate</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="age">
+  <data key="d0">age</data>
+  <data key="d1">DATA</data>
+</node>
+<edge source="amazon" target="Amazon.com" id="e0">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">This Privacy Notice describes how Amazon.com and its affiliates (collectively "Amazon") collect and process your personal information through Amazon websites, devices, products, services, online and physical stores, and applications that reference this Privacy Notice (together "Amazon Services").
+This Privacy Notice describes how Amazon.com and its affiliates (collectively "Amazon") collect and process your personal information through Amazon websites, devices, products, services, online and physical stores, and applications that reference this Privacy Notice (together "Amazon Services").</data>
+</edge>
+<edge source="amazon" target="personal information" id="e1">
+  <data key="d2">COLLECT</data>
+  <data key="d3">This Privacy Notice describes how Amazon.com and its affiliates (collectively "Amazon") collect and process your personal information through Amazon websites, devices, products, services, online and physical stores, and applications that reference this Privacy Notice (together "Amazon Services").
+This Privacy Notice describes how Amazon.com and its affiliates (collectively "Amazon") collect and process your personal information through Amazon websites, devices, products, services, online and physical stores, and applications that reference this Privacy Notice (together "Amazon Services").</data>
+</edge>
+<edge source="Amazon.com" target="personal information" id="e2">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share customers' personal information only as described below and with subsidiaries Amazon.com, Inc. controls that either are subject to this Privacy Notice or follow practices at least as protective as those described in this Privacy Notice.
+We share customers' personal information only as described below and with subsidiaries Amazon.com, Inc. controls that either are subject to this Privacy Notice or follow practices at least as protective as those described in this Privacy Notice.</data>
+</edge>
+<edge source="personal information" target="information you give we" id="e3">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Here are the types of personal information we collect: Information You Give Us: We receive and store any information you provide in relation to Amazon Services.</data>
+</edge>
+<edge source="specific shopping action" target="product view" id="e4">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.
+While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.</data>
+</edge>
+<edge source="we" target="prime video" id="e5">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">You provide information to us when you: use our services such as Prime Video;
+You provide information to us when you: use our services such as Prime Video;</data>
+</edge>
+<edge source="we" target="personal information" id="e6">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect your personal information in order to provide and continually improve our products and services.
+We collect your personal information in order to provide and continually improve our products and services.
+We use your personal information to operate, provide, develop, and improve the products and services that we offer our customers.
+We use your personal information to operate, provide, develop, and improve the products and services that we offer our customers.
+We use your personal information to take and handle orders, deliver products and services, process payments, and communicate with you about orders, products and services, and promotional offers.
+We use your personal information to take and handle orders, deliver products and services, process payments, and communicate with you about orders, products and services, and promotional offers.
+We use your personal information to provide functionality, analyze performance, fix errors, and improve the usability and effectiveness of the Amazon Services.
+We use your personal information to provide functionality, analyze performance, fix errors, and improve the usability and effectiveness of the Amazon Services.
+We use your personal information to recommend features, products, and services that might be of interest to you, identify your preferences, and personalize your experience with Amazon Services.
+We use your personal information to recommend features, products, and services that might be of interest to you, identify your preferences, and personalize your experience with Amazon Services.
+When you use our voice, image and camera services, we use your voice input, images, videos, and other personal information to respond to your requests, provide the requested service to you, and improve our services.
+When you use our voice, image and camera services, we use your voice input, images, videos, and other personal information to respond to your requests, provide the requested service to you, and improve our services.
+In certain cases, we collect and use your personal information to comply with laws.
+In certain cases, we collect and use your personal information to comply with laws.
+We use your personal information to communicate with you in relation to Amazon Services via different channels (e.g., by phone, email, chat).
+We use your personal information to communicate with you in relation to Amazon Services via different channels (e.g., by phone, email, chat).
+We use your personal information to display interest-based ads for features, products, and services that might be of interest to you.
+We use your personal information to display interest-based ads for features, products, and services that might be of interest to you.
+We use personal information to prevent and detect fraud and abuse in order to protect the security of our customers, Amazon, and others.
+We use personal information to prevent and detect fraud and abuse in order to protect the security of our customers, Amazon, and others.
+We share customers' personal information only as described below and with subsidiaries Amazon.com, Inc. controls that either are subject to this Privacy Notice or follow practices at least as protective as those described in this Privacy Notice.
+We share customers' personal information only as described below and with subsidiaries Amazon.com, Inc. controls that either are subject to this Privacy Notice or follow practices at least as protective as those described in this Privacy Notice.
+We release account and other personal information when we believe release is appropriate to comply with the law; enforce or apply our Conditions of Use and other agreements; or protect the rights, property, or safety of Amazon, our users, or others.
+We release account and other personal information when we believe release is appropriate to comply with the law; enforce or apply our Conditions of Use and other agreements; or protect the rights, property, or safety of Amazon, our users, or others.</data>
+</edge>
+<edge source="we" target="information you provide in relation to amazon services" id="e7">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Here are the types of personal information we collect: Information You Give Us: We receive and store any information you provide in relation to Amazon Services.
+Here are the types of personal information we collect: Information You Give Us: We receive and store any information you provide in relation to Amazon Services.</data>
+</edge>
+<edge source="we" target="information about interaction with product available" id="e8">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Automatic Information: We automatically collect and store certain types of information about your use of Amazon Services, including information about your interaction with products, content, and services available through Amazon Services.
+Automatic Information: We automatically collect and store certain types of information about your use of Amazon Services, including information about your interaction with products, content, and services available through Amazon Services.</data>
+</edge>
+<edge source="we" target="UNSPECIFIED_DATA" id="e9">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Like many websites, we use "cookies" and other unique identifiers, and we obtain certain types of information when your web browser or device accesses Amazon Services and other content served by or on behalf of Amazon on other websites.
+Like many websites, we use "cookies" and other unique identifiers, and we obtain certain types of information when your web browser or device accesses Amazon Services and other content served by or on behalf of Amazon on other websites.
+We provide ad companies with information that allows them to serve you with more useful and relevant Amazon ads and to measure their effectiveness.
+We provide ad companies with information that allows them to serve you with more useful and relevant Amazon ads and to measure their effectiveness.
+As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Let Us Help You
+
+Amazon Business Everything For Your Business</data>
+</edge>
+<edge source="we" target="cookie / pixel tag" id="e10">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Like many websites, we use "cookies" and other unique identifiers, and we obtain certain types of information when your web browser or device accesses Amazon Services and other content served by or on behalf of Amazon on other websites.
+Like many websites, we use "cookies" and other unique identifiers, and we obtain certain types of information when your web browser or device accesses Amazon Services and other content served by or on behalf of Amazon on other websites.
+To enable our systems to recognize your browser or device and to provide and improve Amazon Services, we use cookies and other identifiers.
+To enable our systems to recognize your browser or device and to provide and improve Amazon Services, we use cookies and other identifiers.
+Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.
+We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.</data>
+</edge>
+<edge source="we" target="identifier" id="e11">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Like many websites, we use "cookies" and other unique identifiers, and we obtain certain types of information when your web browser or device accesses Amazon Services and other content served by or on behalf of Amazon on other websites.
+Like many websites, we use "cookies" and other unique identifiers, and we obtain certain types of information when your web browser or device accesses Amazon Services and other content served by or on behalf of Amazon on other websites.
+To enable our systems to recognize your browser or device and to provide and improve Amazon Services, we use cookies and other identifiers.
+To enable our systems to recognize your browser or device and to provide and improve Amazon Services, we use cookies and other identifiers.</data>
+</edge>
+<edge source="we" target="information about you" id="e12">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Information from Other Sources: We might receive information about you from other sources, such as updated delivery and address information from our carriers, which we use to correct our records and deliver your next purchase more easily.
+Information from Other Sources: We might receive information about you from other sources, such as updated delivery and address information from our carriers, which we use to correct our records and deliver your next purchase more easily.</data>
+</edge>
+<edge source="we" target="voice input" id="e13">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you use our voice, image and camera services, we use your voice input, images, videos, and other personal information to respond to your requests, provide the requested service to you, and improve our services.
+When you use our voice, image and camera services, we use your voice input, images, videos, and other personal information to respond to your requests, provide the requested service to you, and improve our services.</data>
+</edge>
+<edge source="we" target="information regard place of establishment bank account information" id="e14">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For instance, we collect from sellers information regarding place of establishment and bank account information for identity verification and other purposes.
+For instance, we collect from sellers information regarding place of establishment and bank account information for identity verification and other purposes.</data>
+</edge>
+<edge source="we" target="information regard place of establishment bank account information for identity verification" id="e15">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For instance, we collect from sellers information regarding place of establishment and bank account information for identity verification and other purposes.
+For instance, we collect from sellers information regarding place of establishment and bank account information for identity verification and other purposes.</data>
+</edge>
+<edge source="we" target="scoring method" id="e16">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may also use scoring methods to assess and manage credit risks.
+We may also use scoring methods to assess and manage credit risks.</data>
+</edge>
+<edge source="we" target="personal information relate to transaction" id="e17">
+  <data key="d2">COLLECT</data>
+  <data key="d3">You can tell when a third party is involved in your transactions, and we share customers' personal information related to those transactions with that third party.
+You can tell when a third party is involved in your transactions, and we share customers' personal information related to those transactions with that third party.</data>
+</edge>
+<edge source="we" target="account" id="e18">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We release account and other personal information when we believe release is appropriate to comply with the law; enforce or apply our Conditions of Use and other agreements; or protect the rights, property, or safety of Amazon, our users, or others.
+We release account and other personal information when we believe release is appropriate to comply with the law; enforce or apply our Conditions of Use and other agreements; or protect the rights, property, or safety of Amazon, our users, or others.
+As a result of those actions, you might supply us with such information as:
+Your Account</data>
+</edge>
+<edge source="we" target="advertising id" id="e19">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+For example, if you have already downloaded one of our apps, we will share your advertising identifier and data about that event so that you will not be served an ad to download the app again.
+For example, if you have already downloaded one of our apps, we will share your advertising identifier and data about that event so that you will not be served an ad to download the app again.
+While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.
+While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.</data>
+</edge>
+<edge source="we" target="device identifier" id="e20">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.
+We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.</data>
+</edge>
+<edge source="we" target="code" id="e21">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.
+Instead, we use an advertising identifier like a cookie, a device identifier, or a code derived from applying irreversible cryptography to other information like an email address.</data>
+</edge>
+<edge source="we" target="datum about event" id="e22">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, if you have already downloaded one of our apps, we will share your advertising identifier and data about that event so that you will not be served an ad to download the app again.
+For example, if you have already downloaded one of our apps, we will share your advertising identifier and data about that event so that you will not be served an ad to download the app again.</data>
+</edge>
+<edge source="we" target="estimate" id="e23">
+  <data key="d2">COLLECT</data>
+  <data key="d3">While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.
+While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.</data>
+</edge>
+<edge source="we" target="document regard identity" id="e24">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: information and documents regarding identity, including Social Security and driver's license numbers;
+As a result of those actions, you might supply us with such information as: information and documents regarding identity, including Social Security and driver's license numbers;</data>
+</edge>
+<edge source="we" target="email address" id="e25">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: email addresses of your friends and other people;</data>
+</edge>
+<edge source="we" target="amazon subscription box" id="e26">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Let Us Help You
+
+Amazon Subscription Boxes Top subscription boxes - right to your door</data>
+</edge>
+<edge source="we" target="automatic information" id="e27">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Automatic Information</data>
+</edge>
+<edge source="we" target="communication with amazon employee" id="e28">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Communications with Amazon Employees</data>
+</edge>
+<edge source="we" target="device log file" id="e29">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: device log files and configurations, including WiFi credentials, if you choose to automatically synchronize them with your other Amazon devices.</data>
+</edge>
+<edge source="we" target="amazon business card" id="e30">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Amazon Payment Products
+
+Amazon Business Card</data>
+</edge>
+<edge source="we" target="phone number" id="e31">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: people, addresses and phone numbers listed in your Addresses;</data>
+</edge>
+<edge source="we" target="payment information" id="e32">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: payment information;</data>
+</edge>
+<edge source="we" target="movie box office datum" id="e33">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Box Office Mojo Find Movie Box Office Data</data>
+</edge>
+<edge source="we" target="image" id="e34">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: images and videos collected or stored in connection with Amazon Services;</data>
+</edge>
+<edge source="we" target="age" id="e35">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: your age;</data>
+</edge>
+<edge source="we" target="configuration" id="e36">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: device log files and configurations, including WiFi credentials, if you choose to automatically synchronize them with your other Amazon devices.</data>
+</edge>
+<edge source="we" target="zappos shoe" id="e37">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Let Us Help You
+
+Zappos Shoes &amp; Clothing</data>
+</edge>
+<edge source="we" target="people" id="e38">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: people, addresses and phone numbers listed in your Addresses;</data>
+</edge>
+<edge source="we" target="return exchange item" id="e39">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Returns &amp; Refunds Exchange or return items</data>
+</edge>
+<edge source="we" target="identify information" id="e40">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;</data>
+</edge>
+<edge source="we" target="carrier info" id="e41">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Carrier Info Shipping carrier information</data>
+</edge>
+<edge source="we" target="information you access" id="e42">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Information You Can Access</data>
+</edge>
+<edge source="we" target="email to we" id="e43">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: content of reviews and emails to us;</data>
+</edge>
+<edge source="we" target="geolocation" id="e44">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: your location information;</data>
+</edge>
+<edge source="we" target="voiceprint" id="e45">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: voice recordings when you speak to Alexa;</data>
+</edge>
+<edge source="we" target="postal address" id="e46">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: people, addresses and phone numbers listed in your Addresses;</data>
+</edge>
+<edge source="we" target="profile" id="e47">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: personal description and photograph in Your Profile ;</data>
+</edge>
+<edge source="we" target="info entertainment professional need" id="e48">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Quick solutions
+
+Let Us Help You
+
+IMDbPro Get Info Entertainment Professionals Need</data>
+</edge>
+<edge source="we" target="order" id="e49">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Your Orders</data>
+</edge>
+<edge source="we" target="corporate information" id="e50">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: corporate and financial information;</data>
+</edge>
+<edge source="we" target="shipping rate" id="e51">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Shipping Rates &amp; Policies</data>
+</edge>
+<edge source="we" target="credit history information" id="e52">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: credit history information; and</data>
+</edge>
+<edge source="we" target="personal description" id="e53">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: personal description and photograph in Your Profile ;</data>
+</edge>
+<edge source="we" target="top subscription box" id="e54">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Let Us Help You
+
+Amazon Subscription Boxes Top subscription boxes - right to your door</data>
+</edge>
+<edge source="we" target="ip address" id="e55">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: your IP address;</data>
+</edge>
+<edge source="we" target="photograph" id="e56">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: personal description and photograph in Your Profile ;</data>
+</edge>
+<edge source="we" target="balance" id="e57">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Reload Your Balance</data>
+</edge>
+<edge source="we" target="shipping carrier information" id="e58">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as:
+Examples of Information Collected
+
+Quick solutions
+
+Carrier Info Shipping carrier information</data>
+</edge>
+<edge source="we" target="browsing" id="e59">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.
+We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.</data>
+</edge>
+<edge source="we" target="technical information" id="e60">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.
+We may also use device identifiers, cookies, and other technologies on devices, applications, and our web pages to collect browsing, usage, or other technical information.</data>
+</edge>
+<edge source="we" target="feedback" id="e61">
+  <data key="d2">COLLECT</data>
+  <data key="d3">While we're unable to respond directly to your feedback, we'll use this information to improve our online Help.
+While we're unable to respond directly to your feedback, we'll use this information to improve our online Help.</data>
+</edge>
+<edge source="identify information" target="person name" id="e62">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;
+As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;</data>
+</edge>
+<edge source="identify information" target="postal address" id="e63">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;
+As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;</data>
+</edge>
+<edge source="identify information" target="phone number" id="e64">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;
+As a result of those actions, you might supply us with such information as: identifying information such as your name, address, and phone numbers;</data>
+</edge>
+<edge source="profile" target="recommendation" id="e65">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);
+Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);</data>
+</edge>
+<edge source="profile" target="reminder" id="e66">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);
+Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);</data>
+</edge>
+<edge source="profile" target="product review" id="e67">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);
+Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);</data>
+</edge>
+<edge source="profile" target="personal profile" id="e68">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);
+Examples of information you can access through Amazon Services include: Your Profile (including your product Reviews, Recommendations, Reminders and personal profile);</data>
+</edge>
+<edge source="document regard identity" target="ssn" id="e69">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: information and documents regarding identity, including Social Security and driver's license numbers;
+As a result of those actions, you might supply us with such information as: information and documents regarding identity, including Social Security and driver's license numbers;</data>
+</edge>
+<edge source="document regard identity" target="driver's license number" id="e70">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: information and documents regarding identity, including Social Security and driver's license numbers;
+As a result of those actions, you might supply us with such information as: information and documents regarding identity, including Social Security and driver's license numbers;</data>
+</edge>
+<edge source="configuration" target="wifi credential" id="e71">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">As a result of those actions, you might supply us with such information as: device log files and configurations, including WiFi credentials, if you choose to automatically synchronize them with your other Amazon devices.
+As a result of those actions, you might supply us with such information as: device log files and configurations, including WiFi credentials, if you choose to automatically synchronize them with your other Amazon devices.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="personal information need" id="e72">
+  <data key="d2">COLLECT</data>
+  <data key="d3">These third-party service providers have access to personal information needed to perform their functions, but may not use it for other purposes.
+These third-party service providers have access to personal information needed to perform their functions, but may not use it for other purposes.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="personal information relate to transaction" id="e73">
+  <data key="d2">COLLECT</data>
+  <data key="d3">You can tell when a third party is involved in your transactions, and we share customers' personal information related to those transactions with that third party.
+You can tell when a third party is involved in your transactions, and we share customers' personal information related to those transactions with that third party.</data>
+</edge>
+<edge source="advertiser" target="UNSPECIFIED_DATA" id="e74">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We provide ad companies with information that allows them to serve you with more useful and relevant Amazon ads and to measure their effectiveness.
+We provide ad companies with information that allows them to serve you with more useful and relevant Amazon ads and to measure their effectiveness.</data>
+</edge>
+<edge source="advertiser" target="information about you" id="e75">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third-party advertising partners may collect information about you when you interact with their content, advertising, and services.
+Third-party advertising partners may collect information about you when you interact with their content, advertising, and services.</data>
+</edge>
+<edge source="advertiser" target="specific shopping action" id="e76">
+  <data key="d2">COLLECT</data>
+  <data key="d3">While we do not share your specific shopping actions like purchases, product views, or searches with ad companies, we may share an advertising identifier and an estimate of the value of the ads they show you on our behalf so they can serve you with more effective Amazon ads.
+Some ad companies also use this information to serve you relevant ads from other advertisers.</data>
+</edge>
+<edge source="physical store" target="sensor" id="e77">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Our physical stores may use cameras, computer vision, sensors, and other technology to gather information about your activity in the store, such as the products and services you interact with.
+Our physical stores may use cameras, computer vision, sensors, and other technology to gather information about your activity in the store, such as the products and services you interact with.</data>
+</edge>
+<edge source="physical store" target="UNSPECIFIED_DATA" id="e78">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Our physical stores may use cameras, computer vision, sensors, and other technology to gather information about your activity in the store, such as the products and services you interact with.
+Our physical stores may use cameras, computer vision, sensors, and other technology to gather information about your activity in the store, such as the products and services you interact with.</data>
+</edge>
+<edge source="imdbpro" target="info entertainment professional need" id="e79">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Quick solutions
+
+Let Us Help You
+
+IMDbPro Get Info Entertainment Professionals Need
+Quick solutions
+
+Let Us Help You
+
+IMDbPro Get Info Entertainment Professionals Need</data>
+</edge>
+</graph></graphml>

@@ -1,0 +1,191 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d3" for="edge" attr.name="text" attr.type="string"/>
+<key id="d2" for="edge" attr.name="relationship" attr.type="string"/>
+<key id="d1" for="node" attr.name="type" attr.type="string"/>
+<key id="d0" for="node" attr.name="label" attr.type="string"/>
+<graph edgedefault="directed"><node id="Google">
+  <data key="d0">Google</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="geolocation">
+  <data key="d0">geolocation</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="ip address">
+  <data key="d0">ip address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="postal address">
+  <data key="d0">postal address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="feedback">
+  <data key="d0">feedback</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="dialer">
+  <data key="d0">dialer</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="call log">
+  <data key="d0">call log</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="contact">
+  <data key="d0">contact</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="preferred language">
+  <data key="d0">preferred language</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="screen content">
+  <data key="d0">screen content</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="UNSPECIFIED_DATA">
+  <data key="d0">UNSPECIFIED_DATA</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="gemini apps conversation">
+  <data key="d0">gemini apps conversation</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="related product usage information">
+  <data key="d0">related product usage information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="gemini apps">
+  <data key="d0">gemini apps</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="gemini apps activity">
+  <data key="d0">gemini apps activity</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="gemini">
+  <data key="d0">gemini</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="info from device understand you">
+  <data key="d0">info from device understand you</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="system permission">
+  <data key="d0">system permission</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="inaccurate information not represent view">
+  <data key="d0">inaccurate information not represent view</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="voice datum">
+  <data key="d0">voice datum</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="info">
+  <data key="d0">info</data>
+  <data key="d1">DATA</data>
+</node>
+<edge source="Google" target="gemini apps conversation" id="e0">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google uses this data, consistent with our Privacy Policy , to provide, improve, and develop Google products and services and machine-learning technologies, including Google's enterprise products such as Google Cloud.</data>
+</edge>
+<edge source="Google" target="related product usage information" id="e1">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google uses this data, consistent with our Privacy Policy , to provide, improve, and develop Google products and services and machine-learning technologies, including Google's enterprise products such as Google Cloud.</data>
+</edge>
+<edge source="Google" target="geolocation" id="e2">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google uses this data, consistent with our Privacy Policy , to provide, improve, and develop Google products and services and machine-learning technologies, including Google's enterprise products such as Google Cloud.</data>
+</edge>
+<edge source="Google" target="feedback" id="e3">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback.
+Google uses this data, consistent with our Privacy Policy , to provide, improve, and develop Google products and services and machine-learning technologies, including Google's enterprise products such as Google Cloud.
+This lets Google provide the service and process any feedback.
+This lets Google provide the service and process any feedback.</data>
+</edge>
+<edge source="Google" target="gemini apps activity" id="e4">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If your Gemini Apps Activity setting is on, Google stores your Gemini Apps activity with your Google Account for up to 18 months.
+If your Gemini Apps Activity setting is on, Google stores your Gemini Apps activity with your Google Account for up to 18 months.</data>
+</edge>
+<edge source="Google" target="voice datum" id="e5">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Google processes your voice and audio data if you speak to Gemini Apps, but by default, this info is not saved to Google servers.
+Google processes your voice and audio data if you speak to Gemini Apps, but by default, this info is not saved to Google servers.</data>
+</edge>
+<edge source="Google" target="info" id="e6">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Google processes your voice and audio data if you speak to Gemini Apps, but by default, this info is not saved to Google servers.
+Google processes your voice and audio data if you speak to Gemini Apps, but by default, this info is not saved to Google servers.</data>
+</edge>
+<edge source="Google" target="UNSPECIFIED_DATA" id="e7">
+  <data key="d2">COLLECT</data>
+  <data key="d3">You can also integrate and use Gemini Apps with other Google services.
+When you do, those services save and use your data to provide and improve their services, consistent with their policies and the Google Privacy Policy .</data>
+</edge>
+<edge source="geolocation" target="postal address" id="e8">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Info about your location, including the general area from your device, IP address, or Home or Work addresses in your Google Account, is also stored with your Gemini Apps activity.
+Info about your location, including the general area from your device, IP address, or Home or Work addresses in your Google Account, is also stored with your Gemini Apps activity.</data>
+</edge>
+<edge source="geolocation" target="ip address" id="e9">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Info about your location, including the general area from your device, IP address, or Home or Work addresses in your Google Account, is also stored with your Gemini Apps activity.
+Info about your location, including the general area from your device, IP address, or Home or Work addresses in your Google Account, is also stored with your Gemini Apps activity.</data>
+</edge>
+<edge source="gemini apps" target="UNSPECIFIED_DATA" id="e10">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you use Gemini Apps to interact with third-party services, they will process your data according to their own privacy policies.
+If you use Gemini Apps to interact with third-party services, they will process your data according to their own privacy policies.</data>
+</edge>
+<edge source="gemini apps" target="inaccurate information not represent view" id="e11">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Gemini Apps are a new technology.
+They are continuously evolving and may sometimes give inaccurate, offensive, or inappropriate information that doesn't represent Google's views.</data>
+</edge>
+<edge source="gemini" target="info from device understand you" id="e12">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As your assistant, Gemini also processes, consistent with our Privacy Policy , info from your devices and services to understand you, respond, and help you get things done.
+As your assistant, Gemini also processes, consistent with our Privacy Policy , info from your devices and services to understand you, respond, and help you get things done.</data>
+</edge>
+<edge source="gemini" target="system permission" id="e13">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).
+For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).</data>
+</edge>
+<edge source="gemini" target="preferred language" id="e14">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).
+For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).</data>
+</edge>
+<edge source="gemini" target="contact" id="e15">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).
+For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).</data>
+</edge>
+<edge source="gemini" target="dialer" id="e16">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).
+For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).</data>
+</edge>
+<edge source="gemini" target="screen content" id="e17">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).
+For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).</data>
+</edge>
+<edge source="gemini" target="call log" id="e18">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).
+For example, Gemini accesses certain system permissions and data (including through Google Assistant), like dialer, call and message logs, contacts (to help you keep in touch), installed apps like Clock, preferred language (to help you speak to Gemini), and screen content (to help you act on it).</data>
+</edge>
+</graph></graphml>
