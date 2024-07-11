@@ -188,7 +188,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scrollToAndHighlightInIframe(currentText);
             } else {
                 // iframe.src = "./tiktok/tiktokOriginal.html"; // Set the source of the iframe
-                iframe.src = "./" + who + ".html"; // Set the source of the iframe                
+                iframe.src = "./htmls/" + who + ".html"; // Set the source of the iframe                
                 popup.style.display = 'block';
 
                 iframe.onload = function () {
@@ -312,12 +312,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     window.actorDataMap = actorDataMap;
 
-    // let who = "tiktok";
-    let who = "openai";
+    let who = "tiktok";
+    // let who = "openai";
+    // let who = "amazon";
+    // let who = "bixby";
+    // let who = "gemini";
+    // let who = "siri";
 
     let formatedNames = {};
     formatedNames.tiktok = "TikTok"
     formatedNames.openai = "OpenAI"
+    formatedNames.amazon = "Amazon"
+    formatedNames.bixby = "Bixby"
+    formatedNames.gemini = "Gemini"
+    // formatedNames.siri = "Siri"
 
     document.querySelector("#who").textContent = formatedNames[who];
 
@@ -514,7 +522,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    fetch(who + '.graphml')
+    fetch('graphmls/' + who + '.graphml')
         .then(response => response.text())
         .then(data => {
             const parser = new DOMParser();
