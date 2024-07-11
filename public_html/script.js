@@ -394,78 +394,123 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const actorCategories = {
         "Advertisers": ["advertiser"],
-        "Analytic Providers": ["analytic provider", "gemini"],
-        "Corporations": ["Amazon.com", "Google", "Microsoft", "amazon", "Facebook", "x", "youtube", "Samsung"],
+        "Analytic Providers": ["analytic provider"],
+        "Corporations": ["Amazon.com", "Google", "Microsoft", "Samsung", "gemini apps", "x"],
         "Geographic Entities": ["republic of korea", "country with adequacy decision", "country list"],
         "We": ["we", "chatgpt"],
         "Researchers": ["researcher", "independent researcher"],
-        "Law Enforcement": ["law enforcement agency"],
+        "Law Enforcement": ["law enforcement", "law enforcement agency"],
         "Service Providers": [
-            "service provider", "provider of hosting service", "customer service vendor",
-            "cloud service", "content delivery service", "datum warehouse service", "support monitoring service",
-            "email communication software", "payment provider", "information technology service provider",
+            "cloud service", "payment provider", "service provider", "support monitoring service", 
+            "datum warehouse service", "email communication software", "content delivery service", 
+            "customer service vendor", "provider of hosting service", "information technology service provider", 
             "network", "wireless carrier"
         ],
-        "Commercial Entities": ["physical store", "imdbpro", "prime video"],
+        "Commercial Entities": [
+            "social media", "Facebook", "tiktok", "youtube", "Medium", "imdbpro", "prime video", "physical store", 
+            "merchant", "financing partner", "business account administrator"
+        ],
         "Other": [
-            "UNSPECIFIED_ACTOR", "page", "ad", "action take on website", "financing partner",
-            "Medium", "social media", "counterpartie", "other", "successor",
-            "business transfer", "government authority", "administrator of account", "business account administrator",
-            "merchant", "public authority", "company in eea", "tiktok", "entity within corporate group",
-            "creator", "measurement"
+            "action take on website", "successor", "government authority", "business transfer", "UNSPECIFIED_ACTOR", 
+            "company in eea", "other", "ad", "page", "measurement", "counterpartie", "public authority", 
+            "administrator of account", "gemini", "amazon", "entity within corporate group", "creator"
         ]
     };
+    
+    
+    
     
     const dataCategories = {
         "Identifiers": [
-            "advertising id", "cookie / pixel tag", "email address", "device identifier", 
-            "personal identifier", "ip address"
+            "credit / debit card number", "ip address", "account credential", "ssn", "serial number", 
+            "device identifier", "username", "email address", "device log file", "password", 
+            "advertising id", "imei", "identifier"
         ],
         "Personal Information": [
-            "personal information", "information you give we", "contact information"
+            "personal information about united states resident", "personal data include in input you provide to service", 
+            "information about you", "information you provide to we", "information about you you choose", 
+            "personal data you choose", "identity", "account", "account information", "person name", 
+            "openai account", "personal information", "personal datum relate to you", "contact information", 
+            "personal information need", "information associate with account", "basic account information", 
+            "personal profile", "personal data we share", "profile information", "contact", 
+            "public profile information", "public profile", "personal description", "date of birth", 
+            "information regard place of establishment bank account information for identity verification", 
+            "driver's license number"
         ],
         "Aggregated & Inferred Data": [
-            "aggregated / deidentified / pseudonymized information", "inference", 
-            "aggregate statistic", "aggregate demographic information about follower"
+            "infer information", "aggregate demographic information about follower", "inference", 
+            "aggregate / deidentified / pseudonymized information", "aggregate statistic"
         ],
-        "Metadata": ["metadata", "associate metadata"],
-        "Media Content": ["media content", "video content"],
+        "Metadata": [
+            "associate metadata", "log datum", "UNSPECIFIED_DATA"
+        ],
+        "Media Content": [
+            "voice command", "recording of voice", "voice datum", "image", "content", "content of message", 
+            "content of message you send", "video content", "audio recording", "photograph", "screen content", 
+            "content characteristic", "movie box office datum", "content you create", "message you send"
+        ],
         "General Data": [
-            "information about interaction with product available", "UNSPECIFIED_DATA", 
-            "information you send we", "identity", "relate information", "crash report", 
-            "performance log", "device model", "operating system", "keystroke pattern", 
-            "rhythm", "system language", "technical information", "sim card", "coarse geolocation", 
-            "information about", "information about content you view", "engagement with user", 
-            "setting", "information about you", "profile information", "user content", 
-            "category of information", "information we have", "public profile information", 
-            "profile", "contact", "information from form you use", "collect information", 
-            "characteristic", "content characteristic", "basic account information", 
-            "information describe in", "information we collect", "information about processing", 
-            "information describe in information we collect section", "purchase information", 
-            "infer information"
+            "automatic information", "information describe in information we collect section", 
+            "information from form you use", "information describe in", "recommendation", "information we obtain", 
+            "information about purchase transaction", "reminder", "info from device understand you", 
+            "information about use of services", "date", "router ssid", "datum about event", 
+            "publicly available information", "people", "country", "identify information", "browser type", 
+            "delivery information", "preferred language", "time zone", "item you purchase", "user content", 
+            "information regard place of establishment bank account information", "text", "performance log", 
+            "information you give we", "information we collect", "information you provide", "configuration", 
+            "profile", "postal code", "system permission", "time", "information about content you view", 
+            "information you provide through source", "shipping carrier information", "amazon business card", 
+            "information you access", "estimate", "gemini apps activity", "specific shopping action", 
+            "product view", "product review", "balance", "name of device", "type of content", 
+            "information we collect about you from service", "information we have", "email to we", "info entertainment professional need", 
+            "information about interaction with product available", "transaction history", "related product usage information", 
+            "information from social network you use", "code", "information you send we", "category of information", 
+            "purchase information relate to transaction", "purchase information", "collect information", 
+            "information from source", "information about number of view of video", "information about processing", 
+            "info", "amazon subscription box", "shipping rate", "feedback", "browsing", "information about use of service", 
+            "engagement with user", "information you provide in relation to amazon services", "inaccurate information not represent view", 
+            "return exchange item", "call log", "communication information", "wifi credential", "document regard identity", 
+            "setting", "zappos shoe", "internet activity", "communication with amazon employee", "corporate information", 
+            "beacon", "scoring method", "order", "order item", "crash report", "voice input", "sign information", 
+            "dialer", "characteristic", "message", "social media information", "relate information"
         ],
         "Behavioral Data": [
-            "usage information", "behavioral data"
+            "rhythm", "usage information", "browsing / search history", "product review"
         ],
         "Location Data": [
-            "location", "geolocation", "point of interest"
+            "point of interest", "coarse geolocation", "geolocation", "precise geolocation"
         ],
-        "Tracking": ["tracking"],
+        "Tracking": [
+            "tracking pixel", "cookie / pixel tag"
+        ],
         "Message Data": [
-            "message data", "message", "direct message", "content of message", "message you send"
+            "direct message", "message"
         ],
         "Technical Data": [
-            "technical data", "technical information about device"
+            "carrier info", "technical information", "user agent", "device information", "sim card", 
+            "computer connection", "operating system", "device model", "technical information about device", 
+            "system language"
         ],
         "Financial Data": [
-            "financial data", "information about purchase transaction", 
-            "credit / debit card number", "payment confirmation detail", "order item", "delivery information"
+            "payment confirmation detail", "delivery information", "balance", "payment information", 
+            "credit history information", "purchase information relate to transaction"
         ]
     };
+    
+    
+    
     
 
 
 
+    function getCategory(name, categories) {
+        for (const category in categories) {
+            if (categories[category].includes(name)) {
+                return category;
+            }
+        }
+        return "Unknown Category";
+    }
 
 
 
@@ -478,10 +523,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const nodes = Array.from(xmlDoc.querySelectorAll('node')).map(node => ({
                 id: node.getAttribute('id'),
                 label: node.getAttribute('id'),
-                category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? 'Other' : 'Personal Information',
+                category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), actorCategories) : getCategory(node.getAttribute('id'), dataCategories),                
                 type: node.querySelector('data[key="d1"]')?.textContent,
                 name: node.querySelector('data[key="d0"]')?.textContent,
-                Indegree: 0  // Initialize Indegree as 0, will be computed later
+                Indegree: 1  // Initialize Indegree as 0, will be computed later
             }));
 
             console.log("nodes");
@@ -498,7 +543,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     source: edge.getAttribute('source'),
                     target: edge.getAttribute('target'),
                     text: edge.querySelector('data[key="d3"]')?.textContent || '',
-                    category: 'Other',
+                    category: getCategory(edge.getAttribute('source'), actorCategories),
                 }));
 
             // Compute Indegree for each node
@@ -556,9 +601,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("***************** actorDataMap *****************");
             console.log(actorDataMap);
 
-            processActorEntities(entities);
-            processDataEntities(entities);
+            return processActorEntities(entities);
+            
+            
 
+        })
+        .then(() => {
+            processDataEntities(entities);
         })
         .then(() => {
             addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
