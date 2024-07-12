@@ -313,8 +313,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     window.actorDataMap = actorDataMap;
 
     // let who = "tiktok";
-    let who = "openai";
-    // let who = "amazon";
+    // let who = "openai";
+    let who = "amazon";
     // let who = "bixby";
     // let who = "gemini";
     // let who = "siri";
@@ -408,7 +408,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function getCategory(item, categorization) {
         const normalizedItem = item.toLowerCase().trim();
-        
+
         for (const category in categorization) {
             for (const entry of categorization[category]) {
                 if (entry.toLowerCase().trim() == normalizedItem) {
@@ -434,17 +434,46 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(data, 'application/xml');
 
-            const nodes = Array.from(xmlDoc.querySelectorAll('node')).map(node => ({
-                id: node.getAttribute('id'),
-                label: node.getAttribute('id'),
-                category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),                
-                type: node.querySelector('data[key="d1"]')?.textContent,
-                name: node.querySelector('data[key="d0"]')?.textContent,
-                Indegree: 0.25  // Initialize Indegree as 0, will be computed later // TMP. Some data that are not collected but subsums others are being taken into account
-            }));
+            // Step 1: Identify collected data nodes and the actors that collect them
+            const collectedNodes = new Set();
+            const actorsCollectingData = new Set();
 
-            // console.log("nodes");
-            // console.log(nodes);
+            Array.from(xmlDoc.querySelectorAll('edge')).forEach(edge => {
+                const action = edge.querySelector('data[key="d2"]')?.textContent;
+                if (action === 'COLLECT') {
+                    collectedNodes.add(edge.getAttribute('target'));
+                    actorsCollectingData.add(edge.getAttribute('source'));
+                }
+            });
+
+            // Step 2: Create a combined set of actors that collect data and the collected data nodes
+            const combinedNodes = new Set();
+            Array.from(xmlDoc.querySelectorAll('node')).forEach(node => {
+                const nodeId = node.getAttribute('id');
+                const nodeType = node.querySelector('data[key="d1"]')?.textContent;
+                if (nodeType === 'ACTOR' && actorsCollectingData.has(nodeId)) {
+                    combinedNodes.add(nodeId);
+                } else if (collectedNodes.has(nodeId)) {
+                    combinedNodes.add(nodeId);
+                }
+            });
+
+            console.log("combinedNodes");
+            console.log(combinedNodes);
+
+            const nodes = Array.from(xmlDoc.querySelectorAll('node'))
+                .filter(node => combinedNodes.has(node.getAttribute('id')))
+                .map(node => ({
+                    id: node.getAttribute('id'),
+                    label: node.getAttribute('id'),
+                    category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),
+                    type: node.querySelector('data[key="d1"]')?.textContent,
+                    name: node.querySelector('data[key="d0"]')?.textContent,
+                    Indegree: 0.25  // Initialize Indegree as 0, will be computed later // TMP. Some data that are not collected but subsums others are being taken into account
+                }));
+
+            console.log("nodes");
+            console.log(nodes);
 
             entities = nodes;
 
@@ -515,9 +544,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("***************** actorDataMap *****************");
             console.log(actorDataMap);
 
-            
-            
-            
+
+
+
 
         })
         .then(() => {
@@ -1631,7 +1660,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
                 ease: "power1.inOut",
             }, "actorsColumn");
-            
+
             actorType = removeSpaces(actorLabelText.toUpperCase());
 
             console.log("--- actorIconCategory: " + actorType);
