@@ -487,16 +487,6 @@ When you contact us, we collect the information you send us, such as proof of id
   <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.
 When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
 </edge>
-<edge source="relate information" target="performance log" id="e16">
-  <data key="d2">SUBSUM</data>
-  <data key="d3">We also collect service-related, diagnostic, and performance information, including crash reports and performance logs.
-We also collect service-related, diagnostic, and performance information, including crash reports and performance logs.</data>
-</edge>
-<edge source="relate information" target="crash report" id="e17">
-  <data key="d2">SUBSUM</data>
-  <data key="d3">We also collect service-related, diagnostic, and performance information, including crash reports and performance logs.
-We also collect service-related, diagnostic, and performance information, including crash reports and performance logs.</data>
-</edge>
 <edge source="technical information" target="ip address" id="e18">
   <data key="d2">SUBSUM</data>
   <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).

@@ -312,8 +312,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     window.actorDataMap = actorDataMap;
 
-    let who = "tiktok";
-    // let who = "openai";
+    // let who = "tiktok";
+    let who = "openai";
     // let who = "amazon";
     // let who = "bixby";
     // let who = "gemini";
@@ -397,128 +397,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
     //     })
     //     .catch(error => console.error('Error processing entities:', error));
 
+    // function getCategory(dataOrActor, categories) {
+    //     for (const category in categories) {
+    //         if (categories[category].includes(dataOrActor)) {
+    //             return category;
+    //         }
+    //     }
+    //     return "Unknown Category";
+    // }
 
-
-
-    const actorCategories = {
-        "Advertisers": ["advertiser"],
-        "Analytic Providers": ["analytic provider"],
-        "Corporations": ["Amazon.com", "Google", "Microsoft", "Samsung", "gemini apps", "x"],
-        "Geographic Entities": ["republic of korea", "country with adequacy decision", "country list"],
-        "We": ["we", "chatgpt"],
-        "Researchers": ["researcher", "independent researcher"],
-        "Law Enforcement": ["law enforcement", "law enforcement agency"],
-        "Service Providers": [
-            "cloud service", "payment provider", "service provider", "support monitoring service", 
-            "datum warehouse service", "email communication software", "content delivery service", 
-            "customer service vendor", "provider of hosting service", "information technology service provider", 
-            "network", "wireless carrier"
-        ],
-        "Commercial Entities": [
-            "social media", "Facebook", "tiktok", "youtube", "Medium", "imdbpro", "prime video", "physical store", 
-            "merchant", "financing partner", "business account administrator"
-        ],
-        "Other": [
-            "action take on website", "successor", "government authority", "business transfer", "UNSPECIFIED_ACTOR", 
-            "company in eea", "other", "ad", "page", "measurement", "counterpartie", "public authority", 
-            "administrator of account", "gemini", "amazon", "entity within corporate group", "creator"
-        ]
-    };
-    
-    
-    
-    
-    const dataCategories = {
-        "Identifiers": [
-            "credit / debit card number", "ip address", "account credential", "ssn", "serial number", 
-            "device identifier", "username", "email address", "device log file", "password", 
-            "advertising id", "imei", "identifier"
-        ],
-        "Personal Information": [
-            "personal information about united states resident", "personal data include in input you provide to service", 
-            "information about you", "information you provide to we", "information about you you choose", 
-            "personal data you choose", "identity", "account", "account information", "person name", 
-            "openai account", "personal information", "personal datum relate to you", "contact information", 
-            "personal information need", "information associate with account", "basic account information", 
-            "personal profile", "personal data we share", "profile information", "contact", 
-            "public profile information", "public profile", "personal description", "date of birth", 
-            "information regard place of establishment bank account information for identity verification", 
-            "driver's license number"
-        ],
-        "Aggregated & Inferred Data": [
-            "infer information", "aggregate demographic information about follower", "inference", 
-            "aggregate / deidentified / pseudonymized information", "aggregate statistic"
-        ],
-        "Metadata": [
-            "associate metadata", "log datum", "UNSPECIFIED_DATA"
-        ],
-        "Media Content": [
-            "voice command", "recording of voice", "voice datum", "image", "content", "content of message", 
-            "content of message you send", "video content", "audio recording", "photograph", "screen content", 
-            "content characteristic", "movie box office datum", "content you create", "message you send"
-        ],
-        "General Data": [
-            "automatic information", "information describe in information we collect section", 
-            "information from form you use", "information describe in", "recommendation", "information we obtain", 
-            "information about purchase transaction", "reminder", "info from device understand you", 
-            "information about use of services", "date", "router ssid", "datum about event", 
-            "publicly available information", "people", "country", "identify information", "browser type", 
-            "delivery information", "preferred language", "time zone", "item you purchase", "user content", 
-            "information regard place of establishment bank account information", "text", "performance log", 
-            "information you give we", "information we collect", "information you provide", "configuration", 
-            "profile", "postal code", "system permission", "time", "information about content you view", 
-            "information you provide through source", "shipping carrier information", "amazon business card", 
-            "information you access", "estimate", "gemini apps activity", "specific shopping action", 
-            "product view", "product review", "balance", "name of device", "type of content", 
-            "information we collect about you from service", "information we have", "email to we", "info entertainment professional need", 
-            "information about interaction with product available", "transaction history", "related product usage information", 
-            "information from social network you use", "code", "information you send we", "category of information", 
-            "purchase information relate to transaction", "purchase information", "collect information", 
-            "information from source", "information about number of view of video", "information about processing", 
-            "info", "amazon subscription box", "shipping rate", "feedback", "browsing", "information about use of service", 
-            "engagement with user", "information you provide in relation to amazon services", "inaccurate information not represent view", 
-            "return exchange item", "call log", "communication information", "wifi credential", "document regard identity", 
-            "setting", "zappos shoe", "internet activity", "communication with amazon employee", "corporate information", 
-            "beacon", "scoring method", "order", "order item", "crash report", "voice input", "sign information", 
-            "dialer", "characteristic", "message", "social media information", "relate information"
-        ],
-        "Behavioral Data": [
-            "rhythm", "usage information", "browsing / search history", "product review"
-        ],
-        "Location Data": [
-            "point of interest", "coarse geolocation", "geolocation", "precise geolocation"
-        ],
-        "Tracking": [
-            "tracking pixel", "cookie / pixel tag"
-        ],
-        "Message Data": [
-            "direct message", "message"
-        ],
-        "Technical Data": [
-            "carrier info", "technical information", "user agent", "device information", "sim card", 
-            "computer connection", "operating system", "device model", "technical information about device", 
-            "system language"
-        ],
-        "Financial Data": [
-            "payment confirmation detail", "delivery information", "balance", "payment information", 
-            "credit history information", "purchase information relate to transaction"
-        ]
-    };
-    
-    
-    
-    
-
-
-
-    function getCategory(name, categories) {
-        for (const category in categories) {
-            if (categories[category].includes(name)) {
-                return category;
+    function getCategory(item, categorization) {
+        const normalizedItem = item.toLowerCase().trim();
+        
+        for (const category in categorization) {
+            for (const entry of categorization[category]) {
+                if (entry.toLowerCase().trim() == normalizedItem) {
+                    // console.log(" --- " + entry.toLowerCase().trim());
+                    if (category == "We")
+                        return formatedNames[who];
+                    return category;
+                }
             }
         }
+        console.log(" $$$$$$$$$$$$$$$$$$$$$$$$$ item");
+        console.log(item);
+        console.log(normalizedItem);
         return "Unknown Category";
     }
+
 
 
 
@@ -531,14 +437,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const nodes = Array.from(xmlDoc.querySelectorAll('node')).map(node => ({
                 id: node.getAttribute('id'),
                 label: node.getAttribute('id'),
-                category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), actorCategories) : getCategory(node.getAttribute('id'), dataCategories),                
+                category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),                
                 type: node.querySelector('data[key="d1"]')?.textContent,
                 name: node.querySelector('data[key="d0"]')?.textContent,
-                Indegree: 1  // Initialize Indegree as 0, will be computed later
+                Indegree: 0.25  // Initialize Indegree as 0, will be computed later // TMP. Some data that are not collected but subsums others are being taken into account
             }));
 
-            console.log("nodes");
-            console.log(nodes);
+            // console.log("nodes");
+            // console.log(nodes);
 
             entities = nodes;
 
@@ -551,7 +457,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     source: edge.getAttribute('source'),
                     target: edge.getAttribute('target'),
                     text: edge.querySelector('data[key="d3"]')?.textContent || '',
-                    category: getCategory(edge.getAttribute('source'), actorCategories),
+                    category: getCategory(edge.getAttribute('source'), categories[who].actorCategories),
                 }));
 
             // Compute Indegree for each node
@@ -583,8 +489,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
 
                 const dataEntities = entities.filter(d => d.type === 'DATA');
-                console.log("dataEntities:");
-                console.log(dataEntities);
+                // console.log("dataEntities:");
+                // console.log(dataEntities);
 
                 console.log("dataName: " + dataName);
                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
@@ -609,13 +515,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("***************** actorDataMap *****************");
             console.log(actorDataMap);
 
-            return processActorEntities(entities);
+            
             
             
 
         })
         .then(() => {
-            processDataEntities(entities);
+            return processActorEntities(entities);
+        })
+        .then(() => {
+            return processDataEntities(entities);
         })
         .then(() => {
             addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
@@ -655,7 +564,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const y = svgHeight / 2 + dimension * Math.sin(angle);
             const nameNoSpaces = category.replace(/\s+/g, '');
 
-            return d3.xml(`./icons/actors/${nameNoSpaces}.svg`).then(data => {
+            let iconFile = `./icons/actors/${nameNoSpaces}.svg`;
+
+            if (category == formatedNames[who]) {
+                iconFile = `./icons/actors/We.svg`;
+            }
+
+            return d3.xml(iconFile).then(data => {
 
                 const importedNode = document.importNode(data.documentElement, true);
 
@@ -849,7 +764,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .domain([1, maxConnections])
             .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
 
-        // Starting data with IDs from the Excel file
+        // Starting data with IDs 
         rectData = d3.packSiblings(dataEntities.map(d => ({
             id: "" + d.id,
             width: sizeScale(d.Indegree) + padding,
@@ -933,10 +848,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('class', 'dataRect')
             .attr('x', d => d.x - (d.width / 2))
             .attr('y', d => d.y - (d.height / 2))
-            .attr('width', d => d.width)
-            .attr('height', d => d.height)
-            .attr('rx', d => d.width / 2)
-            .attr('ry', d => d.height / 2)
+            .attr('width', d => Math.max(d.width, 0))
+            .attr('height', d => Math.max(d.height, 0))
+            .attr('rx', d => Math.max(d.width, 0) / 2)
+            .attr('ry', d => Math.max(d.height, 0) / 2)
             .attr('stroke', d => darkenColor(d.fill))
             .attr('stroke-width', dataRectStrokeWidth)
             .attr('opacity', 0)
@@ -1454,7 +1369,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // Iterate over the data categories
             Object.entries(collectedData).forEach(([dataCategory, items]) => {
 
-                console.log("------ dataCategory:");
+                console.log("dataCategory:");
                 console.log(dataCategory);
 
                 console.log("items:");
@@ -1716,8 +1631,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
                 ease: "power1.inOut",
             }, "actorsColumn");
-
-            // let actorType = d3.select(actorGroup.parentNode.parentNode).select('.actorCategoryName').text();
+            
             actorType = removeSpaces(actorLabelText.toUpperCase());
 
             console.log("--- actorIconCategory: " + actorType);
