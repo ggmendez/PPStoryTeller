@@ -3,9 +3,31 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
 
+    // Function to get the value of a query parameter
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    // Extract the value of "who" from the URL
+    const who = getQueryParam('who');
 
 
+    // let who = "tiktok";
+    // let who = "openai";
+    // let who = "amazon";
+    // let who = "bixby";
+    // let who = "gemini";
 
+    // let who = "siri";
+
+    let formatedNames = {};
+    formatedNames.tiktok = "TikTok"
+    formatedNames.openai = "OpenAI"
+    formatedNames.amazon = "Amazon"
+    formatedNames.bixby = "Bixby"
+    formatedNames.gemini = "Gemini"
+    // formatedNames.siri = "Siri"
 
 
 
@@ -312,22 +334,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     window.actorDataMap = actorDataMap;
 
-    // let who = "tiktok";
-    // let who = "openai";
-    let who = "amazon";
-    // let who = "bixby";
-    // let who = "gemini";
-    // let who = "siri";
 
-    let formatedNames = {};
-    formatedNames.tiktok = "TikTok"
-    formatedNames.openai = "OpenAI"
-    formatedNames.amazon = "Amazon"
-    formatedNames.bixby = "Bixby"
-    formatedNames.gemini = "Gemini"
-    // formatedNames.siri = "Siri"
+
 
     document.querySelector("#who").textContent = formatedNames[who];
+    document.querySelector("#they").textContent = formatedNames[who];
 
 
     // Fetch the Excel file and process it
@@ -469,7 +480,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),
                     type: node.querySelector('data[key="d1"]')?.textContent,
                     name: node.querySelector('data[key="d0"]')?.textContent,
-                    Indegree: 0.25  // Initialize Indegree as 0, will be computed later // TMP. Some data that are not collected but subsums others are being taken into account
+                    Indegree: 0  // Initialize Indegree as 0, will be computed later
                 }));
 
             console.log("nodes");
@@ -784,7 +795,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         uniqueCategories.sort();
-        const colorScale = d3.scaleOrdinal(customSchemePaired).domain(uniqueCategories);
+        const colorScale = d3.scaleOrdinal(customSchemePaired).domain([
+            "Identifiers",
+            "General Data",
+            "Aggregated & Inferred Data",
+            "Metadata",
+            "Media Content",
+            "Personal Information",
+            "Behavioral Data",
+            "Location Data",
+            "Tracking",
+            "Message Data",
+            "Technical Data",
+            "Financial Data"
+        ]);
 
         // Define a scale for the rectangle sizes based on IncomingConnections
         const maxConnections = d3.max(dataEntities, d => d.Indegree);
