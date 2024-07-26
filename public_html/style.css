@@ -325,14 +325,6 @@ nav a.active {
   justify-content: space-around;
 }
 
-/* and this */
-
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* colors */
 
 .green {
@@ -378,15 +370,14 @@ nav a.active {
 }
 
 body {
-  color: var(--color-surface-white);
-  background-color: white;
-  /*background-color: var(--dark);*/
+  margin: 0;
   font-family: Mori, sans-serif;
   font-weight: 400;
-  margin: 0;
   font-size: var(--step-0);
   line-height: 1.45;
   user-select: none;
+  color: var(--color-surface-white);
+  background-color: white;  
 }
 
 h1,
@@ -984,17 +975,40 @@ code .token.url {
   opacity: 0.9;
 }
 
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  position: relative;
+}
+
 .left {
   width: 30%;
   background-color: white;
+  overflow-y: hidden; /* Ensure no scrollbar is visible */
+}
+
+.center {
+  width: 30px;
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 30%;
+  height: 100vh;
+  overflow-y: hidden; /* Ensure no scrollbar is visible */
 }
 
 .right {
-  width: 70%;
+  width: calc(100% - 30% - 30px); /* Take the remaining space */
   position: fixed;
-  top: 0px;
-  right: 0px;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  background-color: white;
+  overflow-y: hidden; /* Ensure no scrollbar is visible */
 }
+
+
 
 #circle-packing-svg {
   position: relative;
@@ -1006,13 +1020,6 @@ code .token.url {
   /* This makes the height equal to the full height of the viewport */
   background-color: white;
 }
-
-
-
-/* .second {
-  background-color: var(--green);
-} */
-
 
 .quantity {
   font-weight: 900;
@@ -1095,7 +1102,8 @@ code .token.url {
 }
 
 .navButton:hover {
-  text-decoration: none; /* Ensure no underline on hover */
+  text-decoration: none;
+  /* Ensure no underline on hover */
 }
 
 .navButton {
@@ -1267,10 +1275,10 @@ code .token.url {
 
 .popup-close {
   position: absolute;
-  top: 2px;
+  top: 0px;
   right: 25px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: 50px;
   font-weight: bold;
   color: black;
 }
@@ -1311,4 +1319,64 @@ code .token.url {
 #contextButton:hover {
   background-color: rgb(15, 92, 216);
   /* Darker background color on hover */
+}
+
+
+
+
+
+.vertical-lines {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  position: relative;
+}
+
+.line-0, .line-1, .line-2, .line-3, .line-4, .line-5, .line-6 {
+  width: 3px;
+  background-color: gray;
+  transform-origin: center top;
+  z-index: 2;
+}
+
+.line-0, .line-6 {
+  height: 18%;
+}
+
+.line-7 {
+  position: absolute;  
+  top: 0;
+  width: 3px;
+  height: 100vh;    
+  background-color: lightgray;
+  transform-origin: center top;
+  z-index: 1;
+}
+
+.line-1, .line-2, .line-3, .line-4, .line-5 {
+  height: 10%;
+}
+
+.progressCircle {
+  width: 20px;
+  height: 20px;
+  /* border: 2px solid lightgray; */
+  border-radius: 50%;
+  background-color: lightgray;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100vh; /* Full viewport height */
+  position: relative;
+}
+
+
+#circle-1 {
+  background-color: gray;
 }

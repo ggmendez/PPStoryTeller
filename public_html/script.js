@@ -9,10 +9,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return urlParams.get(param);
     }
 
-    // Extract the value of "who" from the URL
-    const who = getQueryParam('who');
-
-
     // let who = "tiktok";
     // let who = "openai";
     // let who = "amazon";
@@ -28,6 +24,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
     formatedNames.bixby = "Bixby"
     formatedNames.gemini = "Gemini"
     // formatedNames.siri = "Siri"
+
+    // Extract the value of "who" from the URL
+
+    let who = getQueryParam('who');
+
+    if (!who) who = "tiktok";
+
+    document.title = formatedNames[who] + "'s PP";
+
+
+
+
 
 
 
@@ -334,88 +342,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     window.actorDataMap = actorDataMap;
 
-
-
-
     document.querySelector("#who").textContent = formatedNames[who];
     document.querySelector("#they").textContent = formatedNames[who];
 
-
-    // Fetch the Excel file and process it
-    // fetch(who + '_nodes.xlsx')
-    //     .then(response => response.arrayBuffer())
-    //     .then(data => {
-    //         const workbook = XLSX.read(data, { type: 'array' });
-    //         const firstSheetName = workbook.SheetNames[0];
-    //         const worksheet = workbook.Sheets[firstSheetName];
-    //         entities = XLSX.utils.sheet_to_json(worksheet);
-    //         processDataEntities(entities);
-    //         return processActorEntities(entities);
-    //     })
-    //     .then(() => {
-    //         console.log("Actor entities processed (and XML files loaded)");
-
-    //         // Load and process edges.csv
-    //         return d3.csv(who + '_edges.csv').then(edges => {
-    //             edges.forEach(edge => {
-
-    //                 let [actorName, dataName] = edge.name.split(' (-) ');
-
-    //                 const actorsEntities = entities.filter(d => d.type === 'ACTOR');
-    //                 const dataEntities = entities.filter(d => d.type === 'DATA');
-
-    //                 let actorCategory = actorsEntities.find(d => d.label === actorName)?.category;
-
-    //                 if (!actorCategory) {
-    //                     console.error(`Actor category for ${actorName} not found.`);
-    //                     return;
-    //                 }
-    //                 let cleanActorCategory = removeSpaces(actorCategory.toUpperCase());
-    //                 originalNames[cleanActorCategory] = actorCategory;
-
-
-    //                 if (!actorDataMap[cleanActorCategory]) {
-    //                     actorDataMap[cleanActorCategory] = {};
-    //                 }
-
-    //                 console.log("dataName: " + dataName);
-    //                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
-    //                 if (!dataCategory) {
-    //                     console.error(`Data category for ${dataCategory} not found.`);
-    //                     return;
-    //                 }
-
-    //                 let cleanDataCategory = removeSpaces(dataCategory.toUpperCase());
-    //                 originalNames[cleanDataCategory] = dataCategory;
-
-    //                 if (!actorDataMap[cleanActorCategory][cleanDataCategory]) {
-    //                     actorDataMap[cleanActorCategory][cleanDataCategory] = [];
-    //                 }
-
-    //                 actorDataMap[cleanActorCategory][cleanDataCategory].push({
-    //                     name: dataName,
-    //                     text: edge.text
-    //                 });
-    //             });
-
-    //             console.log("***************** actorDataMap *****************");
-    //             console.log(actorDataMap);
-
-    //         });
-    //     })
-    //     .then(() => {
-    //         addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
-    //     })
-    //     .catch(error => console.error('Error processing entities:', error));
-
-    // function getCategory(dataOrActor, categories) {
-    //     for (const category in categories) {
-    //         if (categories[category].includes(dataOrActor)) {
-    //             return category;
-    //         }
-    //     }
-    //     return "Unknown Category";
-    // }
 
     function getCategory(item, categorization) {
         const normalizedItem = item.toLowerCase().trim();
@@ -793,8 +722,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         });
 
-
         uniqueCategories.sort();
+
         const colorScale = d3.scaleOrdinal(customSchemePaired).domain([
             "Identifiers",
             "General Data",
@@ -1172,6 +1101,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Single GSAP Timeline with labels
         const mainTimeline = gsap.timeline({ paused: true });
 
+
+
+        var tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".purple",
+                scrub: true,
+                pin: true,
+                start: "top top",
+                end: "+=100%",
+            }
+        });
+
+        tl.from(".line-1", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.2")
+        .to("#circle-1", {backgroundColor: "gray", ease: "none"}, "-=0.2")
+        .from(".line-2", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.4")
+        .to("#circle-2", {backgroundColor: "gray", ease: "none"}, "-=0.4")
+        .from(".line-3", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.6")
+        .to("#circle-3", {backgroundColor: "gray", ease: "none"}, "-=0.6")
+        .from(".line-4", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.8")
+        .to("#circle-4", {backgroundColor: "gray", ease: "none"}, "-=0.8")
+        .from(".line-5", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=1.0")
+        .to("#circle-5", {backgroundColor: "gray", ease: "none"}, "-=1.0")
+        .from(".line-6", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=1.2")
+        .to("#circle-6", {backgroundColor: "gray", ease: "none"}, "-=1.2");
+
+
+
+
         // ***** INITIAL PACKING *****
 
         mainTimeline.addLabel("packing")
@@ -1279,19 +1236,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Calculating the target positions for the sorted category labels
         const categoryTargetPositions = {};
-        // sortedCategoryGroupNodes.map((node, i) => {
-        //     const columns = Math.ceil(Math.sqrt(sortedCategoryGroupNodes.length));
-        //     const column = i % columns;
-        //     const row = Math.floor(i / columns);
-        //     const cellWidth = svgWidth / columns;
-        //     const cellHeight = 30; // Adjust height as needed
-        //     const x = column * cellWidth + cellWidth / 2;
-        //     const y = svgHeight - (Math.ceil(sortedCategoryGroupNodes.length / columns) * cellHeight) + row * cellHeight + cellHeight / 2;
-        //     // drawRectAt(x, y, 20, 20, 'red')
-        //     categoryTargetPositions[node.id] = { x: x, y: y - 20 };
-        // });
-
-
 
         sortedCategoryGroupNodes.map((node, i) => {
             const columns = Math.ceil(Math.sqrt(sortedCategoryGroupNodes.length));
@@ -1305,7 +1249,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // drawRectAt(x, y, 20, 20, 'red')
             categoryTargetPositions[node.id] = { x: x, y: y - 20 };
         });
-
 
         console.log("categorTargetPositions");
         console.log(categoryTargetPositions);
@@ -1355,20 +1298,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         });
 
-
-        // mainTimeline.fromTo(actorNodes, {
-        //     opacity: 0,
-        //     // scale: 0,
-        //     // transform: `translate(${}, ${}) scale(${actorIconScale})`
-        // }, {
-        //     opacity: 1,
-        //     // scale: actorIconScale,
-        //     duration: animationDuration,
-        //     ease: "back.inOut(4)",
-        //     stagger: { amount: animationDuration * 0.75 },
-        // }, "dataShared");
-
-
         const svgActorIconLabels = svg.selectAll('.actorCategoryName');
         const actorLabelNodes = svgActorIconLabels.nodes();
         actorLabelNodes.forEach((actorLabelNode, index) => {
@@ -1385,19 +1314,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
         // ***** ACTORS *****
-        function sanitizeId(inputString) {
-            // Replace any invalid character with an underscore
-            let sanitized = inputString.replace(/[^a-zA-Z0-9-_]/g, '_');
-
-            // Ensure the ID does not start with a digit, two hyphens, or a hyphen followed by a digit
-            if (/^[0-9]/.test(sanitized)) {
-                sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with a digit
-            } else if (/^--/.test(sanitized) || /^-\d/.test(sanitized)) {
-                sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with two hyphens or a hyphen followed by a digit
-            }
-
-            return sanitized;
-        }
 
         const globalFrequencyMap = {};
 
@@ -1411,25 +1327,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
         });
 
-        const sortedGlobalDataCategories = Object.entries(globalFrequencyMap)
-            .sort((a, b) => b[1] - a[1])  // Sort descending by frequency
-            .map(entry => entry[0]);       // Extract only the category names
+
+        console.log("globalFrequencyMap:");
+        console.log(globalFrequencyMap);
+
 
         function generateRectCopies(collectedData, actorIconCategory, commonX, offsetY) {
             const newRects = [];
             let rectIndex = 0;
 
-            // Iterate over the data categories
-            Object.entries(collectedData).forEach(([dataCategory, items]) => {
+            // Get sorted categories based on global frequency
+            const sortedCategories = Object.keys(collectedData).sort((a, b) => {
+                return globalFrequencyMap[b] - globalFrequencyMap[a];
+            });
 
-                console.log("dataCategory:");
-                console.log(dataCategory);
-
-                console.log("items:");
-                console.log(items);
-
+            // Iterate over the sorted data categories
+            sortedCategories.forEach(dataCategory => {
+                const items = collectedData[dataCategory];
                 items.forEach((item, innerIndex) => {
-
                     const dataRect = splitRectData.find(d => d.name === item.name);
                     if (dataRect) {
                         const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
@@ -1469,22 +1384,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     });
 
                                 let tooltipContent = generateInitialTooltipContent(item.name.charAt(0).toUpperCase() + item.name.slice(1), originalNames[dataCategory], lines);
-
-
-                                // Assuming `d` and `lines` are already defined and accessible here
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                                 tippy(this, {
                                     theme: 'light-border',
@@ -1528,22 +1427,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     }
                                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                             });
 
                         newRects.push(dataRectCopy);
@@ -1553,6 +1436,111 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }
                 });
             });
+
+
+
+            // Iterate over the data categories
+            // Object.entries(collectedData).forEach(([dataCategory, items]) => {
+
+            //     console.log("dataCategory:");
+            //     console.log(dataCategory);
+
+            //     console.log("items:");
+            //     console.log(items);
+
+            //     items.forEach((item, innerIndex) => {
+
+            //         const dataRect = splitRectData.find(d => d.name === item.name);
+            //         if (dataRect) {
+            //             const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
+            //             const dataRectCopy = {
+            //                 ...dataRect,
+            //                 id: uniqueId,
+            //                 name: item.name,
+            //                 tooltipText: item.text
+            //             };
+
+            //             let theRect = svg.append('rect')
+            //                 .data([dataRectCopy]) // Binding data here
+            //                 .attr('id', uniqueId)
+            //                 .attr('class', 'copyOfDataRect ' + sanitizeId(actorIconCategory) + ' ' + sanitizeId(dataCategory))
+            //                 .attr('opacity', 0)
+            //                 .attr('x', -targetSize)
+            //                 .attr('y', -targetSize)
+            //                 .attr('width', targetSize * 2)
+            //                 .attr('height', targetSize * 2)
+            //                 .attr('rx', targetSize)
+            //                 .attr('ry', targetSize)
+            //                 .attr('fill', dataRectCopy.fill)
+            //                 .attr('stroke-width', 0)
+            //                 .attr('stroke', darkenColor(dataRectCopy.fill))
+            //                 .each(function (d) {
+            //                     // Prepare unique lines and formatted text
+
+            //                     let uniqueLines = new Set();
+            //                     let lines = item.text.split('\n')
+            //                         .filter(line => {
+            //                             const trimmedLine = line.trim();
+            //                             if (trimmedLine !== '' && !uniqueLines.has(trimmedLine)) {
+            //                                 uniqueLines.add(trimmedLine);
+            //                                 return true;
+            //                             }
+            //                             return false;
+            //                         });
+
+            //                     let tooltipContent = generateInitialTooltipContent(item.name.charAt(0).toUpperCase() + item.name.slice(1), originalNames[dataCategory], lines);
+
+            //                     tippy(this, {
+            //                         theme: 'light-border',
+            //                         content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
+            //                         allowHTML: true,
+            //                         trigger: 'click',
+            //                         interactive: true,
+            //                         delay: [100, 100],
+            //                         placement: 'right',
+            //                         fallbackPlacements: ['top', 'bottom', 'left'],
+            //                         appendTo: () => document.body,
+            //                         onShow(instance) {
+            //                             const contentContainer = instance.popper.querySelector('.tooltip-content');
+            //                             const paginator = instance.popper.querySelector('.page-number-display');
+
+            //                             let currentIndex = 0;
+            //                             const totalLinks = tooltipContent.highlightedLines.length;
+
+            //                             updatePagination(paginator, currentIndex, totalLinks);
+
+            //                             instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
+            //                                 nav.addEventListener('click', function () {
+            //                                     const direction = nav.getAttribute('data-nav');
+            //                                     currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
+
+            //                                     const currentText = normalizeText(contentContainer.textContent);
+            //                                     if (popup.style.display === 'block') {
+            //                                         scrollToAndHighlightInIframe(currentText);
+            //                                     }
+            //                                 });
+            //                             });
+
+            //                             // Add event listener for Escape key to close the tooltip
+            //                             const escKeyListener = (event) => {
+            //                                 if (event.key === 'Escape') {
+            //                                     instance.hide();
+            //                                     document.removeEventListener('keydown', escKeyListener);
+            //                                 }
+            //                             };
+            //                             document.addEventListener('keydown', escKeyListener);
+            //                         }
+            //                     });
+
+            //                 });
+
+            //             newRects.push(dataRectCopy);
+            //             rectIndex++;
+            //         } else {
+            //             console.error("Could not find the rect associated to " + item.name);
+            //         }
+            //     });
+            // });
 
             return newRects;
         }
@@ -1566,7 +1554,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const spacing = 65;
         const actorGroupScale = 0.55;
         const actorGroups = svg.selectAll('.actorIcon').nodes();
-        // const actorGroups = svg.selectAll('.actorIcon, .actorCategoryName').nodes();
 
         window.actorGroups = actorGroups;
 
@@ -1578,8 +1565,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         mainTimeline.addLabel("actorsColumn");
 
+        // This allows to sort author groups by the amount of data each collects
+        // Thus, when the actors form a column, the one that collects more data appears on top
         actorGroups.sort((a, b) => {
-
 
             const labelA = labelsOf[a.id];
             const labelB = labelsOf[b.id];
@@ -1615,8 +1603,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return dataSizeB - dataSizeA; // Sort descending
         });
 
-        // console.log("SORTED actorGroups:");
-        // console.log(actorGroups);
+        console.log("SORTED actorGroups:");
+        console.log(actorGroups);
 
         actorGroups.forEach((actorGroup, index) => {
 
@@ -1628,51 +1616,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
             console.log("actorLabelText: " + actorLabelText);
 
             const groupBBox = actorGroup.getBBox();
-            // const scaledWidth = groupBBox.width * actorGroupScale;
-            // const scaledHeight = groupBBox.height * actorGroupScale;
-            // const offsetX = rightAlignX;
-
             const groupStartTime = index * 0.1;
-            // const actorIcon = d3.select(actorGroup);
-            // const label = d3.select(actorGroup.parentNode.parentNode).select('.actorCategoryName');
             const label = d3.select("#" + labelID);
-
-            // const actorIconWidth = groupBBox.width;
             const actorIconHeight = groupBBox.height;
-
             const offsetY = startY + index * spacing;
-
             const labelBBox = label.node().getBBox();
             const labelWidth = labelBBox.width;
-            // const labelHeight = labelBBox.height;
-            // const labelScale = 1.5;
-
-            // drawRectAt(rightAlignX, offsetY, 20, 20, 'purple')
-
-
-
-
             const bbox = actorGroup.getBBox();
             const iconWidth = bbox.width;
             const iconHeight = bbox.height;
-
-
             let x = rightAlignX - iconWidth / 2;
             let y = offsetY - iconHeight / 2;
 
             mainTimeline.to(actorGroup, {
-                // transform: `translate(${rightAlignX}px, ${offsetY}px) scale(${actorGroupScale * actorIconScale})`,
                 x: x,
                 y: y,
                 scale: actorGroupScale * actorIconScale,
                 duration: animationDuration,
                 ease: "power1.inOut",
             }, "actorsColumn");
-
-            // let labelX = -(actorIconWidth * actorIconScale) / 2 - (labelWidth * labelScale) / 2 - (labelWidth / labelScale) / 2 - 5;
-            // let labelY = - (labelHeight * labelScale) / 2 + actorIconScale * labelHeight / 2 - (actorIconHeight * actorIconScale) / 2;
-            // labelX = parseFloat(labelX.toFixed(3));
-            // labelY = parseFloat(labelY.toFixed(3));
 
             const theLabel = label.node();
 
@@ -1697,21 +1659,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const commonX = rightAlignX;
 
             // Generate rect copies first
-            const newRects = generateRectCopies(collectedData, actorType, commonX, offsetY);
+            const rectCopies = generateRectCopies(collectedData, actorType, commonX, offsetY);
 
             console.log("newRects.length:");
-            console.log(newRects.length);
+            console.log(rectCopies.length);
 
             console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%");
             console.log("Actor type: " + actorType);
-            console.log("newRects:");
-            console.log(newRects);
+            console.log("the generated rect copies:");
+            console.log(rectCopies);
 
             window.mainTimeline = mainTimeline;
 
-            totalClones += newRects.length;
+            totalClones += rectCopies.length;
 
-            newRects.forEach((rect, rectIndex) => {
+            rectCopies.forEach((rect, rectIndex) => {
 
                 currentClones++;
 
@@ -1789,7 +1751,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     opacity: 1,
                 }, `actorsColumn+=${2 * animationDuration + 0.5}`);
 
-
                 d3.select(node).on('mouseover', function (event) {
                     d3.select(this).style('font-weight', 'bolder');
 
@@ -1827,17 +1788,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         }
 
-        function calculateRectPositions(rect, data) {
-            const columns = Math.floor(rect.width / (targetSize * 2 + padding));
-            const rows = Math.floor(rect.height / (targetSize * 2 + padding));
-
-            data.forEach((d, i) => {
-                const col = i % columns;
-                const row = Math.floor(i / columns);
-                d.targetX = rect.x + col * (targetSize * 2 + padding) + targetSize + padding;
-                d.targetY = rect.y + row * (targetSize * 2 + padding) + padding;
-            });
-        }
 
         function getPackedDataForSplitRects(point1, point2, totalHeight, targetSize) {
             const rectWidth1 = Math.abs(point2.x - point1.x);
@@ -2215,7 +2165,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return text.replace(regex, match => `<span class="highlight">${match}</span>`);
     }
 
+    function sanitizeId(inputString) {
+        // Replace any invalid character with an underscore
+        let sanitized = inputString.replace(/[^a-zA-Z0-9-_]/g, '_');
 
+        // Ensure the ID does not start with a digit, two hyphens, or a hyphen followed by a digit
+        if (/^[0-9]/.test(sanitized)) {
+            sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with a digit
+        } else if (/^--/.test(sanitized) || /^-\d/.test(sanitized)) {
+            sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with two hyphens or a hyphen followed by a digit
+        }
+
+        return sanitized;
+    }
 
 
 
