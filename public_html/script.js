@@ -1091,6 +1091,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     gsap.to('.scroll-down', {
                         opacity: 1 - progress
                     });
+                    gsap.to('.line-1', { scaleX: 1, scaleY: progress, duration: 0, ease: "none" });
+                    if (progress > 0.99) {
+                        gsap.to("#circle-2", { backgroundColor: "gray", ease: "none", duration: 0 });
+                    } else {
+                        gsap.to("#circle-2", { backgroundColor: "lightgray", ease: "none", duration: 0 });
+                    }
                 }
             }
         });
@@ -1103,30 +1109,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        var tl = gsap.timeline({
+        var progressTimeline = gsap.timeline({
             scrollTrigger: {
-                trigger: ".purple",
                 scrub: true,
-                pin: true,
-                start: "top top",
-                end: "+=100%",
+                pin: true
             }
         });
-
-        tl.from(".line-1", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.2")
-        .to("#circle-1", {backgroundColor: "gray", ease: "none"}, "-=0.2")
-        .from(".line-2", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.4")
-        .to("#circle-2", {backgroundColor: "gray", ease: "none"}, "-=0.4")
-        .from(".line-3", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.6")
-        .to("#circle-3", {backgroundColor: "gray", ease: "none"}, "-=0.6")
-        .from(".line-4", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=0.8")
-        .to("#circle-4", {backgroundColor: "gray", ease: "none"}, "-=0.8")
-        .from(".line-5", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=1.0")
-        .to("#circle-5", {backgroundColor: "gray", ease: "none"}, "-=1.0")
-        .from(".line-6", {scaleY: 0, transformOrigin: "center top", ease: "none"}, "+=1.2")
-        .to("#circle-6", {backgroundColor: "gray", ease: "none"}, "-=1.2");
-
-
 
 
         // ***** INITIAL PACKING *****
@@ -1166,6 +1154,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const point1 = { x: deltaX, y: deltaY };
         const point2 = { x: svgWidth - deltaX, y: deltaY };
         const splitRectData = getPackedDataForSplitRects(point1, point2, svgHeight - (2 * deltaY), targetSize);
+
+        let initial = rectData[0].x;
+        let final = movedRectData[0].x;
 
         // ***** CATEGORIES *****
         mainTimeline.addLabel("categories")
@@ -1855,6 +1846,102 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         gsap.registerPlugin(ScrollTrigger);
 
+        let lastClickedCircleId = null;
+
+
+        function handleCircleClick(event) {
+            const circleId = event.target.id;
+            console.log(`Circle clicked: ${circleId}`);
+
+            let isBigger = null;
+            if (lastClickedCircleId) {
+                const currentIdNum = parseInt(circleId.split('-')[1]);
+                const lastIdNum = parseInt(lastClickedCircleId.split('-')[1]);
+                isBigger = currentIdNum > lastIdNum;
+                console.log(`Current circle ID is ${isBigger ? 'bigger' : 'smaller'} than the last clicked circle ID.`);
+            }
+
+            // Update last clicked circle ID
+            lastClickedCircleId = circleId;
+
+            // I need to consider the direction here!!!
+            switch (circleId) {
+                case 'circle-1':
+                    // window.scrollTo({ top: 0, behavior: 'smooth' });
+                    gsap.to(window, {scrollTo: {y: 0}, duration: 1});
+                    break;
+                case 'circle-2':
+                    mainTimeline.play("packing");
+                    break;
+                case 'circle-3':
+                    mainTimeline.tweenFromTo("categories", "dataShared");
+                    break;
+                case 'circle-4':
+                    mainTimeline.tweenFromTo("dataShared", "actorsColumn");
+                    break;
+                case 'circle-5':
+                    mainTimeline.play("actorsColumn");
+                    break;
+                case 'circle-6':
+                    // Action for circle-6
+                    alert('You clicked on circle-6');
+                    break;
+                default:
+                    console.log('Unknown circle clicked');
+            }
+        }
+
+        // Select all circle elements
+        const circles = document.querySelectorAll('.progressCircle');
+
+        // Attach click event listener to each circle
+        circles.forEach(circle => {
+            circle.addEventListener('click', handleCircleClick);
+        });
+
+        const pairs = [
+            { line: '.line-2', circle: '#circle-3' },
+            { line: '.line-3', circle: '#circle-4' },
+            { line: '.line-4', circle: '#circle-5' },
+            { line: '.line-5', circle: '#circle-6' }
+        ];
+
+        // Function to handle the enter and leave events for the text elements
+        function setupTextScrollTriggers() {
+            texts.forEach((text, index) => {
+                gsap.fromTo(text, { opacity: 0, y: 100 }, {
+                    opacity: 1, y: 0,
+                    scrollTrigger: {
+                        trigger: text,
+                        start: () => "top bottom-=" + (scrollOffset * (index + 1)),
+                        end: () => `center center+=${scrollOffset * (index + 1.5)}`,
+                        scrub: 1,
+                        onEnter: (self) => {
+                            if (self.direction === 1) {
+                                onExplanationEnter(text, index);
+                            }
+                        },
+                        onEnterBack: (self) => {
+                            if (self.direction === 1) {
+                                onExplanationEnter(text, index);
+                            }
+                        },
+                        onLeave: (self) => {
+                            if (self.direction === -1) {
+                                onExplanationLeave(text, index);
+                            }
+                        },
+                        onLeaveBack: (self) => {
+                            if (self.direction === -1) {
+                                onExplanationLeave(text, index);
+                            }
+                        },
+                    }
+                });
+            });
+        }
+
+        // Create the main timeline for the lines and circles
         const tl2 = gsap.timeline({
             scrollTrigger: {
                 trigger: panel,
@@ -1863,40 +1950,57 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 pin: true,
                 scrub: true,
                 anticipatePin: 1,
+                onUpdate: (self) => {
+                    const totalProgress = self.progress;
+                    const totalPairs = pairs.length;
+                    const segmentDuration = 1 / totalPairs;
+
+                    pairs.forEach((pair, index) => {
+                        const start = index * segmentDuration;
+                        const end = (index + 1) * segmentDuration;
+                        const progress = gsap.utils.clamp(0, 1, (totalProgress - start) / (end - start));
+
+                        gsap.to(pair.line, { scaleX: 1, scaleY: progress, duration: 0, ease: "none" });
+
+
+                        if (pair.circle) {
+                            if (progress < 0.99) {
+                                gsap.to(pair.circle, { backgroundColor: "lightgray", ease: "none", duration: 0 });
+                            } else {
+                                gsap.to(pair.circle, { backgroundColor: "gray", ease: "none", duration: 0 });
+                            }
+                        }
+
+                        // if (progress < 0.99) {
+                        //     gsap.to(pair.circle, { backgroundColor: "lightgray", ease: "none", duration: 0 });
+
+                        //     if (pair.line == ".line-5") {
+                        //         gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none" });
+
+                        //     }
+
+                        // } else {
+                        //     gsap.to(pair.circle, { backgroundColor: "gray", ease: "none", duration: 0 });
+
+
+                        //     if (pair.line == ".line-5") {
+                        //         gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none" });
+
+                        //     }
+
+
+                        // }
+
+
+
+
+                    });
+                },
             }
         });
 
-        texts.forEach((text, index) => {
-            gsap.fromTo(text, { opacity: 0, y: 100 }, {
-                opacity: 1, y: 0, duration: 0.5,
-                scrollTrigger: {
-                    trigger: text,
-                    start: () => "top bottom-=" + (scrollOffset * (index + 1)),
-                    end: () => `center center+=${scrollOffset * (index + 1.5)}`,
-                    scrub: 1,
-                    onEnter: (self) => {
-                        if (self.direction === 1) {
-                            onExplanationEnter(text, index);
-                        }
-                    },
-                    onEnterBack: (self) => {
-                        if (self.direction === 1) {
-                            onExplanationEnter(text, index);
-                        }
-                    },
-                    onLeave: (self) => {
-                        if (self.direction === -1) {
-                            onExplanationLeave(text, index);
-                        }
-                    },
-                    onLeaveBack: (self) => {
-                        if (self.direction === -1) {
-                            onExplanationLeave(text, index);
-                        }
-                    },
-                }
-            });
-        });
+        // Initialize the text scroll triggers
+        setupTextScrollTriggers();
 
         function onExplanationEnter(element, index) {
             if (element.id === "divPiecesOfData") {
@@ -1940,7 +2044,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Function to split text into multiple lines based on rectangle dimension
     function splitText(text, maxDimension) {
 
-        console.log("*** text " + text);
+        // console.log("*** text " + text);
 
         text = text.trim();
         text = text.charAt(0).toUpperCase() + text.slice(1);
