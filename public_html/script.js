@@ -922,61 +922,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     // This is what happens on update of the gsap animation
-    function drawRectsAndLabel_OLD(rectData) {
-        svg.selectAll('.dataRect')
-            .data(rectData, d => d.id)
-            .attr('x', function (d) {
-                return d.x - (d.width / 2);
-            })
-            .attr('y', function (d) {
-                return d.y - (d.height / 2);
-            })
-            .attr('width', function (d) {
-                return Math.max(0, d.width);
-            })
-            .attr('height', function (d) {
-                return Math.max(0, d.height);
-            })
-            .attr('rx', function (d) {
-                return Math.max(0, d.rx);
-            })
-            .attr('ry', function (d) {
-                return Math.max(0, d.ry);
-            })
-            .attr('fill', d => d.fill)
-            .attr('opacity', d => d.opacity)
-            .attr('stroke', d => darkenColor(d.fill)); // Update stroke color
-
-        svg.selectAll('.rect-label')
-            .data(rectData.filter(d => Math.min(d.width, d.height) >= minLabelSize), d => d.id)
-            .join(
-                enter => enter.append('text').attr('class', 'rect-label'),
-                update => update,
-                exit => exit.remove()
-            )
-            .attr('x', d => isNaN(d.x) ? 0 : d.x)
-            .attr('y', d => isNaN(d.y) ? 0 : d.y)
-            .attr('text-anchor', 'middle') // Center text horizontally
-            .each(function (d) {
-                const maxDimension = Math.min(d.width, d.height);
-                const lines = splitText(d.name, maxDimension);
-                const textSelection = d3.select(this);
-                textSelection.selectAll('tspan').remove(); // Clear existing tspans
-                lines.forEach((line, i) => {
-                    textSelection.append('tspan')
-                        .attr('x', d.x)
-                        .attr('dy', i === 0 ? `-${(lines.length - 1) / 2}em` : `1.1em`)
-                        .text(line);
-                });
-            })
-            .attr('opacity', d => d.opacity)
-            .style('font-size', d => {
-                const maxDimension = Math.min(d.width, d.height);
-                return `${Math.min(maxDimension / 6, 12)}px`;
-            });
-
-    }
-
     function drawRectsAndLabels(rectData) {
 
         svg.selectAll('.dataRect')
@@ -1076,9 +1021,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function addScrollEvents() {
 
-        let progressColor = "#cecece";
-
-        const rectLabels = svg.selectAll('.rect-label');
+        let progressColor = "gray";
+        // let progressBorderColor = "#444444";
 
         gsap.to("#one", {
             ease: "none",
@@ -1087,6 +1031,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 start: "top top",
                 scrub: true,
                 onUpdate: (self) => {
+
+                    restoreProgressCircles();
+
                     const progress = self.progress;
                     gsap.to('.scroll-down', {
                         opacity: 1 - progress
@@ -1095,7 +1042,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     if (progress > 0.99) {
                         gsap.to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
                     } else {
-                        gsap.to("#circle-2", { backgroundColor: "rgb(239, 243, 244)", ease: "none", duration: 0 });
+                        gsap.to("#circle-2", { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
                     }
                 }
             }
@@ -1106,15 +1053,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Single GSAP Timeline with labels
         const mainTimeline = gsap.timeline({ paused: true });
-
-
-
-        var progressTimeline = gsap.timeline({
-            scrollTrigger: {
-                scrub: true,
-                pin: true
-            }
-        });
 
 
         // ***** INITIAL PACKING *****
@@ -1164,6 +1102,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 x: (index) => movedRectData[index].x,
                 y: (index) => movedRectData[index].y,
                 fill: (index) => movedRectData[index].fill,
+                opacity: 1,
                 duration: animationDuration,
                 ease: "back.out(0.45)",
                 stagger: { amount: animationDuration / 3 },
@@ -1172,9 +1111,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "categories");
 
-
-        // console.log("%%% categoryStartPositions:");
-        // console.log(categoryStartPositions);
 
 
         svgCategoryGroups.nodes().forEach((svgCategoryGroup, index) => {
@@ -1848,10 +1784,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         let lastClickedCircleId = null;
 
-
-
-
         function handleCircleClick(event) {
+
             const circleId = event.target.id;
             console.log(`Circle clicked: ${circleId}`);
 
@@ -1901,21 +1835,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     console.log('Unknown circle clicked');
             }
 
+            restoreProgressCircles();
+            // gsap.to("#" + circleId, { borderColor: progressBorderColor, duration: 0.5 });
+
             if (divID) {
                 let linkST = scrollersForCircles[divID];
                 gsap.to(window, {
                     duration: 0.5, scrollTo: linkST.start, overwrite: "auto", onComplete: () => {
                         if (circleId == 'circle-6') {
                             mainTimeline.play("actorsColumn");
-                            gsap.to(window, { duration: 1, scrollTo: { y: document.body.scrollHeight }, overwrite: "auto" });
+                            gsap.to(window, { duration: 0.5, scrollTo: { y: document.body.scrollHeight }, overwrite: "auto" });
                         }
                     }
                 });
             }
-
-
-
-
 
         }
 
@@ -1978,10 +1911,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 linkST = ScrollTrigger.create({
                     trigger: text,
-                    // start: () => "top bottom-=" + ( (scrollOffset * (index))scrollOffset * (index) + 285)
-
-                    start: () => "top bottom-=" + ((scrollOffset * (index + 1)) - 490 - index * 100),
-                    end: () => `center center+=${scrollOffset * (index + 1.5)}`,
+                    start: () => "top bottom-=" + ((scrollOffset * (index + 1)) - 563 - index * 80),
+                    // end: () => `center center+=${scrollOffset * (index + 1.5)}`,
                 });
                 scrollersForCircles[text.id] = linkST;
 
@@ -2015,23 +1946,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                         if (pair.circle) {
                             if (progress < 0.99) {
-                                gsap.to(pair.circle, { backgroundColor: "rgb(239, 243, 244)", ease: "none", duration: 0 });
+                                gsap.to(pair.circle, { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
                             } else {
                                 gsap.to(pair.circle, { backgroundColor: progressColor, ease: "none", duration: 0 });
                             }
                         }
+
                         if (progress < 0.99) {
                             if (pair.line == ".line-5") {
-                                gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none" });
+                                gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none", backgroundColor: "light" + progressColor });
                             }
                         } else {
                             if (pair.line == ".line-5") {
-                                gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none" });
+                                gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none", backgroundColor: progressColor });
 
                             }
                         }
                     });
-                },
+                }
             }
         });
 
@@ -2321,7 +2253,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
+    function restoreProgressCircles() {
+        const circles = document.querySelectorAll('.progressCircle');
+        circles.forEach(circle => {
+            gsap.to(circle, { borderColor: "white", duration: 0 });
+        });
+    }
 
 
 

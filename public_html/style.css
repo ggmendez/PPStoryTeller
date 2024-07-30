@@ -954,13 +954,13 @@ code .token.url {
   font-variant: small-caps; */
 }
 
-.circle-label {
+.rect-label {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   pointer-events: none;
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .tooltip {
@@ -1307,20 +1307,16 @@ code .token.url {
   font-size: 12px;
   padding: 5px 10px;
   color: #fff;
-  /* Default text color */
-  background-color: rgb(75, 137, 236);
-  /* Default background color */
+  background-color: rgb(75, 137, 236);  
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-family: Arial, sans-serif;
-  /* Default font style */
   text-transform: none;
 }
 
 #contextButton:hover {
   background-color: rgb(15, 92, 216);
-  /* Darker background color on hover */
 }
 
 
@@ -1338,7 +1334,7 @@ code .token.url {
 
 .line-0, .line-1, .line-2, .line-3, .line-4, .line-5, .line-6 {
   width: 3px;
-  background-color: lightgray;
+  background-color: gray;
   transform-origin: center top;
   z-index: 2;
 }
@@ -1352,7 +1348,7 @@ code .token.url {
   top: 0;
   width: 3px;
   height: 100vh;    
-  background-color: rgb(239, 243, 244);
+  background-color: lightgray;
   transform-origin: center top;
   z-index: 1;
 }
@@ -1367,11 +1363,11 @@ code .token.url {
 }
 
 .progressCircle {
-  width: 24px;
-  height: 24px;
-  border: 2px solid white;
+  width: 22px;
+  height: 22px;
+  border: 3px solid white;
   border-radius: 50%;
-  background-color: #eff3f4;
+  background-color: lightgray;
   z-index: 2;
   cursor: pointer;
   transform-origin: center center;
@@ -1386,5 +1382,6 @@ code .token.url {
 
 
 #circle-1 {
-  background-color: #cecece;
+  background-color: gray;
+  /* border: 3px solid #444444; */
 }
