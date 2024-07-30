@@ -1082,6 +1082,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 },
                 onComplete: () => {
                     mainTimeline.pause();
+                    drawLegend();
                 }
             }, "packing");
 
@@ -1911,16 +1912,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 linkST = ScrollTrigger.create({
                     trigger: text,
-                    start: () => "top bottom-=" + ((scrollOffset * (index + 1)) - 563 - index * 80),
-                    // end: () => `center center+=${scrollOffset * (index + 1.5)}`,
+                    start: () => "top bottom-=" + ((scrollOffset * (index + 1)) - 550 - index * 80),
                 });
                 scrollersForCircles[text.id] = linkST;
-
-
             });
-
-
-
         }
 
         // Create the main timeline for the lines and circles
@@ -2260,7 +2255,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 
+    // Add the drawLegend function
+    function drawLegend() {
+        const legendData = [
+            { color: '#ED5952', text: 'Category 1' },
+            { color: '#768cff', text: 'Category 2' },
+            { color: '#fe8dc8', text: 'Category 3' }
+            // Add more categories as needed
+        ];
 
+        const legend = svg.append('g')
+            .attr('class', 'legend')
+            .attr('transform', `translate(${svgWidth - 150}, 20)`); // Adjust position as needed
+
+        legend.selectAll('rect')
+            .data(legendData)
+            .enter()
+            .append('rect')
+            .attr('x', 0)
+            .attr('y', (d, i) => i * 25)
+            .attr('width', 20)
+            .attr('height', 20)
+            .attr('fill', d => d.color);
+
+        legend.selectAll('text')
+            .data(legendData)
+            .enter()
+            .append('text')
+            .attr('x', 30)
+            .attr('y', (d, i) => i * 25 + 15)
+            .text(d => d.text)
+            .style('font-size', '14px')
+            .style('fill', '#333');
+    }
 
 
 });
