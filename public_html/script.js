@@ -1849,46 +1849,85 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let lastClickedCircleId = null;
 
 
+
+
         function handleCircleClick(event) {
             const circleId = event.target.id;
             console.log(`Circle clicked: ${circleId}`);
 
+            const currentIdNum = parseInt(circleId.split('-')[1]);
+
             let isBigger = null;
             if (lastClickedCircleId) {
-                const currentIdNum = parseInt(circleId.split('-')[1]);
                 const lastIdNum = parseInt(lastClickedCircleId.split('-')[1]);
                 isBigger = currentIdNum > lastIdNum;
                 console.log(`Current circle ID is ${isBigger ? 'bigger' : 'smaller'} than the last clicked circle ID.`);
             }
 
+            // Reset all lines and circles
+            // for (let i = 0; i <= 6; i++) {
+            //     if (i > 0) {
+            //         gsap.to(`.line-${i}`, { scaleX: 0, scaleY: 0, duration: 0, ease: "none" });
+            //     }
+            //     if (i > 0 && i < 7) {
+            //         gsap.to(`#circle-${i}`, { backgroundColor: "lightgray", duration: 0, ease: "none" });
+            //     }
+            // }
+            // for (let i = 1; i < currentIdNum; i++) {
+            //     gsap.to(`.line-${i}`, { scaleX: 1, scaleY: 1, duration: 0, ease: "none" });
+            //     gsap.to(`#circle-${i}`, { backgroundColor: "gray", duration: 0 });
+            // }
+            // gsap.to(`#circle-${currentIdNum}`, { backgroundColor: "gray", duration: 0 });
+
             // Update last clicked circle ID
             lastClickedCircleId = circleId;
+
+            let divID = null;
 
             // I need to consider the direction here!!!
             switch (circleId) {
                 case 'circle-1':
                     // window.scrollTo({ top: 0, behavior: 'smooth' });
-                    gsap.to(window, {scrollTo: {y: 0}, duration: 1});
+                    gsap.to(window, { duration: 0.5, scrollTo: { y: 0 }, overwrite: "auto" });
                     break;
                 case 'circle-2':
-                    mainTimeline.play("packing");
+                    // mainTimeline.play("packing");
+                    divID = "divPiecesOfData";
                     break;
                 case 'circle-3':
-                    mainTimeline.tweenFromTo("categories", "dataShared");
+                    // mainTimeline.tweenFromTo("categories", "dataShared");
+                    divID = "divTotalCategories";
                     break;
                 case 'circle-4':
-                    mainTimeline.tweenFromTo("dataShared", "actorsColumn");
+                    // mainTimeline.tweenFromTo("dataShared", "actorsColumn");
+                    divID = "divDataShared";
                     break;
                 case 'circle-5':
-                    mainTimeline.play("actorsColumn");
+                    divID = "divDataPerActor";
                     break;
                 case 'circle-6':
-                    // Action for circle-6
-                    alert('You clicked on circle-6');
+                    divID = "divDataPerActor";
                     break;
                 default:
                     console.log('Unknown circle clicked');
             }
+
+            if (divID) {
+                let linkST = scrollersForCircles[divID];
+                gsap.to(window, {
+                    duration: 0.5, scrollTo: linkST.start, overwrite: "auto", onComplete: () => {
+                        if (circleId == 'circle-6') {
+                            mainTimeline.play("actorsColumn");
+                            gsap.to(window, { duration: 1, scrollTo: { y: document.body.scrollHeight }, overwrite: "auto" });
+                        }
+                    }
+                });
+            }
+
+
+
+
+
         }
 
         // Select all circle elements
@@ -1906,8 +1945,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             { line: '.line-5', circle: '#circle-6' }
         ];
 
+
+        let scrollersForCircles = {};
+
         // Function to handle the enter and leave events for the text elements
         function setupTextScrollTriggers() {
+
             texts.forEach((text, index) => {
                 gsap.fromTo(text, { opacity: 0, y: 100 }, {
                     opacity: 1, y: 0,
@@ -1938,7 +1981,26 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         },
                     }
                 });
+
+                console.log("scrollOffset * (index + 1): ");
+                console.log(scrollOffset * (index + 1));
+
+
+
+                linkST = ScrollTrigger.create({
+                    trigger: text,
+                    // start: () => "top bottom-=" + ( (scrollOffset * (index))scrollOffset * (index) + 285)
+
+                    start: () => "top bottom-=" + ((scrollOffset * (index + 1)) - 490 - index * 100),
+                    end: () => `center center+=${scrollOffset * (index + 1.5)}`,
+                });
+                scrollersForCircles[text.id] = linkST;
+
+
             });
+
+
+
         }
 
         // Create the main timeline for the lines and circles
@@ -1971,25 +2033,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             }
                         }
 
-                        // if (progress < 0.99) {
-                        //     gsap.to(pair.circle, { backgroundColor: "lightgray", ease: "none", duration: 0 });
+                        if (progress < 0.99) {
+                            // gsap.to(pair.circle, { backgroundColor: "lightgray", ease: "none", duration: 0 });
 
-                        //     if (pair.line == ".line-5") {
-                        //         gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none" });
+                            if (pair.line == ".line-5") {
+                                gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none" });
 
-                        //     }
+                            }
 
-                        // } else {
-                        //     gsap.to(pair.circle, { backgroundColor: "gray", ease: "none", duration: 0 });
-
-
-                        //     if (pair.line == ".line-5") {
-                        //         gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none" });
-
-                        //     }
+                        } else {
+                            // gsap.to(pair.circle, { backgroundColor: "gray", ease: "none", duration: 0 });
 
 
-                        // }
+                            if (pair.line == ".line-5") {
+                                gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none" });
+
+                            }
+
+
+                        }
 
 
 

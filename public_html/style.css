@@ -467,7 +467,7 @@ button {
 
 .panel {
   min-height: 100vh;
-  padding-left: 3rem;
+  /* padding-left: 3rem; */
   padding-right: 0.6rem;
   display: flex;
   align-items: center;
@@ -477,6 +477,8 @@ button {
   flex-direction: column;
   font-size: 1.1em;
 }
+
+
 
 .panel.gray {
   background-color: #777;
