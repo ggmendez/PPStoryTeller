@@ -1864,20 +1864,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 console.log(`Current circle ID is ${isBigger ? 'bigger' : 'smaller'} than the last clicked circle ID.`);
             }
 
-            // Reset all lines and circles
-            // for (let i = 0; i <= 6; i++) {
-            //     if (i > 0) {
-            //         gsap.to(`.line-${i}`, { scaleX: 0, scaleY: 0, duration: 0, ease: "none" });
-            //     }
-            //     if (i > 0 && i < 7) {
-            //         gsap.to(`#circle-${i}`, { backgroundColor: "lightgray", duration: 0, ease: "none" });
-            //     }
-            // }
-            // for (let i = 1; i < currentIdNum; i++) {
-            //     gsap.to(`.line-${i}`, { scaleX: 1, scaleY: 1, duration: 0, ease: "none" });
-            //     gsap.to(`#circle-${i}`, { backgroundColor: "gray", duration: 0 });
-            // }
-            // gsap.to(`#circle-${currentIdNum}`, { backgroundColor: "gray", duration: 0 });
+            if (lastClickedCircleId == circleId) {
+                return;
+            }
 
             // Update last clicked circle ID
             lastClickedCircleId = circleId;
