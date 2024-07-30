@@ -1338,7 +1338,7 @@ code .token.url {
 
 .line-0, .line-1, .line-2, .line-3, .line-4, .line-5, .line-6 {
   width: 3px;
-  background-color: gray;
+  background-color: lightgray;
   transform-origin: center top;
   z-index: 2;
 }
@@ -1352,7 +1352,7 @@ code .token.url {
   top: 0;
   width: 3px;
   height: 100vh;    
-  background-color: lightgray;
+  background-color: rgb(239, 243, 244);
   transform-origin: center top;
   z-index: 1;
 }
@@ -1367,11 +1367,11 @@ code .token.url {
 }
 
 .progressCircle {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   border: 2px solid white;
   border-radius: 50%;
-  background-color: lightgray;
+  background-color: #eff3f4;
   z-index: 2;
   cursor: pointer;
   transform-origin: center center;
@@ -1386,5 +1386,5 @@ code .token.url {
 
 
 #circle-1 {
-  background-color: gray;
+  background-color: #cecece;
 }

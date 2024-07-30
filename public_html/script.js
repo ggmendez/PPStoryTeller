@@ -1076,7 +1076,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function addScrollEvents() {
 
-        console.log("adding scroll events");
+        let progressColor = "#cecece";
 
         const rectLabels = svg.selectAll('.rect-label');
 
@@ -1091,11 +1091,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     gsap.to('.scroll-down', {
                         opacity: 1 - progress
                     });
-                    gsap.to('.line-1', { scaleX: 1, scaleY: progress, duration: 0, ease: "none" });
+                    gsap.to('.line-1', { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
                     if (progress > 0.99) {
-                        gsap.to("#circle-2", { backgroundColor: "gray", ease: "none", duration: 0 });
+                        gsap.to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
                     } else {
-                        gsap.to("#circle-2", { backgroundColor: "lightgray", ease: "none", duration: 0 });
+                        gsap.to("#circle-2", { backgroundColor: "rgb(239, 243, 244)", ease: "none", duration: 0 });
                     }
                 }
             }
@@ -2011,40 +2011,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         const end = (index + 1) * segmentDuration;
                         const progress = gsap.utils.clamp(0, 1, (totalProgress - start) / (end - start));
 
-                        gsap.to(pair.line, { scaleX: 1, scaleY: progress, duration: 0, ease: "none" });
-
+                        gsap.to(pair.line, { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
 
                         if (pair.circle) {
                             if (progress < 0.99) {
-                                gsap.to(pair.circle, { backgroundColor: "lightgray", ease: "none", duration: 0 });
+                                gsap.to(pair.circle, { backgroundColor: "rgb(239, 243, 244)", ease: "none", duration: 0 });
                             } else {
-                                gsap.to(pair.circle, { backgroundColor: "gray", ease: "none", duration: 0 });
+                                gsap.to(pair.circle, { backgroundColor: progressColor, ease: "none", duration: 0 });
                             }
                         }
-
                         if (progress < 0.99) {
-                            // gsap.to(pair.circle, { backgroundColor: "lightgray", ease: "none", duration: 0 });
-
                             if (pair.line == ".line-5") {
                                 gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none" });
-
                             }
-
                         } else {
-                            // gsap.to(pair.circle, { backgroundColor: "gray", ease: "none", duration: 0 });
-
-
                             if (pair.line == ".line-5") {
                                 gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none" });
 
                             }
-
-
                         }
-
-
-
-
                     });
                 },
             }
