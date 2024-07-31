@@ -1082,7 +1082,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 },
                 onComplete: () => {
                     mainTimeline.pause();
-                    drawLegend();
+                    drawLegend(packedRectData);
                 }
             }, "packing");
 
@@ -2255,39 +2255,115 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
     }
 
-    // Add the drawLegend function
+
     function drawLegend() {
-        const legendData = [
-            { color: '#ED5952', text: 'Category 1' },
-            { color: '#768cff', text: 'Category 2' },
-            { color: '#fe8dc8', text: 'Category 3' }
-            // Add more categories as needed
-        ];
 
-        const legend = svg.append('g')
-            .attr('class', 'legend')
-            .attr('transform', `translate(${svgWidth - 150}, 20)`); // Adjust position as needed
+        // Select all rects with the class 'dataRect'
+        const dataRects = d3.selectAll('.dataRect').nodes();
 
-        legend.selectAll('rect')
-            .data(legendData)
-            .enter()
-            .append('rect')
-            .attr('x', 0)
-            .attr('y', (d, i) => i * 25)
-            .attr('width', 20)
-            .attr('height', 20)
-            .attr('fill', d => d.color);
+        // Find the smallest rectangles
+        const smallestArea = dataRects.reduce((minArea, d) => {
+            const width = parseFloat(d.getAttribute('width'));
+            const height = parseFloat(d.getAttribute('height'));
+            const area = width * height;
+            return area < minArea ? area : minArea;
+        }, Infinity);
 
-        legend.selectAll('text')
-            .data(legendData)
-            .enter()
-            .append('text')
-            .attr('x', 30)
-            .attr('y', (d, i) => i * 25 + 15)
-            .text(d => d.text)
-            .style('font-size', '14px')
-            .style('fill', '#333');
+        const smallestRects = dataRects.filter(d => {
+            const width = parseFloat(d.getAttribute('width'));
+            const height = parseFloat(d.getAttribute('height'));
+            return width * height === smallestArea;
+        });
+
+        // Find the right-most of the smallest rectangles
+        const rightMostSmallestRect = smallestRects.reduce((rightMost, d) => {
+            const x = parseFloat(d.getAttribute('x'));
+            return x > parseFloat(rightMost.getAttribute('x')) ? d : rightMost;
+        }, smallestRects[0]);
+
+        // Find the largest rectangle
+        const largestRect = dataRects.reduce((max, d) => {
+            const width = parseFloat(d.getAttribute('width'));
+            const height = parseFloat(d.getAttribute('height'));
+            return width * height > parseFloat(max.getAttribute('width')) * parseFloat(max.getAttribute('height')) ? d : max;
+        }, dataRects[0]);
+
+        // Define the starting and ending points for the paths based on the sketch
+        const startSmallestRect = {
+            x: parseFloat(rightMostSmallestRect.getAttribute('x')) + parseFloat(rightMostSmallestRect.getAttribute('width')) / 2,
+            y: parseFloat(rightMostSmallestRect.getAttribute('y')) + parseFloat(rightMostSmallestRect.getAttribute('height')) / 2
+        };
+        const endSmallestRect = {
+            x: startSmallestRect.x + 100,
+            y: startSmallestRect.y
+        };
+
+        const startLargestRect = {
+            x: parseFloat(largestRect.getAttribute('x')) + parseFloat(largestRect.getAttribute('width')) / 2,
+            y: parseFloat(largestRect.getAttribute('y'))
+        };
+
+        const endLargestRect = {
+            x: startLargestRect.x - 20,
+            y: startLargestRect.y - 20
+        };
+
+        // drawRectAt(largestRect.getAttribute('x'), parseFloat(largestRect.getAttribute('y')) + parseFloat(largestRect.getAttribute('height')) / 2, 5, 5, 'black')
+        drawRectAt(startSmallestRect.x, startSmallestRect.y, 5, 5, 'green')
+        drawRectAt(endSmallestRect.x, endSmallestRect.y, 5, 5, 'red')
+
+        // Create SVG path elements
+        const path1 = d3.select("svg").append("path")
+            .attr("d", `M${startSmallestRect.x},${startSmallestRect.y - rightMostSmallestRect.getAttribute('height') / 2} L${startSmallestRect.x + 20},${startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2} L${startSmallestRect.x + 20 + parseFloat(largestRect.getAttribute('width')) / 2 + 40},${startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2}`)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .node();
+
+        const path2 = d3.select("svg").append("path")
+            .attr("d", `M${startLargestRect.x},${startLargestRect.y} L${startLargestRect.x - 20},${startLargestRect.y - 20} L${startLargestRect.x - 40 - parseFloat(largestRect.getAttribute('width')) / 2},${startLargestRect.y - 20}`)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("fill", "none")
+            .node();
+
+        // Get the total length of the paths
+        const pathLength1 = path1.getTotalLength();
+        const pathLength2 = path2.getTotalLength();
+
+        // Set the stroke-dasharray and stroke-dashoffset to the path length
+        path1.style.strokeDasharray = pathLength1;
+        path1.style.strokeDashoffset = pathLength1;
+
+        path2.style.strokeDasharray = pathLength2;
+        path2.style.strokeDashoffset = pathLength2;
+
+        // Animate the stroke-dashoffset to 0 with GSAP
+        gsap.to(path1, { strokeDashoffset: 0, duration: 0.5 });
+        gsap.to(path2, { strokeDashoffset: 0, duration: 0.5 });
+
+        // Add text labels
+        d3.select("svg").append("text")
+            .attr("x", endSmallestRect.x - 10)
+            .attr("y", endSmallestRect.y + 5)
+            .attr("text-anchor", "end")
+            .attr("alignment-baseline", "middle")
+            .text("Least Collected");
+
+        d3.select("svg").append("text")
+            .attr("x", endLargestRect.x + 10)
+            .attr("y", endLargestRect.y - 5)
+            .attr("text-anchor", "start")
+            .attr("alignment-baseline", "middle")
+            .text("Frequently Collected");
     }
+
+
+
+
+
+
+
 
 
 });
