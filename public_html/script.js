@@ -2257,10 +2257,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function drawLegend() {
-
         // Select all rects with the class 'dataRect'
         const dataRects = d3.selectAll('.dataRect').nodes();
-
+    
         // Find the smallest rectangles
         const smallestArea = dataRects.reduce((minArea, d) => {
             const width = parseFloat(d.getAttribute('width'));
@@ -2268,95 +2267,113 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const area = width * height;
             return area < minArea ? area : minArea;
         }, Infinity);
-
+    
         const smallestRects = dataRects.filter(d => {
             const width = parseFloat(d.getAttribute('width'));
             const height = parseFloat(d.getAttribute('height'));
             return width * height === smallestArea;
         });
-
+    
         // Find the right-most of the smallest rectangles
         const rightMostSmallestRect = smallestRects.reduce((rightMost, d) => {
             const x = parseFloat(d.getAttribute('x'));
             return x > parseFloat(rightMost.getAttribute('x')) ? d : rightMost;
         }, smallestRects[0]);
-
+    
         // Find the largest rectangle
         const largestRect = dataRects.reduce((max, d) => {
             const width = parseFloat(d.getAttribute('width'));
             const height = parseFloat(d.getAttribute('height'));
             return width * height > parseFloat(max.getAttribute('width')) * parseFloat(max.getAttribute('height')) ? d : max;
         }, dataRects[0]);
-
+    
         // Define the starting and ending points for the paths based on the sketch
         const startSmallestRect = {
             x: parseFloat(rightMostSmallestRect.getAttribute('x')) + parseFloat(rightMostSmallestRect.getAttribute('width')) / 2,
             y: parseFloat(rightMostSmallestRect.getAttribute('y')) + parseFloat(rightMostSmallestRect.getAttribute('height')) / 2
         };
-        const endSmallestRect = {
-            x: startSmallestRect.x + 100,
-            y: startSmallestRect.y
-        };
-
+    
         const startLargestRect = {
             x: parseFloat(largestRect.getAttribute('x')) + parseFloat(largestRect.getAttribute('width')) / 2,
             y: parseFloat(largestRect.getAttribute('y'))
         };
-
-        const endLargestRect = {
-            x: startLargestRect.x - 20,
-            y: startLargestRect.y - 20
-        };
-
-        // drawRectAt(largestRect.getAttribute('x'), parseFloat(largestRect.getAttribute('y')) + parseFloat(largestRect.getAttribute('height')) / 2, 5, 5, 'black')
-        drawRectAt(startSmallestRect.x, startSmallestRect.y, 5, 5, 'green')
-        drawRectAt(endSmallestRect.x, endSmallestRect.y, 5, 5, 'red')
-
+    
+        let startPath1 = { x: startSmallestRect.x, y: startSmallestRect.y - rightMostSmallestRect.getAttribute('height') / 2 };
+        let midPath1 = { x: startSmallestRect.x + 20, y: startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2 };
+        let endPath1 = { x: startSmallestRect.x + 20 + parseFloat(largestRect.getAttribute('width')) / 2 + 40, y: startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2 };
+    
         // Create SVG path elements
-        const path1 = d3.select("svg").append("path")
-            .attr("d", `M${startSmallestRect.x},${startSmallestRect.y - rightMostSmallestRect.getAttribute('height') / 2} L${startSmallestRect.x + 20},${startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2} L${startSmallestRect.x + 20 + parseFloat(largestRect.getAttribute('width')) / 2 + 40},${startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2}`)
+        const pathSmallesRect = d3.select("svg").append("path")
+            .attr("d", `M${startPath1.x},${startPath1.y} L${midPath1.x},${midPath1.y} L${endPath1.x},${endPath1.y}`)
             .attr("stroke", "black")
             .attr("stroke-width", 2)
+            .attr("stroke-linecap", "round")
+            .attr("stroke-linejoin", "round")
             .attr("fill", "none")
             .node();
-
-        const path2 = d3.select("svg").append("path")
-            .attr("d", `M${startLargestRect.x},${startLargestRect.y} L${startLargestRect.x - 20},${startLargestRect.y - 20} L${startLargestRect.x - 40 - parseFloat(largestRect.getAttribute('width')) / 2},${startLargestRect.y - 20}`)
+    
+        let startPath2 = { x: startLargestRect.x, y: startLargestRect.y };
+        let midPath2 = { x: startLargestRect.x - 20, y: startLargestRect.y - 20 };
+        let endPath2 = { x: startLargestRect.x - 40 - parseFloat(largestRect.getAttribute('width')) / 2, y: startLargestRect.y - 20 };
+    
+        const pathLargestRect = d3.select("svg").append("path")
+            .attr("d", `M${startPath2.x},${startPath2.y} L${midPath2.x},${midPath2.y} L${endPath2.x},${endPath2.y}`)
             .attr("stroke", "black")
             .attr("stroke-width", 2)
+            .attr("stroke-linecap", "round")
+            .attr("stroke-linejoin", "round")
             .attr("fill", "none")
             .node();
-
+    
         // Get the total length of the paths
-        const pathLength1 = path1.getTotalLength();
-        const pathLength2 = path2.getTotalLength();
-
+        const pathLength1 = pathSmallesRect.getTotalLength();
+        const pathLength2 = pathLargestRect.getTotalLength();
+    
         // Set the stroke-dasharray and stroke-dashoffset to the path length
-        path1.style.strokeDasharray = pathLength1;
-        path1.style.strokeDashoffset = pathLength1;
-
-        path2.style.strokeDasharray = pathLength2;
-        path2.style.strokeDashoffset = pathLength2;
-
+        pathSmallesRect.style.strokeDasharray = pathLength1;
+        pathSmallesRect.style.strokeDashoffset = pathLength1;
+    
+        pathLargestRect.style.strokeDasharray = pathLength2;
+        pathLargestRect.style.strokeDashoffset = pathLength2;
+    
+        // Select circles that are not the smallest or largest
+        const nonTargetRects = dataRects.filter(d => d !== rightMostSmallestRect && d !== largestRect);
+    
+        // Animate the non-target circles to fade out and back in
+        gsap.to(nonTargetRects, {
+            opacity: 0.2, duration: 0.5, onComplete: () => {
+                gsap.to(nonTargetRects, {
+                    opacity: 1, duration: 0.5
+                });
+            }
+        });
+    
         // Animate the stroke-dashoffset to 0 with GSAP
-        gsap.to(path1, { strokeDashoffset: 0, duration: 0.5 });
-        gsap.to(path2, { strokeDashoffset: 0, duration: 0.5 });
-
-        // Add text labels
-        d3.select("svg").append("text")
-            .attr("x", endSmallestRect.x - 10)
-            .attr("y", endSmallestRect.y + 5)
-            .attr("text-anchor", "end")
-            .attr("alignment-baseline", "middle")
-            .text("Least Collected");
-
-        d3.select("svg").append("text")
-            .attr("x", endLargestRect.x + 10)
-            .attr("y", endLargestRect.y - 5)
-            .attr("text-anchor", "start")
-            .attr("alignment-baseline", "middle")
-            .text("Frequently Collected");
+        gsap.to(pathSmallesRect, {
+            strokeDashoffset: 0, duration: 0.5, onComplete: () => {
+                // Add text labels
+                d3.select("svg").append("text")
+                    .attr("x", endPath2.x - 5)
+                    .attr("y", endPath2.y)
+                    .attr("text-anchor", "end")
+                    .attr("alignment-baseline", "middle")
+                    .text("Frequently collected");
+            }
+        });
+    
+        gsap.to(pathLargestRect, {
+            strokeDashoffset: 0, duration: 0.5, onComplete: () => {
+                d3.select("svg").append("text")
+                    .attr("x", endPath1.x + 5)
+                    .attr("y", endPath1.y)
+                    .attr("text-anchor", "start")
+                    .attr("alignment-baseline", "middle")
+                    .text("Least collected");
+            }
+        });
     }
+    
+    
 
 
 
