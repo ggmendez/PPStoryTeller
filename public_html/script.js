@@ -828,6 +828,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .enter()
             .append('rect')
             .attr('class', 'dataRect')
+            .attr('data-id', d => d.id)
             .attr('x', d => d.x - (d.width / 2))
             .attr('y', d => d.y - (d.height / 2))
             .attr('width', d => Math.max(d.width, 0))
@@ -840,26 +841,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('fill', d => d.fill);
 
         // Add labels to the rects
-        const svgRectLabels = svg.selectAll('.rect-label')
-            .data(rectData.filter(d => Math.min(d.width, d.height) >= minLabelSize), d => d.id)
-            .enter()
-            .append('text')
-            .attr('class', 'rect-label')
-            .attr('opacity', 0)
-            .attr('text-anchor', 'middle')
-            .attr('x', d => d.x)
-            .attr('y', d => d.y)
-            .style('font-size', d => `${Math.min(d.width / 3, 12)}px`) // Adjust font size
-            .style('pointer-events', 'none') // Prevent labels from interfering with hover events
-            .each(function (d) {
-                const lines = splitText(d.name, Math.min(d.width, d.height));
-                lines.forEach((line, i) => {
-                    d3.select(this).append('tspan')
-                        .attr('x', d.x)
-                        .attr('dy', i === 0 ? `-${(lines.length - 1) / 2}em` : `${1.1}em`)
-                        .text(line);
-                });
-            });
+        // const svgRectLabels = svg.selectAll('.rect-label')
+        //     .data(rectData.filter(d => Math.min(d.width, d.height) >= minLabelSize), d => d.id)
+        //     .enter()
+        //     .append('text')
+        //     .attr('class', 'rect-label')
+        //     .attr('data-id', d => d.id) // Add this line
+        //     .attr('opacity', 0)
+        //     .attr('text-anchor', 'middle')
+        //     .attr('x', d => d.x)
+        //     .attr('y', d => d.y)
+        //     .style('font-size', d => `${Math.min(d.width / 3, 12)}px`) // Adjust font size
+        //     .style('pointer-events', 'none') // Prevent labels from interfering with hover events
+        //     .each(function (d) {
+        //         const lines = splitText(d.name, Math.min(d.width, d.height));
+        //         lines.forEach((line, i) => {
+        //             d3.select(this).append('tspan')
+        //                 .attr('x', d.x)
+        //                 .attr('dy', i === 0 ? `-${(lines.length - 1) / 2}em` : `${1.1}em`)
+        //                 .text(line);
+        //         });
+        //     });
 
 
 
@@ -1011,6 +1013,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .text(line);
                 });
             })
+            .attr('data-id', d => d.id)
             .attr('opacity', d => d.opacity)
             .style('font-size', d => {
                 const maxDimension = Math.min(d.width, d.height);
@@ -1082,7 +1085,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 },
                 onComplete: () => {
                     mainTimeline.pause();
-                    drawLegend(packedRectData);
+                    explainPacking(packedRectData);
                 }
             }, "packing");
 
@@ -2256,10 +2259,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
-    function drawLegend() {
+    function explainPacking() {
         // Select all rects with the class 'dataRect'
         const dataRects = d3.selectAll('.dataRect').nodes();
-    
+
         // Find the smallest rectangles
         const smallestArea = dataRects.reduce((minArea, d) => {
             const width = parseFloat(d.getAttribute('width'));
@@ -2267,41 +2270,41 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const area = width * height;
             return area < minArea ? area : minArea;
         }, Infinity);
-    
+
         const smallestRects = dataRects.filter(d => {
             const width = parseFloat(d.getAttribute('width'));
             const height = parseFloat(d.getAttribute('height'));
             return width * height === smallestArea;
         });
-    
+
         // Find the right-most of the smallest rectangles
         const rightMostSmallestRect = smallestRects.reduce((rightMost, d) => {
             const x = parseFloat(d.getAttribute('x'));
             return x > parseFloat(rightMost.getAttribute('x')) ? d : rightMost;
         }, smallestRects[0]);
-    
+
         // Find the largest rectangle
         const largestRect = dataRects.reduce((max, d) => {
             const width = parseFloat(d.getAttribute('width'));
             const height = parseFloat(d.getAttribute('height'));
             return width * height > parseFloat(max.getAttribute('width')) * parseFloat(max.getAttribute('height')) ? d : max;
         }, dataRects[0]);
-    
+
         // Define the starting and ending points for the paths based on the sketch
         const startSmallestRect = {
             x: parseFloat(rightMostSmallestRect.getAttribute('x')) + parseFloat(rightMostSmallestRect.getAttribute('width')) / 2,
             y: parseFloat(rightMostSmallestRect.getAttribute('y')) + parseFloat(rightMostSmallestRect.getAttribute('height')) / 2
         };
-    
+
         const startLargestRect = {
             x: parseFloat(largestRect.getAttribute('x')) + parseFloat(largestRect.getAttribute('width')) / 2,
             y: parseFloat(largestRect.getAttribute('y'))
         };
-    
+
         let startPath1 = { x: startSmallestRect.x, y: startSmallestRect.y - rightMostSmallestRect.getAttribute('height') / 2 };
         let midPath1 = { x: startSmallestRect.x + 20, y: startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2 };
         let endPath1 = { x: startSmallestRect.x + 20 + parseFloat(largestRect.getAttribute('width')) / 2 + 40, y: startSmallestRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2 };
-    
+
         // Create SVG path elements
         const pathSmallesRect = d3.select("svg").append("path")
             .attr("d", `M${startPath1.x},${startPath1.y} L${midPath1.x},${midPath1.y} L${endPath1.x},${endPath1.y}`)
@@ -2311,11 +2314,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr("stroke-linejoin", "round")
             .attr("fill", "none")
             .node();
-    
+
         let startPath2 = { x: startLargestRect.x, y: startLargestRect.y };
         let midPath2 = { x: startLargestRect.x - 20, y: startLargestRect.y - 20 };
         let endPath2 = { x: startLargestRect.x - 40 - parseFloat(largestRect.getAttribute('width')) / 2, y: startLargestRect.y - 20 };
-    
+
         const pathLargestRect = d3.select("svg").append("path")
             .attr("d", `M${startPath2.x},${startPath2.y} L${midPath2.x},${midPath2.y} L${endPath2.x},${endPath2.y}`)
             .attr("stroke", "black")
@@ -2324,56 +2327,107 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr("stroke-linejoin", "round")
             .attr("fill", "none")
             .node();
-    
+
         // Get the total length of the paths
         const pathLength1 = pathSmallesRect.getTotalLength();
         const pathLength2 = pathLargestRect.getTotalLength();
-    
+
         // Set the stroke-dasharray and stroke-dashoffset to the path length
         pathSmallesRect.style.strokeDasharray = pathLength1;
         pathSmallesRect.style.strokeDashoffset = pathLength1;
-    
+
         pathLargestRect.style.strokeDasharray = pathLength2;
         pathLargestRect.style.strokeDashoffset = pathLength2;
-    
-        // Select circles that are not the smallest or largest
+
+        // Select circles and their labels that are not the smallest or largest
         const nonTargetRects = dataRects.filter(d => d !== rightMostSmallestRect && d !== largestRect);
-    
-        // Animate the non-target circles to fade out and back in
-        gsap.to(nonTargetRects, {
-            opacity: 0.2, duration: 0.5, onComplete: () => {
-                gsap.to(nonTargetRects, {
-                    opacity: 1, duration: 0.5
-                });
-            }
-        });
-    
-        // Animate the stroke-dashoffset to 0 with GSAP
-        gsap.to(pathSmallesRect, {
-            strokeDashoffset: 0, duration: 0.5, onComplete: () => {
-                // Add text labels
-                d3.select("svg").append("text")
-                    .attr("x", endPath2.x - 5)
-                    .attr("y", endPath2.y)
-                    .attr("text-anchor", "end")
-                    .attr("alignment-baseline", "middle")
-                    .text("Frequently collected");
-            }
-        });
-    
-        gsap.to(pathLargestRect, {
-            strokeDashoffset: 0, duration: 0.5, onComplete: () => {
-                d3.select("svg").append("text")
+        const nonTargetLabels = nonTargetRects.map(d => d3.select(`.rect-label[data-id='${d.getAttribute('data-id')}']`).node()).filter(d => d);
+
+        console.log("nonTargetLabels:");
+        console.log(nonTargetLabels);
+
+        // Animate the non-target circles and their labels to fade out and back in
+        gsap.to([...nonTargetRects, ...nonTargetLabels], {
+            opacity: 0.05, duration: 1, onComplete: () => {
+
+                // Add text labels with initial opacity 0
+                const label1 = d3.select("svg").append("text")
                     .attr("x", endPath1.x + 5)
                     .attr("y", endPath1.y)
                     .attr("text-anchor", "start")
                     .attr("alignment-baseline", "middle")
+                    .attr("opacity", 0)
                     .text("Least collected");
+
+                const label2 = d3.select("svg").append("text")
+                    .attr("x", endPath2.x - 5)
+                    .attr("y", endPath2.y)
+                    .attr("text-anchor", "end")
+                    .attr("alignment-baseline", "middle")
+                    .attr("opacity", 0)
+                    .text("Frequently collected");
+
+                // Animate the stroke-dashoffset to 0 with GSAP
+                gsap.to(pathSmallesRect, {
+                    strokeDashoffset: 0, duration: 0.5,
+                    onComplete: () => {
+                        // Animate label to fade in
+                        gsap.to(label1.node(), { opacity: 1, duration: 0.5 });
+                    }
+                });
+
+                gsap.to(pathLargestRect, {
+                    strokeDashoffset: 0, duration: 0.5, onComplete: () => {
+
+                        // Animate label to fade in
+                        gsap.to(label2.node(), {
+                            opacity: 1, duration: 0.5, onComplete: () => {
+
+                                gsap.to(label1.node(), { opacity: 0, delay: 2, duration: 0.5 });
+                                gsap.to(label2.node(), {
+                                    opacity: 0, delay: 2, duration: 0.5,
+                                    onComplete: () => {
+
+                                        gsap.to(pathSmallesRect, { strokeDashoffset: pathLength1, duration: 0.5 });
+                                        gsap.to(pathLargestRect, {
+                                            strokeDashoffset: pathLength2, duration: 0.5,
+                                            onComplete: () => {
+
+                                                d3.select(pathSmallesRect).remove();
+                                                d3.select(pathLargestRect).remove();
+
+                                                // Animate non-target rectangles and their labels to fade back in
+                                                gsap.to([...nonTargetRects, ...nonTargetLabels], { delay: 0.5, opacity: 1, duration: 1 });
+                                            }
+
+                                        });
+
+
+
+                                    }
+                                });
+
+
+
+
+
+
+
+                            }
+                        });
+                    }
+                });
             }
         });
     }
-    
-    
+
+
+
+
+
+
+
+
 
 
 
