@@ -954,12 +954,12 @@ code .token.url {
   font-variant: small-caps; */
 }
 
-.rect-label {
+.rectLabel {
   font-family: "Open Sans", sans-serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
-  pointer-events: none;
+  /* pointer-events: none; */
   /* opacity: 0; */
 }
 
