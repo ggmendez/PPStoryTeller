@@ -3,25 +3,20 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     let pathLargestRect, pathSmallesRect;
+    let label1, label2;
     let nonTargetLabels;
 
     let otherRectsIDs;
     let otherLabelsIDs;
     let pathString1, pathString2, endPath1, endPath2;
+    let explaining = "packing";
+
 
     // Function to get the value of a query parameter
     function getQueryParam(param) {
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
     }
-
-    // let who = "tiktok";
-    // let who = "openai";
-    // let who = "amazon";
-    // let who = "bixby";
-    // let who = "gemini";
-
-    // let who = "siri";
 
     let formatedNames = {};
     formatedNames.tiktok = "TikTok"
@@ -32,16 +27,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // formatedNames.siri = "Siri"
 
     // Extract the value of "who" from the URL
-
     let who = getQueryParam('who');
-
     if (!who) who = "tiktok";
-
     document.title = formatedNames[who] + "'s PP";
-
-
-
-
 
 
 
@@ -279,12 +267,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .style("border-radius", "5px");
 
 
-
-
     const svg = d3.select('#circle-packing-svg');
     const svgElement = document.getElementById('circle-packing-svg');
     let svgWidth = svgElement.clientWidth;
     let svgHeight = svgElement.clientHeight;
+
+
+
+    const infoIcon = svg.append('g');
+    const cursorIcon = svg.append('g');
+
+    loadIconAt(infoIcon, './icons/info.svg', svgWidth - 40, 40)
+        .then(data => {
+            infoIcon.on('click', () => {
+                if (explaining == "packing") {
+                    explainPacking();
+                } else if (explaining == "actors") {
+                    explainActors();
+                }
+            });
+        });
+
+
+    loadIconAt(cursorIcon, './icons/cursor.svg', svgWidth / 2, svgHeight / 2);
 
     let originalTransformations = {};
     let labelsOf = {};
@@ -336,7 +341,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     // plugins
-    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+    gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin);
+
 
     const padding = 2;
     const minLabelSize = 40; // Minimum size for a rectangle to have a label
@@ -354,6 +360,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function getCategory(item, categorization) {
         const normalizedItem = item.toLowerCase().trim();
+
 
         for (const category in categorization) {
             for (const entry of categorization[category]) {
@@ -492,8 +499,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
-
         })
         .then(() => {
             return processActorEntities(entities);
@@ -501,6 +506,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .then(() => {
             return processDataEntities(entities);
         })
+
         .then(() => {
             addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
         })
@@ -524,11 +530,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             };
         });
 
-        console.log("actorsEntities:");
-        console.log(actorsEntities);
-
         const excludedCategoryName = "WeXXXX";  // Name of the category to exclude
         const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
+
         document.querySelector("#totalActorCategories").textContent = actorCategories.length;
 
         const dimension = Math.min(svgWidth, svgHeight) / 3;
@@ -561,8 +565,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .attr('id', actorID)
                     .attr('opacity', '0');
 
-                var tempG = svg.append('g')
-                    .append(() => importedNode);
+                var tempG = svg.append('g').append(() => importedNode);
 
                 const bbox = importedNode.getBBox();
                 const iconWidth = bbox.width;
@@ -573,7 +576,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 tempG.remove();
 
-                originalTransformations[actorID] = { originalX: x - iconWidth / 2, originalY: y - iconHeight / 2, originalScale: actorIconScale, originX: iconWidth / 2, originY: iconHeight / 2 };
+                originalTransformations[actorID] = {
+                    originalX: x - iconWidth / 2,
+                    originalY: y - iconHeight / 2,
+                    originalScale: actorIconScale,
+                    originX: iconWidth / 2,
+                    originY: iconHeight / 2
+                };
 
 
                 iconElement.append(() => importedNode);
@@ -593,10 +602,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     d3.select('#' + labelsOf[actorID]).style('font-weight', 'normal');
                 });
 
+                const cleanCategory = removeSpaces(category.toUpperCase());
+                const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
+                const numberOfActors = actorNames.length;
+
+                iconElement.attr('data-numberOfActors', numberOfActors);
+
                 // Add event listener to the actor icons
                 iconElement.on('click', function (event) {
-                    const cleanCategory = removeSpaces(category.toUpperCase());
-                    const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
 
                     // Clear existing content
                     centerText.selectAll('tspan').remove();
@@ -814,15 +827,56 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("smallestBottomRightRect:");
         console.log(smallestBottomRightRect);
 
-        const startPath1 = { x: smallestBottomRightRect.x, y: smallestBottomRightRect.y - smallestBottomRightRect.height / 2 };
-        const midPath1 = { x: smallestBottomRightRect.x + 20, y: smallestBottomRightRect.y - 20 - smallestBottomRightRect.height / 2 };
-        endPath1 = { x: smallestBottomRightRect.x + 20 + largestTopLeftRect.width / 2 + 40, y: smallestBottomRightRect.y - 20 - smallestBottomRightRect.height / 2 };
-        pathString1 = `M${startPath1.x},${startPath1.y} L${midPath1.x},${midPath1.y} L${endPath1.x},${endPath1.y}`;
+        const startPath1 = { x: smallestBottomRightRect.x, y: smallestBottomRightRect.y + smallestBottomRightRect.height / 2 };
+        const midPath1 = { x: smallestBottomRightRect.x + 20, y: smallestBottomRightRect.y + 20 + smallestBottomRightRect.height / 2 };
+        endPath1 = { x: smallestBottomRightRect.x + 20 + largestTopLeftRect.width / 2 + 40, y: smallestBottomRightRect.y + 20 + smallestBottomRightRect.height / 2 };
+        pathString1 = `M${startPath1.x},${startPath1.y + 3} L${midPath1.x},${midPath1.y + 3} L${endPath1.x},${endPath1.y + 3}`;
 
         const startPath2 = { x: largestTopLeftRect.x, y: largestTopLeftRect.y - largestTopLeftRect.height / 2 };
         const midPath2 = { x: largestTopLeftRect.x - 20, y: largestTopLeftRect.y - 20 - largestTopLeftRect.height / 2 };
         endPath2 = { x: largestTopLeftRect.x - 40 - largestTopLeftRect.width / 2, y: largestTopLeftRect.y - 20 - largestTopLeftRect.height / 2 };
-        pathString2 = `M${startPath2.x},${startPath2.y} L${midPath2.x},${midPath2.y} L${endPath2.x},${endPath2.y}`;
+        pathString2 = `M${startPath2.x},${startPath2.y - 3} L${midPath2.x},${midPath2.y - 3} L${endPath2.x},${endPath2.y - 3}`;
+
+
+        // Create SVG path elements
+        pathSmallesRect = d3.select("svg").append("path")
+            .attr("d", pathString1)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("stroke-linecap", "round")
+            .attr("stroke-linejoin", "round")
+            .attr("fill", "none")
+            .attr("opacity", "0")
+            .node();
+
+        pathLargestRect = d3.select("svg").append("path")
+            .attr("d", pathString2)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("stroke-linecap", "round")
+            .attr("stroke-linejoin", "round")
+            .attr("fill", "none")
+            .attr("opacity", "0")
+            .node();
+
+        // Add text labels with initial opacity 0
+        label1 = d3.select("svg").append("text")
+            .attr("x", endPath1.x + 5)
+            .attr("y", endPath1.y + 3)
+            .attr("text-anchor", "start")
+            .attr("alignment-baseline", "middle")
+            .attr("opacity", 0)
+            .text("Least collected");
+
+        label2 = d3.select("svg").append("text")
+            .attr("x", endPath2.x - 5)
+            .attr("y", endPath2.y - 2)
+            .attr("text-anchor", "end")
+            .attr("alignment-baseline", "middle")
+            .attr("opacity", 0)
+            .text("Frequently collected");
+
+
 
 
         console.log("smallestBottomRightRect:");
@@ -1192,13 +1246,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
                 ease: "back.out(1.7)",
                 stagger: { amount: 0.5 * animationDuration },
+                onStart: () => {
+                    explaining = "packing";
+                },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 },
                 onComplete: () => {
-                    // mainTimeline.pause();
+                    mainTimeline.pause();
+                    blinkIcon(infoIcon, 1);
                 }
             }, "packing");
+
+
+
+
+
+
+
+
+
+
+
 
         console.log("nonTargetLabels");
         console.log(nonTargetLabels);
@@ -1217,120 +1286,26 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
 
-        otherRectsIDs.forEach((id, index) => {
-            mainTimeline.to(`#${id}`, {
-                opacity: 0,
-                duration: 1,
-            }, "packing+=2");
-        });
-        otherLabelsIDs.forEach((id, index) => {
-            mainTimeline.to(`#${id}`, {
-                opacity: 0,
-                duration: 1,
-                onComplete: () => {
-                    if (index == otherLabelsIDs.length - 1) {
-                        // console.log("otherRectsIDs:");
-                        // console.log(otherRectsIDs);
-
-                        // console.log("otherLabelsIDs:");
-                        // console.log(otherLabelsIDs);
-                    }
-                }
-            }, "packing+=2");
-        });
-
-        // Create SVG path elements
-        pathSmallesRect = d3.select("svg").append("path")
-            .attr("d", pathString1)
-            .attr("stroke", "black")
-            .attr("stroke-width", 2)
-            .attr("stroke-linecap", "round")
-            .attr("stroke-linejoin", "round")
-            .attr("fill", "none")
-            .node();
-
-        const pathLength1 = pathSmallesRect.getTotalLength();
-        pathSmallesRect.style.strokeDasharray = pathLength1;
-        pathSmallesRect.style.strokeDashoffset = pathLength1;
-
-        pathLargestRect = d3.select("svg").append("path")
-            .attr("d", pathString2)
-            .attr("stroke", "black")
-            .attr("stroke-width", 2)
-            .attr("stroke-linecap", "round")
-            .attr("stroke-linejoin", "round")
-            .attr("fill", "none")
-            .node();
-
-        // Add text labels with initial opacity 0
-        const label1 = d3.select("svg").append("text")
-            .attr("x", endPath1.x + 5)
-            .attr("y", endPath1.y)
-            .attr("text-anchor", "start")
-            .attr("alignment-baseline", "middle")
-            .attr("opacity", 0)
-            .text("Least collected");
-
-        const label2 = d3.select("svg").append("text")
-            .attr("x", endPath2.x - 5)
-            .attr("y", endPath2.y)
-            .attr("text-anchor", "end")
-            .attr("alignment-baseline", "middle")
-            .attr("opacity", 0)
-            .text("Frequently collected");
-
-        const pathLength2 = pathLargestRect.getTotalLength();
-        pathLargestRect.style.strokeDasharray = pathLength2;
-        pathLargestRect.style.strokeDashoffset = pathLength2;
 
 
-        mainTimeline
-            .to(pathSmallesRect, {
-                strokeDashoffset: 0, duration: 0.5
-            })
-            .to(pathLargestRect, {
-                strokeDashoffset: 0, duration: 0.5
-            }, "packing+=3")
-            .to(label1.node(), {
-                opacity: 1, duration: 0.5
-            })
-            .to(label2.node(), {
-                opacity: 1, duration: 0.5
-            }, "-=.5")
-            .to(label1.node(), {
-                opacity: 0, delay: 2, duration: 0.5
-            })
-            .to(label2.node(), {
-                opacity: 0, duration: 0.5
-            }, "-=.5")
-            .to(pathSmallesRect, {
-                strokeDashoffset: pathLength1, duration: 0.5
-            })
-            .to(pathLargestRect, {
-                strokeDashoffset: pathLength2, duration: 0.5,
-                onComplete: () => {
-                    d3.select(pathSmallesRect).attr('opacity', 0);
-                    d3.select(pathLargestRect).attr('opacity', 0);
-                }
-            }, "-=0.5")
 
-        otherRectsIDs.forEach((id, index) => {
-            mainTimeline.to(`#${id}`, {
-                opacity: 1,
-                duration: 1,
-            }, "packing+=7");
-        });
-        otherLabelsIDs.forEach((id, index) => {
-            mainTimeline.to(`#${id}`, {
-                opacity: 1,
-                duration: 1,
-                onComplete: () => {
-                    if (index == otherLabelsIDs.length - 1) {
-                        mainTimeline.pause();
-                    }
-                }
-            }, "packing+=7");
-        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
         const deltaX = 50;
@@ -1455,6 +1430,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             let x = originals.originalX;
             let y = originals.originalY;
 
+            // drawRectAt(x + originals.originX, y + originals.originX, 10, 10, "green")
+
             mainTimeline.fromTo(actorNode, {
                 opacity: 0,
                 x: x,
@@ -1485,11 +1462,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
                 stagger: { amount: animationDuration * 0.75 },
 
+                onStart: () => {
+                    explaining = "actors";
+                },
                 onComplete: () => {
                     if (index == actorLabelNodes.length - 1) {
-                        explainActors();
+                        blinkIcon(infoIcon);
                     }
-
                 }
 
             }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
@@ -2595,9 +2574,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    function explainActors() {
-
-    }
 
 
 
@@ -2659,9 +2635,239 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
+    function explainPacking() {
+        const pathLength1 = pathSmallesRect.getTotalLength();
+        pathSmallesRect.style.strokeDasharray = pathLength1;
+        pathSmallesRect.style.strokeDashoffset = pathLength1;
+
+        const pathLength2 = pathLargestRect.getTotalLength();
+        pathLargestRect.style.strokeDasharray = pathLength2;
+        pathLargestRect.style.strokeDashoffset = pathLength2;
+
+        d3.select(pathSmallesRect).attr('opacity', 1);
+        d3.select(pathLargestRect).attr('opacity', 1);
+
+        const tl = gsap.timeline();
+
+        otherRectsIDs.forEach((id, index) => {
+            tl.to(`#${id}`, { opacity: 0.05, duration: 1 }, "init");
+        });
+        otherLabelsIDs.forEach((id, index) => {
+            tl.to(`#${id}`, { opacity: 0.05, duration: 1 }, "init");
+        });
+
+        tl
+            .to(pathSmallesRect, {
+                strokeDashoffset: 0, duration: 0.5
+            })
+            .to(label1.node(), {
+                opacity: 1, duration: 0.5
+            }, "-=0.3")
+
+            .to(pathLargestRect, {
+                strokeDashoffset: 0, duration: 0.5
+            })
+            .to(label2.node(), {
+                opacity: 1, duration: 0.5
+            }, "-=0.3")
+
+            .to(label1.node(), {
+                opacity: 0, delay: 2, duration: 0.5
+            })
+            .to(label2.node(), {
+                opacity: 0, duration: 0.5
+            }, "-=0.5")
+
+            .to(pathSmallesRect, {
+                strokeDashoffset: pathLength1, duration: 0.5
+            }, "-=0.5")
+            .to(pathLargestRect, {
+                strokeDashoffset: pathLength2, duration: 0.5,
+                onComplete: () => {
+                    d3.select(pathSmallesRect).attr('opacity', 0);
+                    d3.select(pathLargestRect).attr('opacity', 0);
+                }
+            }, "-=0.5")
+
+        otherRectsIDs.forEach((id, index) => {
+            tl.to(`#${id}`, { opacity: 1, duration: 1 }, "init+=5");
+        });
+
+        otherLabelsIDs.forEach((id, index) => {
+            tl.to(`#${id}`, {
+                opacity: 1,
+                duration: 1,
+                onComplete: () => {
+                    if (index == otherLabelsIDs.length - 1) {
+                        tl.pause();
+                    }
+                }
+            }, "init+=5");
+        });
+
+    }
+
+    function getCenterOfSvgGroup(groupId) {
+        // Select the SVG group element by its ID
+        const groupElement = d3.select(`#${groupId}`).node();
+
+        // Get the bounding box of the group element
+        const bbox = groupElement.getBBox();
+
+        // drawRectAt(bbox.x, bbox.y, 10, 10, 'green');
+        // drawRectAt(bbox.x + bbox.width, bbox.y, 10, 10, 'green');
+        // drawRectAt(bbox.x, bbox.y + bbox.height, 10, 10, 'green');
+        // drawRectAt(bbox.x + bbox.width, bbox.y + bbox.height, 10, 10, 'green');
+
+        // Calculate the center of the bounding box
+        const centerX = bbox.x + bbox.width / 2;
+        const centerY = bbox.y + bbox.height / 2;
+
+        return { x: centerX, y: centerY };
+    }
+
+
+    function explainActors() {
+
+        const maxActorElementId = getElementWithHighestNumberOfActors();
+        console.log("Element with the highest number of actors:", maxActorElementId);
+
+        const tl = gsap.timeline();
+
+        const cursor = cursorIcon.node();
+
+        let originals = originalTransformations[maxActorElementId];
+        let x = originals.originalX + originals.originX;
+        let y = originals.originalY + originals.originX;
+
+        // drawRectAt(center.x, center.y, 20, 20, 'red');
+        // drawRectAt(svgWidth / 2, svgHeight / 2, 30, 30, "blue")
+        // drawRectAt(x, y, 30, 30, "red")
+        // drawRectAt(xCenter, yCenter, 50, 50, 'red');
+        // drawRectAt(x, y, 10, 10, 'purple');
+        // drawRectAt(x / 0.35, y / 0.35, 100, 100, 'pink');
+
+        bringToFront(cursor);
+
+
+        tl.fromTo(cursor,
+            { opacity: 0, scale: 0, x: svgWidth / 2, y: svgHeight / 2 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 1,
+                ease: 'expo.out'
+            })
+            .to(cursor, {
+                duration: 0.75, // Adjust duration as needed
+                motionPath: {
+                    path: [
+                        { x: svgWidth / 2, y: svgHeight / 2 }, // Start at the center of the SVG
+                        { x: (svgWidth / 2 + x) / 2, y: (svgHeight / 2 + y) / 2 - 50 }, // Control point 1
+                        { x: x, y: y } // End at target position
+                    ],
+                    curviness: 1.5 // Adjust curviness as needed
+                },
+                ease: "power1.inOut",
+                onComplete: function () {
+                    d3.select(`#${maxActorElementId}`).style('filter', 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.5))');
+                }
+            })
+            .to(cursor, {
+                scale: 1.3, duration: 0.5
+            })
+            .to(cursor, {
+                scale: 1, duration: 0.5, onComplete: () => {
+                    const element = d3.select(`#${maxActorElementId}`);
+                    element.dispatch('click');
+                    gsap.to(cursor, {
+                        opacity: 0, scale: 0, delay: 3 + animationDuration, duration: 0,
+                        onComplete: () => {
+                            d3.select(`#${maxActorElementId}`).style('filter', '');
+                        }
+                    })
+                }
+            })
+
+        // .to(cursor, {
+        //     duration: 1,
+        //     x: x,
+        //     y: y,
+        //     ease: "power1.inOut"
+        // });
 
 
 
+    }
+
+
+    function bringToFront(element) {
+        element.parentNode.appendChild(element);
+    }
+
+
+    // Function to load, insert, and animate the SVG "info" icon
+    function loadIconAt(icon, svgPath, x, y, scale = 1, opacity = 0) {
+
+        return d3.xml(svgPath).then(data => {
+
+            icon.attr('opacity', '0');
+
+            const importedNode = document.importNode(data.documentElement, true);
+            var tempG = svg.append('g').append(() => importedNode);
+            const bbox = importedNode.getBBox();
+            const iconWidth = bbox.width;
+            const iconHeight = bbox.height;
+            tempG.remove();
+
+            icon.append(() => importedNode);
+
+            icon
+                .style('transform-origin', `${iconWidth / 2}px ${iconHeight / 2}px`)
+                .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${scale})`);
+
+        });
+    }
+
+    function blinkIcon(icon, repeat = 2) {
+
+        gsap.fromTo(icon.node(),
+            { opacity: 0, scale: 0 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 1,
+                ease: 'elastic.out(1, 0.3)',
+                repeat: repeat,
+                repeatDelay: 2
+            });
+
+    }
+
+
+    function getElementWithHighestNumberOfActors() {
+        // Select all elements with the class 'actorIcon'
+        const elements = d3.selectAll('.actorIcon');
+
+        // Initialize variables to keep track of the element with the highest value
+        let maxElement = null;
+        let maxValue = -Infinity;
+
+        // Iterate over each element to find the one with the highest data-numberOfActors value
+        elements.each(function () {
+            const element = d3.select(this);
+            const value = +element.attr('data-numberOfActors'); // Convert attribute value to number
+
+            if (value > maxValue) {
+                maxValue = value;
+                maxElement = element;
+            }
+        });
+
+        // Return the id of the element with the highest value
+        return maxElement ? maxElement.attr('id') : null;
+
+    }
 
 
 
