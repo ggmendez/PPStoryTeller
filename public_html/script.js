@@ -67,82 +67,215 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     };
 
-    const normalizeText = (text) => {
-        return text.replace(/\s+([,.])/g, '$1').replace(/\s+/g, ' ').trim();
-    };
+    // const normalizeText = (text) => {
+    //     return text.replace(/\s+([,.;])/g, '$1')
+    //         .replace(/\s+/g, ' ')
+    //         .replace(/"\s*(.*?)\s*"/g, '"$1"')
+    //         .trim();
+    // };
+
+    // Function to normalize and concatenate text content, ignoring HTML tags
+    // const recursiveConcatText = (node) => {
+    //     let text = '';
+    //     node.childNodes.forEach(child => {
+    //         if (child.nodeType === Node.TEXT_NODE) {
+    //             text += child.textContent;
+    //         } else if (child.nodeType === Node.ELEMENT_NODE) {
+    //             text += recursiveConcatText(child);
+    //         }
+    //     });
+    //     return text;
+    // };
 
 
+    // const findTextNodeContaining = (element, searchText) => {
+    //     const searchNormalizedText = normalizeText(searchText);
 
-    // Find text nodes containing the search text
-    const findTextNodeContaining = (element, searchText) => {
-        const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, {
-            acceptNode: function (node) {
-                if (normalizeText(node.textContent).includes(searchText)) {
-                    return NodeFilter.FILTER_ACCEPT;
-                }
-                return NodeFilter.FILTER_REJECT;
-            }
-        });
+    //     const findMatchingElements = (node) => {
+    //         const matches = [];
+    //         const walker = document.createTreeWalker(node, NodeFilter.SHOW_ELEMENT, null, false);
 
-        const nodes = [];
-        while (walker.nextNode()) {
-            nodes.push(walker.currentNode);
-        }
-        return nodes;
-    };
+    //         while (walker.nextNode()) {
+    //             const currentNode = walker.currentNode;
+    //             const concatenatedText = normalizeText(recursiveConcatText(currentNode));
+
+    //             if (concatenatedText.includes(searchNormalizedText)) {
+    //                 matches.push(currentNode);
+    //             }
+    //         }
+
+    //         return matches;
+    //     };
+
+    //     return findMatchingElements(element);
+    // };
+
+
 
 
     const scrollToAndHighlightInIframe = (currentText) => {
-
-        console.log("currentText:");
-        console.log(currentText);
-
         removeHighlightInIframe(); // Remove existing highlights
         const iframe = document.getElementById('contextIframe');
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        const targetTextNodes = findTextNodeContaining(iframeDocument.body, currentText);
+        currentText = normalizeText(currentText);
 
-        if (targetTextNodes.length > 0) {
-            const targetNode = targetTextNodes[0];
-            const span = wrapMatchingText(targetNode, currentText);
-
-            if (span) {
-                // Traverse up until we find an element that supports scrollIntoView
-                let elementToScroll = span;
-                while (elementToScroll && elementToScroll !== iframeDocument.body && typeof elementToScroll.scrollIntoView !== 'function') {
-                    elementToScroll = elementToScroll.parentElement;
-                }
-
-                if (elementToScroll && typeof elementToScroll.scrollIntoView === 'function') {
-                    console.log('Scrolling to element:', elementToScroll);
-                    elementToScroll.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                    console.warn('No scrollable element found for:', span);
-
-                    // If no scrollable element found, scroll the document body
-                    if (span.nodeType === Node.ELEMENT_NODE) {
-                        iframe.contentWindow.scrollTo({
-                            top: span.getBoundingClientRect().top + iframe.contentWindow.pageYOffset,
-                            behavior: 'smooth'
-                        });
-                    } else if (span.parentElement) {
-                        iframe.contentWindow.scrollTo({
-                            top: span.parentElement.getBoundingClientRect().top + iframe.contentWindow.pageYOffset,
-                            behavior: 'smooth'
-                        });
-                    } else {
-                        console.error('Cannot scroll to the target node:', span);
-                    }
-                }
-            }
+        if (document.querySelector('.popup').style.display === 'block') {
+            highlightTextInIframe(iframe, currentText);
         } else {
-            console.warn('No target text nodes found for:', currentText);
+            iframe.src = "./htmls/" + who + ".html";
+            document.querySelector('.popup').style.display = 'block';
+
+            iframe.onload = () => {
+                highlightTextInIframe(iframe, currentText);
+            };
         }
     };
 
+    const highlightTextInIframe = (iframe, searchText) => {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        const searchNormalizedText = normalizeText(searchText);
 
+        // Check if an overlay container already exists or create a new one
+        let overlayContainer = iframeDocument.getElementById('highlight-overlay-container');
+        if (!overlayContainer) {
+            overlayContainer = iframeDocument.createElement('div');
+            overlayContainer.id = 'highlight-overlay-container';
+            overlayContainer.style.position = 'absolute';
+            overlayContainer.style.top = '0';
+            overlayContainer.style.left = '0';
+            overlayContainer.style.width = '100%';
+            overlayContainer.style.height = '100%';
+            overlayContainer.style.pointerEvents = 'none';
+            iframeDocument.body.appendChild(overlayContainer);
+        }
 
+        // Function to check if a rect overlaps with any existing highlights
+        const rectOverlaps = (rect, highlights) => {
+            return highlights.some(highlight => {
+                const hRect = highlight.getBoundingClientRect();
+                return !(rect.right < hRect.left || rect.left > hRect.right || rect.bottom < hRect.top || rect.top > hRect.bottom);
+            });
+        };
 
+        const textNodes = findTextNodeContaining(iframeDocument.body, searchText);
+
+        if (textNodes.length > 0) {
+            const boundingRects = [];
+            const existingHighlights = Array.from(overlayContainer.children);
+
+            textNodes.forEach(node => {
+                let currentNodeText = '';
+                let startIndex = -1;
+                let endIndex = -1;
+
+                for (const child of node.childNodes) {
+                    if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
+                        const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
+                        currentNodeText += normalizedChildText;
+
+                        if (startIndex === -1) {
+                            startIndex = currentNodeText.indexOf(searchNormalizedText);
+                        }
+
+                        if (startIndex !== -1 && endIndex === -1) {
+                            const searchTextEndIndex = startIndex + searchNormalizedText.length;
+                            if (currentNodeText.length >= searchTextEndIndex) {
+                                endIndex = searchTextEndIndex;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                if (startIndex !== -1 && endIndex !== -1) {
+                    let charCount = 0;
+                    let range = iframeDocument.createRange();
+                    for (const child of node.childNodes) {
+                        if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
+                            const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
+                            if (charCount <= startIndex && charCount + normalizedChildText.length >= startIndex) {
+                                if (child.nodeType === Node.TEXT_NODE) {
+                                    range.setStart(child, startIndex - charCount);
+                                } else {
+                                    let subRange = iframeDocument.createRange();
+                                    subRange.selectNodeContents(child);
+                                    if (subRange.startOffset + (startIndex - charCount) <= subRange.endOffset) {
+                                        range.setStart(subRange.startContainer, startIndex - charCount);
+                                    }
+                                }
+                            }
+                            if (charCount <= endIndex && charCount + normalizedChildText.length >= endIndex) {
+                                if (child.nodeType === Node.TEXT_NODE) {
+                                    range.setEnd(child, endIndex - charCount);
+                                } else {
+                                    let subRange = iframeDocument.createRange();
+                                    subRange.selectNodeContents(child);
+                                    if (subRange.startOffset + (endIndex - charCount) <= subRange.endOffset) {
+                                        range.setEnd(subRange.endContainer, endIndex - charCount);
+                                    }
+                                }
+                                break;
+                            }
+                            charCount += normalizedChildText.length;
+                        }
+                    }
+
+                    if (range.startContainer && range.endContainer) {
+                        const rects = range.getClientRects();
+                        Array.from(rects).forEach(rect => {
+                            if (!rectOverlaps(rect, existingHighlights)) {
+                                boundingRects.push(rect);
+                            }
+                        });
+                    }
+                }
+            });
+
+            boundingRects.forEach(rect => {
+                const highlight = iframeDocument.createElement('div');
+                highlight.style.position = 'absolute';
+                highlight.style.left = `${rect.left + iframe.contentWindow.scrollX}px`;
+                highlight.style.top = `${rect.top + iframe.contentWindow.scrollY}px`;
+                highlight.style.width = `${rect.width}px`;
+                highlight.style.height = `${rect.height}px`;
+                highlight.style.backgroundColor = 'rgba(255, 255, 0, 0.5)';
+                overlayContainer.appendChild(highlight);
+            });
+
+            // Ensure the correct scroll position by finding the closest highlight to the current viewport
+            if (boundingRects.length > 0) {
+                const viewportTop = iframe.contentWindow.scrollY;
+                const viewportBottom = viewportTop + iframe.contentWindow.innerHeight;
+
+                let closestRect = boundingRects[0];
+                let minDistance = Infinity;
+
+                boundingRects.forEach(rect => {
+                    const rectTop = rect.top + iframe.contentWindow.scrollY;
+                    const rectBottom = rect.bottom + iframe.contentWindow.scrollY;
+
+                    if (rectTop > viewportBottom || rectBottom < viewportTop) {
+                        const distance = Math.min(
+                            Math.abs(rectTop - viewportBottom),
+                            Math.abs(rectBottom - viewportTop)
+                        );
+
+                        if (distance < minDistance) {
+                            minDistance = distance;
+                            closestRect = rect;
+                        }
+                    }
+                });
+
+                iframe.contentWindow.scrollTo({
+                    top: closestRect.top + iframe.contentWindow.scrollY,
+                    behavior: 'smooth'
+                });
+            }
+        } else {
+            console.warn('No matching text nodes found.');
+        }
+    };
 
 
 
@@ -156,9 +289,187 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 parent.insertBefore(el.firstChild, el);
             }
             parent.removeChild(el);
-            parent.normalize(); // Combine adjacent text nodes
+            parent.normalize();
         });
     };
+
+
+    /********************************************************/
+
+
+
+    const normalizeText = (text) => {
+        // return text.replace(/\s+([,.])/g, '$1').replace(/\s+/g, ' ').replace(/(\s*)"(.*?)"(\s*)/g, '$1"$2"$3').trim();
+
+        return text.replace(/\s+([,.;])/g, '$1')
+            .replace(/\s+/g, ' ')
+            .replace(/"\s*(.*?)\s*"/g, '"$1"')
+            .trim();
+
+    };
+
+    const recursiveConcatText = (node) => {
+        let text = '';
+        node.childNodes.forEach(child => {
+            if (child.nodeType === Node.TEXT_NODE) {
+                text += child.textContent;
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+                text += recursiveConcatText(child);
+            }
+        });
+        console.log("-------------- text:");
+        console.log(text);
+        return text;
+    };
+
+    const findTextNodeContaining = (element, searchText) => {
+        const searchNormalizedText = normalizeText(searchText);
+
+        const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, null, false);
+        const nodes = [];
+
+        while (walker.nextNode()) {
+            const currentNode = walker.currentNode;
+            const concatenatedText = normalizeText(recursiveConcatText(currentNode));
+
+            if (concatenatedText.includes(searchNormalizedText)) {
+                nodes.push(currentNode);
+            }
+        }
+
+        return nodes;
+    };
+
+
+    const highlightAllOccurrences = (iframe, searchText) => {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        const searchNormalizedText = normalizeText(searchText);
+
+        let overlayContainer = iframeDocument.getElementById('highlight-overlay-container');
+        if (!overlayContainer) {
+            overlayContainer = iframeDocument.createElement('div');
+            overlayContainer.id = 'highlight-overlay-container';
+            overlayContainer.style.position = 'absolute';
+            overlayContainer.style.top = '0';
+            overlayContainer.style.left = '0';
+            overlayContainer.style.width = '100%';
+            overlayContainer.style.height = '100%';
+            overlayContainer.style.pointerEvents = 'none';
+            iframeDocument.body.appendChild(overlayContainer);
+        } else {
+            overlayContainer.innerHTML = '';
+        }
+
+        const textNodes = findTextNodeContaining(iframeDocument.body, searchText);
+        const boundingRects = [];
+
+        textNodes.forEach(node => {
+            let currentNodeText = '';
+            let startIndex = -1;
+            let endIndex = -1;
+
+            for (const child of node.childNodes) {
+                if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
+                    const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
+                    currentNodeText += normalizedChildText;
+
+                    if (startIndex === -1) {
+                        startIndex = currentNodeText.indexOf(searchNormalizedText);
+                    }
+
+                    if (startIndex !== -1 && endIndex === -1) {
+                        const searchTextEndIndex = startIndex + searchNormalizedText.length;
+                        if (currentNodeText.length >= searchTextEndIndex) {
+                            endIndex = searchTextEndIndex;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (startIndex !== -1 && endIndex !== -1) {
+                let charCount = 0;
+                let range = iframeDocument.createRange();
+                for (const child of node.childNodes) {
+                    if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
+                        const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
+                        const childTextLength = normalizedChildText.length;
+                        if (charCount <= startIndex && charCount + childTextLength >= startIndex) {
+                            if (child.nodeType === Node.TEXT_NODE) {
+                                range.setStart(child, startIndex - charCount);
+                            } else {
+                                let subRange = iframeDocument.createRange();
+                                subRange.selectNodeContents(child);
+                                if (subRange.startOffset + (startIndex - charCount) <= subRange.endOffset) {
+                                    range.setStart(subRange.startContainer, startIndex - charCount);
+                                }
+                            }
+                        }
+                        if (charCount <= endIndex && charCount + childTextLength >= endIndex) {
+                            if (child.nodeType === Node.TEXT_NODE) {
+                                range.setEnd(child, endIndex - charCount);
+                            } else {
+                                let subRange = iframeDocument.createRange();
+                                subRange.selectNodeContents(child);
+                                if (subRange.startOffset + (endIndex - charCount) <= subRange.endOffset) {
+                                    range.setEnd(subRange.endContainer, endIndex - charCount);
+                                }
+                            }
+                            break;
+                        }
+                        charCount += childTextLength;
+                    }
+                }
+
+                if (range.startContainer && range.endContainer) {
+                    const rects = range.getClientRects();
+                    Array.from(rects).forEach(rect => {
+                        boundingRects.push(rect);
+
+                        const highlight = iframeDocument.createElement('div');
+                        highlight.style.position = 'absolute';
+                        highlight.style.left = `${rect.left + iframe.contentWindow.scrollX}px`;
+                        highlight.style.top = `${rect.top + iframe.contentWindow.scrollY}px`;
+                        highlight.style.width = `${rect.width}px`;
+                        highlight.style.height = `${rect.height}px`;
+                        highlight.style.backgroundColor = 'rgba(255, 255, 0, 0.5)';
+                        overlayContainer.appendChild(highlight);
+                    });
+                }
+            }
+        });
+
+        return boundingRects;
+    };
+
+
+
+    let currentHighlightIndex = -1;
+    let highlightRects = [];
+
+    const scrollToHighlight = (iframe, index) => {
+        if (highlightRects.length > 0 && index >= 0 && index < highlightRects.length) {
+            const rect = highlightRects[index];
+            iframe.contentWindow.scrollTo({
+                top: rect.top + iframe.contentWindow.scrollY,
+                behavior: 'smooth'
+            });
+        }
+    };
+
+    const findNext = (iframe) => {
+        currentHighlightIndex = (currentHighlightIndex + 1) % highlightRects.length;
+        scrollToHighlight(iframe, currentHighlightIndex);
+    };
+
+    const findPrevious = (iframe) => {
+        currentHighlightIndex = (currentHighlightIndex - 1 + highlightRects.length) % highlightRects.length;
+        scrollToHighlight(iframe, currentHighlightIndex);
+    };
+
+
+    /********************************************************/
+
 
 
 
@@ -197,8 +508,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
-
     // Event listener for context button
     document.addEventListener('click', function (event) {
         if (event.target.id === 'contextButton') {
@@ -212,10 +521,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scrollToAndHighlightInIframe(currentText);
             } else {
                 // iframe.src = "./tiktok/tiktokOriginal.html"; // Set the source of the iframe
-                iframe.src = "./htmls/" + who + ".html"; // Set the source of the iframe                
+                iframe.src = "./htmls/" + who + ".html"; // Set the source of the iframe
+
+
+
                 popup.style.display = 'block';
 
                 iframe.onload = function () {
+
+
+                    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+                    // Find all <a> tags in the iframe
+                    const links = iframeDocument.querySelectorAll('a');
+
+                    // Replace each <a> tag with its text content
+                    links.forEach(link => {
+                        const textNode = document.createTextNode(link.textContent);
+                        link.parentNode.replaceChild(textNode, link);
+                    });
+
+
                     scrollToAndHighlightInIframe(currentText);
                 };
 
@@ -284,6 +610,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     explainPacking();
                 } else if (explaining == "actors") {
                     explainActors();
+                } else if (explaining == "dataPerActor") {
+                    explainDataPerActor();
                 }
             });
         });
@@ -635,8 +963,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .style('font-weight', 'normal')
                             .text(`${index + 1}. ${name.charAt(0).toUpperCase() + name.slice(1)}`);
                     });
-
-
 
 
                     // Reset the disappearance timer
@@ -1690,6 +2016,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: actorGroupScale * actorIconScale,
                 duration: animationDuration,
                 ease: "power1.inOut",
+                onStart: () => {
+                    explaining = "dataPerActor";
+                }
             }, "actorsColumn");
 
             const theLabel = label.node();
@@ -1932,19 +2261,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     gsap.to(window, { duration: 0.5, scrollTo: { y: 0 }, overwrite: "auto" });
                     break;
                 case 'circle-2':
-                    // mainTimeline.play("packing");
                     divID = "divPiecesOfData";
                     break;
                 case 'circle-3':
-                    // mainTimeline.tweenFromTo("categories", "dataShared");
                     divID = "divTotalCategories";
+                    explaining = "packing";
                     break;
                 case 'circle-4':
-                    // mainTimeline.tweenFromTo("dataShared", "actorsColumn");
                     divID = "divDataShared";
                     break;
                 case 'circle-5':
                     divID = "divDataPerActor";
+                    explaining = "actors";
                     break;
                 case 'circle-6':
                     divID = "divDataPerActor";
@@ -2226,13 +2554,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
         let initialContent = highlightedLines[0];
 
-        let navContainer = `
-            <div class="nav-container">
-                <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>
-                <div class="page-number-display">1/${lines.length}</div>
-                <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>
-            </div>
-        `;
+        let navContainer = '<div class="nav-container">';
+
+        if (lines.length > 1) {
+            navContainer += '<a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>';
+        }
+
+        navContainer += `<div class="page-number-display">1/${lines.length}</div>`;
+
+        if (lines.length > 1) {
+            navContainer += '<a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>';
+        }
+
+        navContainer += "</div>";
+
+        // let navContainer = 
+
+        //         <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>
+        //         <div class="page-number-display">1/${lines.length}</div>
+        //         <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>
+        //     </div>`;
+
+
+
 
         return {
             header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>
@@ -2303,7 +2647,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const currentText = normalizeText(contentContainer.textContent);
         if (popup.style.display === 'block') {
-            scrollToAndHighlightInIframe(currentText);
+
+
+            const iframe = document.getElementById('contextIframe');
+
+            highlightRects = highlightAllOccurrences(iframe, currentText);
+            currentHighlightIndex = -1;
+            findNext(iframe);
+
+
+            // scrollToAndHighlightInIframe(currentText);
         }
 
         return newIndex;
@@ -2371,211 +2724,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             gsap.to(circle, { borderColor: "white", duration: 0 });
         });
     }
-
-
-
-
-
-    function createElementsForPackingExplanation() {
-
-        // Select all rects with the class 'dataRect'
-        // const dataRects = d3.selectAll('.dataRect').nodes();
-
-        // // Find the smallest rectangles
-        // const smallestArea = dataRects.reduce((minArea, d) => {
-        //     const width = parseFloat(d.getAttribute('width'));
-        //     const height = parseFloat(d.getAttribute('height'));
-        //     const area = width * height;
-        //     return area < minArea ? area : minArea;
-        // }, Infinity);
-
-        // const smallestRects = dataRects.filter(d => {
-        //     const width = parseFloat(d.getAttribute('width'));
-        //     const height = parseFloat(d.getAttribute('height'));
-        //     return width * height === smallestArea;
-        // });
-
-        // // Find the right-most of the smallest rectangles
-        // const rightMostSmallestRect = smallestRects.reduce((rightMost, d) => {
-        //     const x = parseFloat(d.getAttribute('x'));
-        //     return x > parseFloat(rightMost.getAttribute('x')) ? d : rightMost;
-        // }, smallestRects[0]);
-
-        // Find the largest rectangle
-        // const largestRect = dataRects.reduce((max, d) => {
-        //     const width = parseFloat(d.getAttribute('width'));
-        //     const height = parseFloat(d.getAttribute('height'));
-        //     return width * height > parseFloat(max.getAttribute('width')) * parseFloat(max.getAttribute('height')) ? d : max;
-        // }, dataRects[0]);
-
-
-        // // Select circles and their labels that are not the smallest or largest
-        // nonTargetRects = dataRects.filter(d => d !== rightMostSmallestRect && d !== largestRect);
-        // nonTargetLabels = nonTargetRects.map(d => d3.select(`.rectLabel[data-id='${d.getAttribute('data-id')}']`).node()).filter(d => d);
-
-        // console.log("nonTargetLabels:");
-        // console.log(nonTargetLabels);
-
-        // // Define the starting and ending points for the paths based on the sketch
-        // const smallestBottomRightRect = {
-        //     x: parseFloat(rightMostSmallestRect.getAttribute('x')) + parseFloat(rightMostSmallestRect.getAttribute('width')) / 2,
-        //     y: parseFloat(rightMostSmallestRect.getAttribute('y')) + parseFloat(rightMostSmallestRect.getAttribute('height')) / 2
-        // };
-
-        // const startLargestRect = {
-        //     x: parseFloat(largestRect.getAttribute('x')) + parseFloat(largestRect.getAttribute('width')) / 2,
-        //     y: parseFloat(largestRect.getAttribute('y'))
-        // };
-
-        // const startPath1 = { x: smallestBottomRightRect.x, y: smallestBottomRightRect.y - rightMostSmallestRect.getAttribute('height') / 2 };
-        // const midPath1 = { x: smallestBottomRightRect.x + 20, y: smallestBottomRightRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2 };
-        // const endPath1 = { x: smallestBottomRightRect.x + 20 + parseFloat(largestRect.getAttribute('width')) / 2 + 40, y: smallestBottomRightRect.y - 20 - rightMostSmallestRect.getAttribute('height') / 2 };
-
-        // // Create SVG path elements
-        // pathSmallesRect = d3.select("svg").append("path")
-        //     .attr("d", `M${startPath1.x},${startPath1.y} L${midPath1.x},${midPath1.y} L${endPath1.x},${endPath1.y}`)
-        //     .attr("stroke", "black")
-        //     .attr("stroke-width", 2)
-        //     .attr("stroke-linecap", "round")
-        //     .attr("stroke-linejoin", "round")
-        //     .attr("fill", "none")
-        //     .node();
-
-        // const startPath2 = { x: startLargestRect.x, y: startLargestRect.y };
-        // const midPath2 = { x: startLargestRect.x - 20, y: startLargestRect.y - 20 };
-        // const endPath2 = { x: startLargestRect.x - 40 - parseFloat(largestRect.getAttribute('width')) / 2, y: startLargestRect.y - 20 };
-
-        // pathLargestRect = d3.select("svg").append("path")
-        //     .attr("d", `M${startPath2.x},${startPath2.y} L${midPath2.x},${midPath2.y} L${endPath2.x},${endPath2.y}`)
-        //     .attr("stroke", "black")
-        //     .attr("stroke-width", 2)
-        //     .attr("stroke-linecap", "round")
-        //     .attr("stroke-linejoin", "round")
-        //     .attr("fill", "none")
-        //     .node();
-
-        // Get the total length of the paths
-        // const pathLength1 = pathSmallesRect.getTotalLength();
-        // const pathLength2 = pathLargestRect.getTotalLength();
-
-        // // Set the stroke-dasharray and stroke-dashoffset to the path length
-        // pathSmallesRect.style.strokeDasharray = pathLength1;
-        // pathSmallesRect.style.strokeDashoffset = pathLength1;
-
-        // pathLargestRect.style.strokeDasharray = pathLength2;
-        // pathLargestRect.style.strokeDashoffset = pathLength2;
-
-        // // Add text labels with initial opacity 0
-        // label1 = d3.select("svg").append("text")
-        //     .attr("x", endPath1.x + 5)
-        //     .attr("y", endPath1.y)
-        //     .attr("text-anchor", "start")
-        //     .attr("alignment-baseline", "middle")
-        //     .attr("opacity", 0)
-        //     .text("Least collected");
-
-        // label2 = d3.select("svg").append("text")
-        //     .attr("x", endPath2.x - 5)
-        //     .attr("y", endPath2.y)
-        //     .attr("text-anchor", "end")
-        //     .attr("alignment-baseline", "middle")
-        //     .attr("opacity", 0)
-        //     .text("Frequently collected");
-
-    }
-
-
-
-
-    function addPackingExplanation(mainTimeline) {
-
-        // // Animate the non-target circles and their labels to fade out and back in
-        // gsap.to([...nonTargetRects, ...nonTargetLabels], {
-        //     opacity: 0.05, duration: 1, onComplete: () => {
-
-        //         // Add text labels with initial opacity 0
-        //         const label1 = d3.select("svg").append("text")
-        //             .attr("x", endPath1.x + 5)
-        //             .attr("y", endPath1.y)
-        //             .attr("text-anchor", "start")
-        //             .attr("alignment-baseline", "middle")
-        //             .attr("opacity", 0)
-        //             .text("Least collected");
-
-        //         const label2 = d3.select("svg").append("text")
-        //             .attr("x", endPath2.x - 5)
-        //             .attr("y", endPath2.y)
-        //             .attr("text-anchor", "end")
-        //             .attr("alignment-baseline", "middle")
-        //             .attr("opacity", 0)
-        //             .text("Frequently collected");
-
-        //         // Animate the stroke-dashoffset to 0 with GSAP
-        //         gsap.to(pathSmallesRect, {
-        //             strokeDashoffset: 0, duration: 0.5,
-        //             onComplete: () => {
-        //                 // Animate label to fade in
-        //                 gsap.to(label1.node(), { opacity: 1, duration: 0.5 });
-        //             }
-        //         });
-
-        //         gsap.to(pathLargestRect, {
-        //             strokeDashoffset: 0, duration: 0.5, onComplete: () => {
-
-        //                 // Animate label to fade in
-        //                 gsap.to(label2.node(), {
-        //                     opacity: 1, duration: 0.5, onComplete: () => {
-
-        //                         gsap.to(label1.node(), { opacity: 0, delay: 2, duration: 0.5 });
-        //                         gsap.to(label2.node(), {
-        //                             opacity: 0, delay: 2, duration: 0.5,
-        //                             onComplete: () => {
-
-        //                                 gsap.to(pathSmallesRect, { strokeDashoffset: pathLength1, duration: 0.5 });
-        //                                 gsap.to(pathLargestRect, {
-        //                                     strokeDashoffset: pathLength2, duration: 0.5,
-        //                                     onComplete: () => {
-
-        //                                         d3.select(pathSmallesRect).remove();
-        //                                         d3.select(pathLargestRect).remove();
-
-        //                                         // Animate non-target rectangles and their labels to fade back in
-        //                                         gsap.to([...nonTargetRects, ...nonTargetLabels], { delay: 0.5, opacity: 1, duration: 1 });
-        //                                     }
-
-        //                                 });
-
-
-
-        //                             }
-        //                         });
-
-
-
-
-
-
-
-        //                     }
-        //                 });
-        //             }
-        //         });
-        //     }
-        // });
-
-
-
-
-
-
-    }
-
-
-
-
-
-
-
 
     function getLargestTopLeftRect(packedRectData) {
         // Compute the size of each rectangle
@@ -2729,7 +2877,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function explainActors() {
 
-        const maxActorElementId = getElementWithHighestNumberOfActors();
+        // const maxActorElementId = getElementWithHighestNumberOfActors();
+
+
+        const elements = d3.selectAll('.actorIcon').nodes();
+        const randomIndex = Math.floor(Math.random() * elements.length);
+        const randomElement = elements[randomIndex];
+        const maxActorElementId = randomElement.id;
+
         console.log("Element with the highest number of actors:", maxActorElementId);
 
         const tl = gsap.timeline();
@@ -2751,7 +2906,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         tl.fromTo(cursor,
-            { opacity: 0, scale: 0, x: svgWidth / 2, y: svgHeight / 2 },
+            { opacity: 0, scale: 0 },
             {
                 opacity: 1,
                 scale: 1,
@@ -2789,22 +2944,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             })
 
-        // .to(cursor, {
-        //     duration: 1,
-        //     x: x,
-        //     y: y,
-        //     ease: "power1.inOut"
-        // });
-
-
-
     }
+
+
+
+
 
 
     function bringToFront(element) {
         element.parentNode.appendChild(element);
     }
-
 
     // Function to load, insert, and animate the SVG "info" icon
     function loadIconAt(icon, svgPath, x, y, scale = 1, opacity = 0) {
@@ -2866,6 +3015,92 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Return the id of the element with the highest value
         return maxElement ? maxElement.attr('id') : null;
+
+    }
+
+
+
+
+
+    function explainDataPerActor() {
+
+        const elements = d3.selectAll('.copyOfDataRect').nodes();
+        const randomIndex = Math.floor(Math.random() * elements.length);
+        const randomElement = elements[randomIndex];
+        const randomElementtId = randomElement.id;
+
+        window.randomElement = randomElement;
+
+        const bbox = randomElement.getBBox();
+
+        console.log("bbox:");
+        console.log(bbox);
+
+
+
+        let xPosition = parseFloat(randomElement.getAttribute('x'));
+        let yPosition = parseFloat(randomElement.getAttribute('y'));
+
+        const transform = randomElement.transform.baseVal.consolidate();
+        if (transform) {
+            const matrix = transform.matrix;
+            xPosition += matrix.e;  // matrix.e represents the translation on the x-axis
+            yPosition += matrix.f;  // matrix.e represents the translation on the x-axis
+        }
+
+        // drawRectAt(xPosition, yPosition, 10, 10, 'blue');
+
+        // console.log("xPosition:");
+        // console.log(xPosition);
+        // drawRectAt(center.x, center.y, 50, 50, 'black');
+
+        const tl = gsap.timeline();
+
+        const cursor = cursorIcon.node();
+
+        let x = xPosition + bbox.width / 2;
+        let y = yPosition + bbox.height / 2;
+
+        bringToFront(cursor);
+
+        tl.fromTo(cursor,
+            { opacity: 0, scale: 0 },
+            {
+                opacity: 1,
+                scale: 1,
+                duration: 1,
+                ease: 'expo.out'
+            })
+            .to(cursor, {
+                duration: 0.75,
+                motionPath: {
+                    path: [
+                        { x: svgWidth / 2, y: svgHeight / 2 },
+                        { x: (svgWidth / 2 + x) / 2, y: (svgHeight / 2 + y) / 2 - 50 },
+                        { x: x, y: y }
+                    ],
+                    curviness: 1.5
+                },
+                ease: "power1.inOut",
+                onComplete: function () {
+                    d3.select(`#${randomElementtId}`).style('filter', 'drop-shadow(0 0 20px rgba(0, 0, 0, 0.5))');
+                }
+            })
+            .to(cursor, {
+                scale: 1.3, duration: 0.5
+            })
+            .to(cursor, {
+                scale: 1, duration: 0.5, onComplete: () => {
+                    const element = d3.select(`#${randomElementtId}`);
+                    element.dispatch('click');
+                    gsap.to(cursor, {
+                        opacity: 0, scale: 0, delay: 3 + animationDuration, duration: 0,
+                        onComplete: () => {
+                            d3.select(`#${randomElementtId}`).style('filter', '');
+                        }
+                    })
+                }
+            })
 
     }
 
