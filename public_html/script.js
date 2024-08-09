@@ -113,64 +113,44 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+
+
     const scrollToAndHighlightInIframe = (currentText) => {
-        removeHighlightInIframe(); // Remove existing highlights
+
         const iframe = document.getElementById('contextIframe');
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        removeHighlightInIframe(); // Remove existing highlights
+
         currentText = normalizeText(currentText);
 
         if (document.querySelector('.popup').style.display === 'block') {
             highlightTextInIframe(iframe, currentText);
         } else {
-            iframe.src = "./htmls/" + who + ".html";
+            // Display the popup and set up the onload event
             document.querySelector('.popup').style.display = 'block';
-
-            iframe.onload = () => {
-                highlightTextInIframe(iframe, currentText);
-            };
         }
+
+
+
     };
 
     const highlightTextInIframe = (iframe, searchText) => {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
         const searchNormalizedText = normalizeText(searchText);
 
-        // Check if an overlay container already exists or create a new one
-        let overlayContainer = iframeDocument.getElementById('highlight-overlay-container');
-        if (!overlayContainer) {
-            overlayContainer = iframeDocument.createElement('div');
-            overlayContainer.id = 'highlight-overlay-container';
-            overlayContainer.style.position = 'absolute';
-            overlayContainer.style.top = '0';
-            overlayContainer.style.left = '0';
-            overlayContainer.style.width = '100%';
-            overlayContainer.style.height = '100%';
-            overlayContainer.style.pointerEvents = 'none';
-            iframeDocument.body.appendChild(overlayContainer);
-        }
-
-        // Function to check if a rect overlaps with any existing highlights
-        const rectOverlaps = (rect, highlights) => {
-            return highlights.some(highlight => {
-                const hRect = highlight.getBoundingClientRect();
-                return !(rect.right < hRect.left || rect.left > hRect.right || rect.bottom < hRect.top || rect.top > hRect.bottom);
-            });
-        };
-
         const textNodes = findTextNodeContaining(iframeDocument.body, searchText);
 
         if (textNodes.length > 0) {
-            const boundingRects = [];
-            const existingHighlights = Array.from(overlayContainer.children);
-
             textNodes.forEach(node => {
                 let currentNodeText = '';
                 let startIndex = -1;
                 let endIndex = -1;
 
+                // Identify the range of text to be highlighted
                 for (const child of node.childNodes) {
-                    if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
-                        const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
+                    if (child.nodeType === Node.TEXT_NODE) {
+                        const normalizedChildText = normalizeText(child.textContent);
                         currentNodeText += normalizedChildText;
 
                         if (startIndex === -1) {
@@ -189,88 +169,43 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 if (startIndex !== -1 && endIndex !== -1) {
                     let charCount = 0;
-                    let range = iframeDocument.createRange();
+
                     for (const child of node.childNodes) {
-                        if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
-                            const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
-                            if (charCount <= startIndex && charCount + normalizedChildText.length >= startIndex) {
-                                if (child.nodeType === Node.TEXT_NODE) {
-                                    range.setStart(child, startIndex - charCount);
-                                } else {
-                                    let subRange = iframeDocument.createRange();
-                                    subRange.selectNodeContents(child);
-                                    if (subRange.startOffset + (startIndex - charCount) <= subRange.endOffset) {
-                                        range.setStart(subRange.startContainer, startIndex - charCount);
-                                    }
-                                }
-                            }
-                            if (charCount <= endIndex && charCount + normalizedChildText.length >= endIndex) {
-                                if (child.nodeType === Node.TEXT_NODE) {
+                        if (child.nodeType === Node.TEXT_NODE) {
+                            const textContent = child.textContent;
+                            const normalizedChildText = normalizeText(textContent);
+                            const childLength = normalizedChildText.length;
+
+                            if (charCount <= startIndex && charCount + childLength >= startIndex) {
+                                const span = iframeDocument.createElement('span');
+                                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                                const range = iframeDocument.createRange();
+                                range.setStart(child, startIndex - charCount);
+
+                                if (charCount + childLength >= endIndex) {
                                     range.setEnd(child, endIndex - charCount);
                                 } else {
-                                    let subRange = iframeDocument.createRange();
-                                    subRange.selectNodeContents(child);
-                                    if (subRange.startOffset + (endIndex - charCount) <= subRange.endOffset) {
-                                        range.setEnd(subRange.endContainer, endIndex - charCount);
-                                    }
+                                    range.setEnd(child, childLength);
                                 }
+
+                                range.surroundContents(span);
+                            }
+
+                            charCount += childLength;
+
+                            if (charCount >= endIndex) {
                                 break;
                             }
-                            charCount += normalizedChildText.length;
                         }
-                    }
-
-                    if (range.startContainer && range.endContainer) {
-                        const rects = range.getClientRects();
-                        Array.from(rects).forEach(rect => {
-                            if (!rectOverlaps(rect, existingHighlights)) {
-                                boundingRects.push(rect);
-                            }
-                        });
                     }
                 }
             });
 
-            boundingRects.forEach(rect => {
-                const highlight = iframeDocument.createElement('div');
-                highlight.style.position = 'absolute';
-                highlight.style.left = `${rect.left + iframe.contentWindow.scrollX}px`;
-                highlight.style.top = `${rect.top + iframe.contentWindow.scrollY}px`;
-                highlight.style.width = `${rect.width}px`;
-                highlight.style.height = `${rect.height}px`;
-                highlight.style.backgroundColor = 'rgba(255, 255, 0, 0.5)';
-                overlayContainer.appendChild(highlight);
-            });
-
-            // Ensure the correct scroll position by finding the closest highlight to the current viewport
-            if (boundingRects.length > 0) {
-                const viewportTop = iframe.contentWindow.scrollY;
-                const viewportBottom = viewportTop + iframe.contentWindow.innerHeight;
-
-                let closestRect = boundingRects[0];
-                let minDistance = Infinity;
-
-                boundingRects.forEach(rect => {
-                    const rectTop = rect.top + iframe.contentWindow.scrollY;
-                    const rectBottom = rect.bottom + iframe.contentWindow.scrollY;
-
-                    if (rectTop > viewportBottom || rectBottom < viewportTop) {
-                        const distance = Math.min(
-                            Math.abs(rectTop - viewportBottom),
-                            Math.abs(rectBottom - viewportTop)
-                        );
-
-                        if (distance < minDistance) {
-                            minDistance = distance;
-                            closestRect = rect;
-                        }
-                    }
-                });
-
-                iframe.contentWindow.scrollTo({
-                    top: closestRect.top + iframe.contentWindow.scrollY,
-                    behavior: 'smooth'
-                });
+            // Ensure the correct scroll position by finding the first highlighted element
+            const firstHighlightedElement = iframeDocument.querySelector('span[style*="background-color"]');
+            if (firstHighlightedElement) {
+                firstHighlightedElement.scrollIntoView({ behavior: 'smooth' });
             }
         } else {
             console.warn('No matching text nodes found.');
@@ -279,19 +214,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+
     const removeHighlightInIframe = () => {
         const iframe = document.getElementById('contextIframe');
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        const highlightedElements = iframeDocument.querySelectorAll('.highlight');
+
+        // Select all span elements that were used for highlighting
+        const highlightedElements = iframeDocument.querySelectorAll('span[style*="background-color"]');
+
         highlightedElements.forEach(el => {
             const parent = el.parentNode;
+
+            // Move all child nodes of the span (which should be text nodes) back to the parent
             while (el.firstChild) {
                 parent.insertBefore(el.firstChild, el);
             }
+
+            // Remove the now-empty span element
             parent.removeChild(el);
+
+            // Normalize the parent to merge adjacent text nodes
             parent.normalize();
         });
     };
+
 
 
     /********************************************************/
@@ -317,13 +263,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 text += recursiveConcatText(child);
             }
         });
-        console.log("-------------- text:");
-        console.log(text);
+        // console.log("-------------- text:");
+        // console.log(text);
         return text;
     };
 
     const findTextNodeContaining = (element, searchText) => {
         const searchNormalizedText = normalizeText(searchText);
+
+        // searchInIframe('contextIframe', searchText);
+
+        const results = searchNodesInIframe('contextIframe', searchText);
+        console.log('Found nodes:', results);
+
 
         const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, null, false);
         const nodes = [];
@@ -341,172 +293,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     };
 
 
-    const highlightAllOccurrences = (iframe, searchText) => {
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        const searchNormalizedText = normalizeText(searchText);
-
-        let overlayContainer = iframeDocument.getElementById('highlight-overlay-container');
-        if (!overlayContainer) {
-            overlayContainer = iframeDocument.createElement('div');
-            overlayContainer.id = 'highlight-overlay-container';
-            overlayContainer.style.position = 'absolute';
-            overlayContainer.style.top = '0';
-            overlayContainer.style.left = '0';
-            overlayContainer.style.width = '100%';
-            overlayContainer.style.height = '100%';
-            overlayContainer.style.pointerEvents = 'none';
-            iframeDocument.body.appendChild(overlayContainer);
-        } else {
-            overlayContainer.innerHTML = '';
-        }
-
-        const textNodes = findTextNodeContaining(iframeDocument.body, searchText);
-        const boundingRects = [];
-
-        textNodes.forEach(node => {
-            let currentNodeText = '';
-            let startIndex = -1;
-            let endIndex = -1;
-
-            for (const child of node.childNodes) {
-                if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
-                    const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
-                    currentNodeText += normalizedChildText;
-
-                    if (startIndex === -1) {
-                        startIndex = currentNodeText.indexOf(searchNormalizedText);
-                    }
-
-                    if (startIndex !== -1 && endIndex === -1) {
-                        const searchTextEndIndex = startIndex + searchNormalizedText.length;
-                        if (currentNodeText.length >= searchTextEndIndex) {
-                            endIndex = searchTextEndIndex;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            if (startIndex !== -1 && endIndex !== -1) {
-                let charCount = 0;
-                let range = iframeDocument.createRange();
-                for (const child of node.childNodes) {
-                    if (child.nodeType === Node.TEXT_NODE || child.nodeType === Node.ELEMENT_NODE) {
-                        const normalizedChildText = normalizeText(child.textContent || recursiveConcatText(child));
-                        const childTextLength = normalizedChildText.length;
-                        if (charCount <= startIndex && charCount + childTextLength >= startIndex) {
-                            if (child.nodeType === Node.TEXT_NODE) {
-                                range.setStart(child, startIndex - charCount);
-                            } else {
-                                let subRange = iframeDocument.createRange();
-                                subRange.selectNodeContents(child);
-                                if (subRange.startOffset + (startIndex - charCount) <= subRange.endOffset) {
-                                    range.setStart(subRange.startContainer, startIndex - charCount);
-                                }
-                            }
-                        }
-                        if (charCount <= endIndex && charCount + childTextLength >= endIndex) {
-                            if (child.nodeType === Node.TEXT_NODE) {
-                                range.setEnd(child, endIndex - charCount);
-                            } else {
-                                let subRange = iframeDocument.createRange();
-                                subRange.selectNodeContents(child);
-                                if (subRange.startOffset + (endIndex - charCount) <= subRange.endOffset) {
-                                    range.setEnd(subRange.endContainer, endIndex - charCount);
-                                }
-                            }
-                            break;
-                        }
-                        charCount += childTextLength;
-                    }
-                }
-
-                if (range.startContainer && range.endContainer) {
-                    const rects = range.getClientRects();
-                    Array.from(rects).forEach(rect => {
-                        boundingRects.push(rect);
-
-                        const highlight = iframeDocument.createElement('div');
-                        highlight.style.position = 'absolute';
-                        highlight.style.left = `${rect.left + iframe.contentWindow.scrollX}px`;
-                        highlight.style.top = `${rect.top + iframe.contentWindow.scrollY}px`;
-                        highlight.style.width = `${rect.width}px`;
-                        highlight.style.height = `${rect.height}px`;
-                        highlight.style.backgroundColor = 'rgba(255, 255, 0, 0.5)';
-                        overlayContainer.appendChild(highlight);
-                    });
-                }
-            }
-        });
-
-        return boundingRects;
-    };
-
-
-
-    let currentHighlightIndex = -1;
-    let highlightRects = [];
-
-    const scrollToHighlight = (iframe, index) => {
-        if (highlightRects.length > 0 && index >= 0 && index < highlightRects.length) {
-            const rect = highlightRects[index];
-            iframe.contentWindow.scrollTo({
-                top: rect.top + iframe.contentWindow.scrollY,
-                behavior: 'smooth'
-            });
-        }
-    };
-
-    const findNext = (iframe) => {
-        currentHighlightIndex = (currentHighlightIndex + 1) % highlightRects.length;
-        scrollToHighlight(iframe, currentHighlightIndex);
-    };
-
-    const findPrevious = (iframe) => {
-        currentHighlightIndex = (currentHighlightIndex - 1 + highlightRects.length) % highlightRects.length;
-        scrollToHighlight(iframe, currentHighlightIndex);
-    };
 
 
     /********************************************************/
-
-
-
-
-    const wrapMatchingText = (node, searchText) => {
-        const text = node.textContent;
-        const normalizedText = normalizeText(text);
-        const normalizedSearchText = normalizeText(searchText);
-        const index = normalizedText.indexOf(normalizedSearchText);
-
-        if (index !== -1) {
-            const span = document.createElement('span');
-            span.className = 'highlight';
-            span.style.backgroundColor = 'yellow';
-
-            const before = document.createTextNode(text.slice(0, index));
-            const match = document.createTextNode(text.slice(index, index + searchText.length));
-            const after = document.createTextNode(text.slice(index + searchText.length));
-
-            span.appendChild(match);
-
-            const parent = node.parentNode;
-            if (parent) {
-                parent.insertBefore(after, node.nextSibling);
-                parent.insertBefore(span, after);
-                parent.insertBefore(before, span);
-                parent.removeChild(node);
-            }
-
-            return span; // Return the new span element
-        }
-
-        return null; // Return null if no match was found
-    };
-
-
-
-
 
     // Event listener for context button
     document.addEventListener('click', function (event) {
@@ -520,33 +309,55 @@ document.addEventListener("DOMContentLoaded", (event) => {
             if (popup.style.display === 'block') {
                 scrollToAndHighlightInIframe(currentText);
             } else {
-                // iframe.src = "./tiktok/tiktokOriginal.html"; // Set the source of the iframe
-                iframe.src = "./htmls/" + who + ".html"; // Set the source of the iframe
-
-
 
                 popup.style.display = 'block';
 
-                iframe.onload = function () {
+                const iframe = document.getElementById('contextIframe');
+                const url = "./htmls/" + who + ".html";
 
+                // Fetch the HTML content
+                fetch(url)
+                    .then(response => response.text())
+                    .then(html => {
+                        // Create a temporary DOM element to manipulate the HTML
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
 
-                    const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+                        // Remove all links (a tags) and replace them with their text content
+                        const links = doc.querySelectorAll('a');
+                        links.forEach(link => {
+                            const textNode = document.createTextNode(link.textContent);
+                            link.parentNode.replaceChild(textNode, link);
+                        });
 
-                    // Find all <a> tags in the iframe
-                    const links = iframeDocument.querySelectorAll('a');
+                        // Serialize the modified HTML back to a string
+                        const modifiedHTML = new XMLSerializer().serializeToString(doc);
 
-                    // Replace each <a> tag with its text content
-                    links.forEach(link => {
-                        const textNode = document.createTextNode(link.textContent);
-                        link.parentNode.replaceChild(textNode, link);
+                        // Create a Blob from the modified HTML string
+                        const blob = new Blob([modifiedHTML], { type: 'text/html' });
+                        const blobUrl = URL.createObjectURL(blob);
+
+                        // Set the iframe src to the Blob URL
+                        iframe.src = blobUrl;
+
+                        iframe.onload = () => {
+                            highlightTextInIframe(iframe, currentText);
+                        };
+                    })
+                    .catch(error => {
+                        alert('Error loading or modifying HTML:', error);
+                        console.error('Error loading or modifying HTML:', error);
                     });
 
 
-                    scrollToAndHighlightInIframe(currentText);
-                };
+
+
 
                 document.addEventListener('keydown', escKeyListener);
             }
+
+
+
         }
     });
 
@@ -705,6 +516,120 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log(normalizedItem);
         return "Unknown Category";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function searchNodesInIframe(iframeId, searchString) {
+        const iframe = document.getElementById(iframeId);
+
+        if (iframe && iframe.contentDocument) {
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Normalize spaces in the search string to remove extra whitespace
+            searchString = searchString.replace(/\s+/g, ' ').trim();
+
+            let found = false;
+            let accumulatedText = '';
+            let matchingNodes = [];
+
+            function traverseAndAccumulate(node) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    accumulatedText += node.textContent.replace(/\s+/g, ' ').trim() + ' ';
+                    matchingNodes.push(node.parentElement);
+
+                    if (accumulatedText.includes(searchString)) {
+                        found = true;
+                        return true;  // Stop further traversal
+                    }
+                } else if (node.nodeType === Node.ELEMENT_NODE) {
+                    for (let i = 0; i < node.childNodes.length; i++) {
+                        if (traverseAndAccumulate(node.childNodes[i])) {
+                            return true;  // Stop further traversal if a match is found
+                        }
+                    }
+                }
+                return false;
+            }
+
+
+            console.log("iframeDoc.body:");
+            console.log(iframeDoc.body);
+
+            traverseAndAccumulate(iframeDoc.body);
+
+
+
+            if (found) {
+                console.log("Match found:", accumulatedText.trim());
+                return matchingNodes;
+            } else {
+                console.log("No match found.");
+                return [];
+            }
+        } else {
+            console.log('The iframe or its content is not accessible.');
+            return [];
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+    function searchInIframe(iframeId, searchString) {
+        // Get the iframe element by its ID
+        const iframe = document.getElementById(iframeId);
+
+        // Ensure the iframe exists and that the content is loaded
+        if (iframe && iframe.contentDocument) {
+            // Access the document within the iframe
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+
+            // Get the text content of the iframe's body
+            const bodyText = iframeDoc.body.textContent || iframeDoc.body.innerText;
+
+
+            console.log("bodyText:");
+            console.log(bodyText);
+
+
+            // Search for the string within the text
+            const searchIndex = bodyText.indexOf(searchString);
+
+            if (searchIndex !== -1) {
+                console.log(`The string "${searchString}" was found in the iframe at position ${searchIndex}.`);
+                return true;
+            } else {
+                console.log(`The string "${searchString}" was not found in the iframe.`);
+                return false;
+            }
+        } else {
+            console.log('The iframe or its content is not accessible.');
+            return false;
+        }
+    }
+
+
+
+
+
+
 
 
 
@@ -1050,9 +975,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         let dataEntities = entities.filter(d => d.type === 'DATA');
 
+
         dataEntities = dataEntities.map(entity => {
             return {
                 ...entity,
+                // name: entity.name === "UNSPECIFIED_DATA" ? "Pepe" : entity.name, TMP
                 id: sanitizeId(entity.id)
             };
         });
@@ -2649,14 +2576,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (popup.style.display === 'block') {
 
 
-            const iframe = document.getElementById('contextIframe');
+            // const iframe = document.getElementById('contextIframe');
+            // highlightRects = highlightAllOccurrences(iframe, currentText);
+            // currentHighlightIndex = -1;
+            // findNext(iframe);
 
-            highlightRects = highlightAllOccurrences(iframe, currentText);
-            currentHighlightIndex = -1;
-            findNext(iframe);
 
-
-            // scrollToAndHighlightInIframe(currentText);
+            scrollToAndHighlightInIframe(currentText);
         }
 
         return newIndex;
