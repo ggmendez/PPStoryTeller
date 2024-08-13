@@ -414,7 +414,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             node.childNodes.forEach((child, index) => {
                 if (child.nodeType === Node.TEXT_NODE) {
                     const originalText = child.textContent;
-                    const normalizedText = normalizeText(addSpaceAfterPunctuation(originalText));
+                    const normalizedText = normalizeText(healPunctuation(originalText));
 
                     // Ensure space is added where necessary, particularly between text nodes and inline elements
                     if (text.length > 0 && node.childNodes[index - 1] && node.childNodes[index - 1].nodeType !== Node.TEXT_NODE) {
@@ -539,10 +539,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .trim();
     };
 
-    function addSpaceAfterPunctuation(text) {
+    function healPunctuation(text) {
         return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
             .replace(/(\.)(?!\s|$)/g, '. ')
-            .replace(/\be\. g\./g, 'e.g.');
+            .replace(/\be\. g\./g, 'e.g.')
+            .replace(/"(\S)/g, '" $1');
     }
 
 
@@ -2747,15 +2748,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
-    function generateHighlightLink(url, text) {
-        // Encode the text to handle special characters properly
-        const encodedText = encodeURIComponent(text);
 
-        // Construct the URL with the text fragment
-        const highlightLink = `${url}#:~:text=${encodedText}`;
-
-        return highlightLink;
-    }
 
 
 
