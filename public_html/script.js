@@ -147,126 +147,134 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    const highlightTextInIframe = (iframe, searchText) => {
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    // const highlightTextInIframe = (iframe, searchText) => {
+    //     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
-        // Normalize the search text by removing excess whitespace and special characters
-        const searchNormalizedText = normalizeText(searchText);
+    //     // Normalize the search text by removing excess whitespace and special characters
+    //     const searchNormalizedText = normalizeText(searchText);
 
-        const recursiveConcatTextWithNodes = (node, text = '', nodes = []) => {
-            node.childNodes.forEach(child => {
-                if (child.nodeType === Node.TEXT_NODE) {
-                    const normalizedText = normalizeText(child.textContent);
-                    text += normalizedText;
-                    nodes.push({ node: child, length: normalizedText.length });
-                } else if (child.nodeType === Node.ELEMENT_NODE) {
-                    text = recursiveConcatTextWithNodes(child, text, nodes);
-                    // Add a space after the text enclosed by an h2 tag
-                    if (child.tagName === 'H2') {
-                        text += ' ';
-                    }
-                    nodes.push({ node: child, length: 0 }); // Ensure we capture element nodes to maintain context
-                }
-            });
-            return text;
-        };
-
-
-        // Get the iframe body content and the associated nodes
-        const nodes = [];
-
-        const iframeText = normalizeText(addSpaceAfterPunctuation(recursiveConcatTextWithNodes(iframeDocument.body, '', nodes)));
-
-        // Find the start index of the search text considering HTML tags
-        const startIndex = iframeText.indexOf(searchNormalizedText);
-
-        console.log("iframeText:");
-        console.log(iframeText);
-
-        console.log("startIndex:");
-        console.log(startIndex);
-
-        console.log("searchNormalizedText:");
-        console.log(searchNormalizedText);
+    //     const recursiveConcatTextWithNodes = (node, text = '', nodes = []) => {
+    //         node.childNodes.forEach(child => {
+    //             if (child.nodeType === Node.TEXT_NODE) {
+    //                 const normalizedText = normalizeText(addSpaceAfterPunctuation(child.textContent));
+    //                 text += normalizedText;
+    //                 nodes.push({ node: child, length: normalizedText.length });
+    //             } else if (child.nodeType === Node.ELEMENT_NODE) {
+    //                 text = recursiveConcatTextWithNodes(child, text, nodes);
+    //                 // Add a space after the text enclosed by an h2 tag
+    //                 if (child.tagName === 'H2') {
+    //                     text += ' ';
+    //                 }
+    //                 nodes.push({ node: child, length: 0 }); // Ensure we capture element nodes to maintain context
+    //             }
+    //         });
+    //         return text;
+    //     };
 
 
-        if (startIndex === -1) {
-            console.warn('No matching text found.');
-            return;
-        }
+    //     // Get the iframe body content and the associated nodes
+    //     const nodes = [];
 
-        // Calculate the end index of the search text
-        const endIndex = startIndex + searchNormalizedText.length;
+    //     const iframeText = normalizeText(addSpaceAfterPunctuation(recursiveConcatTextWithNodes(iframeDocument.body, '', nodes)));
 
-        // Highlight text by wrapping the corresponding nodes in <span> tags
-        let charCount = 0;
-        let remainingLength = searchNormalizedText.length;
-        let highlighting = false;
-        let highlightSpan = null;
+    //     // Find the start index of the search text considering HTML tags
+    //     const startIndex = iframeText.indexOf(searchNormalizedText);
 
-        for (const { node, length } of nodes) {
-            const nodeStartIndex = charCount;
-            const nodeEndIndex = charCount + length;
+    //     console.log("iframeText:");
+    //     console.log(iframeText);
 
-            if (nodeStartIndex <= startIndex && nodeEndIndex > startIndex) {
-                // Start highlighting
-                const span = iframeDocument.createElement('span');
-                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+    //     console.log("startIndex:");
+    //     console.log(startIndex);
 
-                const startOffset = Math.max(0, startIndex - nodeStartIndex);
-                const endOffset = Math.min(length, startOffset + remainingLength);
+    //     console.log("searchNormalizedText:");
+    //     console.log(searchNormalizedText);
 
-                // Validate offsets before applying them to the range
-                if (endOffset >= startOffset && endOffset <= length) {
-                    const range = iframeDocument.createRange();
-                    range.setStart(node, startOffset);
-                    range.setEnd(node, endOffset);
-                    range.surroundContents(span);
 
-                    remainingLength -= (endOffset - startOffset);
-                    highlightSpan = span;
-                    highlighting = true;
-                } else {
-                    console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
-                    break; // Stop processing if offsets are invalid
-                }
-            } else if (highlighting) {
-                // Continue highlighting (across multiple nodes)
-                const span = iframeDocument.createElement('span');
-                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+    //     if (startIndex === -1) {
+    //         console.warn('No matching text found.');
+    //         return;
+    //     }
 
-                const startOffset = 0;
-                const endOffset = Math.min(length, remainingLength);
+    //     // Calculate the end index of the search text
+    //     const endIndex = startIndex + searchNormalizedText.length;
 
-                // Validate offsets before applying them to the range
-                if (endOffset >= startOffset && endOffset <= length) {
-                    const range = iframeDocument.createRange();
-                    range.setStart(node, startOffset);
-                    range.setEnd(node, endOffset);
-                    range.surroundContents(span);
+    //     // Highlight text by wrapping the corresponding nodes in <span> tags
+    //     let charCount = 0;
+    //     let remainingLength = searchNormalizedText.length;
+    //     let highlighting = false;
+    //     let highlightSpan = null;
 
-                    remainingLength -= (endOffset - startOffset);
-                    highlightSpan = span;
+    //     for (const { node, length } of nodes) {
+    //         const nodeStartIndex = charCount;
+    //         const nodeEndIndex = charCount + length;
 
-                    if (remainingLength <= 0) {
-                        break; // Stop if the entire search text has been highlighted
-                    }
-                } else {
-                    console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
-                    break; // Stop processing if offsets are invalid
-                }
-            }
+    //         if (nodeStartIndex <= startIndex && nodeEndIndex > startIndex) {
+    //             // Start highlighting
+    //             const span = iframeDocument.createElement('span');
+    //             span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
 
-            charCount += length;
-        }
+    //             const startOffset = Math.max(0, startIndex - nodeStartIndex);
+    //             const endOffset = Math.min(length, startOffset + remainingLength);
 
-        if (highlightSpan) {
-            highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            setTimeout(() => {
-                iframe.scrollBy(0, -50); // Adjust the number of pixels as needed
-            }, 500); // Adjust the timeout if necessary
-        }
-    };
+    //             // Validate offsets before applying them to the range
+    //             if (endOffset >= startOffset && endOffset <= length) {
+    //                 const range = iframeDocument.createRange();
+    //                 range.setStart(node, startOffset);
+    //                 range.setEnd(node, endOffset);
+    //                 range.surroundContents(span);
+
+    //                 remainingLength -= (endOffset - startOffset);
+    //                 highlightSpan = span;
+    //                 highlighting = true;
+    //             } else {
+    //                 console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
+    //                 break; // Stop processing if offsets are invalid
+    //             }
+    //         } else if (highlighting) {
+    //             // Continue highlighting (across multiple nodes)
+    //             const span = iframeDocument.createElement('span');
+    //             span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+    //             const startOffset = 0;
+    //             const endOffset = Math.min(length, remainingLength);
+
+    //             // Validate offsets before applying them to the range
+    //             if (endOffset >= startOffset && endOffset <= length) {
+    //                 const range = iframeDocument.createRange();
+    //                 range.setStart(node, startOffset);
+    //                 range.setEnd(node, endOffset);
+    //                 range.surroundContents(span);
+
+    //                 remainingLength -= (endOffset - startOffset);
+    //                 highlightSpan = span;
+
+    //                 if (remainingLength <= 0) {
+    //                     break; // Stop if the entire search text has been highlighted
+    //                 }
+    //             } else {
+    //                 console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
+    //                 break; // Stop processing if offsets are invalid
+    //             }
+    //         }
+
+    //         charCount += length;
+    //     }
+
+    //     if (highlightSpan) {
+    //         highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //         setTimeout(() => {
+    //             iframe.scrollBy(0, -50); // Adjust the number of pixels as needed
+    //         }, 500); // Adjust the timeout if necessary
+    //     }
+    // };
+
+
+
+
+
+    
+
+
 
     const normalizeText = (text) => {
         return text.replace(/\s+([,.;])/g, '$1')
