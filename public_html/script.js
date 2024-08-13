@@ -122,95 +122,364 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         removeHighlightInIframe(); // Remove existing highlights
 
-        currentText = normalizeText(currentText);
+        const normalizedText = normalizeText(currentText);
+
+        console.log("normalizedText:");
+        console.log(normalizedText);
 
         if (document.querySelector('.popup').style.display === 'block') {
-            highlightTextInIframe(iframe, currentText);
+            highlightTextInIframe(iframe, normalizedText);
         } else {
             // Display the popup and set up the onload event
             document.querySelector('.popup').style.display = 'block';
         }
 
-
-
     };
+
+
+
+
+
+
+
+
+
+
+
 
     const highlightTextInIframe = (iframe, searchText) => {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        // Normalize the search text by removing excess whitespace and special characters
         const searchNormalizedText = normalizeText(searchText);
 
-        const textNodes = findTextNodeContaining(iframeDocument.body, searchText);
-
-        if (textNodes.length > 0) {
-            textNodes.forEach(node => {
-                let currentNodeText = '';
-                let startIndex = -1;
-                let endIndex = -1;
-
-                // Identify the range of text to be highlighted
-                for (const child of node.childNodes) {
-                    if (child.nodeType === Node.TEXT_NODE) {
-                        const normalizedChildText = normalizeText(child.textContent);
-                        currentNodeText += normalizedChildText;
-
-                        if (startIndex === -1) {
-                            startIndex = currentNodeText.indexOf(searchNormalizedText);
-                        }
-
-                        if (startIndex !== -1 && endIndex === -1) {
-                            const searchTextEndIndex = startIndex + searchNormalizedText.length;
-                            if (currentNodeText.length >= searchTextEndIndex) {
-                                endIndex = searchTextEndIndex;
-                                break;
-                            }
-                        }
+        const recursiveConcatTextWithNodes = (node, text = '', nodes = []) => {
+            node.childNodes.forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    const normalizedText = normalizeText(child.textContent);
+                    text += normalizedText;
+                    nodes.push({ node: child, length: normalizedText.length });
+                } else if (child.nodeType === Node.ELEMENT_NODE) {
+                    text = recursiveConcatTextWithNodes(child, text, nodes);
+                    // Add a space after the text enclosed by an h2 tag
+                    if (child.tagName === 'H2') {
+                        text += ' ';
                     }
-                }
-
-                if (startIndex !== -1 && endIndex !== -1) {
-                    let charCount = 0;
-
-                    for (const child of node.childNodes) {
-                        if (child.nodeType === Node.TEXT_NODE) {
-                            const textContent = child.textContent;
-                            const normalizedChildText = normalizeText(textContent);
-                            const childLength = normalizedChildText.length;
-
-                            if (charCount <= startIndex && charCount + childLength >= startIndex) {
-                                const span = iframeDocument.createElement('span');
-                                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
-
-                                const range = iframeDocument.createRange();
-                                range.setStart(child, startIndex - charCount);
-
-                                if (charCount + childLength >= endIndex) {
-                                    range.setEnd(child, endIndex - charCount);
-                                } else {
-                                    range.setEnd(child, childLength);
-                                }
-
-                                range.surroundContents(span);
-                            }
-
-                            charCount += childLength;
-
-                            if (charCount >= endIndex) {
-                                break;
-                            }
-                        }
-                    }
+                    nodes.push({ node: child, length: 0 }); // Ensure we capture element nodes to maintain context
                 }
             });
+            return text;
+        };
 
-            // Ensure the correct scroll position by finding the first highlighted element
-            const firstHighlightedElement = iframeDocument.querySelector('span[style*="background-color"]');
-            if (firstHighlightedElement) {
-                firstHighlightedElement.scrollIntoView({ behavior: 'smooth' });
+
+        // Get the iframe body content and the associated nodes
+        const nodes = [];
+
+        const iframeText = normalizeText(addSpaceAfterPunctuation(recursiveConcatTextWithNodes(iframeDocument.body, '', nodes)));
+
+        // Find the start index of the search text considering HTML tags
+        const startIndex = iframeText.indexOf(searchNormalizedText);
+
+        console.log("iframeText:");
+        console.log(iframeText);
+
+        console.log("startIndex:");
+        console.log(startIndex);
+
+        console.log("searchNormalizedText:");
+        console.log(searchNormalizedText);
+
+
+        if (startIndex === -1) {
+            console.warn('No matching text found.');
+            return;
+        }
+
+        // Calculate the end index of the search text
+        const endIndex = startIndex + searchNormalizedText.length;
+
+        // Highlight text by wrapping the corresponding nodes in <span> tags
+        let charCount = 0;
+        let remainingLength = searchNormalizedText.length;
+        let highlighting = false;
+        let highlightSpan = null;
+
+        for (const { node, length } of nodes) {
+            const nodeStartIndex = charCount;
+            const nodeEndIndex = charCount + length;
+
+            if (nodeStartIndex <= startIndex && nodeEndIndex > startIndex) {
+                // Start highlighting
+                const span = iframeDocument.createElement('span');
+                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                const startOffset = Math.max(0, startIndex - nodeStartIndex);
+                const endOffset = Math.min(length, startOffset + remainingLength);
+
+                // Validate offsets before applying them to the range
+                if (endOffset >= startOffset && endOffset <= length) {
+                    const range = iframeDocument.createRange();
+                    range.setStart(node, startOffset);
+                    range.setEnd(node, endOffset);
+                    range.surroundContents(span);
+
+                    remainingLength -= (endOffset - startOffset);
+                    highlightSpan = span;
+                    highlighting = true;
+                } else {
+                    console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
+                    break; // Stop processing if offsets are invalid
+                }
+            } else if (highlighting) {
+                // Continue highlighting (across multiple nodes)
+                const span = iframeDocument.createElement('span');
+                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                const startOffset = 0;
+                const endOffset = Math.min(length, remainingLength);
+
+                // Validate offsets before applying them to the range
+                if (endOffset >= startOffset && endOffset <= length) {
+                    const range = iframeDocument.createRange();
+                    range.setStart(node, startOffset);
+                    range.setEnd(node, endOffset);
+                    range.surroundContents(span);
+
+                    remainingLength -= (endOffset - startOffset);
+                    highlightSpan = span;
+
+                    if (remainingLength <= 0) {
+                        break; // Stop if the entire search text has been highlighted
+                    }
+                } else {
+                    console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
+                    break; // Stop processing if offsets are invalid
+                }
             }
-        } else {
-            console.warn('No matching text nodes found.');
+
+            charCount += length;
+        }
+
+        if (highlightSpan) {
+            highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                iframe.scrollBy(0, -50); // Adjust the number of pixels as needed
+            }, 500); // Adjust the timeout if necessary
         }
     };
+
+    const normalizeText = (text) => {
+        return text.replace(/\s+([,.;])/g, '$1')
+            .replace(/\s+/g, ' ')
+            .replace(/"\s*(.*?)\s*"/g, '"$1"')
+            .trim();
+    };
+
+    function addSpaceAfterPunctuation(text) {
+        // Regular expression to add a space after punctuation marks, but not inside abbreviations
+        return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
+            .replace(/(\.)(?!\s|$)/g, '. ')
+            .replace(/\be\. g\./g, 'e.g.');
+    }
+
+
+
+    /*const highlightTextInIframe = (iframe, searchText) => {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        // Normalize the search text by removing excess whitespace and special characters
+        const searchNormalizedText = normalizeText(searchText);
+
+        console.log("searchNormalizedText:");
+        console.log(searchNormalizedText);
+
+        // Function to recursively concatenate text content, preserving HTML tags
+        const recursiveConcatTextWithNodes = (node, text = '', nodes = []) => {
+            node.childNodes.forEach(child => {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    text += normalizeText(child.textContent);
+                    nodes.push({ node: child, length: normalizeText(child.textContent).length });
+                } else if (child.nodeType === Node.ELEMENT_NODE) {
+                    text = recursiveConcatTextWithNodes(child, text, nodes);
+                }
+            });
+            return text;
+        };
+
+        // Get the iframe body content and the associated nodes
+        const nodes = [];
+        const iframeText = recursiveConcatTextWithNodes(iframeDocument.body, '', nodes);
+
+        // Find the start index of the search text considering HTML tags
+        const startIndex = iframeText.indexOf(searchNormalizedText);
+        if (startIndex === -1) {
+            console.warn('No matching text found.');
+            return;
+        }
+
+        // Calculate the end index of the search text
+        const endIndex = startIndex + searchNormalizedText.length;
+
+        // Highlight text by wrapping the corresponding nodes in <span> tags
+        let charCount = 0;
+        let remainingLength = searchNormalizedText.length;
+        let highlighting = false;
+        let highlightSpan = null;
+
+        for (const { node, length } of nodes) {
+            const nodeStartIndex = charCount;
+            const nodeEndIndex = charCount + length;
+
+            if (nodeStartIndex <= startIndex && nodeEndIndex > startIndex) {
+                // Start highlighting
+                const span = iframeDocument.createElement('span');
+                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                const startOffset = Math.max(0, startIndex - nodeStartIndex);
+                const endOffset = Math.min(length, startOffset + remainingLength);
+
+                // Validate offsets before applying them to the range
+                if (endOffset >= startOffset && endOffset <= length) {
+                    const range = iframeDocument.createRange();
+                    range.setStart(node, startOffset);
+                    range.setEnd(node, endOffset);
+                    range.surroundContents(span);
+
+                    remainingLength -= (endOffset - startOffset);
+                    highlightSpan = span;
+                    highlighting = true;
+                } else {
+                    console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
+                    break; // Stop processing if offsets are invalid
+                }
+            } else if (highlighting) {
+                // Continue highlighting (across multiple nodes)
+                const span = iframeDocument.createElement('span');
+                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                const startOffset = 0;
+                const endOffset = Math.min(length, remainingLength);
+
+                // Validate offsets before applying them to the range
+                if (endOffset >= startOffset && endOffset <= length) {
+                    const range = iframeDocument.createRange();
+                    range.setStart(node, startOffset);
+                    range.setEnd(node, endOffset);
+                    range.surroundContents(span);
+
+                    remainingLength -= (endOffset - startOffset);
+                    highlightSpan = span;
+
+                    if (remainingLength <= 0) {
+                        break; // Stop if the entire search text has been highlighted
+                    }
+                } else {
+                    console.error('Invalid range offsets:', { startOffset, endOffset, nodeLength: length });
+                    break; // Stop processing if offsets are invalid
+                }
+            }
+
+            charCount += length;
+        }
+
+        if (highlightSpan) {
+            highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                iframe.scrollBy(0, -50); // Adjust the number of pixels as needed
+            }, 500); // Adjust the timeout if necessary
+        }
+
+    };*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // const highlightTextInIframe = (iframe, searchText) => {
+    //     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+    //     const searchNormalizedText = normalizeText(searchText);
+
+    //     const textNodes = findTextNodeContaining(iframeDocument.body, searchText);
+
+    //     if (textNodes.length > 0) {
+    //         textNodes.forEach(node => {
+    //             let currentNodeText = '';
+    //             let startIndex = -1;
+    //             let endIndex = -1;
+
+    //             // Identify the range of text to be highlighted
+    //             for (const child of node.childNodes) {
+    //                 if (child.nodeType === Node.TEXT_NODE) {
+    //                     const normalizedChildText = normalizeText(child.textContent);
+    //                     currentNodeText += normalizedChildText;
+
+    //                     if (startIndex === -1) {
+    //                         startIndex = currentNodeText.indexOf(searchNormalizedText);
+    //                     }
+
+    //                     if (startIndex !== -1 && endIndex === -1) {
+    //                         const searchTextEndIndex = startIndex + searchNormalizedText.length;
+    //                         if (currentNodeText.length >= searchTextEndIndex) {
+    //                             endIndex = searchTextEndIndex;
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+
+    //             if (startIndex !== -1 && endIndex !== -1) {
+    //                 let charCount = 0;
+
+    //                 for (const child of node.childNodes) {
+    //                     if (child.nodeType === Node.TEXT_NODE) {
+    //                         const textContent = child.textContent;
+    //                         const normalizedChildText = normalizeText(textContent);
+    //                         const childLength = normalizedChildText.length;
+
+    //                         if (charCount <= startIndex && charCount + childLength >= startIndex) {
+    //                             const span = iframeDocument.createElement('span');
+    //                             span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+    //                             const range = iframeDocument.createRange();
+    //                             range.setStart(child, startIndex - charCount);
+
+    //                             if (charCount + childLength >= endIndex) {
+    //                                 range.setEnd(child, endIndex - charCount);
+    //                             } else {
+    //                                 range.setEnd(child, childLength);
+    //                             }
+
+    //                             range.surroundContents(span);
+    //                         }
+
+    //                         charCount += childLength;
+
+    //                         if (charCount >= endIndex) {
+    //                             break;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         });
+
+    //         // Ensure the correct scroll position by finding the first highlighted element
+    //         const firstHighlightedElement = iframeDocument.querySelector('span[style*="background-color"]');
+    //         if (firstHighlightedElement) {
+    //             firstHighlightedElement.scrollIntoView({ behavior: 'smooth' });
+    //         }
+    //     } else {
+    //         console.warn('No matching text nodes found.');
+    //     }
+    // };
 
 
 
@@ -244,15 +513,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    const normalizeText = (text) => {
-        // return text.replace(/\s+([,.])/g, '$1').replace(/\s+/g, ' ').replace(/(\s*)"(.*?)"(\s*)/g, '$1"$2"$3').trim();
+    // const normalizeText = (text) => {
+    //     // return text.replace(/\s+([,.])/g, '$1').replace(/\s+/g, ' ').replace(/(\s*)"(.*?)"(\s*)/g, '$1"$2"$3').trim();
 
-        return text.replace(/\s+([,.;])/g, '$1')
-            .replace(/\s+/g, ' ')
-            .replace(/"\s*(.*?)\s*"/g, '"$1"')
-            .trim();
+    //     return text.replace(/\s+([,.;])/g, '$1')
+    //         .replace(/\s+/g, ' ')
+    //         .replace(/"\s*(.*?)\s*"/g, '"$1"')
+    //         .trim();
 
-    };
+    // };
 
     const recursiveConcatText = (node) => {
         let text = '';
@@ -269,13 +538,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     };
 
     const findTextNodeContaining = (element, searchText) => {
+
         const searchNormalizedText = normalizeText(searchText);
-
-        // searchInIframe('contextIframe', searchText);
-
-        const results = searchNodesInIframe('contextIframe', searchText);
-        console.log('Found nodes:', results);
-
 
         const walker = document.createTreeWalker(element, NodeFilter.SHOW_ELEMENT, null, false);
         const nodes = [];
@@ -301,13 +565,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.addEventListener('click', function (event) {
         if (event.target.id === 'contextButton') {
             const iframe = document.getElementById('contextIframe');
-            const currentText = normalizeText(document.querySelector('.tooltip-content').textContent);
+            const normalizedText = normalizeText(document.querySelector('.tooltip-content').textContent);
 
             console.log("currentText:");
-            console.log(currentText);
+            console.log(normalizedText);
 
             if (popup.style.display === 'block') {
-                scrollToAndHighlightInIframe(currentText);
+                scrollToAndHighlightInIframe(normalizedText);
             } else {
 
                 popup.style.display = 'block';
@@ -330,6 +594,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             link.parentNode.replaceChild(textNode, link);
                         });
 
+                        doc.body.innerHTML = doc.body.innerHTML.replace(/[“”]/g, '"');
+
                         // Serialize the modified HTML back to a string
                         const modifiedHTML = new XMLSerializer().serializeToString(doc);
 
@@ -341,17 +607,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         iframe.src = blobUrl;
 
                         iframe.onload = () => {
-                            highlightTextInIframe(iframe, currentText);
+                            highlightTextInIframe(iframe, normalizedText);
                         };
                     })
                     .catch(error => {
                         alert('Error loading or modifying HTML:', error);
                         console.error('Error loading or modifying HTML:', error);
                     });
-
-
-
-
 
                 document.addEventListener('keydown', escKeyListener);
             }
@@ -516,123 +778,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log(normalizedItem);
         return "Unknown Category";
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    function searchNodesInIframe(iframeId, searchString) {
-        const iframe = document.getElementById(iframeId);
-
-        if (iframe && iframe.contentDocument) {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-            // Normalize spaces in the search string to remove extra whitespace
-            searchString = searchString.replace(/\s+/g, ' ').trim();
-
-            let found = false;
-            let accumulatedText = '';
-            let matchingNodes = [];
-
-            function traverseAndAccumulate(node) {
-                if (node.nodeType === Node.TEXT_NODE) {
-                    accumulatedText += node.textContent.replace(/\s+/g, ' ').trim() + ' ';
-                    matchingNodes.push(node.parentElement);
-
-                    if (accumulatedText.includes(searchString)) {
-                        found = true;
-                        return true;  // Stop further traversal
-                    }
-                } else if (node.nodeType === Node.ELEMENT_NODE) {
-                    for (let i = 0; i < node.childNodes.length; i++) {
-                        if (traverseAndAccumulate(node.childNodes[i])) {
-                            return true;  // Stop further traversal if a match is found
-                        }
-                    }
-                }
-                return false;
-            }
-
-
-            console.log("iframeDoc.body:");
-            console.log(iframeDoc.body);
-
-            traverseAndAccumulate(iframeDoc.body);
-
-
-
-            if (found) {
-                console.log("Match found:", accumulatedText.trim());
-                return matchingNodes;
-            } else {
-                console.log("No match found.");
-                return [];
-            }
-        } else {
-            console.log('The iframe or its content is not accessible.');
-            return [];
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    function searchInIframe(iframeId, searchString) {
-        // Get the iframe element by its ID
-        const iframe = document.getElementById(iframeId);
-
-        // Ensure the iframe exists and that the content is loaded
-        if (iframe && iframe.contentDocument) {
-            // Access the document within the iframe
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-
-            // Get the text content of the iframe's body
-            const bodyText = iframeDoc.body.textContent || iframeDoc.body.innerText;
-
-
-            console.log("bodyText:");
-            console.log(bodyText);
-
-
-            // Search for the string within the text
-            const searchIndex = bodyText.indexOf(searchString);
-
-            if (searchIndex !== -1) {
-                console.log(`The string "${searchString}" was found in the iframe at position ${searchIndex}.`);
-                return true;
-            } else {
-                console.log(`The string "${searchString}" was not found in the iframe.`);
-                return false;
-            }
-        } else {
-            console.log('The iframe or its content is not accessible.');
-            return false;
-        }
-    }
-
-
-
-
-
-
-
-
-
 
     fetch('graphmls/' + who + '.graphml')
         .then(response => response.text())
@@ -1784,9 +1929,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke-width', 0)
                             .attr('stroke', darkenColor(dataRectCopy.fill))
                             .each(function (d) {
+
                                 // Prepare unique lines and formatted text
 
-                                let uniqueLines = new Set();
+
+
+                                console.log("*********************************");
+                                console.log("item.text");
+                                console.log(item.text);
+                                console.log("*********************************");
+
+                                console.log("Processed string:");
+                                console.log(processString(item.text));
+
+
+
+
+
+
+
+
+                                /*let uniqueLines = new Set();
                                 let lines = item.text.split('\n')
                                     .filter(line => {
                                         const trimmedLine = line.trim();
@@ -1795,7 +1958,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                             return true;
                                         }
                                         return false;
-                                    });
+                                    });*/
+
+                                const lines = processString(item.text)
+                                    .map(line => normalizeText(line));
 
                                 let tooltipContent = generateInitialTooltipContent(item.name.charAt(0).toUpperCase() + item.name.slice(1), originalNames[dataCategory], lines);
 
@@ -2058,7 +2224,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // Get the class that identifies the related rectangles
                     let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
                     let rectClasses = '.copyOfDataRect.' + cleanDataType;
-                    console.log(rectClasses);
+                    // console.log(rectClasses);
 
                     // First, ensure all rects are reset to full opacity
                     svg.selectAll('.copyOfDataRect')
@@ -3030,6 +3196,48 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
 
+
+
+
+
+    function processString(input) {
+        // Split the input string into lines
+        let lines = input.split('\n');
+
+        // Initialize an array to store the processed lines
+        let result = [];
+
+        // Initialize a variable to keep track of the last processed line
+        let lastLine = '';
+
+        for (let i = 0; i < lines.length; i++) {
+            let line = lines[i].trim();
+
+            // Skip lines that are followed by more than one line break
+            if (line !== '' && i + 1 < lines.length && lines[i + 1].trim() === '') {
+                let j = i + 1;
+                while (j < lines.length && lines[j].trim() === '') {
+                    j++;
+                }
+                if (j - i > 1) {
+                    // Skip this line because it's followed by more than one line break
+                    continue;
+                }
+            }
+
+            // If the line is not a duplicate of the last processed line, add it to the result
+            if (line !== '' && line !== lastLine) {
+                result.push(line);
+                lastLine = line;
+            }
+        }
+
+        // Return the processed lines joined back into a single string
+        return result;
+    }
+
+
+   
 
 
 });
