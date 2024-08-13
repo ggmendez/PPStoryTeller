@@ -270,11 +270,267 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+    // const highlightTextInIframe = (iframe, searchText) => {
+
+    //     const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+    //     // Normalize the search text by removing excess whitespace and special characters
+    //     const searchNormalizedText = normalizeText(searchText);
+
+    //     const recursiveConcatTextWithNodes = (node, text = '', nodes = [], originalLengths = []) => {
+    //         node.childNodes.forEach(child => {
+    //             if (child.nodeType === Node.TEXT_NODE) {
+    //                 const originalText = child.textContent;
+    //                 const normalizedText = normalizeText(addSpaceAfterPunctuation(originalText));
+    //                 text += normalizedText;
+    //                 nodes.push({ node: child, length: normalizedText.length });
+    //                 originalLengths.push({ length: originalText.length, node });
+    //             } else if (child.nodeType === Node.ELEMENT_NODE) {
+    //                 // Inline elements like <strong> should not introduce breaks in the text
+    //                 if (child.tagName === 'STRONG' || child.tagName === 'EM' || child.tagName === 'SPAN') {
+    //                     text = recursiveConcatTextWithNodes(child, text, nodes, originalLengths);
+    //                 } else {
+    //                     text = recursiveConcatTextWithNodes(child, text, nodes, originalLengths);
+    //                     if (child.tagName === 'H2') {
+    //                         text += ' ';
+    //                         nodes.push({ node: child, length: 1 }); // Account for the added space
+    //                         originalLengths.push({ length: 0, node }); // This node adds space but has no original length
+    //                     } else {
+    //                         nodes.push({ node: child, length: 0 });
+    //                         originalLengths.push({ length: 0, node });
+    //                     }
+    //                 }
+    //             }
+    //         });
+    //         return text;
+    //     };
+
+    //     // Get the iframe body content and the associated nodes
+    //     const nodes = [];
+    //     const originalLengths = [];
+    //     const iframeText = recursiveConcatTextWithNodes(iframeDocument.body, '', nodes, originalLengths);
+
+    //     // Find the start index of the search text considering HTML tags
+    //     const startIndex = iframeText.indexOf(searchNormalizedText);
+
+    //     console.log("iframeText:");
+    //     console.log(iframeText);
+
+    //     console.log("startIndex:");
+    //     console.log(startIndex);
+
+    //     console.log("searchNormalizedText:");
+    //     console.log(searchNormalizedText);
+
+    //     if (startIndex === -1) {
+    //         console.warn('No matching text found.');
+    //         return;
+    //     }
+
+    //     // Calculate the end index of the search text
+    //     const endIndex = startIndex + searchNormalizedText.length;
+
+    //     // Highlight text by wrapping the corresponding nodes in <span> tags
+    //     let charCount = 0;
+    //     let remainingLength = searchNormalizedText.length;
+    //     let highlighting = false;
+    //     let highlightSpan = null;
+
+    //     for (let i = 0; i < nodes.length; i++) {
+    //         const { node, length } = nodes[i];
+    //         const { length: originalLength } = originalLengths[i];
+
+    //         const nodeStartIndex = charCount;
+    //         const nodeEndIndex = charCount + length;
+
+    //         if (nodeStartIndex <= startIndex && nodeEndIndex > startIndex) {
+    //             // Start highlighting
+    //             const span = iframeDocument.createElement('span');
+    //             span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+    //             const startOffset = Math.max(0, startIndex - nodeStartIndex);
+    //             const endOffset = Math.min(length, startOffset + remainingLength);
+
+    //             // Adjust offsets to match the original content length
+    //             const adjustedStartOffset = originalLength ? (originalLength / length) * startOffset : startOffset;
+    //             const adjustedEndOffset = originalLength ? (originalLength / length) * endOffset : endOffset;
+
+    //             const range = iframeDocument.createRange();
+    //             range.setStart(node, adjustedStartOffset);
+    //             range.setEnd(node, adjustedEndOffset);
+    //             range.surroundContents(span);
+
+    //             remainingLength -= (endOffset - startOffset);
+    //             highlightSpan = span;
+    //             highlighting = true;
+    //         } else if (highlighting) {
+    //             const span = iframeDocument.createElement('span');
+    //             span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+    //             const startOffset = 0;
+    //             const endOffset = Math.min(length, remainingLength);
+
+    //             const adjustedEndOffset = originalLength ? (originalLength / length) * endOffset : endOffset;
+
+    //             const range = iframeDocument.createRange();
+    //             range.setStart(node, startOffset);
+    //             range.setEnd(node, adjustedEndOffset);
+    //             range.surroundContents(span);
+
+    //             remainingLength -= (endOffset - startOffset);
+    //             highlightSpan = span;
+
+    //             if (remainingLength <= 0) {
+    //                 break;
+    //             }
+    //         }
+
+    //         charCount += length;
+    //     }
+
+    //     if (highlightSpan) {
+    //         highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    //         setTimeout(() => {
+    //             iframe.scrollBy(0, -50); // Adjust the number of pixels as needed
+    //         }, 500);
+    //     }
+    // };
 
 
-    
 
 
+
+
+
+
+
+    const highlightTextInIframe = (iframe, searchText) => {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        // Normalize the search text by removing excess whitespace and special characters
+        const searchNormalizedText = normalizeText(searchText);
+
+        const recursiveConcatTextWithNodes = (node, text = '', nodes = [], originalLengths = []) => {
+            node.childNodes.forEach((child, index) => {
+                if (child.nodeType === Node.TEXT_NODE) {
+                    const originalText = child.textContent;
+                    const normalizedText = normalizeText(addSpaceAfterPunctuation(originalText));
+
+                    // Ensure space is added where necessary, particularly between text nodes and inline elements
+                    if (text.length > 0 && node.childNodes[index - 1] && node.childNodes[index - 1].nodeType !== Node.TEXT_NODE) {
+
+
+                        // console.log("ÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇÇ");
+                        // console.log(text);
+                        // console.log(node);
+                        // console.log(node.childNodes[index - 1]);
+
+
+
+                        // text += ' ';
+                    }
+
+                    text += normalizedText;
+                    nodes.push({ node: child, length: normalizedText.length });
+                    originalLengths.push({ length: originalText.length, node });
+                } else if (child.nodeType === Node.ELEMENT_NODE) {
+                    text = recursiveConcatTextWithNodes(child, text, nodes, originalLengths);
+                    if (child.tagName.toUpperCase() === 'H2' || child.tagName.toUpperCase() === 'STRONG') {
+                        text += ' ';
+                        nodes.push({ node: child, length: 1 }); // Account for the added space
+                        originalLengths.push({ length: 0, node }); // This node adds space but has no original length
+                    } else {
+                        nodes.push({ node: child, length: 0 });
+                        originalLengths.push({ length: 0, node });
+                    }
+                }
+            });
+            return text;
+        };
+
+        // Get the iframe body content and the associated nodes
+        const nodes = [];
+        const originalLengths = [];
+        const iframeText = recursiveConcatTextWithNodes(iframeDocument.body, '', nodes, originalLengths);
+
+
+
+        // Find the start index of the search text considering HTML tags
+        const startIndex = iframeText.indexOf(searchNormalizedText);
+
+        if (startIndex === -1) {
+            console.warn('No matching text found.');
+
+            console.log("iframeText:");
+            console.log(iframeText);
+
+
+
+            return;
+        }
+
+        // Calculate the end index of the search text
+        const endIndex = startIndex + searchNormalizedText.length;
+
+        // Highlight text by wrapping the corresponding nodes in <span> tags
+        let charCount = 0;
+        let remainingLength = searchNormalizedText.length;
+        let highlighting = false;
+        let highlightSpan = null;
+
+        for (let i = 0; i < nodes.length; i++) {
+            const { node, length } = nodes[i];
+            const { length: originalLength } = originalLengths[i];
+
+            const nodeStartIndex = charCount;
+            const nodeEndIndex = charCount + length;
+
+            if (nodeStartIndex <= startIndex && nodeEndIndex > startIndex) {
+                // Start highlighting
+                const span = iframeDocument.createElement('span');
+                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                const startOffset = Math.max(0, startIndex - nodeStartIndex);
+                const endOffset = Math.min(length, startOffset + remainingLength);
+
+                const range = iframeDocument.createRange();
+                range.setStart(node, startOffset);
+                range.setEnd(node, endOffset);
+                range.surroundContents(span);
+
+                remainingLength -= (endOffset - startOffset);
+                highlightSpan = span;
+                highlighting = true;
+            } else if (highlighting) {
+                const span = iframeDocument.createElement('span');
+                span.style.backgroundColor = 'rgba(255, 255, 0, 0.75)';
+
+                const startOffset = 0;
+                const endOffset = Math.min(length, remainingLength);
+
+                const range = iframeDocument.createRange();
+                range.setStart(node, startOffset);
+                range.setEnd(node, endOffset);
+                range.surroundContents(span);
+
+                remainingLength -= (endOffset - startOffset);
+                highlightSpan = span;
+
+                if (remainingLength <= 0) {
+                    break;
+                }
+            }
+
+            charCount += length;
+        }
+
+        if (highlightSpan) {
+            highlightSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => {
+                iframe.scrollBy(0, -50); // Adjust the number of pixels as needed
+            }, 500);
+        }
+    };
 
     const normalizeText = (text) => {
         return text.replace(/\s+([,.;])/g, '$1')
@@ -284,11 +540,56 @@ document.addEventListener("DOMContentLoaded", (event) => {
     };
 
     function addSpaceAfterPunctuation(text) {
-        // Regular expression to add a space after punctuation marks, but not inside abbreviations
         return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
             .replace(/(\.)(?!\s|$)/g, '. ')
             .replace(/\be\. g\./g, 'e.g.');
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // const normalizeText = (text) => {
+    //     return text.replace(/\s+([,.;])/g, '$1')
+    //         .replace(/\s+/g, ' ')
+    //         .replace(/"\s*(.*?)\s*"/g, '"$1"')
+    //         .trim();
+    // };
+
+    // function addSpaceAfterPunctuation(text) {
+    //     // Regular expression to add a space after punctuation marks, but not inside abbreviations
+    //     return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
+    //         .replace(/(\.)(?!\s|$)/g, '. ')
+    //         .replace(/\be\. g\./g, 'e.g.');
+    // }
+
+
+
+    // const normalizeText = (text) => {
+    //     return text.replace(/\s+([,.;])/g, '$1')
+    //         .replace(/\s+/g, ' ')
+    //         .replace(/"\s*(.*?)\s*"/g, '"$1"')
+    //         .trim();
+    // };
+
+    // function addSpaceAfterPunctuation(text) {
+    //     // Regular expression to add a space after punctuation marks, but not inside abbreviations
+    //     return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
+    //         .replace(/(\.)(?!\s|$)/g, '. ')
+    //         .replace(/\be\. g\./g, 'e.g.');
+    // }
 
 
 
