@@ -2,6 +2,8 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
+    let searcher = null;
+
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
     let nonTargetLabels;
@@ -117,15 +119,63 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const scrollToAndHighlightInIframe = (currentText) => {
 
+        if (!searcher) {
+            searcher = new IframeSearcher('contextIframe');
+        }
+
+        let normalizedText = normalizeText(healPunctuation(currentText));
+
+        console.log("normalizedText:");
+        console.log(normalizedText);
+
+        searcher.search(normalizedText);
+
+        console.log("searcher.currentMatches:");
+        console.log(searcher.currentMatches);
+
+        if (!searcher.currentMatches.length) {
+            const lastColonIndex = normalizedText.lastIndexOf(':');
+            if (lastColonIndex !== -1) {
+                const secondLastColonIndex = normalizedText.lastIndexOf(':', lastColonIndex - 1);
+                if (secondLastColonIndex !== -1) {
+                    normalizedText = normalizedText.substring(secondLastColonIndex + 1).trim();
+                    
+                    console.log("normalizedText 1");
+                    console.log(normalizedText);
+                    
+                } else {
+                    // If there's only one colon, fallback to using the last one
+                    normalizedText = normalizedText.substring(lastColonIndex + 1).trim();
+
+                    console.log("normalizedText 2");
+                    console.log(normalizedText);
+
+                }
+
+
+                
+
+                searcher.search(normalizedText);
+            }            
+        }
+        
+
+        
+
+
+
+
+
+
+
+        return;
+
+
         const iframe = document.getElementById('contextIframe');
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
         removeHighlightInIframe(); // Remove existing highlights
 
-        const normalizedText = normalizeText(currentText);
-
-        console.log("normalizedText:");
-        console.log(normalizedText);
 
         if (document.querySelector('.popup').style.display === 'block') {
             highlightTextInIframe(iframe, normalizedText);
@@ -543,7 +593,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
             .replace(/(\.)(?!\s|$)/g, '. ')
             .replace(/\be\. g\./g, 'e.g.')
-            .replace(/"(\S)/g, '" $1');
+            .replace(/"(\S)/g, '" $1')
+            .replace(/\s+:/g, ":")
+            .replace(/"\s+\)/g, "\")");
     }
 
 
@@ -692,13 +744,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.addEventListener('click', function (event) {
         if (event.target.id === 'contextButton') {
             const iframe = document.getElementById('contextIframe');
-            const normalizedText = normalizeText(document.querySelector('.tooltip-content').textContent);
 
-            console.log("currentText:");
-            console.log(normalizedText);
+            // const normalizedText = normalizeText(document.querySelector('.tooltip-content').textContent);
+            // const currentText = normalizeText(document.querySelector('.tooltip-content').textContent);
+            const currentText = document.querySelector('.tooltip-content').textContent;
+
+            // console.log("currentText:");
+            // console.log(currentText);
 
             if (popup.style.display === 'block') {
-                scrollToAndHighlightInIframe(normalizedText);
+                scrollToAndHighlightInIframe(currentText);
             } else {
 
                 popup.style.display = 'block';
@@ -734,7 +789,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         iframe.src = blobUrl;
 
                         iframe.onload = () => {
-                            highlightTextInIframe(iframe, normalizedText);
+
+                            // highlightTextInIframe(iframe, currentText);
+
+                            scrollToAndHighlightInIframe(currentText);
+
+
+
                         };
                     })
                     .catch(error => {
@@ -2116,7 +2177,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                                 const direction = nav.getAttribute('data-nav');
                                                 currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
 
-                                                const currentText = normalizeText(contentContainer.textContent);
+                                                // const currentText = normalizeText(contentContainer.textContent);
+                                                const currentText = contentContainer.textContent;
+
                                                 if (popup.style.display === 'block') {
                                                     scrollToAndHighlightInIframe(currentText);
                                                 }
@@ -2857,7 +2920,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         contentContainer.innerHTML = highlightedLines[newIndex];
         updatePagination(paginator, newIndex, highlightedLines.length);
 
-        const currentText = normalizeText(contentContainer.textContent);
+        // const currentText = normalizeText(contentContainer.textContent);
+
+        const currentText = contentContainer.textContent;
+
         if (popup.style.display === 'block') {
 
 
@@ -2866,8 +2932,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // currentHighlightIndex = -1;
             // findNext(iframe);
 
-
             scrollToAndHighlightInIframe(currentText);
+
+
         }
 
         return newIndex;
