@@ -44,22 +44,80 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Add the popup structure to the body
     const popup = document.createElement('div');
     popup.className = 'popup';
+    // popup.innerHTML = `
+    // <div class="popup-content">
+    //     <div id="iframe-container">
+    //         <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+    //     </div>
+    // </div>
+    // <span class="popup-close">&times;</span>`;
+
+
     popup.innerHTML = `
     <div class="popup-content">
+        <div class="overlay">
+            <div class="left-content">
+                <div class="square-indicator"></div>
+                <div class="main-question">Same or different person?</div>
+            </div>
+            <div class="page-navigation">
+                <span class="page-info">0/0</span>
+                <div class="navigation">
+                    <button class="nav-button up-button">
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </button>
+                    <button class="nav-button down-button">
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <button class="overlay-close-button">
+                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
         <div id="iframe-container">
             <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
-    </div>
-    <span class="popup-close">&times;</span>
-`;
+    </div>`;
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     document.body.appendChild(popup);
 
     const popupContent = popup.querySelector('.popup-content');
     const popupClose = popup.querySelector('.popup-close');
 
-    popupClose.addEventListener('click', () => {
-        popup.style.display = 'none';
-    });
+    if (popupClose) {
+        popupClose.addEventListener('click', () => {
+            popup.style.display = 'none';
+        });
+    }
+
 
     // Event listener for Escape key to close the popup
     const escKeyListener = (event) => {
@@ -139,10 +197,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const secondLastColonIndex = normalizedText.lastIndexOf(':', lastColonIndex - 1);
                 if (secondLastColonIndex !== -1) {
                     normalizedText = normalizedText.substring(secondLastColonIndex + 1).trim();
-                    
+
                     console.log("normalizedText 1");
                     console.log(normalizedText);
-                    
+
                 } else {
                     // If there's only one colon, fallback to using the last one
                     normalizedText = normalizedText.substring(lastColonIndex + 1).trim();
@@ -153,14 +211,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
 
 
-                
+
 
                 searcher.search(normalizedText);
-            }            
+            }
         }
-        
 
-        
+
+
 
 
 
@@ -744,9 +802,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.addEventListener('click', function (event) {
         if (event.target.id === 'contextButton') {
             const iframe = document.getElementById('contextIframe');
-
-            // const normalizedText = normalizeText(document.querySelector('.tooltip-content').textContent);
-            // const currentText = normalizeText(document.querySelector('.tooltip-content').textContent);
+            
             const currentText = document.querySelector('.tooltip-content').textContent;
 
             // console.log("currentText:");
