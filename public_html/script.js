@@ -2174,35 +2174,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke', darkenColor(dataRectCopy.fill))
                             .each(function (d) {
 
-                                // Prepare unique lines and formatted text
+                                // console.log("*********************************");
+                                // console.log("item.text");
+                                // console.log(item.text);
+                                // console.log("*********************************");
 
-
-
-                                console.log("*********************************");
-                                console.log("item.text");
-                                console.log(item.text);
-                                console.log("*********************************");
-
-                                console.log("Processed string:");
-                                console.log(processString(item.text));
-
-
-
-
-
-
-
-
-                                /*let uniqueLines = new Set();
-                                let lines = item.text.split('\n')
-                                    .filter(line => {
-                                        const trimmedLine = line.trim();
-                                        if (trimmedLine !== '' && !uniqueLines.has(trimmedLine)) {
-                                            uniqueLines.add(trimmedLine);
-                                            return true;
-                                        }
-                                        return false;
-                                    });*/
+                                // console.log("Processed string:");
+                                // console.log(processString(item.text));
 
                                 const lines = processString(item.text)
                                     .map(line => normalizeText(line));
@@ -2211,47 +2189,77 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 tippy(this, {
                                     theme: 'light-border',
-                                    content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
+                                    content: tooltipContent.header,
                                     allowHTML: true,
-                                    trigger: 'click',
-                                    interactive: true,
-                                    delay: [100, 100],
-                                    placement: 'right',
-                                    fallbackPlacements: ['top', 'bottom', 'left'],
-                                    appendTo: () => document.body,
-                                    onShow(instance) {
-                                        const contentContainer = instance.popper.querySelector('.tooltip-content');
-                                        const paginator = instance.popper.querySelector('.page-number-display');
-
-                                        let currentIndex = 0;
-                                        const totalLinks = tooltipContent.highlightedLines.length;
-
-                                        updatePagination(paginator, currentIndex, totalLinks);
-
-                                        instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
-                                            nav.addEventListener('click', function () {
-                                                const direction = nav.getAttribute('data-nav');
-                                                currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
-
-                                                // const currentText = normalizeText(contentContainer.textContent);
-                                                const currentText = contentContainer.textContent;
-
-                                                if (popup.style.display === 'block') {
-                                                    scrollToAndHighlightInIframe(currentText);
-                                                }
-                                            });
-                                        });
-
-                                        // Add event listener for Escape key to close the tooltip
-                                        const escKeyListener = (event) => {
-                                            if (event.key === 'Escape') {
-                                                instance.hide();
-                                                document.removeEventListener('keydown', escKeyListener);
-                                            }
-                                        };
-                                        document.addEventListener('keydown', escKeyListener);
-                                    }
+                                    trigger: 'mouseenter',  // Changed from 'click' to 'mouseenter' for hover activation
+                                    interactive: false,      // Set to false to make the tooltip non-interactive
+                                    placement: 'top',        // Prefer placement at the top
+                                    fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
+                                    appendTo: () => document.body
                                 });
+                                
+
+
+
+                                // tippy(this, {
+                                //     theme: 'light-border',
+                                //     content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
+                                //     allowHTML: true,
+                                //     trigger: 'click',
+                                //     interactive: true,
+                                //     delay: [100, 100],
+                                //     placement: 'right',
+                                //     fallbackPlacements: ['top', 'bottom', 'left'],
+                                //     appendTo: () => document.body,
+                                //     onShow(instance) {
+                                //         const contentContainer = instance.popper.querySelector('.tooltip-content');
+                                //         const paginator = instance.popper.querySelector('.page-number-display');
+
+                                //         let currentIndex = 0;
+                                //         const totalLinks = tooltipContent.highlightedLines.length;
+
+                                //         updatePagination(paginator, currentIndex, totalLinks);
+
+                                //         instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
+                                //             nav.addEventListener('click', function () {
+                                //                 const direction = nav.getAttribute('data-nav');
+                                //                 currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
+
+                                //                 // const currentText = normalizeText(contentContainer.textContent);
+                                //                 const currentText = contentContainer.textContent;
+
+                                //                 if (popup.style.display === 'block') {
+                                //                     scrollToAndHighlightInIframe(currentText);
+                                //                 }
+                                //             });
+                                //         });
+
+                                //         // Add event listener for Escape key to close the tooltip
+                                //         const escKeyListener = (event) => {
+                                //             if (event.key === 'Escape') {
+                                //                 instance.hide();
+                                //                 document.removeEventListener('keydown', escKeyListener);
+                                //             }
+                                //         };
+                                //         document.addEventListener('keydown', escKeyListener);
+                                //     }
+                                // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                
 
                             });
 
@@ -2899,19 +2907,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         navContainer += "</div>";
 
-        // let navContainer = 
-
-        //         <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>
-        //         <div class="page-number-display">1/${lines.length}</div>
-        //         <a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>
-        //     </div>`;
-
-
-
-
         return {
-            header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>
-                     <div style="margin-top: 8px; border-top: 1px solid #eee;"></div>`,
+            // header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>`,
+            header: `<div style="font-size: 14px; text-align: center;"><b>${name}</div>`,
             links: navContainer,
             content: `<div class="tooltip-content">${initialContent}</div>`,
             button: `<div class="tooltip-button"><button id="contextButton">View in Policy</button></div>`,

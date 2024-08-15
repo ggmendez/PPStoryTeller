@@ -377,7 +377,7 @@ body {
   line-height: 1.45;
   user-select: none;
   color: var(--color-surface-white);
-  background-color: white;  
+  background-color: white;
 }
 
 h1,
@@ -980,14 +980,16 @@ code .token.url {
 .container {
   display: flex;
   width: 100%;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
+  /* Full viewport height */
   position: relative;
 }
 
 .left {
   width: 30%;
   background-color: white;
-  overflow-y: hidden; /* Ensure no scrollbar is visible */
+  overflow-y: hidden;
+  /* Ensure no scrollbar is visible */
 }
 
 .center {
@@ -997,17 +999,20 @@ code .token.url {
   top: 0;
   left: 30%;
   height: 100vh;
-  overflow-y: hidden; /* Ensure no scrollbar is visible */
+  overflow-y: hidden;
+  /* Ensure no scrollbar is visible */
 }
 
 .right {
-  width: calc(100% - 30% - 30px); /* Take the remaining space */
+  width: calc(100% - 30% - 30px);
+  /* Take the remaining space */
   position: fixed;
   top: 0;
   right: 0;
   height: 100vh;
   background-color: white;
-  overflow-y: hidden; /* Ensure no scrollbar is visible */
+  overflow-y: hidden;
+  /* Ensure no scrollbar is visible */
 }
 
 
@@ -1059,25 +1064,13 @@ code .token.url {
 
 .tippy-box[data-theme~='light-border'] {
   background-color: #fff;
-  /* Light background */
   color: #333;
-  /* Dark text for better readability */
   border: 1px solid #ccc;
-  /* Light border */
-  width: 300px;
-  /* Fixed width for all tooltips */
-  max-width: none;
-  /* Override default Tippy.js max-width */
 }
 
 
 
-.tippy-box[data-theme~='light-border'] {
-  min-width: 300px;
-  /* Ensures tooltip is never narrower than 300px */
-  max-width: 400px;
-  /* Ensures tooltip does not exceed 400px */
-}
+
 
 .highlight {
   background-color: rgba(145, 145, 145, 0.25);
@@ -1272,10 +1265,14 @@ code .token.url {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto; /* Set to auto to avoid unnecessary overflow */
-  max-height: 100%; /* Ensure it doesn’t exceed the viewport height */
-  overflow: visible; /* Ensure no unnecessary scrolling inside this div */
-  position: relative; /* Relative positioning for contained elements */
+  height: auto;
+  /* Set to auto to avoid unnecessary overflow */
+  max-height: 100%;
+  /* Ensure it doesn’t exceed the viewport height */
+  overflow: visible;
+  /* Ensure no unnecessary scrolling inside this div */
+  position: relative;
+  /* Relative positioning for contained elements */
 }
 
 .popup-close {
@@ -1292,7 +1289,8 @@ code .token.url {
   width: 100%;
   flex-grow: 1;
   display: flex;
-  overflow: auto; /* Allow iframe to scroll independently if needed */
+  overflow: auto;
+  /* Allow iframe to scroll independently if needed */
 }
 
 #iframe-container iframe {
@@ -1311,7 +1309,7 @@ code .token.url {
   font-size: 12px;
   padding: 5px 10px;
   color: #fff;
-  background-color: rgb(75, 137, 236);  
+  background-color: rgb(75, 137, 236);
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -1336,28 +1334,39 @@ code .token.url {
   position: relative;
 }
 
-.line-0, .line-1, .line-2, .line-3, .line-4, .line-5, .line-6 {
+.line-0,
+.line-1,
+.line-2,
+.line-3,
+.line-4,
+.line-5,
+.line-6 {
   width: 3px;
   background-color: gray;
   transform-origin: center top;
   z-index: 2;
 }
 
-.line-0, .line-6 {
+.line-0,
+.line-6 {
   height: 18%;
 }
 
 .line-7 {
-  position: absolute;  
+  position: absolute;
   top: 0;
   width: 3px;
-  height: 100vh;    
+  height: 100vh;
   background-color: lightgray;
   transform-origin: center top;
   z-index: 1;
 }
 
-.line-1, .line-2, .line-3, .line-4, .line-5 {
+.line-1,
+.line-2,
+.line-3,
+.line-4,
+.line-5 {
   height: 10%;
   scale: 0;
 }
@@ -1424,92 +1433,140 @@ code .token.url {
 }
 
 .overlay {
-  width: 100%; /* Full width of the container */
-  background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
-  padding: 10px 20px; /* Slightly larger padding for more space */
-  border-bottom: 3px solid #1f78b4; /* Blue bottom border for emphasis */
-    border-radius: 5px; /* Rounded corners for a refined look */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  display: flex; /* Flexbox layout */
-  justify-content: space-between; /* Space between left and right-aligned content */
-  align-items: center; /* Center content vertically */
-  font-family: Arial, sans-serif; /* Consistent font */
-  font-size: 14px; /* Font size for text */
-  box-sizing: border-box; /* Include padding and border in width/height */
-  backdrop-filter: blur(5px); /* Slight blur effect on the background */
+  width: 100%;
+  /* Full width of the container */
+  background-color: rgba(255, 255, 255, 0.95);
+  /* Slightly transparent white background */
+  padding: 10px 20px;
+  /* Slightly larger padding for more space */
+  border-bottom: 3px solid #1f78b4;
+  /* Blue bottom border for emphasis */
+  border-radius: 5px;
+  /* Rounded corners for a refined look */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow for depth */
+  display: flex;
+  /* Flexbox layout */
+  justify-content: space-between;
+  /* Space between left and right-aligned content */
+  align-items: center;
+  /* Center content vertically */
+  font-family: Arial, sans-serif;
+  /* Consistent font */
+  font-size: 14px;
+  /* Font size for text */
+  box-sizing: border-box;
+  /* Include padding and border in width/height */
+  backdrop-filter: blur(5px);
+  /* Slight blur effect on the background */
 
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
-  border-top: 2px solid #1f78b4; /* Blue bottom border for emphasis */
+  border-top: 2px solid #1f78b4;
+  /* Blue bottom border for emphasis */
 }
 
 .left-content {
   display: flex;
-  align-items: center; /* Center the square and text vertically */
+  align-items: center;
+  /* Center the square and text vertically */
 }
 
 .square-indicator {
-  width: 16px; /* Width of the square */
-  height: 16px; /* Height of the square */
-  background-color: #1f78b4; /* Blue color */
-  margin-right: 5px; /* Minimal space between the square and the question text */
-  flex-shrink: 0; /* Prevent shrinking */  
+  width: 16px;
+  /* Width of the square */
+  height: 16px;
+  /* Height of the square */
+  background-color: #1f78b4;
+  /* Blue color */
+  margin-right: 5px;
+  /* Minimal space between the square and the question text */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
 
 .main-question {
-  font-size: 18px; /* Larger font size */
-  font-weight: bold; /* Make the text bold */
+  font-size: 18px;
+  /* Larger font size */
+  font-weight: bold;
+  /* Make the text bold */
   color: #333;
-  white-space: nowrap; /* Prevent line breaks */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflow */
+  text-overflow: ellipsis;
+  /* Add ellipsis if text overflows */
   display: flex;
-  align-items: center; /* Align text with square vertically */
+  align-items: center;
+  /* Align text with square vertically */
   margin-top: 3px;
 }
 
 .page-navigation {
   display: flex;
   align-items: center;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
 
 .page-info {
-  color: black; /* Blue text color to match the bottom border */
-  margin-right: 15px; /* Space between page info and navigation buttons */
-  border-left: 1px solid black; /* Divider line */
-  padding-left: 10px; /* Padding after the divider */
-  white-space: nowrap; /* Prevent line breaks */
-  overflow: hidden; /* Hide overflow */
-  text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  color: black;
+  /* Blue text color to match the bottom border */
+  margin-right: 15px;
+  /* Space between page info and navigation buttons */
+  border-left: 1px solid black;
+  /* Divider line */
+  padding-left: 10px;
+  /* Padding after the divider */
+  white-space: nowrap;
+  /* Prevent line breaks */
+  overflow: hidden;
+  /* Hide overflow */
+  text-overflow: ellipsis;
+  /* Add ellipsis if text overflows */
 }
 
 .navigation {
   display: flex;
   align-items: center;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
 
 .nav-button {
-  background-color: transparent; /* Transparent background */
-  border: none; /* No border */
-  padding: 5px; /* Padding around buttons */
-  cursor: pointer; /* Pointer cursor */
+  background-color: transparent;
+  /* Transparent background */
+  border: none;
+  /* No border */
+  padding: 5px;
+  /* Padding around buttons */
+  cursor: pointer;
+  /* Pointer cursor */
   display: flex;
-  align-items: center; /* Center items vertically */
-  flex-shrink: 0; /* Prevent shrinking */
+  align-items: center;
+  /* Center items vertically */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
 
-.nav-button svg, .overlay-close-button svg {
-  width: 20px; /* Increased size */
-  height: 20px; /* Increased size */
-  stroke: #42433d; /* Blue color to match the bottom border */
-  fill: none; /* No fill for the icons */
+.nav-button svg,
+.overlay-close-button svg {
+  width: 20px;
+  /* Increased size */
+  height: 20px;
+  /* Increased size */
+  stroke: #42433d;
+  /* Blue color to match the bottom border */
+  fill: none;
+  /* No fill for the icons */
 }
 
 .overlay-close-button svg {
-  stroke: #42433d; /* Blue color for the close icon */
-  margin-left: 10px; /* Space between the last arrow and the close button */
+  stroke: #42433d;
+  /* Blue color for the close icon */
+  margin-left: 10px;
+  /* Space between the last arrow and the close button */
 }
 
 .overlay-close-button {
@@ -1520,5 +1577,6 @@ code .token.url {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0; /* Prevent shrinking */
+  flex-shrink: 0;
+  /* Prevent shrinking */
 }
