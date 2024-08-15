@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", (event) => {
 
     let searcher = null;
+    let categoriesColorScale;
 
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
@@ -44,21 +45,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Add the popup structure to the body
     const popup = document.createElement('div');
     popup.className = 'popup';
-    // popup.innerHTML = `
-    // <div class="popup-content">
-    //     <div id="iframe-container">
-    //         <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
-    //     </div>
-    // </div>
-    // <span class="popup-close">&times;</span>`;
-
 
     popup.innerHTML = `
     <div class="popup-content">
-        <div class="overlay">
+        <div id="overlay" class="overlay">
             <div class="left-content">
-                <div class="square-indicator"></div>
-                <div class="main-question">Same or different person?</div>
+                <div id="squareIndicator" class="square-indicator"></div>
+                <div id="dataName" class="main-question">Same or different person?</div>
             </div>
             <div class="page-navigation">
                 <span class="page-info">0/0</span>
@@ -86,9 +79,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
         </div>
     </div>`;
-  
 
-  
+
+
 
 
 
@@ -126,52 +119,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             document.removeEventListener('keydown', escKeyListener);
         }
     };
-
-    // const normalizeText = (text) => {
-    //     return text.replace(/\s+([,.;])/g, '$1')
-    //         .replace(/\s+/g, ' ')
-    //         .replace(/"\s*(.*?)\s*"/g, '"$1"')
-    //         .trim();
-    // };
-
-    // Function to normalize and concatenate text content, ignoring HTML tags
-    // const recursiveConcatText = (node) => {
-    //     let text = '';
-    //     node.childNodes.forEach(child => {
-    //         if (child.nodeType === Node.TEXT_NODE) {
-    //             text += child.textContent;
-    //         } else if (child.nodeType === Node.ELEMENT_NODE) {
-    //             text += recursiveConcatText(child);
-    //         }
-    //     });
-    //     return text;
-    // };
-
-
-    // const findTextNodeContaining = (element, searchText) => {
-    //     const searchNormalizedText = normalizeText(searchText);
-
-    //     const findMatchingElements = (node) => {
-    //         const matches = [];
-    //         const walker = document.createTreeWalker(node, NodeFilter.SHOW_ELEMENT, null, false);
-
-    //         while (walker.nextNode()) {
-    //             const currentNode = walker.currentNode;
-    //             const concatenatedText = normalizeText(recursiveConcatText(currentNode));
-
-    //             if (concatenatedText.includes(searchNormalizedText)) {
-    //                 matches.push(currentNode);
-    //             }
-    //         }
-
-    //         return matches;
-    //     };
-
-    //     return findMatchingElements(element);
-    // };
-
-
-
 
 
 
@@ -218,29 +165,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
 
-
-
-
-
-
-
-
-
-        return;
-
-
-        const iframe = document.getElementById('contextIframe');
-        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-
-        removeHighlightInIframe(); // Remove existing highlights
-
-
-        if (document.querySelector('.popup').style.display === 'block') {
-            highlightTextInIframe(iframe, normalizedText);
-        } else {
-            // Display the popup and set up the onload event
-            document.querySelector('.popup').style.display = 'block';
-        }
 
     };
 
@@ -801,8 +725,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Event listener for context button
     document.addEventListener('click', function (event) {
         if (event.target.id === 'contextButton') {
+
+
+
             const iframe = document.getElementById('contextIframe');
-            
+
             const currentText = document.querySelector('.tooltip-content').textContent;
 
             // console.log("currentText:");
@@ -1398,7 +1325,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         uniqueCategories.sort();
 
-        const colorScale = d3.scaleOrdinal(customSchemePaired).domain([
+        categoriesColorScale = d3.scaleOrdinal(customSchemePaired).domain([
             "Identifiers",
             "General Data",
             "Aggregated & Inferred Data",
@@ -1563,7 +1490,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const categoryCenter = categoryPositions[rect.category];
             return {
                 ...rect,
-                fill: colorScale(rect.category),
+                fill: categoriesColorScale(rect.category),
             };
         });
 
@@ -1647,8 +1574,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('y', -categoryRectSize)
             .attr('width', categoryRectSize * 2)
             .attr('height', categoryRectSize * 2)
-            .attr('fill', d => colorScale(d))
-            .attr('stroke', d => darkenColor(colorScale(d)));
+            .attr('fill', d => categoriesColorScale(d))
+            .attr('stroke', d => darkenColor(categoriesColorScale(d)));
 
         svgCategoryGroups.append('text')
             .attr('text-anchor', 'start')
@@ -2158,6 +2085,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             tooltipText: item.text
                         };
 
+                        const lines = processString(item.text)
+                            .map(line => normalizeText(line));
+
+                        const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+
                         let theRect = svg.append('rect')
                             .data([dataRectCopy]) // Binding data here
                             .attr('id', uniqueId)
@@ -2182,86 +2114,103 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // console.log("Processed string:");
                                 // console.log(processString(item.text));
 
-                                const lines = processString(item.text)
-                                    .map(line => normalizeText(line));
-
-                                let tooltipContent = generateInitialTooltipContent(item.name.charAt(0).toUpperCase() + item.name.slice(1), originalNames[dataCategory], lines);
+                                let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines);
 
                                 tippy(this, {
                                     theme: 'light-border',
                                     content: tooltipContent.header,
                                     allowHTML: true,
-                                    trigger: 'mouseenter',  // Changed from 'click' to 'mouseenter' for hover activation
+                                    trigger: 'mouseenter focus',  // Changed from 'click' to 'mouseenter' for hover activation
+                                    hideOnClick: false,
                                     interactive: false,      // Set to false to make the tooltip non-interactive
                                     placement: 'top',        // Prefer placement at the top
                                     fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
                                     appendTo: () => document.body
                                 });
-                                
-
-
-
-                                // tippy(this, {
-                                //     theme: 'light-border',
-                                //     content: tooltipContent.header + tooltipContent.links + tooltipContent.content + tooltipContent.button,
-                                //     allowHTML: true,
-                                //     trigger: 'click',
-                                //     interactive: true,
-                                //     delay: [100, 100],
-                                //     placement: 'right',
-                                //     fallbackPlacements: ['top', 'bottom', 'left'],
-                                //     appendTo: () => document.body,
-                                //     onShow(instance) {
-                                //         const contentContainer = instance.popper.querySelector('.tooltip-content');
-                                //         const paginator = instance.popper.querySelector('.page-number-display');
-
-                                //         let currentIndex = 0;
-                                //         const totalLinks = tooltipContent.highlightedLines.length;
-
-                                //         updatePagination(paginator, currentIndex, totalLinks);
-
-                                //         instance.popper.querySelectorAll('.tooltip-nav').forEach(nav => {
-                                //             nav.addEventListener('click', function () {
-                                //                 const direction = nav.getAttribute('data-nav');
-                                //                 currentIndex = handleTooltipNavigation(contentContainer, tooltipContent.highlightedLines, currentIndex, direction, totalLinks, paginator);
-
-                                //                 // const currentText = normalizeText(contentContainer.textContent);
-                                //                 const currentText = contentContainer.textContent;
-
-                                //                 if (popup.style.display === 'block') {
-                                //                     scrollToAndHighlightInIframe(currentText);
-                                //                 }
-                                //             });
-                                //         });
-
-                                //         // Add event listener for Escape key to close the tooltip
-                                //         const escKeyListener = (event) => {
-                                //             if (event.key === 'Escape') {
-                                //                 instance.hide();
-                                //                 document.removeEventListener('keydown', escKeyListener);
-                                //             }
-                                //         };
-                                //         document.addEventListener('keydown', escKeyListener);
-                                //     }
-                                // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                                
 
                             });
+
+
+
+
+                        theRect.on('click', () => {
+
+
+
+                            const iframe = document.getElementById('contextIframe');
+
+                            const currentText = lines[0];
+
+                            document.querySelector("#dataName").textContent = itemName;
+                            document.querySelector("#squareIndicator").style.backgroundColor = categoriesColorScale(originalNames[dataCategory]);
+                            document.querySelector("#overlay").style.borderTopColor = categoriesColorScale(originalNames[dataCategory]);
+                            document.querySelector("#overlay").style.borderBottomColor = categoriesColorScale(originalNames[dataCategory]);
+
+
+
+
+
+                            // console.log("currentText:");
+                            // console.log(currentText);
+
+                            if (popup.style.display === 'block') {
+                                scrollToAndHighlightInIframe(currentText);
+                            } else {
+
+                                popup.style.display = 'block';
+
+                                const iframe = document.getElementById('contextIframe');
+                                const url = "./htmls/" + who + ".html";
+
+                                // Fetch the HTML content
+                                fetch(url)
+                                    .then(response => response.text())
+                                    .then(html => {
+                                        // Create a temporary DOM element to manipulate the HTML
+                                        const parser = new DOMParser();
+                                        const doc = parser.parseFromString(html, 'text/html');
+
+                                        // Remove all links (a tags) and replace them with their text content
+                                        const links = doc.querySelectorAll('a');
+                                        links.forEach(link => {
+                                            const textNode = document.createTextNode(link.textContent);
+                                            link.parentNode.replaceChild(textNode, link);
+                                        });
+
+                                        doc.body.innerHTML = doc.body.innerHTML.replace(/[“”]/g, '"');
+
+                                        // Serialize the modified HTML back to a string
+                                        const modifiedHTML = new XMLSerializer().serializeToString(doc);
+
+                                        // Create a Blob from the modified HTML string
+                                        const blob = new Blob([modifiedHTML], { type: 'text/html' });
+                                        const blobUrl = URL.createObjectURL(blob);
+
+                                        // Set the iframe src to the Blob URL
+                                        iframe.src = blobUrl;
+
+                                        iframe.onload = () => {
+
+                                            // highlightTextInIframe(iframe, currentText);
+
+                                            scrollToAndHighlightInIframe(currentText);
+
+
+
+                                        };
+                                    })
+                                    .catch(error => {
+                                        alert('Error loading or modifying HTML:', error);
+                                        console.error('Error loading or modifying HTML:', error);
+                                    });
+
+                                document.addEventListener('keydown', escKeyListener);
+                            }
+
+                        });
+
+
+
 
                         newRects.push(dataRectCopy);
                         rectIndex++;
@@ -2890,6 +2839,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function generateInitialTooltipContent(name, dataCategory, lines) {
+
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
         let initialContent = highlightedLines[0];
 
@@ -2908,7 +2858,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         navContainer += "</div>";
 
         return {
-            // header: `<div style="font-size: 14px; text-align: center;"><b>${name}<br/>(${dataCategory})</b></div>`,
             header: `<div style="font-size: 14px; text-align: center;"><b>${name}</div>`,
             links: navContainer,
             content: `<div class="tooltip-content">${initialContent}</div>`,
