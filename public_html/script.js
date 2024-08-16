@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let searcher = null;
     let categoriesColorScale;
-    
+    let currentLinesArray = null;
+    let currentLineIndex = null;
 
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
@@ -55,14 +56,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 <div id="dataName" class="main-question">Same or different person?</div>
             </div>
             <div class="page-navigation">
-                <span class="page-info">0/0</span>
+                <span id="pageInfo" class="page-info">0/0</span>
                 <div class="navigation">
-                    <button class="nav-button up-button">
+                    <button id="upButtonPreviousMention" class="nav-button up-button">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="18 15 12 9 6 15"></polyline>
                         </svg>
                     </button>
-                    <button class="nav-button down-button">
+                    <button id="downButtonNextMention" class="nav-button down-button">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
@@ -81,47 +82,111 @@ document.addEventListener("DOMContentLoaded", (event) => {
         </div>
     </div>`;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     document.body.appendChild(popup);
 
-    const popupContent = popup.querySelector('.popup-content');
-    const popupClose = popup.querySelector('.popup-close');
+    const url = "./htmls/" + who + ".html";
 
-    if (popupClose) {
-        popupClose.addEventListener('click', () => {
-            popup.style.display = 'none';
+    fetch(url)
+        .then(response => response.text())
+        .then(html => {
+            // Create a temporary DOM element to manipulate the HTML
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            // Remove all links (a tags) and replace them with their text content
+            const links = doc.querySelectorAll('a');
+            links.forEach(link => {
+                const textNode = document.createTextNode(link.textContent);
+                link.parentNode.replaceChild(textNode, link);
+            });
+
+            doc.body.innerHTML = doc.body.innerHTML.replace(/[“”]/g, '"');
+
+            // Serialize the modified HTML back to a string
+            const modifiedHTML = new XMLSerializer().serializeToString(doc);
+
+            // Create a Blob from the modified HTML string
+            const blob = new Blob([modifiedHTML], { type: 'text/html' });
+            const blobUrl = URL.createObjectURL(blob);
+
+            // Set the iframe src to the Blob URL
+            iframe.src = blobUrl;
+
+            iframe.onload = () => {
+                popup.style.display = 'block';
+                popup.style.visibility = 'hidden';
+                popup.style.opacity = '0';
+            };
+        })
+        .catch(error => {
+            alert('Error loading or modifying HTML:', error);
+            console.error('Error loading or modifying HTML:', error);
         });
-    }
+
+
+
+    // Add event listeners to the up and down buttons
+    document.getElementById('upButtonPreviousMention').addEventListener('click', function () {
+        currentLineIndex--; // Decrement the index
+
+        // Check if the index is before the first item, and if so, circle back to the end
+        if (currentLineIndex < 0) {
+            currentLineIndex = currentLinesArray.length - 1; // Set to the last item in the array
+        }
+
+        const currentText = currentLinesArray[currentLineIndex];
+        let normalizedText = normalizeText(healPunctuation(currentText));
+
+        console.log("normalizedText:");
+        console.log(normalizedText);
+
+        // Perform the search or other logic here
+        searcher.search(normalizedText);
+
+        // Update the page info display
+        document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
+    });
+
+    document.getElementById('downButtonNextMention').addEventListener('click', function () {
+        currentLineIndex++; // Increment the index
+
+        // Check if the index is beyond the last item, and if so, circle back to the start
+        if (currentLineIndex >= currentLinesArray.length) {
+            currentLineIndex = 0; // Reset to the first item
+        }
+
+        const currentText = currentLinesArray[currentLineIndex];
+        let normalizedText = normalizeText(healPunctuation(currentText));
+
+        console.log("normalizedText:");
+        console.log(normalizedText);
+
+        // Perform the search or other logic here
+        searcher.search(normalizedText);
+
+        // Update the page info display
+        document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
+    });
+
 
 
     // Event listener for Escape key to close the popup
     const escKeyListener = (event) => {
         if (event.key === 'Escape') {
-            popup.style.display = 'none';
+            // popup.style.display = 'none';
+            popup.style.visibility = 'hidden';
+            popup.style.opacity = '0';
             document.removeEventListener('keydown', escKeyListener);
         }
     };
 
 
+    // Add event listener for the 'keydown' event inside the iframe
+    const iframe = document.getElementById('contextIframe'); // Adjust this ID as needed
+    iframe.addEventListener('load', function () {
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+        iframeDocument.addEventListener('keydown', escKeyListener);
+    });
 
     const scrollToAndHighlightInIframe = (currentText, highlightColor) => {
 
@@ -134,7 +199,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("normalizedText:");
         console.log(normalizedText);
 
-        searcher.search(normalizedText, highlightColor);
+        searcher.setHighlightColor(highlightColor);
+
+        searcher.search(normalizedText);
 
         console.log("searcher.currentMatches:");
         console.log(searcher.currentMatches);
@@ -158,7 +225,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 }
 
-                searcher.search(normalizedText, highlightColor);
+                searcher.setHighlightColor(highlightColor);
+                searcher.search(normalizedText);
             }
         }
 
@@ -852,7 +920,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (item === "UNSPECIFIED_DATA") {
             return "General Data"
         }
-        
+
         const normalizedItem = item.toLowerCase().trim();
         for (const category in categorization) {
             for (const entry of categorization[category]) {
@@ -2055,83 +2123,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+                        // event to see the corresponding texts within the privacy policy
                         theRect.on('click', () => {
 
+                            currentLinesArray = lines;
+                            currentLineIndex = 0;
 
-
-                            const iframe = document.getElementById('contextIframe');
-                            const currentText = lines[0];
+                            const currentText = currentLinesArray[currentLineIndex];
                             const highlightColor = categoriesColorScale(originalNames[dataCategory]);
 
                             document.querySelector("#dataName").textContent = itemName;
+                            document.querySelector("#pageInfo").textContent = "1/" + lines.length;
                             document.querySelector("#squareIndicator").style.backgroundColor = highlightColor;
                             document.querySelector("#overlay").style.borderTopColor = highlightColor;
                             document.querySelector("#overlay").style.borderBottomColor = highlightColor;
 
+                            popup.style.visibility = 'visible';
+                            popup.style.opacity = '1';
 
+                            scrollToAndHighlightInIframe(currentText, highlightColor + '61');
 
-
-                            // console.log("currentText:");
-                            // console.log(currentText);
-
-                            if (popup.style.display === 'block') {
-                                scrollToAndHighlightInIframe(currentText, highlightColor + '8f');
-                            } else {
-
-                                popup.style.display = 'block';
-
-                                const iframe = document.getElementById('contextIframe');
-                                const url = "./htmls/" + who + ".html";
-
-                                // Fetch the HTML content
-                                fetch(url)
-                                    .then(response => response.text())
-                                    .then(html => {
-                                        // Create a temporary DOM element to manipulate the HTML
-                                        const parser = new DOMParser();
-                                        const doc = parser.parseFromString(html, 'text/html');
-
-                                        // Remove all links (a tags) and replace them with their text content
-                                        const links = doc.querySelectorAll('a');
-                                        links.forEach(link => {
-                                            const textNode = document.createTextNode(link.textContent);
-                                            link.parentNode.replaceChild(textNode, link);
-                                        });
-
-                                        doc.body.innerHTML = doc.body.innerHTML.replace(/[“”]/g, '"');
-
-                                        // Serialize the modified HTML back to a string
-                                        const modifiedHTML = new XMLSerializer().serializeToString(doc);
-
-                                        // Create a Blob from the modified HTML string
-                                        const blob = new Blob([modifiedHTML], { type: 'text/html' });
-                                        const blobUrl = URL.createObjectURL(blob);
-
-                                        // Set the iframe src to the Blob URL
-                                        iframe.src = blobUrl;
-
-                                        iframe.onload = () => {
-
-                                            // highlightTextInIframe(iframe, currentText);
-
-                                            scrollToAndHighlightInIframe(currentText, highlightColor + '8f');
-
-
-
-                                        };
-                                    })
-                                    .catch(error => {
-                                        alert('Error loading or modifying HTML:', error);
-                                        console.error('Error loading or modifying HTML:', error);
-                                    });
-
-                                document.addEventListener('keydown', escKeyListener);
-                            }
+                            document.addEventListener('keydown', escKeyListener);
+                            document.querySelector('.popup-content').addEventListener('keydown', escKeyListener);
 
                         });
-
-
-
 
                         newRects.push(dataRectCopy);
                         rectIndex++;
