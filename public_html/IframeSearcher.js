@@ -12,7 +12,7 @@ class IframeSearcher {
         return text.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[\u2013\u2014]/g, '-');
     }
 
-    search(term) {
+    search(term, highlightColor = '#FFFF00') { // default to yellow if no color is provided
         this.clearSearch();
 
         if (!term) return;
@@ -50,7 +50,7 @@ class IframeSearcher {
                     let span = this.iframeDocument.createElement('span');
                     span.className = 'highlight-search';
                     span.dataset.searchIndex = this.currentMatches.length;
-                    span.style.backgroundColor = 'yellow';
+                    span.style.backgroundColor = highlightColor;
 
                     let highlightedText = nodeObj.node.nodeValue.substring(nodeStartOffset, nodeEndOffset);
                     let beforeText = nodeObj.node.nodeValue.substring(0, nodeStartOffset);
@@ -92,7 +92,8 @@ class IframeSearcher {
 
     scrollToCurrent() {
         this.currentMatches.forEach((match, index) => {
-            match.style.backgroundColor = index === this.currentIndex ? 'orange' : 'yellow';
+            // match.style.backgroundColor = index === this.currentIndex ? 'orange' : match.style.backgroundColor;
+            match.style.backgroundColor = match.style.backgroundColor;
         });
 
         this.currentMatches[this.currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -108,4 +109,3 @@ class IframeSearcher {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
 }
-

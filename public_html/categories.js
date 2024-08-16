@@ -1,3 +1,4 @@
+let UNSPECIFIED_DATA_RENAME = "unspecified data";
 const categories = {};
 
 categories.tiktok = {
@@ -30,7 +31,7 @@ categories.tiktok = {
             "user content", "video content", "audio recording", "content", "content you create"
         ],
         "General Data": [
-            "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you send we", "information you provide", "UNSPECIFIED_DATA"
+            "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you send we", "information you provide", UNSPECIFIED_DATA_RENAME
         ],
         "Behavioral Data": [
             "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
@@ -87,7 +88,7 @@ categories.openai = {
             "content of message you send", "personal data include in input you provide to service"
         ],
         "General Data": [
-            "information you provide", "information you provide to we", "UNSPECIFIED_DATA", "personal data we share", "communication information", "information about use of services", "social media information"
+            "information you provide", "information you provide to we", UNSPECIFIED_DATA_RENAME, "personal data we share", "communication information", "information about use of services", "social media information"
         ],
         "Behavioral Data": [
             "internet activity", "transaction history"
@@ -140,7 +141,7 @@ categories.amazon = {
             "voice input", "photograph", "product review", "image"
         ],
         "General Data": [
-            "UNSPECIFIED_DATA", "information you give we", "email to we", "info entertainment professional need", "corporate information", "amazon business card", "movie box office datum", "information you access", "datum about event", "order", "zappos shoe", "amazon subscription box", "return exchange item", "reminder", "feedback", "people"
+            UNSPECIFIED_DATA_RENAME, "information you give we", "email to we", "info entertainment professional need", "corporate information", "amazon business card", "movie box office datum", "information you access", "datum about event", "order", "zappos shoe", "amazon subscription box", "return exchange item", "reminder", "feedback", "people"
         ],
         "Behavioral Data": [
             "top subscription box", "browsing", "specific shopping action", "product view", "information about interaction with product available"
@@ -191,7 +192,7 @@ categories.bixby = {
             "voice command", "recording of voice"
         ],
         "General Data": [
-            "information we collect", "information we collect about you from service", "UNSPECIFIED_DATA", "information we obtain", "information you provide through source", "information about", "information about use of services", "information about use of service", "publicly available information"
+            "information we collect", "information we collect about you from service", UNSPECIFIED_DATA_RENAME, "information we obtain", "information you provide through source", "information about", "information about use of services", "information about use of service", "publicly available information"
         ],
         "Behavioral Data": [
             "browsing / search history", "internet activity", "information from social network you use"
@@ -229,7 +230,7 @@ categories.gemini = {
         "Aggregated & Inferred Data": ["inaccurate information not represent view"],
         "Metadata": ["system permission"],
         "Media Content": ["voice datum", "screen content"],
-        "General Data": ["info", "info from device understand you", "UNSPECIFIED_DATA", "feedback", "related product usage information"],
+        "General Data": ["info", "info from device understand you", UNSPECIFIED_DATA_RENAME, "feedback", "related product usage information"],
         "Behavioral Data": ["gemini apps activity", "gemini apps conversation"],
         "Location Data": ["geolocation", "preferred language"],
         "Tracking": [],

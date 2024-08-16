@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let searcher = null;
     let categoriesColorScale;
+    
 
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
@@ -122,7 +123,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    const scrollToAndHighlightInIframe = (currentText) => {
+    const scrollToAndHighlightInIframe = (currentText, highlightColor) => {
 
         if (!searcher) {
             searcher = new IframeSearcher('contextIframe');
@@ -133,7 +134,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("normalizedText:");
         console.log(normalizedText);
 
-        searcher.search(normalizedText);
+        searcher.search(normalizedText, highlightColor);
 
         console.log("searcher.currentMatches:");
         console.log(searcher.currentMatches);
@@ -157,10 +158,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 }
 
-
-
-
-                searcher.search(normalizedText);
+                searcher.search(normalizedText, highlightColor);
             }
         }
 
@@ -720,87 +718,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    /********************************************************/
-
-    // Event listener for context button
-    document.addEventListener('click', function (event) {
-        if (event.target.id === 'contextButton') {
-
-
-
-            const iframe = document.getElementById('contextIframe');
-
-            const currentText = document.querySelector('.tooltip-content').textContent;
-
-            // console.log("currentText:");
-            // console.log(currentText);
-
-            if (popup.style.display === 'block') {
-                scrollToAndHighlightInIframe(currentText);
-            } else {
-
-                popup.style.display = 'block';
-
-                const iframe = document.getElementById('contextIframe');
-                const url = "./htmls/" + who + ".html";
-
-                // Fetch the HTML content
-                fetch(url)
-                    .then(response => response.text())
-                    .then(html => {
-                        // Create a temporary DOM element to manipulate the HTML
-                        const parser = new DOMParser();
-                        const doc = parser.parseFromString(html, 'text/html');
-
-                        // Remove all links (a tags) and replace them with their text content
-                        const links = doc.querySelectorAll('a');
-                        links.forEach(link => {
-                            const textNode = document.createTextNode(link.textContent);
-                            link.parentNode.replaceChild(textNode, link);
-                        });
-
-                        doc.body.innerHTML = doc.body.innerHTML.replace(/[“”]/g, '"');
-
-                        // Serialize the modified HTML back to a string
-                        const modifiedHTML = new XMLSerializer().serializeToString(doc);
-
-                        // Create a Blob from the modified HTML string
-                        const blob = new Blob([modifiedHTML], { type: 'text/html' });
-                        const blobUrl = URL.createObjectURL(blob);
-
-                        // Set the iframe src to the Blob URL
-                        iframe.src = blobUrl;
-
-                        iframe.onload = () => {
-
-                            // highlightTextInIframe(iframe, currentText);
-
-                            scrollToAndHighlightInIframe(currentText);
-
-
-
-                        };
-                    })
-                    .catch(error => {
-                        alert('Error loading or modifying HTML:', error);
-                        console.error('Error loading or modifying HTML:', error);
-                    });
-
-                document.addEventListener('keydown', escKeyListener);
-            }
-
-
-
-        }
-    });
-
-
-
-
-
-
-
-
 
 
 
@@ -931,9 +848,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function getCategory(item, categorization) {
+
+        if (item === "UNSPECIFIED_DATA") {
+            return "General Data"
+        }
+        
         const normalizedItem = item.toLowerCase().trim();
-
-
         for (const category in categorization) {
             for (const entry of categorization[category]) {
                 if (entry.toLowerCase().trim() == normalizedItem) {
@@ -944,8 +864,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }
         }
+
+
         console.log(" $$$$$$$$$$$$$$$$$$$$$$$$$ item");
         console.log(item);
+        console.log(categorization);
         console.log(normalizedItem);
         return "Unknown Category";
     }
@@ -986,12 +909,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const nodes = Array.from(xmlDoc.querySelectorAll('node'))
                 .filter(node => combinedNodes.has(node.getAttribute('id')))
                 .map(node => ({
-                    id: node.getAttribute('id'),
-                    label: node.getAttribute('id'),
+                    id: node.getAttribute('id') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.getAttribute('id'),
+                    label: node.getAttribute('id') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.getAttribute('id'),
                     category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),
                     type: node.querySelector('data[key="d1"]')?.textContent,
-                    name: node.querySelector('data[key="d0"]')?.textContent,
-                    Indegree: 0  // Initialize Indegree as 0, will be computed later
+                    name: node.querySelector('data[key="d0"]')?.textContent === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.querySelector('data[key="d0"]')?.textContent,
+                    Indegree: 0,  // Initialize Indegree as 0, will be computed later
                 }));
 
             console.log("nodes");
@@ -1005,8 +928,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const edges = Array.from(xmlDoc.querySelectorAll('edge'))
                 .filter(edge => edge.querySelector('data[key="d2"]')?.textContent === 'COLLECT')
                 .map(edge => ({
-                    source: edge.getAttribute('source'),
-                    target: edge.getAttribute('target'),
+                    source: edge.getAttribute('source') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : edge.getAttribute('source'),
+                    target: edge.getAttribute('target') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : edge.getAttribute('target'),
                     text: edge.querySelector('data[key="d3"]')?.textContent || '',
                     category: getCategory(edge.getAttribute('source'), categories[who].actorCategories),
                 }));
@@ -1295,7 +1218,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         dataEntities = dataEntities.map(entity => {
             return {
                 ...entity,
-                // name: entity.name === "UNSPECIFIED_DATA" ? "Pepe" : entity.name, TMP
                 id: sanitizeId(entity.id)
             };
         });
@@ -2138,14 +2060,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
                             const iframe = document.getElementById('contextIframe');
-
                             const currentText = lines[0];
+                            const highlightColor = categoriesColorScale(originalNames[dataCategory]);
 
                             document.querySelector("#dataName").textContent = itemName;
-                            document.querySelector("#squareIndicator").style.backgroundColor = categoriesColorScale(originalNames[dataCategory]);
-                            document.querySelector("#overlay").style.borderTopColor = categoriesColorScale(originalNames[dataCategory]);
-                            document.querySelector("#overlay").style.borderBottomColor = categoriesColorScale(originalNames[dataCategory]);
-
+                            document.querySelector("#squareIndicator").style.backgroundColor = highlightColor;
+                            document.querySelector("#overlay").style.borderTopColor = highlightColor;
+                            document.querySelector("#overlay").style.borderBottomColor = highlightColor;
 
 
 
@@ -2154,7 +2075,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             // console.log(currentText);
 
                             if (popup.style.display === 'block') {
-                                scrollToAndHighlightInIframe(currentText);
+                                scrollToAndHighlightInIframe(currentText, highlightColor + '8f');
                             } else {
 
                                 popup.style.display = 'block';
@@ -2193,7 +2114,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                             // highlightTextInIframe(iframe, currentText);
 
-                                            scrollToAndHighlightInIframe(currentText);
+                                            scrollToAndHighlightInIframe(currentText, highlightColor + '8f');
 
 
 
@@ -2902,63 +2823,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-    function handleTooltipNavigation(contentContainer, highlightedLines, currentIndex, direction, totalLinks, paginator) {
-        let newIndex;
-        if (direction === 'previous') {
-            newIndex = (currentIndex - 1 + highlightedLines.length) % highlightedLines.length;
-        } else if (direction === 'next') {
-            newIndex = (currentIndex + 1) % highlightedLines.length;
-        }
-
-        contentContainer.innerHTML = highlightedLines[newIndex];
-        updatePagination(paginator, newIndex, highlightedLines.length);
-
-        // const currentText = normalizeText(contentContainer.textContent);
-
-        const currentText = contentContainer.textContent;
-
-        if (popup.style.display === 'block') {
-
-
-            // const iframe = document.getElementById('contextIframe');
-            // highlightRects = highlightAllOccurrences(iframe, currentText);
-            // currentHighlightIndex = -1;
-            // findNext(iframe);
-
-            scrollToAndHighlightInIframe(currentText);
-
-
-        }
-
-        return newIndex;
-    }
-
-
-    function updateTooltipContent(contentContainer, highlightedLines, idx, linksContainer) {
-        contentContainer.innerHTML = highlightedLines[idx];
-        Array.from(linksContainer.querySelector('.numbered-links').children).forEach(link => {
-            link.classList.remove('active');
-        });
-        linksContainer.querySelector('.numbered-links').children[idx].classList.add('active');
-    }
-
-
-
-
-
-
-
-
 
 
 
