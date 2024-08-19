@@ -1516,6 +1516,7 @@ code .token.url {
   align-items: center;
   /* Align text with square vertically */
   margin-top: 3px;
+  max-width: 300px;
 }
 
 .page-navigation {

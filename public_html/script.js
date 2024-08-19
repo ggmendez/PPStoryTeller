@@ -179,6 +179,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             popup.style.opacity = '0';
             document.removeEventListener('keydown', escKeyListener);
         }
+
+
+        if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
+            currentPermanentTooltip.hide();
+            currentPermanentTooltip = null;
+        }
+
     };
 
 
