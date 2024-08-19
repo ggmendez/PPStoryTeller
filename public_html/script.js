@@ -2119,6 +2119,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('fill', dataRectCopy.fill)
                             .attr('stroke-width', 0)
                             .attr('stroke', darkenColor(dataRectCopy.fill))
+                            .attr('data-name', itemName)
                             .each(function (d) {
 
                                 // console.log("*********************************");
@@ -3353,6 +3354,47 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
+
+
+    const searchInput = document.getElementById('searchInput');
+
+
+    searchInput.addEventListener('input', function () {
+
+        const rectangles = document.querySelectorAll('.copyOfDataRect');
+        const searchTerm = searchInput.value.toLowerCase();
+
+        console.log("searchTerm:");
+        console.log(searchTerm);
+
+
+        rectangles.forEach(rect => {
+            const name = rect.getAttribute('data-name').toLowerCase();
+            if (name.includes(searchTerm)) {
+                rect.style.opacity = '1';
+            } else {
+                rect.style.opacity = '0.15';
+            }
+        });
+    });
+
+    searchInput.addEventListener('keydown', function (event) {
+        const rectangles = document.querySelectorAll('.copyOfDataRect');
+        if (event.key === 'Escape') {
+            searchInput.value = ''; // Clear the input field
+            rectangles.forEach(rect => {
+                rect.style.opacity = '1'; // Reset opacity of all rectangles
+            });
+        }
+    });
+
+    searchInput.addEventListener('blur', function () {
+        const rectangles = document.querySelectorAll('.copyOfDataRect');
+        // Reset opacity of all rectangles when search loses focus
+        rectangles.forEach(rect => {
+            rect.style.opacity = '1';
+        });
+    });
 
 
 

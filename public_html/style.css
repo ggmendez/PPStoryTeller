@@ -1596,3 +1596,43 @@ code .token.url {
   flex-shrink: 0;
   /* Prevent shrinking */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+#floatingSearchBar {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.9);
+  padding: 5px 10px;
+  border-radius: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: width 0.3s ease, box-shadow 0.3s ease;
+  width: 150px;
+  text-align: center;
+}
+
+#floatingSearchBar:focus-within {
+  width: 300px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+#searchInput {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  background: transparent;
+  text-align: center;
+}
