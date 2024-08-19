@@ -1066,6 +1066,8 @@ code .token.url {
   background-color: #fff;
   color: #333;
   border: 1px solid #ccc;
+  font-family: Mori, sans-serif;
+  font-weight: 400;
 }
 
 
@@ -1231,11 +1233,21 @@ code .token.url {
   font-weight: normal;
 }
 
+
+.tooltip-header {
+  font-size: 14px;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
 .tooltip-content {
   border-top: 1px solid #eee;
-  padding: 10px 0;
-  white-space: normal;
+  padding: 5px;
+  margin-bottom: -5px;
   overflow-wrap: break-word;
+  font-weight: normal;
 }
 
 

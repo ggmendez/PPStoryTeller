@@ -2,6 +2,7 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
+    let currentPermanentTooltip = null;
     let searcher = null;
     let categoriesColorScale;
     let currentLinesArray = null;
@@ -824,6 +825,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const svg = d3.select('#circle-packing-svg');
     const svgElement = document.getElementById('circle-packing-svg');
+
+
+    svgElement.addEventListener('click', (event) => {
+        // Ensure the click isn't on the currently active tooltip or its trigger element
+        if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
+            currentPermanentTooltip.hide();
+            currentPermanentTooltip = null;
+        }
+    }, true);
+
     let svgWidth = svgElement.clientWidth;
     let svgHeight = svgElement.clientHeight;
 
@@ -1050,7 +1061,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 actorDataMap[cleanActorCategory][cleanDataCategory].push({
                     name: dataName,
-                    text: edge.text
+                    text: edge.text,
+                    actor: actorName
                 });
             });
 
@@ -2064,6 +2076,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // Iterate over the sorted data categories
             sortedCategories.forEach(dataCategory => {
                 const items = collectedData[dataCategory];
+
+
+                console.log("items: -------------------");
+                console.log(items);
+
+
                 items.forEach((item, innerIndex) => {
                     const dataRect = splitRectData.find(d => d.name === item.name);
                     if (dataRect) {
@@ -2104,13 +2122,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // console.log("Processed string:");
                                 // console.log(processString(item.text));
 
-                                let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines);
+                                let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor);
 
-                                tippy(this, {
+                                const tooltipInstance = tippy(this, {
                                     theme: 'light-border',
-                                    content: tooltipContent.header,
+                                    content: tooltipContent.header + tooltipContent.content,
                                     allowHTML: true,
-                                    trigger: 'mouseenter focus',  // Changed from 'click' to 'mouseenter' for hover activation
+                                    trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
                                     hideOnClick: false,
                                     interactive: false,      // Set to false to make the tooltip non-interactive
                                     placement: 'top',        // Prefer placement at the top
@@ -2118,7 +2136,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     appendTo: () => document.body
                                 });
 
+                                this.addEventListener('mouseenter', () => {
+                                    tooltipInstance.show();
+                                });
+                                this.addEventListener('mouseleave', () => {
+                                    if (currentPermanentTooltip !== tooltipInstance) {
+                                        tooltipInstance.hide();
+                                    }
+                                });
+                                // Make the tooltip permanent on click
+                                this.addEventListener('click', () => {
+                                    // Hide the currently permanent tooltip, if any
+                                    if (currentPermanentTooltip) {
+                                        currentPermanentTooltip.hide();
+                                    }
+
+                                    // Set the clicked tooltip as the permanent one
+                                    currentPermanentTooltip = tooltipInstance;
+                                });
+
+
+
                             });
+
 
 
 
@@ -2774,10 +2814,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    function generateInitialTooltipContent(name, dataCategory, lines) {
+    function generateInitialTooltipContent(name, dataCategory, lines, actor) {
 
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
-        let initialContent = highlightedLines[0];
+        // let initialContent = highlightedLines[0];
+        let initialContent = "Collected by: " + actor;
 
         let navContainer = '<div class="nav-container">';
 
@@ -2794,7 +2835,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         navContainer += "</div>";
 
         return {
-            header: `<div style="font-size: 14px; text-align: center;"><b>${name}</div>`,
+            header: `<div class="tooltip-header"><b>${name}</div>`,
             links: navContainer,
             content: `<div class="tooltip-content">${initialContent}</div>`,
             button: `<div class="tooltip-button"><button id="contextButton">View in Policy</button></div>`,

@@ -9,25 +9,28 @@ class IframeSearcher {
     }
 
     normalizeText(text) {
+        // Replace curly quotes with straight quotes and perform other normalizations if necessary
         return text.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[\u2013\u2014]/g, '-');
     }
 
-    setHighlightColor(highlightColor) {
+    setHighlightColor (highlightColor) {
         this.highlightColor = highlightColor;
     }
 
-    search(term) {
+    search(term) { // default to yellow if no color is provided
         this.clearSearch();
 
         if (!term) return;
 
         term = this.normalizeText(term);
 
+        // Normalize the HTML content by removing tags and joining the text
         this.iframeDocument.body.normalize();
         const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
         let node, textContent = '', nodes = [];
 
         while (node = walker.nextNode()) {
+            // Normalize text within nodes to ensure correct matching
             const normalizedText = this.normalizeText(node.nodeValue);
             nodes.push({ node: node, startOffset: textContent.length });
             textContent += normalizedText;
@@ -52,7 +55,7 @@ class IframeSearcher {
                     let span = this.iframeDocument.createElement('span');
                     span.className = 'highlight-search';
                     span.dataset.searchIndex = this.currentMatches.length;
-                    // span.style.backgroundColor = this.highlightColor;
+                    span.style.backgroundColor = this.highlightColor;
 
                     let highlightedText = nodeObj.node.nodeValue.substring(nodeStartOffset, nodeEndOffset);
                     let beforeText = nodeObj.node.nodeValue.substring(0, nodeStartOffset);
@@ -92,49 +95,9 @@ class IframeSearcher {
         this.scrollToCurrent();
     }
 
-    scrollToCurrent() {
-
-        const currentMatch = this.currentMatches[this.currentIndex];
-
-        let duration = 0.5 + (0.002 * currentMatch.textContent.length);
-
-        console.log("duration:");
-        console.log(duration);
-
-
-        // Create an IntersectionObserver to detect when the scroll is complete
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                // Animate the highlight after the element is in view
-                gsap.fromTo(currentMatch,
-                    { backgroundSize: '0% 100%' },  // Start with no background size
-                    {
-                        backgroundSize: '100% 100%',  // Animate to full background size
-                        duration: duration,
-                        ease: "none",
-                        onStart: () => {
-                            currentMatch.style.backgroundImage = `linear-gradient(to right, ${this.highlightColor}, ${this.highlightColor})`;
-                            currentMatch.style.backgroundRepeat = 'no-repeat';
-                            currentMatch.style.backgroundSize = '0% 100%';
-                        }
-                    }
-                );
-
-                // Disconnect the observer after the animation starts to prevent multiple triggers
-                observer.disconnect();
-            }
-        }, {
-            threshold: 1.0  // The element is considered in view when 100% of it is visible
-        });
-
-        // Start observing the element
-        observer.observe(currentMatch);
-
-        // Scroll the current match into view
-        currentMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    scrollToCurrent() {        
+        this.currentMatches[this.currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });        
     }
-
-
 
     clearSearch() {
         this.currentMatches = [];
