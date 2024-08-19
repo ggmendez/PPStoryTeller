@@ -115,8 +115,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             iframe.onload = () => {
                 popup.style.display = 'block';
-                popup.style.visibility = 'hidden';
-                popup.style.opacity = '0';
+                hidePopup();
             };
         })
         .catch(error => {
@@ -170,11 +169,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
 
-
     document.getElementById('overlayCloseButton').addEventListener('click', function () {
-        popup.style.visibility = 'hidden';
-        popup.style.opacity = '0';
-        document.removeEventListener('keydown', escKeyListener);
+        hidePopup();
     });
 
 
@@ -182,21 +178,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Event listener for Escape key to close the popup
     const escKeyListener = (event) => {
-
-        // if (event.key === 'Escape') {
-        //     popup.style.visibility = 'hidden';
-        //     popup.style.opacity = '0';
-        //     document.removeEventListener('keydown', escKeyListener);
-        // }
-
-
         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
             currentPermanentTooltip.hide();
             currentPermanentTooltip = null;
         }
-
     };
 
+    function hidePopup() {
+        popup.style.visibility = 'hidden';
+        popup.style.opacity = '0';
+    }
 
     // Add event listener for the 'keydown' event inside the iframe
     const iframe = document.getElementById('contextIframe'); // Adjust this ID as needed
@@ -204,9 +195,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
         iframeDocument.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
-                popup.style.visibility = 'hidden';
-                popup.style.opacity = '0';
-                document.removeEventListener('keydown', escKeyListener);
+                hidePopup();
             }
         });
     });
@@ -850,12 +839,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     svgElement.addEventListener('click', (event) => {
+
+        if (!event.target.classList.contains('copyOfDataRect')) {
+            const rectangles = document.querySelectorAll('.copyOfDataRect');
+            rectangles.forEach(rect => {
+                rect.style.opacity = '1';
+            });
+        }
+
         // Ensure the click isn't on the currently active tooltip or its trigger element
         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
             currentPermanentTooltip.hide();
             currentPermanentTooltip = null;
         }
     }, true);
+
+
 
     let svgWidth = svgElement.clientWidth;
     let svgHeight = svgElement.clientHeight;
@@ -2420,6 +2419,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     opacity: 1,
                 }, `actorsColumn+=${2 * animationDuration + 0.5}`);
 
+
                 d3.select(node).on('mouseover', function (event) {
                     d3.select(this).style('font-weight', 'bolder');
 
@@ -2454,6 +2454,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
             });
+
+
+
+
+
+            mainTimeline.fromTo('#floatingSearchBar', {
+                // y: -30,
+                // opacity: 0,
+                scaleX: 0,
+                // scaleY: 0
+            }, {       
+                // y: 0,         
+                duration: animationDuration,
+                // opacity: 1,
+                scaleX: 1,
+                // scaleY: 1,
+                ease: 'elastic.out(1, 0.45)',
+            }, `actorsColumn+=${2 * animationDuration + 0.5} + 1`);
+
+
+
 
         }
 
@@ -3403,13 +3424,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     });
 
-    // searchInput.addEventListener('blur', function () {
-    //     const rectangles = document.querySelectorAll('.copyOfDataRect');
-    //     // Reset opacity of all rectangles when search loses focus
-    //     rectangles.forEach(rect => {
-    //         rect.style.opacity = '1';
-    //     });
-    // });
+    searchInput.addEventListener('blur', function (event) {
+
+        const rectangles = document.querySelectorAll('.copyOfDataRect');
+        const focusedElement = event.relatedTarget;
+
+        // Check if the focused element is not a copyOfDataRect
+        if (focusedElement || !focusedElement.classList.contains('copyOfDataRect')) {
+            // Reset opacity of all rectangles when search loses focus
+            rectangles.forEach(rect => {
+                rect.style.opacity = '1';
+            });
+        }
+    });
 
 
 
