@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
                     </button>
-                    <button class="overlay-close-button">
+                    <button id="overlayCloseButton" class="overlay-close-button">
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18" />
                             <line x1="6" y1="6" x2="18" y2="18" />
@@ -171,14 +171,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+    document.getElementById('overlayCloseButton').addEventListener('click', function () {
+        popup.style.visibility = 'hidden';
+        popup.style.opacity = '0';
+        document.removeEventListener('keydown', escKeyListener);
+    });
+
+
+
+
     // Event listener for Escape key to close the popup
     const escKeyListener = (event) => {
-        if (event.key === 'Escape') {
-            // popup.style.display = 'none';
-            popup.style.visibility = 'hidden';
-            popup.style.opacity = '0';
-            document.removeEventListener('keydown', escKeyListener);
-        }
+
+        // if (event.key === 'Escape') {
+        //     popup.style.visibility = 'hidden';
+        //     popup.style.opacity = '0';
+        //     document.removeEventListener('keydown', escKeyListener);
+        // }
 
 
         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
@@ -193,7 +202,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const iframe = document.getElementById('contextIframe'); // Adjust this ID as needed
     iframe.addEventListener('load', function () {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
-        iframeDocument.addEventListener('keydown', escKeyListener);
+        iframeDocument.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape') {
+                popup.style.visibility = 'hidden';
+                popup.style.opacity = '0';
+                document.removeEventListener('keydown', escKeyListener);
+            }
+        });
     });
 
     const scrollToAndHighlightInIframe = (currentText, highlightColor) => {
@@ -3388,13 +3403,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
     });
 
-    searchInput.addEventListener('blur', function () {
-        const rectangles = document.querySelectorAll('.copyOfDataRect');
-        // Reset opacity of all rectangles when search loses focus
-        rectangles.forEach(rect => {
-            rect.style.opacity = '1';
-        });
-    });
+    // searchInput.addEventListener('blur', function () {
+    //     const rectangles = document.querySelectorAll('.copyOfDataRect');
+    //     // Reset opacity of all rectangles when search loses focus
+    //     rectangles.forEach(rect => {
+    //         rect.style.opacity = '1';
+    //     });
+    // });
 
 
 
