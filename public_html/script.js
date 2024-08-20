@@ -941,6 +941,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const actorDataMap = {};
 
+    const dataInheritances = {};
+
     window.actorDataMap = actorDataMap;
 
     document.querySelector("#who").textContent = formatedNames[who];
@@ -1024,6 +1026,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             console.log("Actor entities processed (and XML files loaded)");
 
+
             // Load and process edges from GraphML
             const edges = Array.from(xmlDoc.querySelectorAll('edge'))
                 .filter(edge => edge.querySelector('data[key="d2"]')?.textContent === 'COLLECT')
@@ -1042,8 +1045,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             });
 
+
             console.log("Updated nodes with Indegree");
             console.log(entities);
+
+
+            console.log("edges:");
+            console.log(edges);
+
 
             edges.forEach(edge => {
                 const actorName = edge.source;
@@ -1086,6 +1095,40 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     actor: actorName
                 });
             });
+
+
+
+
+
+
+
+            const subsums = Array.from(xmlDoc.querySelectorAll('edge'))
+                .filter(edge => edge.querySelector('data[key="d2"]')?.textContent === 'SUBSUM')
+                .map(edge => ({
+                    source: edge.getAttribute('source') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : edge.getAttribute('source'),
+                    target: edge.getAttribute('target') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : edge.getAttribute('target'),
+                    text: edge.querySelector('data[key="d3"]')?.textContent || ''
+                }));
+
+
+            subsums.forEach(subsum => {
+
+                const parentData = subsum.source;
+                const childData = subsum.target;
+
+                if (!dataInheritances[parentData]) {
+                    dataInheritances[parentData] = new Array();
+                }
+
+                dataInheritances[parentData].push(childData);
+
+            });
+
+
+            console.log("***************** dataInheritances *****************");
+            console.log(dataInheritances);
+
+
 
             console.log("***************** actorDataMap *****************");
             console.log(actorDataMap);
@@ -2144,16 +2187,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // console.log("Processed string:");
                                 // console.log(processString(item.text));
 
-                                let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor);
+
+                                const inheritances = dataInheritances[item.name];
+
+                                // console.log("inheritances for " + item.name);
+                                // console.log(inheritances);                                                                
+
+                                let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor, inheritances);
 
                                 const tooltipInstance = tippy(this, {
                                     theme: 'light-border',
-                                    content: tooltipContent.header + tooltipContent.content,
+                                    content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
                                     allowHTML: true,
                                     trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
                                     hideOnClick: false,
-                                    interactive: false,      // Set to false to make the tooltip non-interactive
-                                    placement: 'top',        // Prefer placement at the top
+                                    interactive: true,      // Set to false to make the tooltip non-interactive
+                                    placement: 'right',        // Prefer placement at the top
                                     fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
                                     appendTo: () => document.body
                                 });
@@ -2464,7 +2513,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // opacity: 0,
                 scaleX: 0,
                 // scaleY: 0
-            }, {       
+            }, {
                 // y: 0,         
                 duration: animationDuration,
                 // opacity: 1,
@@ -2858,29 +2907,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    function generateInitialTooltipContent(name, dataCategory, lines, actor) {
+    function generateInitialTooltipContent(name, dataCategory, lines, actor, inheritances) {
 
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
-        // let initialContent = highlightedLines[0];
-        let initialContent = "Collected by: " + actor;
 
-        let navContainer = '<div class="nav-container">';
-
-        if (lines.length > 1) {
-            navContainer += '<a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="previous">&#9664;</a>';
+        let finalActor = actor;
+        if (actor === 'UNSPECIFIED_ACTOR') {
+            finalActor = 'Unspecified actor';
+        } else if (actor === 'we') {
+            finalActor = formatedNames[who];
+        } else {
+            finalActor = actor.charAt(0).toUpperCase() + actor.slice(1);
         }
 
-        navContainer += `<div class="page-number-display">1/${lines.length}</div>`;
+        let initialContent = '<span style="color: gray;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
 
-        if (lines.length > 1) {
-            navContainer += '<a href="javascript:void(0);" class="tooltip-nav navButton" data-nav="next">&#9654;</a>';
+        let inheritanceElements = '<div class="inheritances"><ul>';
+
+        if (inheritances && inheritances.length) {
+            inheritances.forEach((inheritance, index) => {
+                inheritanceElements += '<li>' + inheritance + '</li>';
+            });
         }
 
-        navContainer += "</div>";
+        inheritanceElements += '</ul></div>';
 
         return {
             header: `<div class="tooltip-header"><b>${name}</div>`,
-            links: navContainer,
+            inheritances: inheritanceElements,
             content: `<div class="tooltip-content">${initialContent}</div>`,
             button: `<div class="tooltip-button"><button id="contextButton">View in Policy</button></div>`,
             highlightedLines: highlightedLines,
@@ -3400,13 +3454,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         const searchTerm = searchInput.value.toLowerCase();
 
-        console.log("searchTerm:");
-        console.log(searchTerm);
-
+        // console.log("searchTerm:");
+        // console.log(searchTerm);
 
         rectangles.forEach(rect => {
             const name = rect.getAttribute('data-name').toLowerCase();
-            if (name.includes(searchTerm)) {
+
+            const inheritances = dataInheritances[name];
+            let foundInInheritances = false;
+
+            if (inheritances && inheritances.length) {
+                inheritances.forEach(inheritance => {
+                    if (inheritance.includes(searchTerm)) {
+                        foundInInheritances = true;
+                    }
+                });
+            }
+
+            if (name.includes(searchTerm) || foundInInheritances) {
                 rect.style.opacity = '1';
             } else {
                 rect.style.opacity = '0.15';
@@ -3430,7 +3495,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const focusedElement = event.relatedTarget;
 
         // Check if the focused element is not a copyOfDataRect
-        if (focusedElement || !focusedElement.classList.contains('copyOfDataRect')) {
+        if (focusedElement && !focusedElement.classList.contains('copyOfDataRect')) {
             // Reset opacity of all rectangles when search loses focus
             rectangles.forEach(rect => {
                 rect.style.opacity = '1';
