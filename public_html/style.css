@@ -1501,7 +1501,7 @@ code .token.url {
   /* Larger font size */
   font-weight: bold;
   /* Make the text bold */
-  color: #333;
+  color: black;
   white-space: nowrap;
   /* Prevent line breaks */
   overflow: hidden;
@@ -1568,14 +1568,14 @@ code .token.url {
   /* Increased size */
   height: 20px;
   /* Increased size */
-  stroke: #42433d;
+  stroke: black;
   /* Blue color to match the bottom border */
   fill: none;
   /* No fill for the icons */
 }
 
 .overlay-close-button svg {
-  stroke: #42433d;
+  stroke: black;
   /* Blue color for the close icon */
   margin-left: 10px;
   /* Space between the last arrow and the close button */

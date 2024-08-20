@@ -3561,6 +3561,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     
             // Click event to persist selection and fade unrelated rectangles
             listItem.addEventListener('click', function () {
+
+                searchInput.value = name;
     
                 if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
                     currentPermanentTooltip.hide();
