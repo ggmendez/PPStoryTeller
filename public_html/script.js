@@ -2208,12 +2208,34 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 });
 
                                 this.addEventListener('mouseenter', () => {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                                     tooltipInstance.show();
                                 });
                                 this.addEventListener('mouseleave', () => {
                                     if (currentPermanentTooltip !== tooltipInstance) {
                                         tooltipInstance.hide();
                                     }
+
+                                    // const rectangles = document.querySelectorAll('.copyOfDataRect');
+                                    // rectangles.forEach(rect => {
+                                    //     rect.style.opacity = '1';
+                                    // });
+
+
+
                                 });
                                 // Make the tooltip permanent on click
                                 this.addEventListener('click', () => {
@@ -2224,6 +2246,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                     // Set the clicked tooltip as the permanent one
                                     currentPermanentTooltip = tooltipInstance;
+
+
+                                    const rectangles = document.querySelectorAll('.copyOfDataRect');
+                                    rectangles.forEach(rect => {
+
+                                        const name = rect.getAttribute('data-name').toLowerCase();
+
+                                        if (name.includes(this.getAttribute('data-name').toLowerCase())) {
+                                            rect.style.opacity = '1';
+                                        } else {
+                                            rect.style.opacity = '0.15';
+                                        }
+                                    });
+
+
                                 });
 
 
