@@ -2202,7 +2202,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
                                     hideOnClick: false,
                                     interactive: true,      // Set to false to make the tooltip non-interactive
-                                    placement: 'right',        // Prefer placement at the top
+                                    placement: 'top',        // Prefer placement at the top
                                     fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
                                     appendTo: () => document.body
                                 });
@@ -2253,7 +2253,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                         const name = rect.getAttribute('data-name').toLowerCase();
 
-                                        if (name.includes(this.getAttribute('data-name').toLowerCase())) {
+                                        if (name === this.getAttribute('data-name').toLowerCase()) {
                                             rect.style.opacity = '1';
                                         } else {
                                             rect.style.opacity = '0.15';
@@ -3484,19 +3484,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     const searchInput = document.getElementById('searchInput');
+    const searchResultsPanel = document.getElementById('searchResultsPanel');
 
 
-    searchInput.addEventListener('input', function () {
+    let selectedItem = null; // Track the currently selected item
+
+    function performSearch() {
 
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         const searchTerm = searchInput.value.toLowerCase();
+        searchResultsPanel.innerHTML = ''; // Clear previous results
+        selectedItem = null; // Reset the selected item when typing
 
-        // console.log("searchTerm:");
-        // console.log(searchTerm);
+        const uniqueResults = new Set(); // To store unique results
+        const ul = document.createElement('ul'); // Create a <ul> element
 
         rectangles.forEach(rect => {
             const name = rect.getAttribute('data-name').toLowerCase();
-
             const inheritances = dataInheritances[name];
             let foundInInheritances = false;
 
@@ -3508,18 +3512,89 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 });
             }
 
-            if (name.includes(searchTerm) || foundInInheritances) {
-                rect.style.opacity = '1';
-            } else {
-                rect.style.opacity = '0.15';
+            if ((name.includes(searchTerm) || foundInInheritances) && !uniqueResults.has(name)) {
+                uniqueResults.add(name); // Add name to the set to ensure uniqueness
+
+                const listItem = document.createElement('li');
+
+                // Create the small rect element as a preview
+                const smallRect = document.createElement('div');
+                smallRect.style.width = '15px';
+                smallRect.style.height = '15px';
+                smallRect.style.backgroundColor = rect.getAttribute('fill');
+                smallRect.style.border = `1px solid ${rect.getAttribute('stroke')}`;
+                smallRect.style.marginRight = '8px';
+                smallRect.style.display = 'inline-block';
+
+                // Set up the list item content
+                listItem.textContent = name;
+                listItem.prepend(smallRect); // Add the small rect before the name text
+
+                // Hover effect to change the opacity of corresponding rectangles
+                listItem.addEventListener('mouseenter', function () {
+                    const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+                    if (!selectedItem) { // Only apply hover effects if no item is selected
+                        rectangles1.forEach(rect => {
+                            const rectName = rect.getAttribute('data-name').toLowerCase();
+                            if (rectName === name) {
+                                rect.style.opacity = '1'; // Highlight the corresponding rects
+                            } else {
+                                rect.style.opacity = '0.15'; // Dim others
+                            }
+                        });
+                    }
+                });
+
+                listItem.addEventListener('mouseleave', function () {
+                    const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+                    if (!selectedItem) { // Only reset if no item is selected
+                        rectangles1.forEach(rect => {
+                            rect.style.opacity = '1'; // Reset opacity of all rectangles
+                        });
+                    }
+                });
+
+                // Click event to persist selection and fade unrelated rectangles
+                listItem.addEventListener('click', function () {
+                    const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+                    selectedItem = name; // Set the selected item
+                    rectangles1.forEach(rect => {
+                        const rectName = rect.getAttribute('data-name').toLowerCase();
+                        if (rectName === name) {
+                            rect.style.opacity = '1'; // Keep the clicked result fully visible
+                        } else {
+                            rect.style.opacity = '0.15'; // Fade unrelated rectangles
+                        }
+                    });
+                    searchResultsPanel.style.display = 'none'; // Hide panel after selection
+                }, true);
+
+                ul.appendChild(listItem); // Append <li> to <ul>
             }
         });
-    });
+
+        if (uniqueResults.size > 0) {
+            searchResultsPanel.appendChild(ul); // Append the <ul> to the panel
+            searchResultsPanel.style.display = 'block';
+        } else {
+            searchResultsPanel.style.display = 'none';
+        }
+    }
+
+
+    // Trigger search on input event
+    searchInput.addEventListener('input', performSearch);
+
+    // Trigger search on focus event
+    searchInput.addEventListener('focus', performSearch);
+
 
     searchInput.addEventListener('keydown', function (event) {
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         if (event.key === 'Escape') {
             searchInput.value = ''; // Clear the input field
+            searchResultsPanel.style.display = 'none'; // Hide the panel
+            selectedItem = null; // Clear the selected item
             rectangles.forEach(rect => {
                 rect.style.opacity = '1'; // Reset opacity of all rectangles
             });
@@ -3527,18 +3602,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     searchInput.addEventListener('blur', function (event) {
-
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         const focusedElement = event.relatedTarget;
 
-        // Check if the focused element is not a copyOfDataRect
-        if (focusedElement && !focusedElement.classList.contains('copyOfDataRect')) {
-            // Reset opacity of all rectangles when search loses focus
-            rectangles.forEach(rect => {
-                rect.style.opacity = '1';
-            });
-        }
+        // Defer the handling to allow the click event on the list item to be processed
+        setTimeout(() => {
+            if (!focusedElement || (!focusedElement.classList.contains('copyOfDataRect') && !searchResultsPanel.contains(focusedElement))) {
+                searchResultsPanel.style.display = 'none'; // Hide panel when losing focus
+                if (!selectedItem) { // Only reset if no item is selected
+                    rectangles.forEach(rect => {
+                        rect.style.opacity = '1';
+                    });
+                }
+            }
+        }, 100); // Delay of 100ms to ensure click event is processed
     });
+
+
 
 
 
