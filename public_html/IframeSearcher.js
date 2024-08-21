@@ -227,13 +227,36 @@ class IframeSearcher {
         this.scrollToCurrent();
     }
 
+    findLargestSpan() {
+        if (this.currentMatches.length === 0) return null;
+    
+        let largestSpan = null;
+        let maxArea = 0;
+    
+        this.currentMatches.forEach((span) => {
+            const rect = span.getBoundingClientRect();
+            const area = rect.width * rect.height;
+    
+            if (area > maxArea) {
+                maxArea = area;
+                largestSpan = span;
+            }
+        });
+    
+        return largestSpan;
+    }
+    
+
     scrollToCurrent() {
 
         console.log("this.currentMatches:");
         console.log(this.currentMatches);
         
 
-        const currentMatch = this.currentMatches[this.currentIndex + 1];
+        // const currentMatch = this.currentMatches[this.currentIndex];
+        const currentMatch = this.findLargestSpan();
+
+
 
         let duration = 0.5 + (0.002 * currentMatch.textContent.length);
 
