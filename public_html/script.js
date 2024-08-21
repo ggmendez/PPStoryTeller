@@ -2158,6 +2158,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         };
 
                         const lines = processString(item.text)
+                            .filter(text => !isHeader(text)) // to remove headers
                             .map(line => normalizeText(line));
 
                         const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
@@ -2518,14 +2519,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     svg.selectAll('.copyOfDataRect')
                         .transition()
                         .duration(200)
-                        .attr('stroke-width', 1)
+                        // .attr('stroke-width', 1)
                         .style('opacity', 1);
 
                     // Reduce the opacity of rects that do not have the specific class
                     svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
                         .transition()
                         .duration(200)
-                        .style('opacity', 0.2);
+                        .style('opacity', 0.15);
                 });
 
                 d3.select(node).on('mouseout', function (event) {
@@ -2533,7 +2534,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     svg.selectAll('.copyOfDataRect')
                         .transition()
                         .duration(200)
-                        .attr('stroke-width', 0)
+                        // .attr('stroke-width', 0)
                         .style('opacity', 1); // Restore opacity for all rects
                 });
 
@@ -2957,7 +2958,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             finalActor = actor.charAt(0).toUpperCase() + actor.slice(1);
         }
 
-        let initialContent = '<span style="color: gray;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
+        let initialContent = '<span style="color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
 
         let inheritanceElements = '<div class="inheritances"><ul>';
 
@@ -3484,24 +3485,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const searchInput = document.getElementById('searchInput');
     const searchResultsPanel = document.getElementById('searchResultsPanel');
-    
+    const clearSearchButton = document.getElementById('clearSearch');
+
+
     let selectedItem = null; // Track the currently selected item
-    
+
     function performSearch() {
-    
+
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         const searchTerm = searchInput.value.toLowerCase();
         searchResultsPanel.innerHTML = ''; // Clear previous results
         selectedItem = null; // Reset the selected item when typing
-    
+
+        searchInput.placeholder = '';
+
+        if (searchInput.value.length > 0) {
+            clearSearchButton.style.display = 'block'; // Ensure this line executes
+            searchInput.style.paddingRight = '40px';
+        } else {
+            clearSearchButton.style.display = 'none';
+            searchInput.style.paddingRight = '10px';
+        }
+
         const uniqueResults = new Set(); // To store unique results
         const ul = document.createElement('ul'); // Create a <ul> element
-    
+
         rectangles.forEach(rect => {
             const name = rect.getAttribute('data-name').toLowerCase();
             const inheritances = dataInheritances[name];
             let foundInInheritances = false;
-    
+
             if (inheritances && inheritances.length) {
                 inheritances.forEach(inheritance => {
                     if (inheritance.includes(searchTerm)) {
@@ -3509,19 +3522,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }
                 });
             }
-    
+
             if ((name.includes(searchTerm) || foundInInheritances) && !uniqueResults.has(name)) {
                 uniqueResults.add(name); // Add name to the set to ensure uniqueness
             }
         });
-    
+
         // Convert Set to Array and sort it alphabetically
         const sortedResults = Array.from(uniqueResults).sort();
-    
+
         sortedResults.forEach(name => {
             const listItem = document.createElement('li');
             const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
-    
+
             // Create the small rect element as a preview
             const smallRect = document.createElement('div');
             smallRect.style.width = '15px';
@@ -3530,11 +3543,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             smallRect.style.border = `1px solid ${rect.getAttribute('stroke')}`;
             smallRect.style.marginRight = '8px';
             smallRect.style.display = 'inline-block';
-    
+
             // Set up the list item content
             listItem.textContent = name;
             listItem.prepend(smallRect); // Add the small rect before the name text
-    
+
             // Hover effect to change the opacity of corresponding rectangles
             listItem.addEventListener('mouseenter', function () {
                 const rectangles1 = document.querySelectorAll('.copyOfDataRect');
@@ -3549,7 +3562,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     });
                 }
             });
-    
+
             listItem.addEventListener('mouseleave', function () {
                 const rectangles1 = document.querySelectorAll('.copyOfDataRect');
                 if (!selectedItem) { // Only reset if no item is selected
@@ -3558,17 +3571,26 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     });
                 }
             });
-    
+
             // Click event to persist selection and fade unrelated rectangles
             listItem.addEventListener('click', function () {
 
                 searchInput.value = name;
-    
+
+                if (searchInput.value.length > 0) {
+                    clearSearchButton.style.display = 'block'; // Ensure this line executes
+                    searchInput.style.paddingRight = '40px';
+                } else {
+                    clearSearchButton.style.display = 'none';
+                    searchInput.style.paddingRight = '10px';
+                }
+
+
                 if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
                     currentPermanentTooltip.hide();
                     currentPermanentTooltip = null;
                 }
-    
+
                 const rectangles1 = document.querySelectorAll('.copyOfDataRect');
                 selectedItem = name; // Set the selected item
                 rectangles1.forEach(rect => {
@@ -3581,10 +3603,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 });
                 searchResultsPanel.style.display = 'none'; // Hide panel after selection
             }, true);
-    
+
             ul.appendChild(listItem); // Append <li> to <ul>
         });
-    
+
         if (sortedResults.length > 0) {
             searchResultsPanel.appendChild(ul); // Append the <ul> to the panel
             searchResultsPanel.style.display = 'block';
@@ -3592,13 +3614,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
             searchResultsPanel.style.display = 'none';
         }
     }
-    
+
     // Trigger search on input event
     searchInput.addEventListener('input', performSearch);
-    
+
     // Trigger search on focus event
-    searchInput.addEventListener('focus', performSearch);
-    
+    searchInput.addEventListener('focus', function () {
+        searchInput.select();
+        performSearch();
+    });
+
     searchInput.addEventListener('keydown', function (event) {
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         if (event.key === 'Escape') {
@@ -3610,11 +3635,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
         }
     });
-    
+
     searchInput.addEventListener('blur', function (event) {
+
+        if (!searchInput.value || !searchInput.value.trim().length) {
+            searchInput.placeholder = 'Search...';
+        }
+
         const rectangles = document.querySelectorAll('.copyOfDataRect');
         const focusedElement = event.relatedTarget;
-    
+
         // Defer the handling to allow the click event on the list item to be processed
         setTimeout(() => {
             if (!focusedElement || (!focusedElement.classList.contains('copyOfDataRect') && !searchResultsPanel.contains(focusedElement))) {
@@ -3627,8 +3657,74 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         }, 250); // Delay to ensure click event is processed
     });
-    
 
+    clearSearchButton.addEventListener('click', function () {
+
+        // searchInput.placeholder = 'Search...';
+        searchInput.value = '';
+        searchInput.focus();
+
+
+        // clearSearchButton.style.display = 'none';
+        // searchResultsPanel.style.display = 'none';
+
+        // // Reset the opacity of all rectangles
+        // const rectangles2 = document.querySelectorAll('.copyOfDataRect');
+        // rectangles2.forEach(rect => {
+        //     rect.style.opacity = '1';
+        // });
+
+        // selectedItem = null; // Reset selected item        
+    });
+
+
+    function isHeader(text, checkStrong = false) {
+
+        const iframe = document.getElementById('contextIframe'); // Adjust this ID as needed
+        const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
+
+        if (who === 'tiktok') {
+
+
+            const liElements = iframeDocument.querySelectorAll('li');
+
+            for (let li of liElements) {
+                if (li.textContent === text) {
+                    return true;
+                }
+            }
+
+            return false;
+
+
+
+            // Get all h2 elements
+            const h2Elements = iframeDocument.querySelectorAll('h2');
+
+            // Iterate over all h2 elements
+            for (let h2 of h2Elements) {
+                // Check if the text is within the h2 element
+                if (h2.textContent.includes(text)) {
+                    if (checkStrong) {
+                        // Check if the text is also within a strong element inside the h2
+                        const strongElements = h2.querySelectorAll('strong');
+                        for (let strong of strongElements) {
+                            if (strong.textContent.includes(text)) {
+                                return true; // The text is in both h2 and strong
+                            }
+                        }
+                    } else {
+                        return true; // The text is in h2
+                    }
+                }
+            }
+
+            return false; // The text is not found in the desired elements
+
+        }
+
+        return false;
+    }
 
 
 });
