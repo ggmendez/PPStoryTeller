@@ -16,6 +16,90 @@ class IframeSearcher {
         this.highlightColor = highlightColor;
     }
 
+    // search(term, scroll = true) {
+    //     this.clearSearch();
+    
+    //     if (!term) return;
+    
+    //     term = this.normalizeText(term);
+    
+    //     const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
+    //     let node;
+    //     let textNodes = [];
+    //     let textContent = '';
+    
+    //     // Collect text nodes and accumulate their content
+    //     while (node = walker.nextNode()) {
+    //         if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+    //             textNodes.push(node);
+    //             textContent += this.normalizeText(node.nodeValue);
+    //         }
+    //     }
+    
+    //     const regex = new RegExp(this.escapeRegExp(term), 'gi');
+    //     let match;
+    
+    //     while ((match = regex.exec(textContent)) !== null) {
+    //         let matchStart = match.index;
+    //         let matchEnd = regex.lastIndex;
+    //         let accumulatedLength = 0;
+    
+    //         for (let i = 0; i < textNodes.length; i++) {
+    //             const node = textNodes[i];
+    //             const nodeText = this.normalizeText(node.nodeValue);
+    //             const nodeLength = nodeText.length;
+    
+    //             if (accumulatedLength + nodeLength >= matchStart && accumulatedLength <= matchEnd) {
+    //                 const highlightStart = Math.max(matchStart - accumulatedLength, 0);
+    //                 const highlightEnd = Math.min(matchEnd - accumulatedLength, nodeLength);
+    
+    //                 // Split the text node into before, highlighted, and after parts
+    //                 const beforeText = node.nodeValue.slice(0, highlightStart);
+    //                 const highlightedText = node.nodeValue.slice(highlightStart, highlightEnd);
+    //                 const afterText = node.nodeValue.slice(highlightEnd);
+    
+    //                 const span = this.iframeDocument.createElement('span');
+    //                 span.className = 'highlight-search';
+    //                 span.dataset.searchIndex = this.currentMatches.length;
+    //                 span.textContent = highlightedText;
+
+    //                 // span.style.backgroundColor = this.highlightColor;
+    //                 // span.style.backgroundSize = '0% 100%';
+    //                 // span.style.backgroundImage = `linear-gradient(to right, ${this.highlightColor}, ${this.highlightColor})`;
+    //                 // span.style.backgroundRepeat = 'no-repeat';
+    
+    //                 const parentNode = node.parentNode;
+    //                 if (beforeText) {
+    //                     parentNode.insertBefore(this.iframeDocument.createTextNode(beforeText), node);
+    //                 }
+    //                 parentNode.insertBefore(span, node);
+    //                 if (afterText) {
+    //                     parentNode.insertBefore(this.iframeDocument.createTextNode(afterText), node);
+    //                     textNodes[i] = parentNode.childNodes[parentNode.childNodes.length - 1];  // Update reference to the remaining text node
+    //                 } else {
+    //                     textNodes.splice(i, 1);  // Remove the node from further processing
+    //                     i--;
+    //                 }
+    
+    //                 parentNode.removeChild(node);
+    //                 this.currentMatches.push(span);
+    //             }
+    
+    //             accumulatedLength += nodeLength;
+    
+    //             if (accumulatedLength >= matchEnd) {
+    //                 break;
+    //             }
+    //         }
+    //     }
+    
+    //     if (this.currentMatches.length > 0 && scroll) {
+    //         this.currentIndex = 0;
+    //         this.scrollToCurrent();
+    //     }
+    // }
+
+
     search(term, scroll = true) {
         this.clearSearch();
 
@@ -23,58 +107,69 @@ class IframeSearcher {
 
         term = this.normalizeText(term);
 
-        this.iframeDocument.body.normalize();
         const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
-        let node, textContent = '', nodes = [];
+        let node;
+        let textNodes = [];
+        let textContent = '';
 
-        // while (node = walker.nextNode()) {
-        //     const normalizedText = this.normalizeText(node.nodeValue);
-        //     nodes.push({ node: node, startOffset: textContent.length });
-        //     textContent += normalizedText;
-        // }
-
+        // Collect text nodes and accumulate their content
         while (node = walker.nextNode()) {
-            if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
-                const normalizedText = this.normalizeText(node.textContent);
-                nodes.push({ node: node, startOffset: textContent.length });
-                textContent += normalizedText;
+            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+                textNodes.push(node);
+                textContent += this.normalizeText(node.nodeValue);
             }
         }
 
         const regex = new RegExp(this.escapeRegExp(term), 'gi');
         let match;
 
+        // Process matches and apply highlighting across node boundaries
         while ((match = regex.exec(textContent)) !== null) {
-            let start = match.index;
-            let end = regex.lastIndex;
+            let matchStart = match.index;
+            let matchEnd = regex.lastIndex;
+            let accumulatedLength = 0;
 
-            for (let i = 0; i < nodes.length; i++) {
-                const nodeObj = nodes[i];
-                const nodeText = this.normalizeText(nodeObj.node.nodeValue);
+            for (let i = 0; i < textNodes.length; i++) {
+                const node = textNodes[i];
+                const nodeText = this.normalizeText(node.nodeValue);
                 const nodeLength = nodeText.length;
 
-                if (start < nodeObj.startOffset + nodeLength && end > nodeObj.startOffset) {
-                    let nodeStartOffset = Math.max(start - nodeObj.startOffset, 0);
-                    let nodeEndOffset = Math.min(end - nodeObj.startOffset, nodeLength);
+                if (accumulatedLength + nodeLength >= matchStart && accumulatedLength <= matchEnd) {
+                    const highlightStart = Math.max(matchStart - accumulatedLength, 0);
+                    const highlightEnd = Math.min(matchEnd - accumulatedLength, nodeLength);
 
-                    let span = this.iframeDocument.createElement('span');
+                    // Split the text node into before, highlighted, and after parts
+                    const beforeText = node.nodeValue.slice(0, highlightStart);
+                    const highlightedText = node.nodeValue.slice(highlightStart, highlightEnd);
+                    const afterText = node.nodeValue.slice(highlightEnd);
+
+                    const span = this.iframeDocument.createElement('span');
                     span.className = 'highlight-search';
                     span.dataset.searchIndex = this.currentMatches.length;
+                    // span.style.backgroundColor = this.highlightColor;
+                    span.textContent = highlightedText;
 
-                    let highlightedText = nodeObj.node.nodeValue.substring(nodeStartOffset, nodeEndOffset);
-                    let beforeText = nodeObj.node.nodeValue.substring(0, nodeStartOffset);
-                    let afterText = nodeObj.node.nodeValue.substring(nodeEndOffset);
+                    const parentNode = node.parentNode;
+                    if (beforeText) {
+                        parentNode.insertBefore(this.iframeDocument.createTextNode(beforeText), node);
+                    }
+                    parentNode.insertBefore(span, node);
+                    if (afterText) {
+                        parentNode.insertBefore(this.iframeDocument.createTextNode(afterText), node);
+                        textNodes[i] = parentNode.childNodes[parentNode.childNodes.length - 1];  // Update reference to the remaining text node
+                    } else {
+                        textNodes.splice(i, 1);  // Remove the node from further processing
+                        i--;
+                    }
 
-                    let parentNode = nodeObj.node.parentNode;
-
-                    if (beforeText) parentNode.insertBefore(document.createTextNode(beforeText), nodeObj.node);
-                    span.appendChild(document.createTextNode(highlightedText));
-                    parentNode.insertBefore(span, nodeObj.node);
-                    if (afterText) parentNode.insertBefore(document.createTextNode(afterText), nodeObj.node);
-
-                    parentNode.removeChild(nodeObj.node);
-
+                    parentNode.removeChild(node);
                     this.currentMatches.push(span);
+                }
+
+                accumulatedLength += nodeLength;
+
+                if (accumulatedLength >= matchEnd) {
+                    break;
                 }
             }
         }
@@ -85,21 +180,14 @@ class IframeSearcher {
         }
     }
 
-
-
     retry(text) {
-
         const tokens = text.split(":");
-
         let i = tokens.length - 1;
         let cummulativeText = "";
         let answer = "";
 
-
         do {
-
             let currentText = tokens[i].trim();
-
 
             if (i === tokens.length - 1) {
                 cummulativeText = currentText;
@@ -113,41 +201,17 @@ class IframeSearcher {
                 break;
             }
 
-
             if (i === tokens.length - 1) {
                 answer = currentText;
             } else {
                 answer = currentText.trim() + ": " + answer.trim();
             }
 
-
             i--;
-
-
-
-
-
         } while (i >= 0);
 
-
-        console.log("cummulativeText: ");
-        console.log(cummulativeText);
-
-        console.log("\n");
-        
-
-        console.log("answer: ");
-        console.log(answer);
-
         this.search(answer);
-
-
-
-
-
     }
-
-
 
     next() {
         if (this.currentMatches.length === 0) return;
@@ -165,7 +229,11 @@ class IframeSearcher {
 
     scrollToCurrent() {
 
-        const currentMatch = this.currentMatches[this.currentIndex];
+        console.log("this.currentMatches:");
+        console.log(this.currentMatches);
+        
+
+        const currentMatch = this.currentMatches[this.currentIndex + 1];
 
         let duration = 0.5 + (0.002 * currentMatch.textContent.length);
 
@@ -203,6 +271,7 @@ class IframeSearcher {
         // Scroll the current match into view
         currentMatch.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+
 
 
 
