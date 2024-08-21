@@ -148,6 +148,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     document.getElementById('downButtonNextMention').addEventListener('click', function () {
+        
         currentLineIndex++; // Increment the index
 
         // Check if the index is beyond the last item, and if so, circle back to the start
@@ -161,8 +162,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("normalizedText:");
         console.log(normalizedText);
 
+        console.log("normalizedText:");
+        console.log(normalizedText);
+
         // Perform the search or other logic here
         searcher.search(normalizedText);
+
+        // if no results, we will retry by considering parts of the string,
+        // as it may contain colons
+        if (!searcher.currentMatches.length) {
+            searcher.retry(normalizedText);
+        }
 
         // Update the page info display
         document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
@@ -218,6 +228,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("searcher.currentMatches:");
         console.log(searcher.currentMatches);
 
+        // retrying
         if (!searcher.currentMatches.length) {
             const lastColonIndex = normalizedText.lastIndexOf(':');
             if (lastColonIndex !== -1) {

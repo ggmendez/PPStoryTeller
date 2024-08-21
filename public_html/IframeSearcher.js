@@ -16,7 +16,7 @@ class IframeSearcher {
         this.highlightColor = highlightColor;
     }
 
-    search(term) {
+    search(term, scroll = true) {
         this.clearSearch();
 
         if (!term) return;
@@ -27,10 +27,18 @@ class IframeSearcher {
         const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
         let node, textContent = '', nodes = [];
 
+        // while (node = walker.nextNode()) {
+        //     const normalizedText = this.normalizeText(node.nodeValue);
+        //     nodes.push({ node: node, startOffset: textContent.length });
+        //     textContent += normalizedText;
+        // }
+
         while (node = walker.nextNode()) {
-            const normalizedText = this.normalizeText(node.nodeValue);
-            nodes.push({ node: node, startOffset: textContent.length });
-            textContent += normalizedText;
+            if (node.nodeType === Node.TEXT_NODE || node.nodeType === Node.ELEMENT_NODE) {
+                const normalizedText = this.normalizeText(node.textContent);
+                nodes.push({ node: node, startOffset: textContent.length });
+                textContent += normalizedText;
+            }
         }
 
         const regex = new RegExp(this.escapeRegExp(term), 'gi');
@@ -52,7 +60,6 @@ class IframeSearcher {
                     let span = this.iframeDocument.createElement('span');
                     span.className = 'highlight-search';
                     span.dataset.searchIndex = this.currentMatches.length;
-                    // span.style.backgroundColor = this.highlightColor;
 
                     let highlightedText = nodeObj.node.nodeValue.substring(nodeStartOffset, nodeEndOffset);
                     let beforeText = nodeObj.node.nodeValue.substring(0, nodeStartOffset);
@@ -72,11 +79,75 @@ class IframeSearcher {
             }
         }
 
-        if (this.currentMatches.length > 0) {
+        if (this.currentMatches.length > 0 && scroll) {
             this.currentIndex = 0;
             this.scrollToCurrent();
         }
     }
+
+
+
+    retry(text) {
+
+        const tokens = text.split(":");
+
+        let i = tokens.length - 1;
+        let cummulativeText = "";
+        let answer = "";
+
+
+        do {
+
+            let currentText = tokens[i].trim();
+
+
+            if (i === tokens.length - 1) {
+                cummulativeText = currentText;
+            } else {
+                cummulativeText = currentText.trim() + ": " + cummulativeText.trim();
+            }
+
+            this.search(cummulativeText, false);
+
+            if (!this.currentMatches.length) {
+                break;
+            }
+
+
+            if (i === tokens.length - 1) {
+                answer = currentText;
+            } else {
+                answer = currentText.trim() + ": " + answer.trim();
+            }
+
+
+            i--;
+
+
+
+
+
+        } while (i >= 0);
+
+
+        console.log("cummulativeText: ");
+        console.log(cummulativeText);
+
+        console.log("\n");
+        
+
+        console.log("answer: ");
+        console.log(answer);
+
+        this.search(answer);
+
+
+
+
+
+    }
+
+
 
     next() {
         if (this.currentMatches.length === 0) return;
@@ -98,9 +169,8 @@ class IframeSearcher {
 
         let duration = 0.5 + (0.002 * currentMatch.textContent.length);
 
-        console.log("duration:");
-        console.log(duration);
-
+        // console.log("duration:");
+        // console.log(duration);
 
         // Create an IntersectionObserver to detect when the scroll is complete
         const observer = new IntersectionObserver((entries) => {
