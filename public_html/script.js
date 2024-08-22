@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             </div>
         </div>
         <div id="iframe-container">
-            <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;"></iframe>
+            <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
         </div>
     </div>`;
 

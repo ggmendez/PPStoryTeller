@@ -18,7 +18,6 @@ class IframeSearcher {
 
 
     // search(term, scroll = true) {
-
     //     this.clearSearch();
 
     //     if (!term) return;
@@ -32,7 +31,7 @@ class IframeSearcher {
 
     //     // Collect text nodes and accumulate their content
     //     while (node = walker.nextNode()) {
-    //         if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
+    //         if (node.nodeType === Node.TEXT_NODE) {
     //             textNodes.push(node);
     //             textContent += this.normalizeText(node.nodeValue);
     //         }
@@ -52,7 +51,7 @@ class IframeSearcher {
     //             const nodeText = this.normalizeText(node.nodeValue);
     //             const nodeLength = nodeText.length;
 
-    //             if (accumulatedLength + nodeLength >= matchStart && accumulatedLength <= matchEnd) {
+    //             if (accumulatedLength + nodeLength > matchStart && accumulatedLength < matchEnd) {
     //                 const highlightStart = Math.max(matchStart - accumulatedLength, 0);
     //                 const highlightEnd = Math.min(matchEnd - accumulatedLength, nodeLength);
 
@@ -66,41 +65,13 @@ class IframeSearcher {
     //                 span.dataset.searchIndex = this.currentMatches.length;
     //                 span.textContent = highlightedText;
 
-
-
-
-
-
-    //                 // const parentNode = node.parentNode;
-    //                 // if (beforeText) {
-    //                 //     parentNode.insertBefore(this.iframeDocument.createTextNode(beforeText), node);
-    //                 // }
-    //                 // parentNode.insertBefore(span, node);
-    //                 // if (afterText) {
-    //                 //     parentNode.insertBefore(this.iframeDocument.createTextNode(afterText), node);
-    //                 //     textNodes[i] = parentNode.childNodes[parentNode.childNodes.length - 1];  // Update reference to the remaining text node
-    //                 // } else {
-    //                 //     textNodes.splice(i, 1);  // Remove the node from further processing
-    //                 //     i--;
-    //                 // }
-    //                 // parentNode.removeChild(node);
-
-
-
-
-
-
-
-
     //                 const parentNode = node.parentNode;
 
-    //                 if (parentNode) {
+    //                 if (parentNode) {  // Ensure parentNode is not null before manipulating
     //                     if (beforeText) {
     //                         parentNode.insertBefore(this.iframeDocument.createTextNode(beforeText), node);
     //                     }
-
     //                     parentNode.insertBefore(span, node);
-
     //                     if (afterText) {
     //                         parentNode.insertBefore(this.iframeDocument.createTextNode(afterText), node);
     //                         textNodes[i] = parentNode.childNodes[parentNode.childNodes.length - 1];  // Update reference to the remaining text node
@@ -110,18 +81,8 @@ class IframeSearcher {
     //                     }
 
     //                     parentNode.removeChild(node);
+    //                     this.currentMatches.push(span);
     //                 }
-
-
-
-
-
-
-
-
-
-
-    //                 this.currentMatches.push(span);
     //             }
 
     //             accumulatedLength += nodeLength;
@@ -139,6 +100,12 @@ class IframeSearcher {
     // }
 
 
+
+
+
+
+
+
     search(term, scroll = true) {
         this.clearSearch();
 
@@ -146,41 +113,42 @@ class IframeSearcher {
 
         term = this.normalizeText(term);
 
-        const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
-        let node;
         let textNodes = [];
         let textContent = '';
+        let nodeMap = [];
 
-        // Collect text nodes and accumulate their content
-        while (node = walker.nextNode()) {
-            if (node.nodeType === Node.TEXT_NODE) {
+        const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
+
+        // Flattening and accumulating text nodes while keeping track of original nodes
+        let node;
+        while ((node = walker.nextNode())) {
+            if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
                 textNodes.push(node);
+                const startOffset = textContent.length;
                 textContent += this.normalizeText(node.nodeValue);
+                const endOffset = textContent.length;
+                nodeMap.push({ node, startOffset, endOffset });
             }
         }
 
         const regex = new RegExp(this.escapeRegExp(term), 'gi');
         let match;
 
-        // Process matches and apply highlighting across node boundaries
+        // Process matches based on the flattened text content
         while ((match = regex.exec(textContent)) !== null) {
             let matchStart = match.index;
             let matchEnd = regex.lastIndex;
-            let accumulatedLength = 0;
 
-            for (let i = 0; i < textNodes.length; i++) {
-                const node = textNodes[i];
-                const nodeText = this.normalizeText(node.nodeValue);
-                const nodeLength = nodeText.length;
+            // Highlighting the matches back in the original document structure
+            for (let i = 0; i < nodeMap.length; i++) {
+                const { node, startOffset, endOffset } = nodeMap[i];
+                if (startOffset < matchEnd && endOffset > matchStart) {
+                    const localStart = Math.max(matchStart - startOffset, 0);
+                    const localEnd = Math.min(matchEnd - startOffset, node.nodeValue.length);
 
-                if (accumulatedLength + nodeLength > matchStart && accumulatedLength < matchEnd) {
-                    const highlightStart = Math.max(matchStart - accumulatedLength, 0);
-                    const highlightEnd = Math.min(matchEnd - accumulatedLength, nodeLength);
-
-                    // Split the text node into before, highlighted, and after parts
-                    const beforeText = node.nodeValue.slice(0, highlightStart);
-                    const highlightedText = node.nodeValue.slice(highlightStart, highlightEnd);
-                    const afterText = node.nodeValue.slice(highlightEnd);
+                    const beforeText = node.nodeValue.slice(0, localStart);
+                    const highlightedText = node.nodeValue.slice(localStart, localEnd);
+                    const afterText = node.nodeValue.slice(localEnd);
 
                     const span = this.iframeDocument.createElement('span');
                     span.className = 'highlight-search';
@@ -188,29 +156,22 @@ class IframeSearcher {
                     span.textContent = highlightedText;
 
                     const parentNode = node.parentNode;
-
-                    if (parentNode) {  // Ensure parentNode is not null before manipulating
+                    if (parentNode) {
                         if (beforeText) {
                             parentNode.insertBefore(this.iframeDocument.createTextNode(beforeText), node);
                         }
                         parentNode.insertBefore(span, node);
                         if (afterText) {
-                            parentNode.insertBefore(this.iframeDocument.createTextNode(afterText), node);
-                            textNodes[i] = parentNode.childNodes[parentNode.childNodes.length - 1];  // Update reference to the remaining text node
+                            const afterNode = this.iframeDocument.createTextNode(afterText);
+                            parentNode.insertBefore(afterNode, node);
+                            nodeMap[i].node = afterNode;  // Update the node reference to the afterText
                         } else {
-                            textNodes.splice(i, 1);  // Remove the node from further processing
+                            nodeMap.splice(i, 1); // Remove the node from processing since it was fully replaced
                             i--;
                         }
-
                         parentNode.removeChild(node);
                         this.currentMatches.push(span);
                     }
-                }
-
-                accumulatedLength += nodeLength;
-
-                if (accumulatedLength >= matchEnd) {
-                    break;
                 }
             }
         }
@@ -220,6 +181,15 @@ class IframeSearcher {
             this.scrollToCurrent();
         }
     }
+
+
+
+
+
+
+
+
+
 
 
     retry(text) {
