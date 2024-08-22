@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // Create a temporary DOM element to manipulate the HTML
             const parser = new DOMParser();
 
-            const cleanHTML = html.replace(/&nbsp;/g, " ");
+            const cleanHTML = html.replace(/&nbsp;/g, " ").replace(/[“”]/g, '"');
 
             console.log("cleanHTML:");
             console.log(cleanHTML);
@@ -107,8 +107,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const textNode = document.createTextNode(link.textContent);
                 link.parentNode.replaceChild(textNode, link);
             });
-
-            doc.body.innerHTML = doc.body.innerHTML.replace(/[“”]/g, '"');
 
             // Serialize the modified HTML back to a string
             const modifiedHTML = new XMLSerializer().serializeToString(doc);
