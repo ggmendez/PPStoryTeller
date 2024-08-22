@@ -92,7 +92,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         .then(html => {
             // Create a temporary DOM element to manipulate the HTML
             const parser = new DOMParser();
-            const doc = parser.parseFromString(html, 'text/html');
+
+            const cleanHTML = html.replace(/&nbsp;/g, " ");
+
+            console.log("cleanHTML:");
+            console.log(cleanHTML);
+
+            const doc = parser.parseFromString(cleanHTML, 'text/html');
 
             // Remove all links (a tags) and replace them with their text content
             const links = doc.querySelectorAll('a');
@@ -143,12 +149,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Perform the search or other logic here
         searcher.search(normalizedText);
 
+        if (!searcher.currentMatches.length) {
+            searcher.retry(normalizedText);
+        }
+
         // Update the page info display
         document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
     });
 
     document.getElementById('downButtonNextMention').addEventListener('click', function () {
-        
+
         currentLineIndex++; // Increment the index
 
         // Check if the index is beyond the last item, and if so, circle back to the start
@@ -225,35 +235,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         searcher.search(normalizedText);
 
-        console.log("searcher.currentMatches:");
-        console.log(searcher.currentMatches);
-
-        // retrying
         if (!searcher.currentMatches.length) {
-            const lastColonIndex = normalizedText.lastIndexOf(':');
-            if (lastColonIndex !== -1) {
-                const secondLastColonIndex = normalizedText.lastIndexOf(':', lastColonIndex - 1);
-                if (secondLastColonIndex !== -1) {
-                    normalizedText = normalizedText.substring(secondLastColonIndex + 1).trim();
-
-                    console.log("normalizedText 1");
-                    console.log(normalizedText);
-
-                } else {
-                    // If there's only one colon, fallback to using the last one
-                    normalizedText = normalizedText.substring(lastColonIndex + 1).trim();
-
-                    console.log("normalizedText 2");
-                    console.log(normalizedText);
-
-                }
-
-                searcher.setHighlightColor(highlightColor);
-                searcher.search(normalizedText);
-            }
+            searcher.retry(normalizedText);
         }
-
-
 
     };
 
@@ -273,7 +257,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .replace(/\be\. g\./g, 'e.g.')
             .replace(/"(\S)/g, '" $1')
             .replace(/\s+:/g, ":")
-            .replace(/"\s+\)/g, "\")");
+            .replace(/"\s+\)/g, "\")")
+            .replace(/_, _/g, "_,_");
     }
 
     const recursiveConcatText = (node) => {
@@ -2385,55 +2370,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
-
-
-
-
-    function updatePagination(paginator, currentLinkIndex, totalLinks, maxVisibleLinks) {
-        paginator.textContent = `${currentLinkIndex + 1}/${totalLinks}`;
-
-        const numberedLinks = paginator.parentElement.querySelectorAll('.tooltip-link');
-        const halfVisible = Math.floor(maxVisibleLinks / 2);
-
-        let start = currentLinkIndex - halfVisible;
-        let end = currentLinkIndex + halfVisible + 1;
-
-        if (start < 0) {
-            start = 0;
-            end = Math.min(totalLinks, maxVisibleLinks);
-        }
-
-        if (end > totalLinks) {
-            end = totalLinks;
-            start = Math.max(0, totalLinks - maxVisibleLinks);
-        }
-
-        numberedLinks.forEach((link, idx) => {
-            if (idx >= start && idx < end) {
-                link.style.display = 'inline-block';
-            } else {
-                link.style.display = 'none';
-            }
-        });
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     function highlightNameInText(text, name) {
         // Adjust the regular expression to match the name as a substring of words, without word boundaries
         const regex = new RegExp(`${name}`, 'gi'); // 'gi' for global and case-insensitive matching
@@ -2848,8 +2784,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function processString(input) {
+
+
+        const initialLines = input.split('\n');
+
+        const uniqueLines = [...new Set(initialLines)];    
+                
+        // Replacing a line break (\n) followed by a colon (:) 
+        // with just the colon (remove the line break)
+        let text = uniqueLines.join("\n").replace(/(\r?\n|\r):/g, ":");        
+
+        text = text.replace(/_, _/g, "_,_");
+
         // Split the input string into lines
-        let lines = input.split('\n');
+        let lines = text.split('\n');
 
         // Initialize an array to store the processed lines
         let result = [];
