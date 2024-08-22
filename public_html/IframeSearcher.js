@@ -20,100 +20,19 @@ class IframeSearcher {
     }
 
 
-
-    // search(term, scroll = true) {
-    //     this.clearSearch();
-
-    //     if (!term) return;
-
-    //     term = this.normalizeText(term);
-
-    //     let textNodes = [];
-    //     let textContent = '';
-    //     let nodeMap = [];
-
-    //     const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_TEXT, null, false);
-
-    //     // Flattening and accumulating text nodes while keeping track of original nodes
-    //     let node;
-    //     while ((node = walker.nextNode())) {
-    //         if (node.nodeType === Node.TEXT_NODE && node.nodeValue.trim() !== '') {
-    //             textNodes.push(node);
-    //             const startOffset = textContent.length;
-    //             textContent += this.normalizeText(node.nodeValue);
-    //             const endOffset = textContent.length;
-    //             nodeMap.push({ node, startOffset, endOffset });
-    //         }
-    //     }
-
-    //     const regex = new RegExp(this.escapeRegExp(term), 'gi');
-    //     let match;
-
-    //     // Process matches based on the flattened text content
-    //     while ((match = regex.exec(textContent)) !== null) {
-    //         let matchStart = match.index;
-    //         let matchEnd = regex.lastIndex;
-
-    //         // Highlighting the matches back in the original document structure
-    //         for (let i = 0; i < nodeMap.length; i++) {
-    //             const { node, startOffset, endOffset } = nodeMap[i];
-    //             if (startOffset < matchEnd && endOffset > matchStart) {
-    //                 const localStart = Math.max(matchStart - startOffset, 0);
-    //                 const localEnd = Math.min(matchEnd - startOffset, node.nodeValue.length);
-
-    //                 const beforeText = node.nodeValue.slice(0, localStart);
-    //                 const highlightedText = node.nodeValue.slice(localStart, localEnd);
-    //                 const afterText = node.nodeValue.slice(localEnd);
-
-    //                 const span = this.iframeDocument.createElement('span');
-    //                 span.className = 'highlight-search';
-    //                 span.dataset.searchIndex = this.currentMatches.length;
-    //                 span.textContent = highlightedText;
-
-    //                 const parentNode = node.parentNode;
-    //                 if (parentNode) {
-    //                     if (beforeText) {
-    //                         parentNode.insertBefore(this.iframeDocument.createTextNode(beforeText), node);
-    //                     }
-    //                     parentNode.insertBefore(span, node);
-    //                     if (afterText) {
-    //                         const afterNode = this.iframeDocument.createTextNode(afterText);
-    //                         parentNode.insertBefore(afterNode, node);
-    //                         nodeMap[i].node = afterNode;  // Update the node reference to the afterText
-    //                     } else {
-    //                         nodeMap.splice(i, 1); // Remove the node from processing since it was fully replaced
-    //                         i--;
-    //                     }
-    //                     parentNode.removeChild(node);
-    //                     this.currentMatches.push(span);
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     if (this.currentMatches.length > 0 && scroll) {
-    //         this.currentIndex = 0;
-    //         this.scrollToCurrent();
-    //     }
-    // }
-
-
-
-
-
     search(term, scroll = true) {
         this.clearSearch();
-    
+
         if (!term) return;
-    
+
         term = this.normalizeText(term);
-    
+
         let textNodes = [];
         let textContent = '';
         let nodeMap = [];
-    
+
         const walker = this.iframeDocument.createTreeWalker(this.iframeDocument.body, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, null, false);
-    
+
         // Accumulate text nodes while keeping track of original nodes and flattening the text content
         let node;
         while ((node = walker.nextNode())) {
@@ -127,31 +46,31 @@ class IframeSearcher {
                 textContent += this.normalizeText(node.textContent || '');
             }
         }
-    
+
         const regex = new RegExp(this.escapeRegExp(term), 'gi');
         let match;
-    
+
         // Process matches based on the flattened text content
         while ((match = regex.exec(textContent)) !== null) {
             let matchStart = match.index;
             let matchEnd = regex.lastIndex;
-    
+
             // Highlighting the matches back in the original document structure
             for (let i = 0; i < nodeMap.length; i++) {
                 const { node, startOffset, endOffset } = nodeMap[i];
                 if (startOffset < matchEnd && endOffset > matchStart) {
                     const localStart = Math.max(matchStart - startOffset, 0);
                     const localEnd = Math.min(matchEnd - startOffset, node.nodeValue.length);
-    
+
                     const beforeText = node.nodeValue.slice(0, localStart);
                     const highlightedText = node.nodeValue.slice(localStart, localEnd);
                     const afterText = node.nodeValue.slice(localEnd);
-    
+
                     const span = this.iframeDocument.createElement('span');
                     span.className = 'highlight-search';
                     span.dataset.searchIndex = this.currentMatches.length;
                     span.textContent = highlightedText;
-    
+
                     const parentNode = node.parentNode;
                     if (parentNode) {
                         if (beforeText) {
@@ -172,16 +91,15 @@ class IframeSearcher {
                 }
             }
         }
-    
+
         if (this.currentMatches.length > 0 && scroll) {
             this.currentIndex = 0;
             this.scrollToCurrent();
         }
     }
+
+
     
-
-
-
 
 
     retry(text) {
