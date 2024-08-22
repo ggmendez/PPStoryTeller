@@ -1557,32 +1557,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                        const lines = processString(item.text)
+                        let lines = processString(item.text)
                             .filter(text => !isHeader(text)) // to remove headers
                             .map(line => normalizeText(line));
 
 
 
-                        let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
+                        // let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
 
                         // let textToFind = "Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person";
 
-                        const containsText = lines.some(line => line.includes(textToFind));
-                        if (containsText) {
-
-
-                            console.log("item.text:");
-                            console.log(item.text);
-                            window.text = item.text;
+                        // const containsText = lines.some(line => line.includes(textToFind));
 
 
 
-                            console.log("lines:");
-                            console.log(lines);
-                            window.lines = lines;
+                        console.log("item.text:");
+                        console.log(item.text);
+                        window.text = item.text;
 
 
 
+                        console.log("lines:");
+                        console.log(lines);
+                        window.lines = lines;
 
 
 
@@ -1592,61 +1589,64 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                            const result = [];
-                            let i = 0;
 
-                            while (i < lines.length) {
-                                let currentConcat = lines[i];
-                                let successfulConcat = currentConcat;
-                                let lastSuccessfulIndex = i;
 
-                                // Attempt to concatenate with subsequent strings
-                                for (let j = i + 1; j < lines.length; j++) {
-                                    currentConcat += ' ' + lines[j];
 
-                                    // Check if the concatenated string exists in the text
-                                    tmpSearcher.search(currentConcat, false);
+                        const result = [];
+                        let i = 0;
 
-                                    if (tmpSearcher.currentMatches.length) {
-                                        // If found, update the last successful concatenation and index
-                                        successfulConcat = currentConcat;
-                                        lastSuccessfulIndex = j;
-                                    } else {
-                                        // If not found, break out of the loop as further concatenation won't help
-                                        break;
-                                    }
+                        while (i < lines.length) {
+                            let currentConcat = lines[i];
+                            let successfulConcat = currentConcat;
+                            let lastSuccessfulIndex = i;
+
+                            // Attempt to concatenate with subsequent strings
+                            for (let j = i + 1; j < lines.length; j++) {
+                                currentConcat += ' ' + lines[j];
+
+                                // Check if the concatenated string exists in the text
+                                tmpSearcher.search(currentConcat, false);
+
+                                if (tmpSearcher.currentMatches.length) {
+                                    // If found, update the last successful concatenation and index
+                                    successfulConcat = currentConcat;
+                                    lastSuccessfulIndex = j;
+                                } else {
+                                    // If not found, break out of the loop as further concatenation won't help
+                                    break;
                                 }
-
-                                // Add the last successful concatenation to the result
-                                result.push(successfulConcat);
-
-                                // Move the index to the last successfully concatenated string
-                                i = lastSuccessfulIndex + 1;
                             }
 
-                            // Output the results
-                            console.log("Results of concatenations:");
-                            console.log(result);
+                            // Add the last successful concatenation to the result
+                            result.push(successfulConcat);
 
-                            window.result = result;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                            // Move the index to the last successfully concatenated string
+                            i = lastSuccessfulIndex + 1;
                         }
+
+                        // Output the results
+                        console.log("Results of concatenations:");
+                        console.log(result);
+
+                        window.result = result;
+
+
+                        lines = result;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2911,7 +2911,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // with just the colon (remove the line break)
         let text = uniqueLines.join("\n").replace(/(\r?\n|\r):/g, ":");
 
-        text = text.replace(/_, _/g, "_,_");
+        text = text.replace(/_, _/g, "_,_").replace(/[“”]/g, '"');
 
         // Split the input string into lines
         let lines = text.split('\n');

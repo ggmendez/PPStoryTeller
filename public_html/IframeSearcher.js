@@ -9,7 +9,10 @@ class IframeSearcher {
     }
 
     normalizeText(text) {
-        return text.replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[\u2013\u2014]/g, '-');
+        return text
+            .replace(/[’‘]/g, "'")
+            .replace(/[“”]/g, '"')
+            .replace(/[\u2013\u2014]/g, '-');
     }
 
     setHighlightColor(highlightColor) {
