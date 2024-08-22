@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let currentPermanentTooltip = null;
     let searcher = null;
+    let tmpSearcher = null;
     let categoriesColorScale;
     let currentLinesArray = null;
     let currentLineIndex = null;
@@ -1544,9 +1545,125 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             tooltipText: item.text
                         };
 
+                        if (!tmpSearcher) {
+                            tmpSearcher = new IframeSearcher('contextIframe');
+
+                            window.tmpSearcher = tmpSearcher;
+
+                        }
+
+
+
+
+
+
                         const lines = processString(item.text)
                             .filter(text => !isHeader(text)) // to remove headers
                             .map(line => normalizeText(line));
+
+
+
+                        let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
+
+                        // let textToFind = "Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person";
+
+                        const containsText = lines.some(line => line.includes(textToFind));
+                        if (containsText) {
+
+
+                            console.log("item.text:");
+                            console.log(item.text);
+                            window.text = item.text;
+
+
+
+                            console.log("lines:");
+                            console.log(lines);
+                            window.lines = lines;
+
+
+
+
+
+
+
+
+
+
+
+
+                            const result = [];
+                            let i = 0;
+
+                            while (i < lines.length) {
+                                let currentConcat = lines[i];
+                                let successfulConcat = currentConcat;
+                                let lastSuccessfulIndex = i;
+
+                                // Attempt to concatenate with subsequent strings
+                                for (let j = i + 1; j < lines.length; j++) {
+                                    currentConcat += ' ' + lines[j];
+
+                                    // Check if the concatenated string exists in the text
+                                    tmpSearcher.search(currentConcat, false);
+
+                                    if (tmpSearcher.currentMatches.length) {
+                                        // If found, update the last successful concatenation and index
+                                        successfulConcat = currentConcat;
+                                        lastSuccessfulIndex = j;
+                                    } else {
+                                        // If not found, break out of the loop as further concatenation won't help
+                                        break;
+                                    }
+                                }
+
+                                // Add the last successful concatenation to the result
+                                result.push(successfulConcat);
+
+                                // Move the index to the last successfully concatenated string
+                                i = lastSuccessfulIndex + 1;
+                            }
+
+                            // Output the results
+                            console.log("Results of concatenations:");
+                            console.log(result);
+
+                            window.result = result;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                         const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
@@ -2788,11 +2905,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const initialLines = input.split('\n');
 
-        const uniqueLines = [...new Set(initialLines)];    
-                
+        const uniqueLines = [...new Set(initialLines)];
+
         // Replacing a line break (\n) followed by a colon (:) 
         // with just the colon (remove the line break)
-        let text = uniqueLines.join("\n").replace(/(\r?\n|\r):/g, ":");        
+        let text = uniqueLines.join("\n").replace(/(\r?\n|\r):/g, ":");
 
         text = text.replace(/_, _/g, "_,_");
 
