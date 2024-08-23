@@ -2077,7 +2077,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .style('opacity', 0.15);
 
                     d3.select(this)
-                        .style('font-weight', 'bolder')
                         .style('opacity', 1);
 
                     d3.selectAll('.category-label').on('mouseout', mouseOutLabelCategory);
