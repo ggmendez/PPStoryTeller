@@ -303,6 +303,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             currentPermanentTooltip.hide();
             currentPermanentTooltip = null;
         }
+
+        d3.selectAll('.category-label')
+            .style('font-weight', 'normal')
+            .style('opacity', 1);
+
     }, true);
 
 
@@ -1093,10 +1098,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // console.log(categoryStartPositions);
 
         // Update tooltip content on mouseover after animation
-        svgRects.on("mouseover", function (event, d) {
-            const text = d.name.charAt(0).toUpperCase() + d.name.slice(1);
-            tooltip.style("visibility", "visible").html("<b>" + text + "</b><br/>" + d.category);
-        })
+        svgRects
+            .on("mouseover", function (event, d) {
+                const text = d.name.charAt(0).toUpperCase() + d.name.slice(1);
+                tooltip.style("visibility", "visible").html("<b>" + text + "</b><br/>" + d.category);
+            })
             .on("mousemove", function (event) {
                 tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
             })
@@ -2009,36 +2015,117 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }, `actorsColumn+=${2 * animationDuration + 0.5}`);
 
 
+                // // mouse over the category labels within the legend
+                // d3.select(node).on('mouseover', function (event) {
+
+                //     d3.select(this).style('font-weight', 'bolder');
+
+                //     // Get the class that identifies the related rectangles
+                //     let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                //     let rectClasses = '.copyOfDataRect.' + cleanDataType;
+                //     // console.log(rectClasses);
+
+                //     // First, ensure all rects are reset to full opacity
+                //     svg.selectAll('.copyOfDataRect')
+                //         .transition()
+                //         .duration(200)
+                //         // .attr('stroke-width', 1)
+                //         .style('opacity', 1);
+
+                //     // Reduce the opacity of rects that do not have the specific class
+                //     svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
+                //         .transition()
+                //         .duration(200)
+                //         .style('opacity', 0.15);
+                // });
+
+                // d3.select(node).on('mouseout', function (event) {
+                //     d3.select(this).style('font-weight', 'normal');
+                //     svg.selectAll('.copyOfDataRect')
+                //         .transition()
+                //         .duration(200)
+                //         // .attr('stroke-width', 0)
+                //         .style('opacity', 1); // Restore opacity for all rects
+                // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 d3.select(node).on('mouseover', function (event) {
                     d3.select(this).style('font-weight', 'bolder');
 
                     // Get the class that identifies the related rectangles
                     let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
                     let rectClasses = '.copyOfDataRect.' + cleanDataType;
-                    // console.log(rectClasses);
-
-                    // First, ensure all rects are reset to full opacity
-                    svg.selectAll('.copyOfDataRect')
-                        .transition()
-                        .duration(200)
-                        // .attr('stroke-width', 1)
-                        .style('opacity', 1);
 
                     // Reduce the opacity of rects that do not have the specific class
                     svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
-                        .transition()
-                        .duration(200)
                         .style('opacity', 0.15);
                 });
 
                 d3.select(node).on('mouseout', function (event) {
                     d3.select(this).style('font-weight', 'normal');
+
+                    // Restore opacity for all rects
                     svg.selectAll('.copyOfDataRect')
-                        .transition()
-                        .duration(200)
-                        // .attr('stroke-width', 0)
-                        .style('opacity', 1); // Restore opacity for all rects
+                        .style('opacity', 1);
                 });
+
+                d3.select(node).on('click', function (event) {
+                    // Prevent mouseout effect from restoring the original state
+                    d3.select(this).on('mouseout', null);
+
+                    d3.selectAll('.category-label')
+                        .style('font-weight', 'normal')
+                        .style('opacity', 0.15);
+
+
+                    d3.select(this)
+                        .style('font-weight', 'bolder')
+                        .style('opacity', 1);
+
+
+                    // Get the class that identifies the related rectangles
+                    let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                    let rectClasses = '.copyOfDataRect.' + cleanDataType;
+
+                    // Reduce the opacity of rects that do not have the specific class
+                    svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
+                        .style('opacity', 0.15);
+
+                    // Ensure that the selected rectangles remain at full opacity
+                    svg.selectAll(rectClasses)
+                        .style('opacity', 1);
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
