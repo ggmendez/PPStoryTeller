@@ -2071,24 +2071,41 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // Reduce the opacity of rects that do not have the specific class
                     svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
                         .style('opacity', 0.15);
-                });
-
-                d3.select(node).on('mouseout', function (event) {
-                    d3.select(this).style('font-weight', 'normal');
-
-                    // Restore opacity for all rects
-                    svg.selectAll('.copyOfDataRect')
-                        .style('opacity', 1);
-                });
-
-                d3.select(node).on('click', function (event) {
-                    // Prevent mouseout effect from restoring the original state
-                    d3.select(this).on('mouseout', null);
 
                     d3.selectAll('.category-label')
                         .style('font-weight', 'normal')
                         .style('opacity', 0.15);
 
+                    d3.select(this)
+                        .style('font-weight', 'bolder')
+                        .style('opacity', 1);
+
+                    d3.selectAll('.category-label').on('mouseout', mouseOutLabelCategory);
+
+                });
+
+                function mouseOutLabelCategory(event) {
+                    d3.select(this).style('font-weight', 'normal');
+
+                    // Restore opacity for all rects
+                    svg.selectAll('.copyOfDataRect')
+                        .style('opacity', 1);
+
+                    d3.selectAll('.category-label')
+                        .style('font-weight', 'normal')
+                        .style('opacity', 1);
+                }
+
+                d3.select(node).on('mouseout', mouseOutLabelCategory);
+
+                d3.select(node).on('click', function (event) {
+
+                    // Prevent mouseout effect from restoring the original state
+                    d3.selectAll('.category-label').on('mouseout', null);
+
+                    d3.selectAll('.category-label')
+                        .style('font-weight', 'normal')
+                        .style('opacity', 0.15);
 
                     d3.select(this)
                         .style('font-weight', 'bolder')
