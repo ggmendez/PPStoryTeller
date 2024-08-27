@@ -886,9 +886,7 @@ We use cookies and similar tracking technologies to operate and provide the Plat
 For example, we use cookies to remember your language preferences, make sure you don't see the same video more than once, and for security purposes.
 For example, we use cookies to remember your language preferences, make sure you don't see the same video more than once, and for security purposes.
 These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.
-These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.
-By clicking "Accept All", you agree to let us use our own and third party cookies for marketing purposes so that we can understand the effectiveness of TikTok's advertising campaigns.
-By clicking "Accept All", you agree to let us use our own and third party cookies for marketing purposes so that we can understand the effectiveness of TikTok's advertising campaigns.</data>
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
 </edge>
 <edge source="we" target="user content" id="e64">
   <data key="d2">COLLECT</data>
@@ -1244,10 +1242,5 @@ For example, we may provide information (such as your IP address) to law enforce
   <data key="d2">COLLECT</data>
   <data key="d3">The European Commission has approved contractual clauses under Article 46 of the GDPR that allows companies in the EEA to transfer data outside the EEA.
 The European Commission has approved contractual clauses under Article 46 of the GDPR that allows companies in the EEA to transfer data outside the EEA.</data>
-</edge>
-<edge source="tiktok" target="cookie / pixel tag" id="e128">
-  <data key="d2">COLLECT</data>
-  <data key="d3">TikTok uses cookies and similar technologies to provide, improve, secure and analyse our services.
-TikTok uses cookies and similar technologies to provide, improve, secure and analyse our services.</data>
 </edge>
 </graph></graphml>
