@@ -2169,7 +2169,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ease: 'elastic.out(1, 0.45)',
                 onComplete: () => {
                     shouldShowDataCategories = true;
-                }
+                },
+                onLeave: () => {
+                    shouldShowDataCategories = false;
+                },
             }, `actorsColumn+=${2 * animationDuration + 0.5} + 1`);
 
 
