@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let currentLinesArray = null;
     let currentLineIndex = null;
     let shouldShowDataCategories = false;
+    let dataCategoryClicked = false;
 
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
@@ -307,13 +308,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
 
-        if (shouldShowDataCategories) {
+        if (shouldShowDataCategories || dataCategoryClicked) {
             d3.selectAll('.category-label')
                 .style('font-weight', 'normal')
                 .style('opacity', 1);
         }
 
+        
 
+        dataCategoryClicked = false;
 
     }, true);
 
@@ -2041,7 +2044,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('mouseover', function (event) {
 
-                    if (shouldShowDataCategories) {
+                    if (shouldShowDataCategories && !dataCategoryClicked) {
 
                         d3.select(this).style('font-weight', 'bolder');
 
@@ -2069,7 +2072,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 function mouseOutLabelCategory(event) {
 
-                    if (shouldShowDataCategories) {
+                    if (shouldShowDataCategories && !dataCategoryClicked) {
+
+                        console.log("Tunal");
+
+
                         d3.select(this).style('font-weight', 'normal');
 
                         // Restore opacity for all rects
@@ -2088,7 +2095,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('click', function (event) {
 
-                    if (shouldShowDataCategories) {
+                    if (shouldShowDataCategories && !dataCategoryClicked) {
 
                         // Prevent mouseout effect from restoring the original state
                         d3.selectAll('.category-label').on('mouseout', null);
@@ -2113,6 +2120,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // Ensure that the selected rectangles remain at full opacity
                         svg.selectAll(rectClasses)
                             .style('opacity', 1);
+
+                        dataCategoryClicked = true;
 
                     }
 
