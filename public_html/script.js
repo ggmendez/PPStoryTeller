@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 .style('opacity', 1);
         }
 
-        
+
 
         dataCategoryClicked = false;
 
@@ -1699,6 +1699,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke-width', 0)
                             .attr('stroke', darkenColor(dataRectCopy.fill))
                             .attr('data-name', itemName)
+                            .attr('data-data-category', sanitizeId(removeSpaces(dataCategory.toUpperCase())))
                             .each(function (d) {
 
 
@@ -3113,6 +3114,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const listItem = document.createElement('li');
             const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
 
+            const dataCategory = rect.getAttribute('data-data-category');
+
             // Create the small rect element as a preview
             const smallRect = document.createElement('div');
             smallRect.style.width = '15px';
@@ -3128,8 +3131,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             // Hover effect to change the opacity of corresponding rectangles
             listItem.addEventListener('mouseenter', function () {
+
                 const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+
                 if (!selectedItem) { // Only apply hover effects if no item is selected
+
                     rectangles1.forEach(rect => {
                         const rectName = rect.getAttribute('data-name').toLowerCase();
                         if (rectName === name) {
@@ -3138,6 +3144,38 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             rect.style.opacity = '0.15'; // Dim others
                         }
                     });
+
+
+                    d3.selectAll('.category-label').each(function () {
+
+                        const labelElement = d3.select(this);
+                        const labelId = labelElement.attr('id');
+                        let fontWeight = 'normal';
+                        let opacity = 0.15;
+
+                        // console.log("labelId: " + labelId);
+                        // console.log("dataCategory: " + dataCategory);
+
+                        if (labelId == dataCategory) {
+                            fontWeight = 'bold';
+                            opacity = 1;
+                        }
+
+                        d3.select(this)
+                            .style('font-weight', fontWeight)
+                            .style('opacity', opacity);
+                    });
+
+
+
+
+                    // console.log("name>");
+                    // console.log(name);
+
+
+
+
+
                 }
             });
 
@@ -3152,6 +3190,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             // Click event to persist selection and fade unrelated rectangles
             listItem.addEventListener('click', function () {
+
+                dataCategoryClicked = true;
 
                 searchInput.value = name;
 
