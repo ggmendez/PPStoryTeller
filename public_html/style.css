@@ -1661,8 +1661,8 @@ code .token.url {
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  max-width: 300px;
+  width: 120%;
+  max-width: 500px;
   background: white;
   border: 1px solid #ccc;
   border-radius: 4px;

@@ -1719,8 +1719,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 const inheritances = dataInheritances[item.name];
 
-                                // console.log("inheritances for " + item.name);
-                                // console.log(inheritances);                                                                
+                                console.log("inheritances for " + item.name);
+                                console.log(inheritances);
 
                                 let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor, inheritances);
 
@@ -3067,6 +3067,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const clearSearchButton = document.getElementById('clearSearch');
 
 
+    // Prevent scrolling on the panel from affecting the page
+    searchResultsPanel.addEventListener('wheel', function (event) {
+        event.stopPropagation();
+    }, { passive: true });
+
     let selectedItem = null; // Track the currently selected item
 
     function performSearch() {
@@ -3125,9 +3130,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
             smallRect.style.marginRight = '8px';
             smallRect.style.display = 'inline-block';
 
-            // Set up the list item content
-            listItem.textContent = name;
+            // Create a container div for the main text and subtitle
+            const textContainer = document.createElement('div');
+            textContainer.style.display = 'flex';
+            textContainer.style.flexDirection = 'column';
+
+            // Set up the main text
+            const mainText = document.createElement('span');
+            mainText.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            textContainer.appendChild(mainText);
+
+            const inheritances = dataInheritances[name];
+
+            // Conditionally add a subtitle
+            if (inheritances && inheritances.length) { // Check if dataCategory is present or matches your criteria
+                const subtitle = document.createElement('span');
+                subtitle.textContent = "(" + inheritances.join(', ') + ")"; // Or any subtitle you want to display
+                subtitle.style.fontSize = '10px'; // Style the subtitle to distinguish it from the main text
+                subtitle.style.color = '#888'; // Lighter color for subtitle
+                textContainer.appendChild(subtitle);
+            }
+
             listItem.prepend(smallRect); // Add the small rect before the name text
+            listItem.appendChild(textContainer); // Add the text container to the list item
+
 
             // Hover effect to change the opacity of corresponding rectangles
             listItem.addEventListener('mouseenter', function () {
@@ -3166,15 +3192,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .style('opacity', opacity);
                     });
 
-
-
-
                     // console.log("name>");
                     // console.log(name);
-
-
-
-
 
                 }
             });
