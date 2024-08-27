@@ -1018,15 +1018,14 @@ code .token.url {
 
 
 #circle-packing-svg {
-  position: relative;
-  top: 0px;
+  position: absolute; /* Make sure this stays absolute or relative */
+  top: 0px; /* Aligns the SVG at the top of the screen */
   right: 0px;
   width: 100%;
-  /* This ensures it takes the full width of the viewport */
   height: 100vh;
-  /* This makes the height equal to the full height of the viewport */
   background-color: white;
 }
+
 
 .quantity {
   font-weight: 900;
@@ -1577,7 +1576,7 @@ code .token.url {
 
 
 #floatingSearchBar {
-  position: absolute;
+  position: fixed; /* Changed from absolute to fixed */
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
@@ -1704,9 +1703,6 @@ code .token.url {
   background-color: #ccc;
   border: 1px solid #000;
 }
-
-
-
 
 
 

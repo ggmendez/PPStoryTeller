@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let categoriesColorScale;
     let currentLinesArray = null;
     let currentLineIndex = null;
+    let shouldShowDataCategories = false;
 
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
@@ -289,6 +290,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const svgElement = document.getElementById('circle-packing-svg');
 
 
+
     svgElement.addEventListener('click', (event) => {
 
         if (!event.target.classList.contains('copyOfDataRect')) {
@@ -304,9 +306,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
             currentPermanentTooltip = null;
         }
 
-        d3.selectAll('.category-label')
-            .style('font-weight', 'normal')
-            .style('opacity', 1);
+
+        if (shouldShowDataCategories) {
+            d3.selectAll('.category-label')
+                .style('font-weight', 'normal')
+                .style('opacity', 1);
+        }
+
+
 
     }, true);
 
@@ -1062,7 +1069,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .enter()
             .append('g')
             .attr('class', 'category-label')
-            .attr('opacity', 0);
+            .attr('opacity', 0)
+            // .attr('id', d => generateUniqueId('categoryGroup'));
+            .attr('id', d => sanitizeId(removeSpaces(d.toUpperCase()))); // here i need an ID for the category, it should be the same id used in the tect 
+
 
         const categoryRectSize = targetSize;
         svgCategoryGroups.append('rect')
@@ -1086,12 +1096,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const bbox = this.getBBox();
             const centerX = categoryPositions[d].x - bbox.width / 2;
             const centerY = categoryPositions[d].y - bbox.height / 2 + cellHeight / 2 - 40;
-            let id = generateUniqueId('categoryGroup');
             d3.select(this)
                 .attr('transform', `translate(${centerX}, ${centerY})`)
-                .attr('id', id);
-            console.log("id: " + id);
-            categoryStartPositions[id] = { x: centerX, y: centerY };
+            categoryStartPositions[this.id] = { x: centerX, y: centerY };
         });
 
         // console.log("$$$ categoryStartPositions:");
@@ -1671,10 +1678,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                         const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
+                        const sanitizedActorCategory = sanitizeId(actorIconCategory);
+                        const sanitizedDataCategory = sanitizeId(dataCategory);
+
                         let theRect = svg.append('rect')
                             .data([dataRectCopy]) // Binding data here
                             .attr('id', uniqueId)
-                            .attr('class', 'copyOfDataRect ' + sanitizeId(actorIconCategory) + ' ' + sanitizeId(dataCategory))
+                            .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
                             .attr('opacity', 0)
                             .attr('x', -targetSize)
                             .attr('y', -targetSize)
@@ -1687,6 +1697,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke', darkenColor(dataRectCopy.fill))
                             .attr('data-name', itemName)
                             .each(function (d) {
+
+
+
+                                console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                                console.log(this);
+
 
                                 // console.log("*********************************");
                                 // console.log("item.text");
@@ -1717,35 +1733,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 });
 
                                 this.addEventListener('mouseenter', () => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                                     tooltipInstance.show();
                                 });
+
                                 this.addEventListener('mouseleave', () => {
                                     if (currentPermanentTooltip !== tooltipInstance) {
                                         tooltipInstance.hide();
                                     }
-
-                                    // const rectangles = document.querySelectorAll('.copyOfDataRect');
-                                    // rectangles.forEach(rect => {
-                                    //     rect.style.opacity = '1';
-                                    // });
-
-
-
                                 });
+
+
                                 // Make the tooltip permanent on click
                                 this.addEventListener('click', () => {
                                     // Hide the currently permanent tooltip, if any
@@ -1756,18 +1753,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     // Set the clicked tooltip as the permanent one
                                     currentPermanentTooltip = tooltipInstance;
 
-
                                     const rectangles = document.querySelectorAll('.copyOfDataRect');
+
+                                    // reducing the opacity of the other rectangles
                                     rectangles.forEach(rect => {
-
                                         const name = rect.getAttribute('data-name').toLowerCase();
-
                                         if (name === this.getAttribute('data-name').toLowerCase()) {
                                             rect.style.opacity = '1';
                                         } else {
                                             rect.style.opacity = '0.15';
                                         }
                                     });
+
+                                    // console.log("sanitizedDataCategory: ");
+                                    // console.log(sanitizedDataCategory);
+
+                                    // Reducing the opacity of category labels that do not correspond to the clicked rectangle
+                                    d3.selectAll('.category-label').each(function () {
+
+                                        const labelElement = d3.select(this);
+                                        const labelId = labelElement.attr('id'); // Get the id of the label
+                                        let fontWeight = 'normal';
+                                        let opacity = 0.15;
+
+                                        // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                                        // console.log(this);
+
+                                        if (labelId == sanitizedDataCategory) {
+                                            fontWeight = 'bold';
+                                            opacity = 1;
+                                        }
+                                        d3.select(this)
+                                            .style('font-weight', fontWeight)
+                                            .style('opacity', opacity);
+                                    });
+
+
+
+
+
 
 
                                 });
@@ -2015,113 +2039,84 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }, `actorsColumn+=${2 * animationDuration + 0.5}`);
 
 
-                // // mouse over the category labels within the legend
-                // d3.select(node).on('mouseover', function (event) {
-
-                //     d3.select(this).style('font-weight', 'bolder');
-
-                //     // Get the class that identifies the related rectangles
-                //     let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
-                //     let rectClasses = '.copyOfDataRect.' + cleanDataType;
-                //     // console.log(rectClasses);
-
-                //     // First, ensure all rects are reset to full opacity
-                //     svg.selectAll('.copyOfDataRect')
-                //         .transition()
-                //         .duration(200)
-                //         // .attr('stroke-width', 1)
-                //         .style('opacity', 1);
-
-                //     // Reduce the opacity of rects that do not have the specific class
-                //     svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
-                //         .transition()
-                //         .duration(200)
-                //         .style('opacity', 0.15);
-                // });
-
-                // d3.select(node).on('mouseout', function (event) {
-                //     d3.select(this).style('font-weight', 'normal');
-                //     svg.selectAll('.copyOfDataRect')
-                //         .transition()
-                //         .duration(200)
-                //         // .attr('stroke-width', 0)
-                //         .style('opacity', 1); // Restore opacity for all rects
-                // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 d3.select(node).on('mouseover', function (event) {
-                    d3.select(this).style('font-weight', 'bolder');
 
-                    // Get the class that identifies the related rectangles
-                    let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
-                    let rectClasses = '.copyOfDataRect.' + cleanDataType;
+                    if (shouldShowDataCategories) {
 
-                    // Reduce the opacity of rects that do not have the specific class
-                    svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
-                        .style('opacity', 0.15);
+                        d3.select(this).style('font-weight', 'bolder');
 
-                    d3.selectAll('.category-label')
-                        .style('font-weight', 'normal')
-                        .style('opacity', 0.15);
+                        // Get the class that identifies the related rectangles
+                        let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                        let rectClasses = '.copyOfDataRect.' + cleanDataType;
 
-                    d3.select(this)
-                        .style('opacity', 1);
+                        // Reduce the opacity of rects that do not have the specific class
+                        svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
+                            .style('opacity', 0.15);
 
-                    d3.selectAll('.category-label').on('mouseout', mouseOutLabelCategory);
+                        d3.selectAll('.category-label')
+                            .style('font-weight', 'normal')
+                            .style('opacity', 0.15);
+
+                        d3.select(this)
+                            .style('opacity', 1);
+
+                        d3.selectAll('.category-label').on('mouseout', mouseOutLabelCategory);
+
+                    }
+
 
                 });
 
                 function mouseOutLabelCategory(event) {
-                    d3.select(this).style('font-weight', 'normal');
 
-                    // Restore opacity for all rects
-                    svg.selectAll('.copyOfDataRect')
-                        .style('opacity', 1);
+                    if (shouldShowDataCategories) {
+                        d3.select(this).style('font-weight', 'normal');
 
-                    d3.selectAll('.category-label')
-                        .style('font-weight', 'normal')
-                        .style('opacity', 1);
+                        // Restore opacity for all rects
+                        svg.selectAll('.copyOfDataRect')
+                            .style('opacity', 1);
+
+                        d3.selectAll('.category-label')
+                            .style('font-weight', 'normal')
+                            .style('opacity', 1);
+                    }
+
+
                 }
 
                 d3.select(node).on('mouseout', mouseOutLabelCategory);
 
                 d3.select(node).on('click', function (event) {
 
-                    // Prevent mouseout effect from restoring the original state
-                    d3.selectAll('.category-label').on('mouseout', null);
+                    if (shouldShowDataCategories) {
 
-                    d3.selectAll('.category-label')
-                        .style('font-weight', 'normal')
-                        .style('opacity', 0.15);
+                        // Prevent mouseout effect from restoring the original state
+                        d3.selectAll('.category-label').on('mouseout', null);
 
-                    d3.select(this)
-                        .style('font-weight', 'bolder')
-                        .style('opacity', 1);
+                        d3.selectAll('.category-label')
+                            .style('font-weight', 'normal')
+                            .style('opacity', 0.15);
+
+                        d3.select(this)
+                            .style('font-weight', 'bolder')
+                            .style('opacity', 1);
 
 
-                    // Get the class that identifies the related rectangles
-                    let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
-                    let rectClasses = '.copyOfDataRect.' + cleanDataType;
+                        // Get the class that identifies the related rectangles
+                        let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                        let rectClasses = '.copyOfDataRect.' + cleanDataType;
 
-                    // Reduce the opacity of rects that do not have the specific class
-                    svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
-                        .style('opacity', 0.15);
+                        // Reduce the opacity of rects that do not have the specific class
+                        svg.selectAll('.copyOfDataRect:not(' + rectClasses + ')')
+                            .style('opacity', 0.15);
 
-                    // Ensure that the selected rectangles remain at full opacity
-                    svg.selectAll(rectClasses)
-                        .style('opacity', 1);
+                        // Ensure that the selected rectangles remain at full opacity
+                        svg.selectAll(rectClasses)
+                            .style('opacity', 1);
+
+                    }
+
+
                 });
 
 
@@ -2163,6 +2158,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scaleX: 1,
                 // scaleY: 1,
                 ease: 'elastic.out(1, 0.45)',
+                onComplete: () => {
+                    shouldShowDataCategories = true;
+                }
             }, `actorsColumn+=${2 * animationDuration + 0.5} + 1`);
 
 
