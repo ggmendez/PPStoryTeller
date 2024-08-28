@@ -1066,14 +1066,7 @@ code .token.url {
 
 
 
-.highlight {
-  background-color: rgba(145, 145, 145, 0.25);
-  /* Highlight with a yellow background */
-  color: black;
-  /* Text color */
-  font-weight: bold;
-  /* Make the text bold */
-}
+
 
 .tooltip-links a {
   color: rgb(15, 92, 216);
@@ -1656,6 +1649,7 @@ code .token.url {
 
 
 
+
 #searchResultsPanel {
   position: absolute;
   top: 40px;
@@ -1676,6 +1670,7 @@ code .token.url {
   overflow-y: auto;
   text-align: left;
   list-style-type: none;
+  background-color: #ffffffdd;
 }
 
 #searchResultsPanel ul {
@@ -1724,6 +1719,18 @@ code .token.url {
   color: #333;
 }
 
+
 #floatingSearchBar:focus-within #clearSearch {
   display: block;
+}
+
+
+
+
+
+
+.highlight {
+  background-color: rgba(145, 145, 145, 0.05);
+  font-weight: bold;
+  color: black;
 }

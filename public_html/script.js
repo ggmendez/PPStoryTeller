@@ -3115,6 +3115,137 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Convert Set to Array and sort it alphabetically
         const sortedResults = Array.from(uniqueResults).sort();
 
+        // sortedResults.forEach(name => {
+        //     const listItem = document.createElement('li');
+        //     const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
+
+        //     const dataCategory = rect.getAttribute('data-data-category');
+
+        //     // Create the small rect element as a preview
+        //     const smallRect = document.createElement('div');
+        //     smallRect.style.width = '15px';
+        //     smallRect.style.height = '15px';
+        //     smallRect.style.backgroundColor = rect.getAttribute('fill');
+        //     smallRect.style.border = `1px solid ${rect.getAttribute('stroke')}`;
+        //     smallRect.style.marginRight = '8px';
+        //     smallRect.style.display = 'inline-block';
+
+        //     // Create a container div for the main text and subtitle
+        //     const textContainer = document.createElement('div');
+        //     textContainer.style.display = 'flex';
+        //     textContainer.style.flexDirection = 'column';
+
+        //     // Set up the main text
+        //     const mainText = document.createElement('span');
+        //     mainText.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+        //     textContainer.appendChild(mainText);
+
+        //     const inheritances = dataInheritances[name];
+
+        //     // Conditionally add a subtitle
+        //     if (inheritances && inheritances.length) { // Check if dataCategory is present or matches your criteria
+        //         const subtitle = document.createElement('span');
+        //         subtitle.textContent = "(" + inheritances.join(', ') + ")"; // Or any subtitle you want to display
+        //         subtitle.style.fontSize = '10px'; // Style the subtitle to distinguish it from the main text
+        //         subtitle.style.color = '#888'; // Lighter color for subtitle
+        //         textContainer.appendChild(subtitle);
+        //     }
+
+        //     listItem.prepend(smallRect); // Add the small rect before the name text
+        //     listItem.appendChild(textContainer); // Add the text container to the list item
+
+
+        //     // Hover effect to change the opacity of corresponding rectangles
+        //     listItem.addEventListener('mouseenter', function () {
+
+        //         const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+
+        //         if (!selectedItem) { // Only apply hover effects if no item is selected
+
+        //             rectangles1.forEach(rect => {
+        //                 const rectName = rect.getAttribute('data-name').toLowerCase();
+        //                 if (rectName === name) {
+        //                     rect.style.opacity = '1'; // Highlight the corresponding rects
+        //                 } else {
+        //                     rect.style.opacity = '0.15'; // Dim others
+        //                 }
+        //             });
+
+
+        //             d3.selectAll('.category-label').each(function () {
+
+        //                 const labelElement = d3.select(this);
+        //                 const labelId = labelElement.attr('id');
+        //                 let fontWeight = 'normal';
+        //                 let opacity = 0.15;
+
+        //                 // console.log("labelId: " + labelId);
+        //                 // console.log("dataCategory: " + dataCategory);
+
+        //                 if (labelId == dataCategory) {
+        //                     fontWeight = 'bold';
+        //                     opacity = 1;
+        //                 }
+
+        //                 d3.select(this)
+        //                     .style('font-weight', fontWeight)
+        //                     .style('opacity', opacity);
+        //             });
+
+        //             // console.log("name>");
+        //             // console.log(name);
+
+        //         }
+        //     });
+
+        //     listItem.addEventListener('mouseleave', function () {
+        //         const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+        //         if (!selectedItem) { // Only reset if no item is selected
+        //             rectangles1.forEach(rect => {
+        //                 rect.style.opacity = '1'; // Reset opacity of all rectangles
+        //             });
+        //         }
+        //     });
+
+        //     // Click event to persist selection and fade unrelated rectangles
+        //     listItem.addEventListener('click', function () {
+
+        //         dataCategoryClicked = true;
+
+        //         searchInput.value = name;
+
+        //         if (searchInput.value.length > 0) {
+        //             clearSearchButton.style.display = 'block'; // Ensure this line executes
+        //             searchInput.style.paddingRight = '40px';
+        //         } else {
+        //             clearSearchButton.style.display = 'none';
+        //             searchInput.style.paddingRight = '10px';
+        //         }
+
+
+        //         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
+        //             currentPermanentTooltip.hide();
+        //             currentPermanentTooltip = null;
+        //         }
+
+        //         const rectangles1 = document.querySelectorAll('.copyOfDataRect');
+        //         selectedItem = name; // Set the selected item
+        //         rectangles1.forEach(rect => {
+        //             const rectName = rect.getAttribute('data-name').toLowerCase();
+        //             if (rectName === name) {
+        //                 rect.style.opacity = '1'; // Keep the clicked result fully visible
+        //             } else {
+        //                 rect.style.opacity = '0.15'; // Fade unrelated rectangles
+        //             }
+        //         });
+        //         searchResultsPanel.style.display = 'none'; // Hide panel after selection
+        //     }, true);
+
+        //     ul.appendChild(listItem); // Append <li> to <ul>
+        // });
+
+
+
         sortedResults.forEach(name => {
             const listItem = document.createElement('li');
             const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
@@ -3135,33 +3266,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
             textContainer.style.display = 'flex';
             textContainer.style.flexDirection = 'column';
 
-            // Set up the main text
+            // Set up the main text and highlight matching parts
             const mainText = document.createElement('span');
-            mainText.textContent = name.charAt(0).toUpperCase() + name.slice(1);
+            mainText.innerHTML = highlightText(name.charAt(0).toUpperCase() + name.slice(1), searchTerm); // Use innerHTML to apply highlighting
             textContainer.appendChild(mainText);
+
+
+
+
+
+
 
             const inheritances = dataInheritances[name];
 
             // Conditionally add a subtitle
             if (inheritances && inheritances.length) { // Check if dataCategory is present or matches your criteria
+                const subtitleText = "(" + inheritances.join(', ') + ")";
                 const subtitle = document.createElement('span');
-                subtitle.textContent = "(" + inheritances.join(', ') + ")"; // Or any subtitle you want to display
-                subtitle.style.fontSize = '10px'; // Style the subtitle to distinguish it from the main text
-                subtitle.style.color = '#888'; // Lighter color for subtitle
+                subtitle.innerHTML = highlightText(subtitleText, searchTerm); // Use innerHTML to apply highlighting
+                subtitle.style.fontSize = '12px';
+                subtitle.style.color = '#888';
                 textContainer.appendChild(subtitle);
             }
 
-            listItem.prepend(smallRect); // Add the small rect before the name text
+            listItem.prepend(smallRect); // Add the small rect before the text container
             listItem.appendChild(textContainer); // Add the text container to the list item
-
 
             // Hover effect to change the opacity of corresponding rectangles
             listItem.addEventListener('mouseenter', function () {
-
                 const rectangles1 = document.querySelectorAll('.copyOfDataRect');
-
                 if (!selectedItem) { // Only apply hover effects if no item is selected
-
                     rectangles1.forEach(rect => {
                         const rectName = rect.getAttribute('data-name').toLowerCase();
                         if (rectName === name) {
@@ -3170,31 +3304,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             rect.style.opacity = '0.15'; // Dim others
                         }
                     });
-
-
-                    d3.selectAll('.category-label').each(function () {
-
-                        const labelElement = d3.select(this);
-                        const labelId = labelElement.attr('id');
-                        let fontWeight = 'normal';
-                        let opacity = 0.15;
-
-                        // console.log("labelId: " + labelId);
-                        // console.log("dataCategory: " + dataCategory);
-
-                        if (labelId == dataCategory) {
-                            fontWeight = 'bold';
-                            opacity = 1;
-                        }
-
-                        d3.select(this)
-                            .style('font-weight', fontWeight)
-                            .style('opacity', opacity);
-                    });
-
-                    // console.log("name>");
-                    // console.log(name);
-
                 }
             });
 
@@ -3209,19 +3318,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             // Click event to persist selection and fade unrelated rectangles
             listItem.addEventListener('click', function () {
-
-                dataCategoryClicked = true;
-
-                searchInput.value = name;
-
-                if (searchInput.value.length > 0) {
-                    clearSearchButton.style.display = 'block'; // Ensure this line executes
-                    searchInput.style.paddingRight = '40px';
-                } else {
-                    clearSearchButton.style.display = 'none';
-                    searchInput.style.paddingRight = '10px';
-                }
-
+                searchInput.value = name; // Set the clicked item's name in the search box
 
                 if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
                     currentPermanentTooltip.hide();
@@ -3243,6 +3340,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             ul.appendChild(listItem); // Append <li> to <ul>
         });
+
+
+
+
 
         if (sortedResults.length > 0) {
             searchResultsPanel.appendChild(ul); // Append the <ul> to the panel
@@ -3363,5 +3464,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return false;
     }
 
+    function highlightText(text, searchTerm) {
+        const regex = new RegExp(`(${searchTerm})`, 'gi'); // Case-insensitive match
+        return text.replace(regex, '<span class="highlight">$1</span>');
+    }
 
 });
