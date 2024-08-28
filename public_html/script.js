@@ -1746,9 +1746,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     }
                                 });
 
-
                                 // Make the tooltip permanent on click
                                 this.addEventListener('click', () => {
+
+                                    dataCategoryClicked = true;
+
                                     // Hide the currently permanent tooltip, if any
                                     if (currentPermanentTooltip) {
                                         currentPermanentTooltip.hide();
