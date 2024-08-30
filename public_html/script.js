@@ -1737,12 +1737,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 });
 
                                 this.addEventListener('mouseenter', () => {
-                                    tooltipInstance.show();
+
+                                    if (!dataCategoryClicked) {
+                                        tooltipInstance.show();
+                                        changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
+                                    }
                                 });
 
                                 this.addEventListener('mouseleave', () => {
                                     if (currentPermanentTooltip !== tooltipInstance) {
                                         tooltipInstance.hide();
+                                    }
+                                    if (!dataCategoryClicked) {
+                                        restoreDataCategoriesLabelsOpacity();
                                     }
                                 });
 
@@ -1774,25 +1781,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     // console.log("sanitizedDataCategory: ");
                                     // console.log(sanitizedDataCategory);
 
-                                    // Reducing the opacity of category labels that do not correspond to the clicked rectangle
-                                    d3.selectAll('.category-label').each(function () {
+                                    changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
 
-                                        const labelElement = d3.select(this);
-                                        const labelId = labelElement.attr('id'); // Get the id of the label
-                                        let fontWeight = 'normal';
-                                        let opacity = 0.15;
 
-                                        // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                                        // console.log(this);
-
-                                        if (labelId == sanitizedDataCategory) {
-                                            fontWeight = 'bold';
-                                            opacity = 1;
-                                        }
-                                        d3.select(this)
-                                            .style('font-weight', fontWeight)
-                                            .style('opacity', opacity);
-                                    });
 
 
 
@@ -2049,8 +2040,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     if (shouldShowDataCategories && !dataCategoryClicked) {
 
-                        d3.select(this).style('font-weight', 'bolder');
-
                         // Get the class that identifies the related rectangles
                         let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
                         let rectClasses = '.copyOfDataRect.' + cleanDataType;
@@ -2174,6 +2163,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     shouldShowDataCategories = true;
                 },
                 onLeave: () => {
+                    shouldShowDataCategories = false;
+                },
+                onLeaveBack: () => {
                     shouldShowDataCategories = false;
                 },
             }, `actorsColumn+=${2 * animationDuration + 0.5} + 1`);
@@ -3292,7 +3284,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
 
             listItem.prepend(smallRect); // Add the small rect before the text container
-            listItem.appendChild(textContainer); // Add the text container to the list item
+            listItem.appendChild(textContainer); // Add the text container to the list item            
 
             // Hover effect to change the opacity of corresponding rectangles
             listItem.addEventListener('mouseenter', function () {
@@ -3306,6 +3298,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             rect.style.opacity = '0.15'; // Dim others
                         }
                     });
+
+                    changeDataCategoriesLabelsOpacity(dataCategory, 'normal');
+
                 }
             });
 
@@ -3319,7 +3314,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
 
             // Click event to persist selection and fade unrelated rectangles
-            listItem.addEventListener('click', function () {
+            listItem.addEventListener('mouseup', function () {
+
+                dataCategoryClicked = true;
+
                 searchInput.value = name; // Set the clicked item's name in the search box
 
                 if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
@@ -3338,6 +3336,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }
                 });
                 searchResultsPanel.style.display = 'none'; // Hide panel after selection
+
+                // Reducing the opacity of category labels that do not correspond to the clicked rectangle
+                changeDataCategoriesLabelsOpacity(dataCategory, 'bold');
+
             }, true);
 
             ul.appendChild(listItem); // Append <li> to <ul>
@@ -3469,6 +3471,39 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function highlightText(text, searchTerm) {
         const regex = new RegExp(`(${searchTerm})`, 'gi'); // Case-insensitive match
         return text.replace(regex, '<span class="highlight">$1</span>');
+    }
+
+    function changeDataCategoriesLabelsOpacity(categoryToKeep, keepingFontWeight) {
+
+        // Reducing the opacity of category labels that do not correspond to the clicked rectangle
+        d3.selectAll('.category-label').each(function () {
+
+            const labelElement = d3.select(this);
+            const labelId = labelElement.attr('id'); // Get the id of the label
+            let fontWeight = 'normal';
+            let opacity = 0.15;
+
+            if (labelId == categoryToKeep) {
+                fontWeight = keepingFontWeight;
+                opacity = 1;
+            }
+
+            d3.select(this)
+                .style('font-weight', fontWeight)
+                .style('opacity', opacity);
+        });
+
+    }
+
+    function restoreDataCategoriesLabelsOpacity() {
+
+        console.log("iuyglob 8iuhglopb8iuygñp 8giuyl ujv km");
+
+
+        d3.selectAll('.category-label')
+            .style('font-weight', 'normal')
+            .style('opacity', 1);
+
     }
 
 });
