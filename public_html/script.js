@@ -1738,8 +1738,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 this.addEventListener('mouseenter', () => {
 
-                                    if (!dataCategoryClicked) {
+                                    console.log("theRect.style('opacity'):");
+                                    console.log(theRect.style('opacity'));
+                                    
+
+                                    if (theRect.style('opacity') === '1') {
                                         tooltipInstance.show();
+                                    }
+
+                                    if (!dataCategoryClicked) {
+
                                         changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
                                     }
                                 });
