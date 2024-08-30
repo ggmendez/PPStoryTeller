@@ -3438,6 +3438,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }
 
+            const h3Elements = iframeDocument.querySelectorAll('h3');
+            for (let h3 of h3Elements) {
+                if (h3.textContent === text) {
+                    return true;
+                }
+            }
+
+
+
+
             return false;
 
 
