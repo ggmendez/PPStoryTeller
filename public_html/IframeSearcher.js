@@ -20,8 +20,11 @@ class IframeSearcher {
     }
 
 
-    search(term, scroll = true) {
-        this.clearSearch();
+    search(term, scroll = true, clearPreviousResults = true) {
+        
+        if (clearPreviousResults) {
+            this.clearSearch();
+        }        
 
         if (!term) return;
 
@@ -99,11 +102,11 @@ class IframeSearcher {
     }
 
 
- 
-    
 
 
-    
+
+
+
 
 
     retry(text) {
@@ -150,9 +153,28 @@ class IframeSearcher {
             i--;
         } while (i >= 0);
 
-        console.log("Going to search: \n" + answer);
+        console.log("***************************************************");
+        console.log("***************************************************");
+        console.log("***************************************************");
+        
 
-        this.search(answer);
+        console.log("Original text: ");
+        console.log(text);
+        
+        console.log("Going to search:");
+        console.log(answer);
+        
+        const result = subtractString(text, answer.trim()).trim();
+
+        console.log("This is what's left:");
+        console.log(result);
+
+
+        this.search(answer, false, true);
+
+        this.search(result, true, false);
+
+
     }
 
     next() {
@@ -254,4 +276,11 @@ class IframeSearcher {
     escapeRegExp(string) {
         return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     }
+
+    
+
+
+
 }
+
+
