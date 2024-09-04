@@ -147,12 +147,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("normalizedText:");
         console.log(normalizedText);
 
-        // Perform the search or other logic here
-        searcher.search(normalizedText);
+        searchTextInPP(normalizedText);
 
-        if (!searcher.currentMatches.length) {
-            searcher.retry(normalizedText);
-        }
+        // Perform the search or other logic here
+        // searcher.search(normalizedText);
+
+        // if (!searcher.currentMatches.length) {
+        //     searcher.retry(normalizedText);
+        // }
 
         // Update the page info display
         document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
@@ -176,14 +178,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("normalizedText:");
         console.log(normalizedText);
 
+        searchTextInPP(normalizedText);
+
         // Perform the search or other logic here
-        searcher.search(normalizedText);
+        // searcher.search(normalizedText);
 
         // if no results, we will retry by considering parts of the string,
         // as it may contain colons
-        if (!searcher.currentMatches.length) {
-            searcher.retry(normalizedText);
-        }
+        // if (!searcher.currentMatches.length) {
+        //     searcher.retry(normalizedText);
+        // }
 
         // Update the page info display
         document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
@@ -234,15 +238,78 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         searcher.setHighlightColor(highlightColor);
 
+        searchTextInPP(normalizedText);
+
+        // searcher.search(normalizedText);
+
+        // if (!searcher.currentMatches.length) {
+        //     searcher.retry(normalizedText);
+        // }
+
+    };
+
+
+    function searchTextInPP(normalizedText) {
+
         searcher.search(normalizedText);
 
         if (!searcher.currentMatches.length) {
             searcher.retry(normalizedText);
         }
 
-    };
+        return;
 
 
+        if (normalizedText.includes(':')) {
+            const tokens = normalizedText.trim().split(":").filter(str => str.trim() !== '');
+
+
+            console.log("tokens:");
+            console.log(tokens);
+
+
+            if (tokens.length > 1) {
+
+                console.log("1111111111111");
+
+
+                for (let i = 0; i < tokens.length; i++) {
+                    const token = tokens[i].trim();
+                    if (i == 0) {
+                        searcher.search(token, false, true);
+                    } else if (i == tokens.length - 1) {
+                        searcher.search(token, true, false);
+                    } else {
+                        searcher.search(token, false, false);
+                    }
+                }
+
+            } else {
+
+                console.log("22222222222");
+
+                searcher.search(normalizedText);
+
+            }
+
+
+        } else {
+
+            console.log("333333333333333333");
+
+            searcher.search(normalizedText);
+
+            // if (!searcher.currentMatches.length) {
+            //     searcher.retry(normalizedText);
+            // }
+
+        }
+
+
+
+
+        
+    }
 
 
     const normalizeText = (text) => {
@@ -1738,9 +1805,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 this.addEventListener('mouseenter', () => {
 
-                                    console.log("theRect.style('opacity'):");
-                                    console.log(theRect.style('opacity'));
-                                    
+                                    // console.log("theRect.style('opacity'):");
+                                    // console.log(theRect.style('opacity'));
+
 
                                     if (theRect.style('opacity') === '1') {
                                         tooltipInstance.show();

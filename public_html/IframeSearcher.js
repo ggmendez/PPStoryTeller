@@ -114,7 +114,8 @@ class IframeSearcher {
         console.log("*************** Retrying search of ***************");
         console.log(text);
 
-        const tokens = text.trim().split(":");
+        const tokens = text.trim().split(":").filter(str => str.trim() !== '');
+
         let i = tokens.length - 1;
         let cummulativeText = "";
         let answer = "";
