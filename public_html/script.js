@@ -55,11 +55,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
     popup.innerHTML = `
     <div class="popup-content">
         <div id="overlay" class="overlay">
+
+
             <div class="left-content">
                 <div id="squareIndicator" class="square-indicator"></div>
                 <div id="dataName" class="main-question">Same or different person?</div>
             </div>
-            <div class="page-navigation">
+            <div id="pageNavigation" class="page-navigation">
                 <span id="pageInfo" class="page-info">0/0</span>
                 <div class="navigation">
                     <button id="upButtonPreviousMention" class="nav-button up-button">
@@ -80,6 +82,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     </button>
                 </div>
             </div>
+
+
+
         </div>
         <div id="iframe-container">
             <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
@@ -240,12 +245,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         searchTextInPP(normalizedText);
 
-        // searcher.search(normalizedText);
-
-        // if (!searcher.currentMatches.length) {
-        //     searcher.retry(normalizedText);
-        // }
-
     };
 
 
@@ -308,7 +307,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        
+
     }
 
 
@@ -366,6 +365,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
             rectangles.forEach(rect => {
                 rect.style.opacity = '1';
             });
+
+            searcher.clearSearch();
+
+            gsap.to("#overlay", {
+                duration: 0.5,
+                height: 0,
+                padding: '0px 0px',
+                borderTopWidth: 0,
+                borderBottomWidth: 0,
+                ease: "power4.out",
+            });
+
+
         }
 
         // Ensure the click isn't on the currently active tooltip or its trigger element
@@ -379,7 +391,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
             d3.selectAll('.category-label')
                 .style('font-weight', 'normal')
                 .style('opacity', 1);
+
+
+
+
+
         }
+
+
 
 
 
@@ -1892,11 +1911,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             document.querySelector("#squareIndicator").style.backgroundColor = highlightColor;
                             document.querySelector("#overlay").style.borderTopColor = highlightColor;
                             document.querySelector("#overlay").style.borderBottomColor = highlightColor;
+                            document.querySelector("#pageNavigation").style.borderLeftColor = highlightColor;
+                            document.querySelector("#overlay").style.backgroundColor = highlightColor + '05';
 
                             popup.style.visibility = 'visible';
                             popup.style.opacity = '1';
 
-                            scrollToAndHighlightInIframe(currentText, highlightColor + '61');
+                            gsap.to("#overlay", {
+                                duration: 0.25,
+                                height: '50px',
+                                padding: '10px 20px',
+                                borderTop: '2px solid ' + highlightColor,
+                                borderBottom: '3px solid ' + highlightColor,
+                                ease: 'linear',
+                                onComplete: () => {
+                                    scrollToAndHighlightInIframe(currentText, highlightColor + '61');
+                                },
+                            });                            
 
                             document.addEventListener('keydown', escKeyListener);
                             document.querySelector('.popup-content').addEventListener('keydown', escKeyListener);

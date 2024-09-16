@@ -1430,14 +1430,20 @@ code .token.url {
   height: 100%;
 }
 
-.overlay {
+.overlay { 
+
+  height: 0;
+  
   width: 100%;
+
+  overflow: hidden;
+
   /* Full width of the container */
   background-color: rgba(255, 255, 255, 0.95);
   /* Slightly transparent white background */
   padding: 10px 20px;
   /* Slightly larger padding for more space */
-  border-bottom: 3px solid #1f78b4;
+  border-bottom: 3px solid black;
   /* Blue bottom border for emphasis */
   border-radius: 5px;
   /* Rounded corners for a refined look */
@@ -1461,8 +1467,8 @@ code .token.url {
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
 
-  border-top: 2px solid #1f78b4;
-  border-bottom: 3px solid #1f78b4;
+  border-top: 2px solid gray;
+  border-bottom: 3px solid gray;
 
   /* Blue bottom border for emphasis */
 }
@@ -1503,12 +1509,12 @@ code .token.url {
   display: flex;
   align-items: center;
   flex-shrink: 0;
+  border-left: 1px solid black;
 }
 
 .page-info {
   color: black;
   margin-right: 15px;
-  border-left: 1px solid black;
   padding-left: 10px;
   white-space: nowrap;
   overflow: hidden;
