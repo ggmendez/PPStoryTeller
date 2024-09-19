@@ -1,3 +1,4 @@
+
 /* global d3, XLSX, gsap, ScrollTrigger, ScrollToPlugin */
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -37,9 +38,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Extract the value of "who" from the URL
     let who = getQueryParam('who');
-
-
-    
     if (!who) who = "tiktok";
     document.title = formatedNames[who] + "'s PP";
 
@@ -3629,4 +3627,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+});
+
+
+// Add event listener for window resize to make the visualization responsive
+window.addEventListener('resize', () => {
+    // Get the current dimensions of the window
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
+
+    // Update any global variables related to screen dimensions
+    svgWidth = screenWidth;
+    svgHeight = screenHeight;
+
+    // Update the dimensions of SVG elements or other components as needed
+    d3.select('#circle-packing-svg')
+        .attr('width', svgWidth)
+        .attr('height', svgHeight);
+
+    // Recalculate positions, sizes, etc., here if necessary
+    // Example: Adjusting positions or sizes of rectangles, text, etc.
+    // processActorEntities(entities);
+    // processDataEntities(entities);
+    
+    // Redraw the elements
+    drawRectsAndLabels(rectData);
 });
