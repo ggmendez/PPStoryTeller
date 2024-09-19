@@ -37,9 +37,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Extract the value of "who" from the URL
     let who = getQueryParam('who');
-
-
-    
     if (!who) who = "tiktok";
     document.title = formatedNames[who] + "'s PP";
 
@@ -369,7 +366,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 rect.style.opacity = '1';
             });
 
-            searcher.clearSearch();
+            if (searcher) {
+                searcher.clearSearch();
+            }
 
             gsap.to("#overlay", {
                 duration: 0.5,
@@ -963,7 +962,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Define a scale for the rectangle sizes based on IncomingConnections
         const maxConnections = d3.max(dataEntities, d => d.Indegree);
-        const sizeScaleMultiplier = 20;
+        const sizeScaleMultiplier = 22;
         const sizeScale = d3.scaleSqrt()
             .domain([1, maxConnections])
             .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
@@ -1214,8 +1213,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
     // This is what happens on update of the gsap animation
-    function drawRectsAndLabels(rectData) {
+    function drawRectsAndLabelsBeforePilot(rectData) {
 
         const rects = svg.selectAll('.dataRect')
             .data(rectData, d => d.id)
@@ -1314,6 +1326,254 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    function drawRectsAndLabels(rectData) {
+
+        const rects = svg.selectAll('.dataRect')
+            .data(rectData, d => d.id)
+            .join(
+                enter => enter.append('rect')
+                    .attr('class', 'dataRect')
+                    .each(function (d) {
+                        const rect = d3.select(this);
+                        rect.attr('x', d.x - (d.width / 2))
+                            .attr('y', d.y - (d.height / 2))
+                            .attr('width', Math.max(0, d.width))
+                            .attr('height', Math.max(0, d.height))
+                            .attr('rx', d.rx || 0)
+                            .attr('ry', d.ry || 0)
+                            .attr('fill', d.fill || 'transparent')
+                            .attr('stroke', darkenColor(d.fill || '#000'))
+                            .attr('opacity', d.opacity || 1);
+                    }),
+                update => update
+                    .each(function (d) {
+                        const rect = d3.select(this);
+                        rect.attr('x', d.x - (d.width / 2))
+                            .attr('y', d.y - (d.height / 2))
+                            .attr('width', Math.max(0, d.width))
+                            .attr('height', Math.max(0, d.height))
+                            .attr('rx', d.rx || 0)
+                            .attr('ry', d.ry || 0)
+                            .attr('fill', d.fill || 'transparent')
+                            .attr('stroke', darkenColor(d.fill || '#000'))
+                            .attr('opacity', d.opacity || 1);
+                    }),
+                exit => exit.remove()
+            );
+    
+        const texts = svg.selectAll('.rectLabel')
+            .data(rectData, d => d.id)
+            .join(
+                enter => enter.append('text')
+                    .attr('class', 'rectLabel')
+                    .attr('id', d => "rectLabel_" + d.id),
+                update => update,
+                exit => exit.remove()
+            )
+            .each(function (d) {
+                const text = d3.select(this);
+                const rectWidth = d.width;
+                const rectHeight = d.height;
+    
+                // Set initial fontSize proportional to rectangle size
+                const initialFontSize = rectHeight * 0.5; // Adjust multiplier as needed
+                const maxFontSize = 20; // Maximum font size cap
+                const minFontSize = 14;  // Minimum readable font size
+    
+                let fontSize = Math.min(initialFontSize, maxFontSize);
+    
+                let fits = false;
+                let lines = [];
+    
+                // Adjust font size until text fits or font size is below minimum
+                while (fontSize >= minFontSize && !fits) {
+    
+                    // Split text into lines that fit within the rectangle's width
+                    lines = splitTextToFit(d.name, rectWidth * 0.9, fontSize);
+    
+                    // Calculate total text height
+                    let lineHeight = fontSize * 1.2; // Line height multiplier
+                    let totalTextHeight = lines.length * lineHeight;
+    
+                    // Check if text fits within rectangle dimensions
+                    if (totalTextHeight <= rectHeight * 0.9) {
+                        // Check if each line fits within rectangle width
+                        let allLinesFit = lines.every(line => getTextWidthEstimate(line, fontSize) <= rectWidth * 0.9);
+                        if (allLinesFit) {
+                            fits = true;
+                        } else {
+                            // Reduce font size and try again
+                            fontSize -= 1;
+                        }
+                    } else {
+                        // Reduce font size and try again
+                        fontSize -= 1;
+                    }
+                }
+    
+                if (fontSize < minFontSize || !fits) {
+                    // Hide text if it's too small or doesn't fit
+                    text.style('display', 'none');
+                } else {
+                    // Truncate lines with ellipsis if necessary
+                    lines = lines.map(line => {
+                        if (getTextWidthEstimate(line, fontSize) > rectWidth * 0.9) {
+                            return addEllipsis(line, rectWidth * 0.9, fontSize);
+                        }
+                        return line;
+                    });
+    
+                    // Display text
+                    text.style('display', null)
+                        .attr('x', d.x)
+                        .attr('y', d.y)
+                        .attr('text-anchor', 'middle')
+                        .attr('dominant-baseline', 'middle')
+                        .attr('opacity', d.opacity || 1)
+                        .style('font-size', `${fontSize}px`)
+                        .style('line-height', '1')
+                        .text('');
+    
+                    text.selectAll('tspan').remove();
+    
+                    // Vertically center the text block
+                    let lineHeight = fontSize * 1.2;
+                    let totalTextHeight = lines.length * lineHeight;
+                    let startDy = -((totalTextHeight - lineHeight) / 2);
+    
+                    lines.forEach((line, i) => {
+                        text.append('tspan')
+                            .attr('x', d.x)
+                            .attr('dy', i === 0 ? `${startDy}` : `${lineHeight}`)
+                            .text(line);
+                    });
+                }
+            });
+    }
+    
+    // Helper function to split text into lines that fit within maxWidth
+    function splitTextToFit(text, maxWidth, fontSize) {
+        const words = text.split(/\s+/);
+        let lines = [];
+        let currentLine = '';
+    
+        words.forEach(word => {
+            let wordWidth = getTextWidthEstimate(word, fontSize);
+    
+            if (wordWidth > maxWidth) {
+                // Break the word if it's too long
+                const brokenWords = breakWord(word, maxWidth, fontSize);
+                brokenWords.forEach(part => {
+                    if (currentLine === '') {
+                        currentLine = part;
+                    } else {
+                        lines.push(currentLine);
+                        currentLine = part;
+                    }
+                });
+            } else {
+                const testLine = currentLine === '' ? word : currentLine + ' ' + word;
+                const testLineWidth = getTextWidthEstimate(testLine, fontSize);
+    
+                if (testLineWidth <= maxWidth) {
+                    currentLine = testLine;
+                } else {
+                    lines.push(currentLine);
+                    currentLine = word;
+                }
+            }
+        });
+    
+        if (currentLine !== '') {
+            lines.push(currentLine);
+        }
+    
+        return lines;
+    }
+    
+    // Helper function to estimate text width based on font size
+    function getTextWidthEstimate(text, fontSize) {
+        // Average character width in pixels (adjust based on your font)
+        const averageCharWidth = fontSize * 0.55;
+        return text.length * averageCharWidth;
+    }
+    
+    // Helper function to break a word into parts that fit within maxWidth
+    function breakWord(word, maxWidth, fontSize) {
+        let parts = [];
+        let part = '';
+        for (let i = 0; i < word.length; i++) {
+            part += word[i];
+            let partWidth = getTextWidthEstimate(part + '-', fontSize);
+            if (partWidth > maxWidth) {
+                if (part.length > 1) {
+                    parts.push(part.slice(0, -1) + '-');
+                    part = word[i];
+                } else {
+                    parts.push(part + '-');
+                    part = '';
+                }
+            }
+        }
+        if (part !== '') {
+            parts.push(part);
+        }
+        return parts;
+    }
+    
+    // Helper function to add ellipsis to a line
+    function addEllipsis(line, maxWidth, fontSize) {
+        let ellipsis = '…';
+        let trimmedLine = line;
+        while (getTextWidthEstimate(trimmedLine + ellipsis, fontSize) > maxWidth && trimmedLine.length > 0) {
+            trimmedLine = trimmedLine.slice(0, -1);
+        }
+        return trimmedLine + ellipsis;
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function addScrollEvents() {
 
@@ -1930,7 +2190,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 onComplete: () => {
                                     scrollToAndHighlightInIframe(currentText, highlightColor + '61');
                                 },
-                            });                            
+                            });
 
                             document.addEventListener('keydown', escKeyListener);
                             document.querySelector('.popup-content').addEventListener('keydown', escKeyListener);
