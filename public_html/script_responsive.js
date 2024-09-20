@@ -1,3 +1,4 @@
+
 /* global d3, XLSX, gsap, ScrollTrigger, ScrollToPlugin */
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -366,9 +367,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 rect.style.opacity = '1';
             });
 
-            if (searcher) {
-                searcher.clearSearch();
-            }
+            searcher.clearSearch();
 
             gsap.to("#overlay", {
                 duration: 0.5,
@@ -417,7 +416,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const infoIcon = svg.append('g');
     const cursorIcon = svg.append('g');
-    const logoIcon = svg.append('g');
 
     loadIconAt(infoIcon, './icons/info.svg', svgWidth - 40, 40)
         .then(data => {
@@ -434,169 +432,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     loadIconAt(cursorIcon, './icons/cursor.svg', svgWidth / 2, svgHeight / 2);
-
-
-
-
-
-
-    function computeInitialPackingData2(dataEntities, centerIconWidth, centerIconHeight) {
-        // Define a scale for the rectangle sizes based on IncomingConnections
-        const maxConnections = d3.max(dataEntities, d => d.Indegree);
-        const sizeScaleMultiplier = 22;
-        const padding = 2; // Adjust padding as needed
-        const sizeScale = d3.scaleSqrt()
-            .domain([1, maxConnections])
-            .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
-
-        // Define the icon node with fixed position
-        const iconNode = {
-            id: 'centerIcon',
-            width: centerIconWidth + 20,
-            height: centerIconHeight + 20,
-            x: svgWidth / 2,  // Center position
-            y: svgHeight / 2,
-            r: Math.max(centerIconWidth, centerIconHeight) / 2 + (maxConnections * sizeScaleMultiplier) / 2,
-            fx: svgWidth / 2, // Fix x-position
-            fy: svgHeight / 2, // Fix y-position
-            isIcon: true // Flag to identify the icon node
-        };
-
-        // Prepare the elements to pack
-        let elementsToPack = dataEntities.map(d => ({
-            id: "" + d.id,
-            width: sizeScale(d.Indegree) + padding,
-            height: sizeScale(d.Indegree) + padding,
-            r: sizeScale(d.Indegree) / 2 + padding,
-            fill: '#cbcbcb',
-            originalFill: '#cbcbcb',
-            name: d.name,
-            category: d.category,
-            x: Math.random() * svgWidth, // Start at random positions
-            y: Math.random() * svgHeight,
-            isIcon: false // Flag to identify regular nodes
-        }));
-
-        // Combine the icon node and rectangle nodes
-        let nodes = [iconNode, ...elementsToPack];
-
-        // Create the simulation but prevent it from running automatically
-        let simulation = d3.forceSimulation(nodes)
-            .force('center', d3.forceCenter(0, 0))
-            .force('x', d3.forceX(svgWidth / 2).strength(0.05))
-            .force('y', d3.forceY(svgHeight / 2).strength(0.025))
-            // Add collision force using the built-in forceCollide
-            .force('collision', d3.forceCollide().radius(d => d.r + padding))
-            .alphaDecay(0.06)
-            .stop(); // Stop automatic ticking
-
-        // Run the simulation manually
-        const numIterations = 100; // Adjust as needed
-        for (let i = 0; i < numIterations; ++i) {
-            simulation.tick();
-        }
-
-        // Now the nodes have their positions after the simulation
-        return nodes.filter(d => !d.isIcon); // Return the rectangles without the icon node
-    }
-
-
-
-    function computeInitialPackingData(dataEntities, centerIconWidth, centerIconHeight) {
-        // Define a scale for the rectangle sizes based on IncomingConnections
-        const maxConnections = d3.max(dataEntities, d => d.Indegree);
-        const sizeScaleMultiplier = 22;
-        const padding = 2; // Adjust padding as needed
-        const extraPadding = 50; // Extra padding for the iconNode to prevent overlap
-        const sizeScale = d3.scaleSqrt()
-            .domain([1, maxConnections])
-            .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
-    
-        // Calculate half-diagonal for the iconNode
-        const iconWidthWithPadding = centerIconWidth + 20;
-        const iconHeightWithPadding = centerIconHeight + 20;
-        const iconHalfDiagonal = Math.sqrt(
-            Math.pow(iconWidthWithPadding / 2, 2) + Math.pow(iconHeightWithPadding / 2, 2)
-        );
-    
-        // Define the icon node with fixed position
-        const iconNode = {
-            id: 'centerIcon',
-            width: iconWidthWithPadding,
-            height: iconHeightWithPadding,
-            x: svgWidth / 2,  // Center position
-            y: svgHeight / 2,
-            r: iconHalfDiagonal, // Use half-diagonal as radius
-            collisionRadius: iconHalfDiagonal + extraPadding, // Set larger collision radius
-            fx: svgWidth / 2, // Fix x-position
-            fy: svgHeight / 2, // Fix y-position
-            isIcon: true // Flag to identify the icon node
-        };
-    
-        // Prepare the elements to pack
-        let elementsToPack = dataEntities.map(d => {
-            const nodeWidth = sizeScale(d.Indegree) + padding;
-            const nodeHeight = sizeScale(d.Indegree) + padding;
-            // const nodeHalfDiagonal = Math.sqrt(
-            //     Math.pow(nodeWidth / 2, 2) + Math.pow(nodeHeight / 2, 2)
-            // );
-
-            const nodeHalfDiagonal = sizeScale(d.Indegree) / 2 + padding*2;
-
-            
-    
-            return {
-                id: "" + d.id,
-                width: nodeWidth,
-                height: nodeHeight,
-                
-                
-                r: nodeHalfDiagonal, // Use half-diagonal as radius
-                collisionRadius: nodeHalfDiagonal + padding, // collision radius
-
-                fill: '#cbcbcb',
-                originalFill: '#cbcbcb',
-                name: d.name,
-                category: d.category,
-                x: Math.random() * svgWidth, // Start at random positions
-                y: Math.random() * svgHeight,
-                isIcon: false // Flag to identify regular nodes
-            };
-        });
-    
-        // Combine the icon node and rectangle nodes
-        let nodes = [iconNode, ...elementsToPack];
-    
-        // Create the simulation but prevent it from running automatically
-        let simulation = d3.forceSimulation(nodes)
-            .force('center', d3.forceCenter(svgWidth / 2, svgHeight / 2))
-            .force('x', d3.forceX(svgWidth / 2).strength(0.05))
-            .force('y', d3.forceY(svgHeight / 2).strength(0.025))
-            // Use the collisionRadius in the collision force
-            .force('collision', d3.forceCollide().radius(d => d.collisionRadius))
-            .alphaDecay(0.06)
-            .stop(); // Stop automatic ticking
-    
-        // Run the simulation manually
-        const numIterations = 300; // Increase iterations if necessary
-        for (let i = 0; i < numIterations; ++i) {
-            simulation.tick();
-        }    
-        // Now the nodes have their positions after the simulation
-
-        // Return the rectangles without the icon node
-        return nodes.filter(d => !d.isIcon).map(d => {
-            return {
-                ...d,
-                x: d.x -= svgWidth / 2,
-                y: d.y -= svgHeight / 2
-            };
-        }); 
-    }
-    
-    
-
-
 
     let originalTransformations = {};
     let labelsOf = {};
@@ -854,45 +689,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         })
-
-
         .then(() => {
             return processActorEntities(entities);
         })
         .then(() => {
+            return processDataEntities(entities);
+        })
 
-            window.svgWidth = svgWidth;
-            window.svgHeight = svgHeight;
-
-            loadIconAt(logoIcon, './icons/logos/' + who + '.svg', svgWidth / 2, svgHeight / 2, 1, 1, true)
-                .then(dimensions => {
-
-                    
-                    drawRectAt(svgWidth / 2, svgHeight / 2, 20, 20, 'red');
-
-                    const iconWidth = dimensions.width;
-                    const iconHeight = dimensions.height;
-                    
-
-                    let dataEntities = entities.filter(d => d.type === 'DATA');
-
-                    let initialPackingData = computeInitialPackingData(dataEntities, iconWidth, iconHeight);
-
-                    window.initialPackingData = initialPackingData;
-
-                    return initialPackingData;
-
-                })
-                .then(initialPackingData => {
-                    return processDataEntities(entities, initialPackingData);
-                })
-                .then(() => {
-                    // Only called once all SVGs are processed and actor entities are ready
-                    addScrollEvents();
-                })
-        });
-
-
+        .then(() => {
+            addScrollEvents(); // Only called once all SVGs are processed and actor entities are ready
+        })
 
 
 
@@ -1098,88 +904,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    // Custom rectangle collision detection function
-    function rectCollision() {
-        for (let i = 0; i < nodes.length; ++i) {
-            const nodeA = nodes[i];
-            for (let j = i + 1; j < nodes.length; ++j) {
-                const nodeB = nodes[j];
-
-                // Skip if same node or both nodes are fixed
-                if (nodeA === nodeB || (nodeA.fx && nodeB.fx)) continue;
-
-                // Check for collision
-                if (isColliding(nodeA, nodeB)) {
-                    resolveCollision(nodeA, nodeB);
-                }
-            }
-        }
-    }
-
-    function isColliding(a, b) {
-        return !(
-            a.x + a.width / 2 < b.x - b.width / 2 ||
-            a.x - a.width / 2 > b.x + b.width / 2 ||
-            a.y + a.height / 2 < b.y - b.height / 2 ||
-            a.y - a.height / 2 > b.y + b.height / 2
-        );
-    }
-
-    function resolveCollision(a, b) {
-        const xDist = (a.x - b.x) / (a.width / 2 + b.width / 2);
-        const yDist = (a.y - b.y) / (a.height / 2 + b.height / 2);
-
-        const overlapX = (a.width / 2 + b.width / 2) - Math.abs(a.x - b.x);
-        const overlapY = (a.height / 2 + b.height / 2) - Math.abs(a.y - b.y);
-
-        if (overlapX < overlapY) {
-            const displacement = overlapX / 2;
-            if (xDist > 0) {
-                a.x += displacement;
-                b.x -= displacement;
-            } else {
-                a.x -= displacement;
-                b.x += displacement;
-            }
-        } else {
-            const displacement = overlapY / 2;
-            if (yDist > 0) {
-                a.y += displacement;
-                b.y -= displacement;
-            } else {
-                a.y -= displacement;
-                b.y += displacement;
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     // Process entities and visualize
-    function processDataEntities(entities, initialPackingData) {
+    function processDataEntities(entities) {
 
         let dataEntities = entities.filter(d => d.type === 'DATA');
 
@@ -1249,8 +977,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             name: d.name,
             category: d.category
         })));
-
-        rectData = initialPackingData;
 
         // Center the initial positions
         const xCenter = svgWidth / 2;
@@ -1486,27 +1212,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // This is what happens on update of the gsap animation
     function drawRectsAndLabels(rectData) {
 
         const rects = svg.selectAll('.dataRect')
@@ -1516,30 +1222,60 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .attr('class', 'dataRect')
                     .each(function (d) {
                         const rect = d3.select(this);
-                        rect.attr('x', d.x - (d.width / 2))
-                            .attr('y', d.y - (d.height / 2))
-                            .attr('width', Math.max(0, d.width))
-                            .attr('height', Math.max(0, d.height))
-                            .attr('rx', d.rx || 0)
-                            .attr('ry', d.ry || 0)
-                            .attr('fill', d.fill || 'transparent')
-                            .attr('stroke', darkenColor(d.fill || '#000'))
-                            // .attr('opacity', d.opacity || 1);
-                            .attr('opacity', 1);
+                        if (d.x !== undefined && d.width !== undefined) {
+                            rect.attr('x', d.x - (d.width / 2));
+                        }
+                        if (d.y !== undefined && d.height !== undefined) {
+                            rect.attr('y', d.y - (d.height / 2));
+                        }
+                        if (d.width !== undefined) {
+                            rect.attr('width', Math.max(0, d.width));
+                        }
+                        if (d.height !== undefined) {
+                            rect.attr('height', Math.max(0, d.height));
+                        }
+                        if (d.rx !== undefined) {
+                            rect.attr('rx', Math.max(0, d.rx));
+                        }
+                        if (d.ry !== undefined) {
+                            rect.attr('ry', Math.max(0, d.ry));
+                        }
+                        if (d.fill !== undefined) {
+                            rect.attr('fill', d.fill);
+                            rect.attr('stroke', darkenColor(d.fill));  // Assume darkenColor handles undefined
+                        }
+                        if (d.opacity !== undefined) {
+                            rect.attr('opacity', d.opacity);
+                        }
                     }),
                 update => update
                     .each(function (d) {
                         const rect = d3.select(this);
-                        rect.attr('x', d.x - (d.width / 2))
-                            .attr('y', d.y - (d.height / 2))
-                            .attr('width', Math.max(0, d.width))
-                            .attr('height', Math.max(0, d.height))
-                            .attr('rx', d.rx || 0)
-                            .attr('ry', d.ry || 0)
-                            .attr('fill', d.fill || 'transparent')
-                            .attr('stroke', darkenColor(d.fill || '#000'))
-                            // .attr('opacity', d.opacity || 1);
-                            .attr('opacity', 1);
+                        if (d.x !== undefined && d.width !== undefined) {
+                            rect.attr('x', d.x - (d.width / 2));
+                        }
+                        if (d.y !== undefined && d.height !== undefined) {
+                            rect.attr('y', d.y - (d.height / 2));
+                        }
+                        if (d.width !== undefined) {
+                            rect.attr('width', Math.max(0, d.width));
+                        }
+                        if (d.height !== undefined) {
+                            rect.attr('height', Math.max(0, d.height));
+                        }
+                        if (d.rx !== undefined) {
+                            rect.attr('rx', Math.max(0, d.rx));
+                        }
+                        if (d.ry !== undefined) {
+                            rect.attr('ry', Math.max(0, d.ry));
+                        }
+                        if (d.fill !== undefined) {
+                            rect.attr('fill', d.fill);
+                            rect.attr('stroke', darkenColor(d.fill));  // Assume darkenColor handles undefined
+                        }
+                        if (d.opacity !== undefined) {
+                            rect.attr('opacity', d.opacity);
+                        }
                     }),
                 exit => exit.remove()
             );
@@ -1547,196 +1283,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const texts = svg.selectAll('.rectLabel')
             .data(rectData, d => d.id)
             .join(
-                enter => enter.append('text')
-                    .attr('class', 'rectLabel')
-                    .attr('id', d => "rectLabel_" + d.id),
+                enter => enter.append('text'),
                 update => update,
                 exit => exit.remove()
             )
+            .attr('class', 'rectLabel')
+            .attr('id', d => "rectLabel_" + d.id)
+            .attr('x', d => isNaN(d.x) ? 0 : d.x)
+            .attr('y', d => isNaN(d.y) ? 0 : d.y)
             .each(function (d) {
                 const text = d3.select(this);
-                const rectWidth = d.width;
-                const rectHeight = d.height;
-
-                // Set initial fontSize proportional to rectangle size
-                const initialFontSize = rectHeight * 0.5; // Adjust multiplier as needed
-                const maxFontSize = 18; // Maximum font size cap
-                const minFontSize = 12;  // Minimum readable font size
-
-                let fontSize = Math.min(initialFontSize, maxFontSize);
-
-                let fits = false;
-                let lines = [];
-
-                // Adjust font size until text fits or font size is below minimum
-                while (fontSize >= minFontSize && !fits) {
-
-                    // Split text into lines that fit within the rectangle's width
-                    lines = splitTextToFit(d.name, rectWidth * 0.9, fontSize);
-
-                    // Calculate total text height
-                    let lineHeight = fontSize * 1.2; // Line height multiplier
-                    let totalTextHeight = lines.length * lineHeight;
-
-                    // Check if text fits within rectangle dimensions
-                    if (totalTextHeight <= rectHeight * 0.9) {
-                        // Check if each line fits within rectangle width
-                        let allLinesFit = lines.every(line => getTextWidthEstimate(line, fontSize) <= rectWidth * 0.9);
-                        if (allLinesFit) {
-                            fits = true;
-                        } else {
-                            // Reduce font size and try again
-                            fontSize -= 1;
-                        }
-                    } else {
-                        // Reduce font size and try again
-                        fontSize -= 1;
-                    }
-                }
-
-                if (fontSize < minFontSize || !fits) {
-                    // Hide text if it's too small or doesn't fit
-                    text.style('display', 'none');
-                } else {
-                    // Truncate lines with ellipsis if necessary
-                    lines = lines.map(line => {
-                        if (getTextWidthEstimate(line, fontSize) > rectWidth * 0.9) {
-                            return addEllipsis(line, rectWidth * 0.9, fontSize);
-                        }
-                        return line;
-                    });
-
-                    // Display text
-                    text.style('display', null)
+                text.attr('text-anchor', 'middle');
+                text.attr('opacity', d => d.opacity);
+                const maxDimension = Math.min(d.width, d.height);
+                const lines = splitText(d.name, maxDimension);
+                const textSelection = d3.select(this);
+                textSelection.selectAll('tspan').remove();
+                lines.forEach((line, i) => {
+                    textSelection.append('tspan')
                         .attr('x', d.x)
-                        .attr('y', d.y)
-                        .attr('text-anchor', 'middle')
-                        .attr('dominant-baseline', 'middle')
-                        // .attr('opacity', d.opacity || 1)
-                        .attr('opacity', 1)
-                        .style('font-size', `${fontSize}px`)
-                        .style('line-height', '1')
-                        .text('');
-
-                    text.selectAll('tspan').remove();
-
-                    // Vertically center the text block
-                    let lineHeight = fontSize * 1.2;
-                    let totalTextHeight = lines.length * lineHeight;
-                    let startDy = -((totalTextHeight - lineHeight) / 2);
-
-                    lines.forEach((line, i) => {
-                        text.append('tspan')
-                            .attr('x', d.x)
-                            .attr('dy', i === 0 ? `${startDy}` : `${lineHeight}`)
-                            .text(line);
-                    });
-                }
-            });
-    }
-
-    // Helper function to split text into lines that fit within maxWidth
-    function splitTextToFit(text, maxWidth, fontSize) {
-        const words = text.split(/\s+/);
-        let lines = [];
-        let currentLine = '';
-
-        words.forEach(word => {
-            let wordWidth = getTextWidthEstimate(word, fontSize);
-
-            if (wordWidth > maxWidth) {
-                // Break the word if it's too long
-                const brokenWords = breakWord(word, maxWidth, fontSize);
-                brokenWords.forEach(part => {
-                    if (currentLine === '') {
-                        currentLine = part;
-                    } else {
-                        lines.push(currentLine);
-                        currentLine = part;
-                    }
+                        .attr('dy', i === 0 ? `-${(lines.length - 1) / 2}em` : `1.1em`)
+                        .text(line);
                 });
-            } else {
-                const testLine = currentLine === '' ? word : currentLine + ' ' + word;
-                const testLineWidth = getTextWidthEstimate(testLine, fontSize);
+            })
+            .style('font-size', d => {
+                const maxDimension = Math.min(d.width, d.height);
+                return `${Math.min(maxDimension / 6, 12)}px`;
+            });
 
-                if (testLineWidth <= maxWidth) {
-                    currentLine = testLine;
-                } else {
-                    lines.push(currentLine);
-                    currentLine = word;
-                }
-            }
-        });
-
-        if (currentLine !== '') {
-            lines.push(currentLine);
-        }
-
-        return lines;
     }
-
-    // Helper function to estimate text width based on font size
-    function getTextWidthEstimate(text, fontSize) {
-        // Average character width in pixels (adjust based on your font)
-        const averageCharWidth = fontSize * 0.55;
-        return text.length * averageCharWidth;
-    }
-
-    // Helper function to break a word into parts that fit within maxWidth
-    function breakWord(word, maxWidth, fontSize) {
-        let parts = [];
-        let part = '';
-        for (let i = 0; i < word.length; i++) {
-            part += word[i];
-            let partWidth = getTextWidthEstimate(part + '-', fontSize);
-            if (partWidth > maxWidth) {
-                if (part.length > 1) {
-                    parts.push(part.slice(0, -1) + '-');
-                    part = word[i];
-                } else {
-                    parts.push(part + '-');
-                    part = '';
-                }
-            }
-        }
-        if (part !== '') {
-            parts.push(part);
-        }
-        return parts;
-    }
-
-    // Helper function to add ellipsis to a line
-    function addEllipsis(line, maxWidth, fontSize) {
-        let ellipsis = '…';
-        let trimmedLine = line;
-        while (getTextWidthEstimate(trimmedLine + ellipsis, fontSize) > maxWidth && trimmedLine.length > 0) {
-            trimmedLine = trimmedLine.slice(0, -1);
-        }
-        return trimmedLine + ellipsis;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function addScrollEvents() {
 
@@ -2353,7 +1928,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 onComplete: () => {
                                     scrollToAndHighlightInIframe(currentText, highlightColor + '61');
                                 },
-                            });
+                            });                            
 
                             document.addEventListener('keydown', escKeyListener);
                             document.querySelector('.popup-content').addEventListener('keydown', escKeyListener);
@@ -3388,50 +2963,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     // Function to load, insert, and animate the SVG "info" icon
-    function loadIconAt(icon, svgPath, x, y, scale = 1, opacity = 0, animated = false) {
+    function loadIconAt(icon, svgPath, x, y, scale = 1, opacity = 0) {
+
         return d3.xml(svgPath).then(data => {
 
-            // Set initial opacity and scale for the icon
-            icon.attr('opacity', opacity)
-                .attr('transform', `translate(${x}, ${y}) scale(0)`);  // Start with scale 0
+            icon.attr('opacity', '0');
 
-            // Import the SVG node
             const importedNode = document.importNode(data.documentElement, true);
-
-            // Get bounding box dimensions
             var tempG = svg.append('g').append(() => importedNode);
             const bbox = importedNode.getBBox();
             const iconWidth = bbox.width;
             const iconHeight = bbox.height;
             tempG.remove();
 
-            // Append the imported node to the icon group
             icon.append(() => importedNode);
 
-            // Adjust translation to center the icon and set the correct transform
-            const translateX = x - (iconWidth / 2) * scale;
-            const translateY = y - (iconHeight / 2) * scale;
+            icon
+                .style('transform-origin', `${iconWidth / 2}px ${iconHeight / 2}px`)
+                .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${scale})`);
 
-            if (animated) {
-                // Animate opacity and scale if 'animated' is true
-                icon.transition()
-                    .duration(1000)  // Duration of the animation (1 second)
-                    .attr('transform', `translate(${translateX}, ${translateY}) scale(${scale})`)
-                    .attr('opacity', opacity);  // Fade in to full opacity
-            } else {
-                // Set final scale and opacity without animation
-                icon.attr('transform', `translate(${translateX}, ${translateY}) scale(${scale})`)
-                    .attr('opacity', opacity);  // Directly set to full opacity
-            }
-
-            // **Return the icon's dimensions**
-            return { width: iconWidth * scale, height: iconHeight * scale };
         });
     }
-
-
-
-
 
     function blinkIcon(icon, repeat = 2) {
 
@@ -4075,4 +3627,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+});
+
+
+// Add event listener for window resize to make the visualization responsive
+window.addEventListener('resize', () => {
+    // Get the current dimensions of the window
+    let screenWidth = window.innerWidth;
+    let screenHeight = window.innerHeight;
+
+    // Update any global variables related to screen dimensions
+    svgWidth = screenWidth;
+    svgHeight = screenHeight;
+
+    // Update the dimensions of SVG elements or other components as needed
+    d3.select('#circle-packing-svg')
+        .attr('width', svgWidth)
+        .attr('height', svgHeight);
+
+    // Recalculate positions, sizes, etc., here if necessary
+    // Example: Adjusting positions or sizes of rectangles, text, etc.
+    // processActorEntities(entities);
+    // processDataEntities(entities);
+    
+    // Redraw the elements
+    drawRectsAndLabels(rectData);
 });

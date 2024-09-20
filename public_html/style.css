@@ -951,9 +951,9 @@ code .token.url {
 }
 
 .rectLabel {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
   font-optical-sizing: auto;
-  font-weight: 400;
+  /* font-weight: 100; */
   font-style: normal;
   line-height: 1;
   pointer-events: none;
@@ -1739,4 +1739,9 @@ code .token.url {
   background-color: rgba(145, 145, 145, 0.05);
   font-weight: bold;
   color: black;
+}
+
+
+.dataRect{
+  opacity: 1;
 }
