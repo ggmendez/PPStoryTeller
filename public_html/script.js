@@ -448,12 +448,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const sizeScale = d3.scaleSqrt()
             .domain([1, maxConnections])
             .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
-    
+
         // Calculate half-diagonal for the iconNode
         const iconWidthWithPadding = centerIconWidth + 20;
         const iconHeightWithPadding = centerIconHeight + 20;
         const iconR = maxConnections * sizeScaleMultiplier;
-    
+
         // Define the icon node with fixed position
         const iconNode = {
             id: 'centerIcon',
@@ -467,7 +467,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             fy: svgHeight / 2, // Fix y-position
             isIcon: true // Flag to identify the icon node
         };
-    
+
         // Prepare the elements to pack
         let elementsToPack = dataEntities.map(d => {
             const nodeWidth = sizeScale(d.Indegree) + padding;
@@ -476,7 +476,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             return {
                 id: "" + d.id,
                 width: nodeWidth,
-                height: nodeHeight,                                
+                height: nodeHeight,
                 r: nodeR, // Use half-diagonal as radius
                 collisionRadius: nodeR + padding, // collision radius
                 fill: '#cbcbcb',
@@ -488,10 +488,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 isIcon: false // Flag to identify regular nodes
             };
         });
-    
+
         // Combine the icon node and rectangle nodes
         let nodes = [iconNode, ...elementsToPack];
-    
+
         // Create the simulation but prevent it from running automatically
         let simulation = d3.forceSimulation(nodes)
             .force('center', d3.forceCenter(svgWidth / 2, svgHeight / 2))
@@ -501,12 +501,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .force('collision', d3.forceCollide().radius(d => d.collisionRadius))
             .alphaDecay(0.06)
             .stop(); // Stop automatic ticking
-    
+
         // Run the simulation manually
         const numIterations = 500; // Increase iterations if necessary
         for (let i = 0; i < numIterations; ++i) {
             simulation.tick();
-        }    
+        }
         // Now the nodes have their positions after the simulation
 
         // Return the rectangles without the icon node
@@ -516,10 +516,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 x: d.x -= svgWidth / 2,
                 y: d.y -= svgHeight / 2
             };
-        }); 
+        });
     }
-    
-    
+
+
 
 
 
@@ -589,7 +589,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     window.actorDataMap = actorDataMap;
 
     document.querySelector("#who").textContent = formatedNames[who];
-    document.querySelector("#they").textContent = formatedNames[who];
 
 
     function getCategory(item, categorization) {
@@ -789,19 +788,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
             window.svgWidth = svgWidth;
             window.svgHeight = svgHeight;
 
+            let logoIconWidth;
+            let logoIconHeight;
+
             loadIconAt(logoIcon, './icons/logos/' + who + '.svg', svgWidth / 2, svgHeight / 2, 1, 1, true)
                 .then(dimensions => {
 
-                    
+
                     // drawRectAt(svgWidth / 2, svgHeight / 2, 20, 20, 'red');
 
-                    const iconWidth = dimensions.width;
-                    const iconHeight = dimensions.height;
-                    
+                    logoIconWidth = dimensions.width;
+                    logoIconHeight = dimensions.height;
+
 
                     let dataEntities = entities.filter(d => d.type === 'DATA');
 
-                    let initialPackingData = computeInitialPackingData(dataEntities, iconWidth, iconHeight);
+                    let initialPackingData = computeInitialPackingData(dataEntities, logoIconWidth, logoIconHeight);
 
                     window.initialPackingData = initialPackingData;
 
@@ -813,7 +815,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 })
                 .then(() => {
                     // Only called once all SVGs are processed and actor entities are ready
-                    addScrollEvents();
+                    addScrollEvents(logoIconWidth, logoIconHeight);
                 })
         });
 
@@ -838,8 +840,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             };
         });
 
-        const excludedCategoryName = "WeXXXX";  // Name of the category to exclude
-        const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
+        window.actorsEntities = actorsEntities;
+
+        const excludedCategoryName = formatedNames[who];  // Name of the category to exclude
+        // const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
+
+        const actorCategories = [...new Set(actorsEntities.map(d => d.category))];
 
         document.querySelector("#totalActorCategories").textContent = actorCategories.length;
 
@@ -1663,7 +1669,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-    function addScrollEvents() {
+    function addScrollEvents(logoIconWidth, logoIconHeight) {
 
         let progressColor = "gray";
 
@@ -1697,9 +1703,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Single GSAP Timeline with labels
         const mainTimeline = gsap.timeline({ paused: true });
 
+        // ***** SHOWING THE LOGO *****        
+        mainTimeline.addLabel("logo")
+            .fromTo(logoIcon.node(),
+                {
+                    opacity: 0,
+                    scale: 0,
+                    transformOrigin: '50% 50%'
+                },
+                {
+                    opacity: 1,
+                    scale: 1,
+                    transformOrigin: '50% 50%',
+                    duration: animationDuration,
+                }, "logo");
 
         // ***** INITIAL PACKING *****
-
         mainTimeline.addLabel("packing")
             .fromTo(rectData, {
                 scale: 0,
@@ -1794,6 +1813,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // ***** CATEGORIES *****
         mainTimeline.addLabel("categories")
+
+
+            .to(logoIcon.node(),
+                {
+                    opacity: 0,
+                    scale: 0,
+                    transformOrigin: '50% 50%',
+                    duration: animationDuration / 2,
+                }, "categories")
+
+
             .to(rectData, {
                 x: (index) => movedRectData[index].x,
                 y: (index) => movedRectData[index].y,
@@ -1893,9 +1923,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+
+
+
+
         // Bringing actors in
         const svgActorIcons = svg.selectAll('.actorIcon');
+
+        window.svgActorIcons = svgActorIcons;
+
         const actorNodes = svgActorIcons.nodes();
+
+        mainTimeline.to(logoIcon.node(), {
+            opacity: 1,
+            scale: 1,
+            transformOrigin: '50% 50%',
+            duration: animationDuration / 2,
+        }, "dataShared+=" + (actorNodes.length * animationDuration * 0.075))
+
 
         actorNodes.forEach((actorNode, index) => {
 
@@ -1947,6 +1992,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
         });
+
+
+
 
         // ***** ACTORS *****
 
@@ -2084,38 +2132,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                         lines = result;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
 
                         const sanitizedActorCategory = sanitizeId(actorIconCategory);
@@ -2140,10 +2156,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .each(function (d) {
 
 
-
-                                console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                                console.log(this);
-
+                                // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                                // console.log(this);
 
                                 // console.log("*********************************");
                                 // console.log("item.text");
@@ -2304,7 +2318,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const startY = 175;
         const spacing = 65;
         const actorGroupScale = 0.55;
-        const actorGroups = svg.selectAll('.actorIcon').nodes();
+        let actorGroups = svg.selectAll('.actorIcon').nodes();
 
         window.actorGroups = actorGroups;
 
@@ -2357,7 +2371,52 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log("SORTED actorGroups:");
         console.log(actorGroups);
 
+        window.actorGroups = actorGroups;
+        window.labelsOf = labelsOf;
+
+
+        actorGroups = actorGroups.filter(d => d3.select("#" + labelsOf[d.id]).text() !== formatedNames[who]);
+
+
+        // drawRectAt(rightAlignX, 100, 10, 10, 'red')
+
+
+        // Dealing with the main logo
+        const logoIconScale = 0.55;
+        mainTimeline.to(logoIcon.node(), {
+            x: rightAlignX + 10,
+            y: startY - logoIconScale * logoIconHeight / 2 + 25,
+            scale: logoIconScale,
+            transformOrigin: '0% 50%',
+            duration: animationDuration,
+            ease: "power1.inOut"
+        }, "actorsColumn");
+
+        const actorType = removeSpaces(formatedNames[who].toUpperCase());
+
+        const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, rightAlignX, startY);
+
+        rectsOfLogo.forEach((rect, rectIndex) => {
+            mainTimeline.fromTo(`#${rect.id}`, {
+                x: svgWidth * 1.25,
+                y: getRandomBetween(-100, svgHeight + 100),
+            }, {
+                x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
+                y: startY + targetSize / 2,
+                opacity: 1,
+                rx: 0,
+                ry: 0,
+                duration: animationDuration,
+                ease: "power1.inOut",
+            }, `actorsColumn+=${rectIndex * 0.01}`);
+        });
+
+
+
+
         actorGroups.forEach((actorGroup, index) => {
+
+            index++;
 
             const labelID = labelsOf[actorGroup.id];
             const actorLabelElement = d3.select("#" + labelID);
@@ -2401,7 +2460,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ease: "power1.inOut",
             }, "actorsColumn");
 
-            actorType = removeSpaces(actorLabelText.toUpperCase());
+            const actorType = removeSpaces(actorLabelText.toUpperCase());
 
             console.log("--- actorIconCategory: " + actorType);
 
@@ -2431,7 +2490,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 currentClones++;
 
-                console.log("+++++++++ " + currentClones);
+                // console.log("+++++++++ " + currentClones);
 
                 mainTimeline.fromTo(`#${rect.id}`, {
                     x: svgWidth * 1.25,
@@ -2454,11 +2513,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (currentClones == totalClones) {
 
-            console.log("*** currentClones:");
-            console.log(currentClones);
+            // console.log("*** currentClones:");
+            // console.log(currentClones);
 
-            console.log("totalClones:");
-            console.log(totalClones);
+            // console.log("totalClones:");
+            // console.log(totalClones);
 
             const maxDelay = 1.5 * animationDuration + 2 * (totalClones - 1) * 0.01;
 
@@ -2883,7 +2942,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         setupTextScrollTriggers();
 
         function onExplanationEnter(element, index) {
-            if (element.id === "divPiecesOfData") {
+            if (element.id === "they") {
+                mainTimeline.tweenFromTo("logo", "packing");
+            } else if (element.id === "divPiecesOfData") {
                 mainTimeline.play("packing");
             } else if (element.id === "divTotalCategories") {
                 mainTimeline.tweenFromTo("categories", "dataShared");
@@ -2895,7 +2956,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
         function onExplanationLeave(element, index) {
-            if (element.id === "divPiecesOfData") {
+            if (element.id === "they") {
+                mainTimeline.tweenFromTo("packing", "logo");
+            } else if (element.id === "divPiecesOfData") {
                 mainTimeline.tweenFromTo("categories", "packing");
             } else if (element.id === "divTotalCategories") {
                 mainTimeline.tweenFromTo("dataShared", "categories");
