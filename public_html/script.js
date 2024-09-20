@@ -439,69 +439,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
-    function computeInitialPackingData2(dataEntities, centerIconWidth, centerIconHeight) {
-        // Define a scale for the rectangle sizes based on IncomingConnections
-        const maxConnections = d3.max(dataEntities, d => d.Indegree);
-        const sizeScaleMultiplier = 22;
-        const padding = 2; // Adjust padding as needed
-        const sizeScale = d3.scaleSqrt()
-            .domain([1, maxConnections])
-            .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
-
-        // Define the icon node with fixed position
-        const iconNode = {
-            id: 'centerIcon',
-            width: centerIconWidth + 20,
-            height: centerIconHeight + 20,
-            x: svgWidth / 2,  // Center position
-            y: svgHeight / 2,
-            r: Math.max(centerIconWidth, centerIconHeight) / 2 + (maxConnections * sizeScaleMultiplier) / 2,
-            fx: svgWidth / 2, // Fix x-position
-            fy: svgHeight / 2, // Fix y-position
-            isIcon: true // Flag to identify the icon node
-        };
-
-        // Prepare the elements to pack
-        let elementsToPack = dataEntities.map(d => ({
-            id: "" + d.id,
-            width: sizeScale(d.Indegree) + padding,
-            height: sizeScale(d.Indegree) + padding,
-            r: sizeScale(d.Indegree) / 2 + padding,
-            fill: '#cbcbcb',
-            originalFill: '#cbcbcb',
-            name: d.name,
-            category: d.category,
-            x: Math.random() * svgWidth, // Start at random positions
-            y: Math.random() * svgHeight,
-            isIcon: false // Flag to identify regular nodes
-        }));
-
-        // Combine the icon node and rectangle nodes
-        let nodes = [iconNode, ...elementsToPack];
-
-        // Create the simulation but prevent it from running automatically
-        let simulation = d3.forceSimulation(nodes)
-            .force('center', d3.forceCenter(0, 0))
-            .force('x', d3.forceX(svgWidth / 2).strength(0.05))
-            .force('y', d3.forceY(svgHeight / 2).strength(0.025))
-            // Add collision force using the built-in forceCollide
-            .force('collision', d3.forceCollide().radius(d => d.r + padding))
-            .alphaDecay(0.06)
-            .stop(); // Stop automatic ticking
-
-        // Run the simulation manually
-        const numIterations = 100; // Adjust as needed
-        for (let i = 0; i < numIterations; ++i) {
-            simulation.tick();
-        }
-
-        // Now the nodes have their positions after the simulation
-        return nodes.filter(d => !d.isIcon); // Return the rectangles without the icon node
-    }
-
-
-
     function computeInitialPackingData(dataEntities, centerIconWidth, centerIconHeight) {
         // Define a scale for the rectangle sizes based on IncomingConnections
         const maxConnections = d3.max(dataEntities, d => d.Indegree);
@@ -515,9 +452,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Calculate half-diagonal for the iconNode
         const iconWidthWithPadding = centerIconWidth + 20;
         const iconHeightWithPadding = centerIconHeight + 20;
-        const iconHalfDiagonal = Math.sqrt(
-            Math.pow(iconWidthWithPadding / 2, 2) + Math.pow(iconHeightWithPadding / 2, 2)
-        );
+        const iconR = maxConnections * sizeScaleMultiplier;
     
         // Define the icon node with fixed position
         const iconNode = {
@@ -526,8 +461,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             height: iconHeightWithPadding,
             x: svgWidth / 2,  // Center position
             y: svgHeight / 2,
-            r: iconHalfDiagonal, // Use half-diagonal as radius
-            collisionRadius: iconHalfDiagonal + extraPadding, // Set larger collision radius
+            r: iconR,
+            collisionRadius: iconR + extraPadding, // Set larger collision radius
             fx: svgWidth / 2, // Fix x-position
             fy: svgHeight / 2, // Fix y-position
             isIcon: true // Flag to identify the icon node
@@ -537,23 +472,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let elementsToPack = dataEntities.map(d => {
             const nodeWidth = sizeScale(d.Indegree) + padding;
             const nodeHeight = sizeScale(d.Indegree) + padding;
-            // const nodeHalfDiagonal = Math.sqrt(
-            //     Math.pow(nodeWidth / 2, 2) + Math.pow(nodeHeight / 2, 2)
-            // );
-
-            const nodeHalfDiagonal = sizeScale(d.Indegree) / 2 + padding*2;
-
-            
-    
+            const nodeR = sizeScale(d.Indegree) / 2 + padding;
             return {
                 id: "" + d.id,
                 width: nodeWidth,
-                height: nodeHeight,
-                
-                
-                r: nodeHalfDiagonal, // Use half-diagonal as radius
-                collisionRadius: nodeHalfDiagonal + padding, // collision radius
-
+                height: nodeHeight,                                
+                r: nodeR, // Use half-diagonal as radius
+                collisionRadius: nodeR + padding, // collision radius
                 fill: '#cbcbcb',
                 originalFill: '#cbcbcb',
                 name: d.name,
@@ -578,7 +503,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .stop(); // Stop automatic ticking
     
         // Run the simulation manually
-        const numIterations = 300; // Increase iterations if necessary
+        const numIterations = 500; // Increase iterations if necessary
         for (let i = 0; i < numIterations; ++i) {
             simulation.tick();
         }    
@@ -868,7 +793,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 .then(dimensions => {
 
                     
-                    drawRectAt(svgWidth / 2, svgHeight / 2, 20, 20, 'red');
+                    // drawRectAt(svgWidth / 2, svgHeight / 2, 20, 20, 'red');
 
                     const iconWidth = dimensions.width;
                     const iconHeight = dimensions.height;
