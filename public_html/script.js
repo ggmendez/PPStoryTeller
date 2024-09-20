@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Extract the value of "who" from the URL
     let who = getQueryParam('who');
-    if (!who) who = "tiktok";
+    if (!who || !formatedNames[who]) who = "tiktok";
     document.title = formatedNames[who] + "'s PP";
 
 
@@ -843,9 +843,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         window.actorsEntities = actorsEntities;
 
         const excludedCategoryName = formatedNames[who];  // Name of the category to exclude
-        // const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
+        const actorCategories = [...new Set(actorsEntities.filter(d => d.category !== excludedCategoryName).map(d => d.category))];
 
-        const actorCategories = [...new Set(actorsEntities.map(d => d.category))];
+        // const actorCategories = [...new Set(actorsEntities.map(d => d.category))];
 
         document.querySelector("#totalActorCategories").textContent = actorCategories.length;
 
@@ -854,6 +854,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Shuffle the categories randomly
         const shuffledCategories = actorCategories.sort(() => 0.5 - Math.random());
+
+
 
         let svgPromises = shuffledCategories.map((category, index) => {  // Use map instead of forEach to return an array of promises
 
@@ -1365,7 +1367,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .append('g')
             .attr('class', 'category-label')
             .attr('opacity', 0)
-            // .attr('id', d => generateUniqueId('categoryGroup'));
             .attr('id', d => sanitizeId(removeSpaces(d.toUpperCase()))); // here i need an ID for the category, it should be the same id used in the tect 
 
 
@@ -1808,9 +1809,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const point2 = { x: svgWidth - deltaX, y: deltaY };
         const splitRectData = getPackedDataForSplitRects(point1, point2, svgHeight - (2 * deltaY), targetSize);
 
-        let initial = rectData[0].x;
-        let final = movedRectData[0].x;
-
         // ***** CATEGORIES *****
         mainTimeline.addLabel("categories")
 
@@ -1836,6 +1834,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     drawRectsAndLabels(rectData);
                 }
             }, "categories");
+
 
 
 
@@ -1877,7 +1876,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             duration: animationDuration,
             opacity: 0,
             ease: "back.out(1.25)",
-            stagger: { amount: 0.1 }  // Stagger if needed for visual effect
+            stagger: { amount: 0.1 }
         }, "dataShared");
 
         // Extract nodes and sort them alphabetically by the text content
@@ -1928,7 +1927,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // Bringing actors in
-        const svgActorIcons = svg.selectAll('.actorIcon');
+        
+
+        const svgActorIcons = svg.selectAll('.actorIcon').filter(function () {
+            return d3.select("#" + labelsOf[d3.select(this).node().id]).text() !== formatedNames[who]
+        });
+
 
         window.svgActorIcons = svgActorIcons;
 
@@ -1940,6 +1944,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             transformOrigin: '50% 50%',
             duration: animationDuration / 2,
         }, "dataShared+=" + (actorNodes.length * animationDuration * 0.075))
+
+
+        
+
 
 
         actorNodes.forEach((actorNode, index) => {
@@ -1967,9 +1975,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
 
         });
+       
 
-        const svgActorIconLabels = svg.selectAll('.actorCategoryName');
+        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function() {
+            return d3.select(this).text() != formatedNames[who];
+        });
+
+        window.svgActorIconLabels = svgActorIconLabels;                
+
         const actorLabelNodes = svgActorIconLabels.nodes();
+
         actorLabelNodes.forEach((actorLabelNode, index) => {
             mainTimeline.fromTo(actorLabelNode, {
                 opacity: 0,
@@ -2318,7 +2333,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const startY = 175;
         const spacing = 65;
         const actorGroupScale = 0.55;
-        let actorGroups = svg.selectAll('.actorIcon').nodes();
+
+                
+        let actorGroups = svgActorIcons.nodes();
+
 
         window.actorGroups = actorGroups;
 
