@@ -965,8 +965,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             };
         });
 
-        console.log("dataEntities:");
-        console.log(dataEntities);
+        // console.log("dataEntities:");
+        // console.log(dataEntities);
 
         document.querySelector("#piecesOfData").textContent = dataEntities.length;
 
@@ -1111,20 +1111,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        console.log("smallestBottomRightRect:");
-        console.log(smallestBottomRightRect);
+        // console.log("smallestBottomRightRect:");
+        // console.log(smallestBottomRightRect);
 
-        console.log("largestTopLeftRect:");
-        console.log(largestTopLeftRect);
+        // console.log("largestTopLeftRect:");
+        // console.log(largestTopLeftRect);
 
-        console.log("otherRects:");
-        console.log(otherRects);
+        // console.log("otherRects:");
+        // console.log(otherRects);
 
-        console.log("otherRectsIDs:");
-        console.log(otherRectsIDs);
+        // console.log("otherRectsIDs:");
+        // console.log(otherRectsIDs);
 
-        console.log("otherLabelsIDs:");
-        console.log(otherLabelsIDs);
+        // console.log("otherLabelsIDs:");
+        // console.log(otherLabelsIDs);
 
 
 
@@ -1234,31 +1234,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             categoryStartPositions[this.id] = { x: centerX, y: centerY };
         });
 
-
-
-
-
         window.addEventListener('resize', resizeSVG);
         resizeSVG();  // Initial resize to set SVG size
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1779,8 +1758,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // ***** CATEGORIES *****
         mainTimeline.addLabel("categories")
-
-
             .to(logoIcon.node(),
                 {
                     opacity: 0,
@@ -1788,8 +1765,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     transformOrigin: '50% 50%',
                     duration: animationDuration / 2,
                 }, "categories")
-
-
             .to(rectData, {
                 x: (index) => movedRectData[index].x,
                 y: (index) => movedRectData[index].y,
@@ -1802,8 +1777,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     drawRectsAndLabels(rectData);
                 }
             }, "categories");
-
-
 
 
         svgCategoryGroups.nodes().forEach((svgCategoryGroup, index) => {
@@ -1827,25 +1800,72 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // ***** DATA SHARED *****
+
+
+        let logoBBox = logoIcon.node().getBBox();
+
+        const d = 15;
+        const p = 10;
+
+        const centerX = svgWidth / 2;
+        const centerY = svgHeight / 2;
+        const x1 = centerX - logoIconWidth / 2 - p;  // Left edge (minimum x)
+        const x2 = centerX + logoIconWidth / 2 + p;  // Right edge (maximum x)
+        const y1 = centerY - logoIconHeight / 2 - p; // Top edge (minimum y)
+        const y2 = centerY + logoIconHeight / 2 + p; // Bottom edge (maximum y)
+
+        const rectangle = [
+            { x: x1, y: y1 }, // Top-left corner
+            { x: x2, y: y1 }, // Top-right corner
+            { x: x2, y: y2 }, // Bottom-right corner
+            { x: x1, y: y2 }  // Bottom-left corner
+        ];
+
+
+        let points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 5, 5, rectData.length, 15, 15);
+
+        // console.log("points:");
+        // console.log(points);
+
+        // disappearing the packed circles
         mainTimeline.addLabel("dataShared")
             .to(rectData, {
-                width: 0,
-                height: 0,
-                opacity: 0,
+                width: 10,
+                height: 10,
+                // rx: 0,
+                // ry: 0,                
+                x: (index) => points[index].x,
+                y: (index) => points[index].y,
                 duration: animationDuration,
                 ease: "back.out(1.25)",
                 stagger: { amount: animationDuration / 3 },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
+            }, "dataShared")
+
+            .to(rectData, {
+                rx: 0,
+                ry: 0,                               
+                duration: animationDuration,
+                stagger: { amount: animationDuration / 3 },
+                onUpdate: () => {
+                    drawRectsAndLabels(rectData);
+                }
+            }, "dataShared+=" + (animationDuration + animationDuration/3))
+
+
+
+
+            .to(svgCategoryGroups.nodes(), {
+                duration: animationDuration,
+                opacity: 0,
+                ease: "back.out(1.25)",
+                stagger: { amount: 0.1 }
             }, "dataShared");
 
-        mainTimeline.to(svgCategoryGroups.nodes(), {
-            duration: animationDuration,
-            opacity: 0,
-            ease: "back.out(1.25)",
-            stagger: { amount: 0.1 }
-        }, "dataShared");
+
+
 
         // Extract nodes and sort them alphabetically by the text content
         const sortedCategoryGroupNodes = svgCategoryGroups.nodes().sort((a, b) => {
@@ -1870,8 +1890,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             categoryTargetPositions[node.id] = { x: x, y: y - 20 };
         });
 
-        console.log("categorTargetPositions");
-        console.log(categoryTargetPositions);
+        // console.log("categorTargetPositions");
+        // console.log(categoryTargetPositions);
 
         // Vertical spacing between labels
         const verticalSpacing = 5;  // You can adjust this value as needed
@@ -1912,6 +1932,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             transformOrigin: '50% 50%',
             duration: animationDuration / 2,
         }, "dataShared+=" + (actorNodes.length * animationDuration * 0.075))
+
+
+
+
+
+
+
+
+
+
+        /*********/
+
+
+
+        /*********/
+
+
+
 
 
 
