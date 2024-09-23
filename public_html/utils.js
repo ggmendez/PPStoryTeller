@@ -13,3 +13,8 @@ function escapeRegExp(string) {
     // Replace all occurrences of subStr with an empty string
     return mainStr.replace(regex, '');
   }
+
+  function capitalizeFirstLetter(str) {
+    if (!str) return str; // Return if string is empty or null
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}

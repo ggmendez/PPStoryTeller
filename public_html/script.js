@@ -103,8 +103,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             const cleanHTML = html.replace(/&nbsp;/g, " ").replace(/[“”]/g, '"');
 
-            console.log("cleanHTML:");
-            console.log(cleanHTML);
+            // console.log("cleanHTML:");
+            // console.log(cleanHTML);
 
             const doc = parser.parseFromString(cleanHTML, 'text/html');
 
@@ -647,8 +647,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             });
 
-            console.log("combinedNodes");
-            console.log(combinedNodes);
+            // console.log("combinedNodes");
+            // console.log(combinedNodes);
 
             const nodes = Array.from(xmlDoc.querySelectorAll('node'))
                 .filter(node => combinedNodes.has(node.getAttribute('id')))
@@ -657,16 +657,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     label: node.getAttribute('id') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.getAttribute('id'),
                     category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),
                     type: node.querySelector('data[key="d1"]')?.textContent,
-                    name: node.querySelector('data[key="d0"]')?.textContent === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.querySelector('data[key="d0"]')?.textContent,
+
+                    name: capitalizeFirstLetter(node.querySelector('data[key="d0"]')?.textContent === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.querySelector('data[key="d0"]')?.textContent),
+
+
+
+
+
                     Indegree: 0,  // Initialize Indegree as 0, will be computed later
                 }));
 
-            console.log("nodes");
-            console.log(nodes);
+            // console.log("nodes");
+            // console.log(nodes);
 
             entities = nodes;
 
-            console.log("Actor entities processed (and XML files loaded)");
+            // console.log("Actor entities processed (and XML files loaded)");
 
 
             // Load and process edges from GraphML
@@ -688,12 +694,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
 
 
-            console.log("Updated nodes with Indegree");
-            console.log(entities);
+            // console.log("Updated nodes with Indegree");
+            // console.log(entities);
 
 
-            console.log("edges:");
-            console.log(edges);
+            // console.log("edges:");
+            // console.log(edges);
 
 
             edges.forEach(edge => {
@@ -1397,21 +1403,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             categoryStartPositions[this.id] = { x: centerX, y: centerY };
         });
 
-        // console.log("$$$ categoryStartPositions:");
-        // console.log(categoryStartPositions);
 
-        // Update tooltip content on mouseover after animation
-        svgRects
-            .on("mouseover", function (event, d) {
-                const text = d.name.charAt(0).toUpperCase() + d.name.slice(1);
-                tooltip.style("visibility", "visible").html("<b>" + text + "</b><br/>" + d.category);
-            })
-            .on("mousemove", function (event) {
-                tooltip.style("top", (event.pageY - 10) + "px").style("left", (event.pageX + 10) + "px");
-            })
-            .on("mouseout", function () {
-                tooltip.style("visibility", "hidden");
-            });
+
+
 
         window.addEventListener('resize', resizeSVG);
         resizeSVG();  // Initial resize to set SVG size
@@ -1441,6 +1435,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function drawRectsAndLabels(rectData) {
 
+        // Create a map to store rectangles by their IDs
+        const rectMap = {};
+    
         const rects = svg.selectAll('.dataRect')
             .data(rectData, d => d.id)
             .join(
@@ -1456,8 +1453,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('ry', d.ry || 0)
                             .attr('fill', d.fill || 'transparent')
                             .attr('stroke', darkenColor(d.fill || '#000'))
-                            // .attr('opacity', d.opacity || 1);
-                            .attr('opacity', 1);
+                            .attr('opacity', d.opacity || 1);
+                        // Store the rectangle DOM node in the map
+                        rectMap[d.id] = this;
                     }),
                 update => update
                     .each(function (d) {
@@ -1470,12 +1468,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('ry', d.ry || 0)
                             .attr('fill', d.fill || 'transparent')
                             .attr('stroke', darkenColor(d.fill || '#000'))
-                            // .attr('opacity', d.opacity || 1);
-                            .attr('opacity', 1);
+                            .attr('opacity', d.opacity || 1);
+                        // Update the rectangle DOM node in the map
+                        rectMap[d.id] = this;
                     }),
                 exit => exit.remove()
             );
-
+    
+        // **Destroy existing Tippy.js instances on all rectangles**
+        rects.each(function () {
+            if (this._tippy) {
+                this._tippy.destroy();
+            }
+        });
+    
+        // Array to keep track of rectangles without labels
+        const rectsWithoutLabels = [];
+    
         const texts = svg.selectAll('.rectLabel')
             .data(rectData, d => d.id)
             .join(
@@ -1489,27 +1498,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const text = d3.select(this);
                 const rectWidth = d.width;
                 const rectHeight = d.height;
-
+    
                 // Set initial fontSize proportional to rectangle size
                 const initialFontSize = rectHeight * 0.5; // Adjust multiplier as needed
                 const maxFontSize = 18; // Maximum font size cap
                 const minFontSize = 12;  // Minimum readable font size
-
+    
                 let fontSize = Math.min(initialFontSize, maxFontSize);
-
+    
                 let fits = false;
                 let lines = [];
-
+    
                 // Adjust font size until text fits or font size is below minimum
                 while (fontSize >= minFontSize && !fits) {
-
+    
                     // Split text into lines that fit within the rectangle's width
                     lines = splitTextToFit(d.name, rectWidth * 0.9, fontSize);
-
+    
                     // Calculate total text height
                     let lineHeight = fontSize * 1.2; // Line height multiplier
                     let totalTextHeight = lines.length * lineHeight;
-
+    
                     // Check if text fits within rectangle dimensions
                     if (totalTextHeight <= rectHeight * 0.9) {
                         // Check if each line fits within rectangle width
@@ -1525,10 +1534,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         fontSize -= 1;
                     }
                 }
-
+    
                 if (fontSize < minFontSize || !fits) {
                     // Hide text if it's too small or doesn't fit
                     text.style('display', 'none');
+                    rectsWithoutLabels.push(rectMap[d.id]);
                 } else {
                     // Truncate lines with ellipsis if necessary
                     lines = lines.map(line => {
@@ -1537,26 +1547,25 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         }
                         return line;
                     });
-
+    
                     // Display text
                     text.style('display', null)
                         .attr('x', d.x)
                         .attr('y', d.y)
                         .attr('text-anchor', 'middle')
                         .attr('dominant-baseline', 'middle')
-                        // .attr('opacity', d.opacity || 1)
-                        .attr('opacity', 1)
+                        .attr('opacity', d.opacity || 1)
                         .style('font-size', `${fontSize}px`)
                         .style('line-height', '1')
                         .text('');
-
+    
                     text.selectAll('tspan').remove();
-
+    
                     // Vertically center the text block
                     let lineHeight = fontSize * 1.2;
                     let totalTextHeight = lines.length * lineHeight;
                     let startDy = -((totalTextHeight - lineHeight) / 2);
-
+    
                     lines.forEach((line, i) => {
                         text.append('tspan')
                             .attr('x', d.x)
@@ -1565,7 +1574,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     });
                 }
             });
+    
+        console.log("rectsWithoutLabels: " + rectsWithoutLabels.length);
+    
+        // **Add Tippy.js tooltips to rectangles without labels**
+        rectsWithoutLabels.forEach(function (rectNode) {
+            const d = d3.select(rectNode).datum();
+            const content = `<b>${capitalizeFirstLetter(d.name)}</b>`;
+    
+            tippy(rectNode, {
+                content: content,
+                allowHTML: true,
+                placement: 'top',
+                theme: 'light-border',
+                animation: 'scale',
+                duration: [200, 200],
+                delay: [0, 0],
+                interactive: false
+            });
+        });
     }
+    
+
+
+
 
     // Helper function to split text into lines that fit within maxWidth
     function splitTextToFit(text, maxWidth, fontSize) {
@@ -1927,7 +1959,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // Bringing actors in
-        
+
 
         const svgActorIcons = svg.selectAll('.actorIcon').filter(function () {
             return d3.select("#" + labelsOf[d3.select(this).node().id]).text() !== formatedNames[who]
@@ -1946,7 +1978,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }, "dataShared+=" + (actorNodes.length * animationDuration * 0.075))
 
 
-        
+
 
 
 
@@ -1975,13 +2007,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
 
         });
-       
 
-        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function() {
+
+        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function () {
             return d3.select(this).text() != formatedNames[who];
         });
 
-        window.svgActorIconLabels = svgActorIconLabels;                
+        window.svgActorIconLabels = svgActorIconLabels;
 
         const actorLabelNodes = svgActorIconLabels.nodes();
 
@@ -2049,13 +2081,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
                 items.forEach((item, innerIndex) => {
-                    const dataRect = splitRectData.find(d => d.name === item.name);
+                    const dataRect = splitRectData.find(d => capitalizeFirstLetter(d.name) === capitalizeFirstLetter(item.name));
                     if (dataRect) {
                         const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
                         const dataRectCopy = {
                             ...dataRect,
                             id: uniqueId,
-                            name: item.name,
+                            name: capitalizeFirstLetter(item.name),
                             tooltipText: item.text
                         };
 
@@ -2085,15 +2117,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                        console.log("item.text:");
-                        console.log(item.text);
-                        window.text = item.text;
-
-
-
-                        console.log("lines:");
-                        console.log(lines);
-                        window.lines = lines;
+                        // console.log("item.text:");
+                        // console.log(item.text);
+                        // window.text = item.text;
+                        // console.log("lines:");
+                        // console.log(lines);
+                        // window.lines = lines;
 
 
 
@@ -2139,15 +2168,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         }
 
                         // Output the results
-                        console.log("Results of concatenations:");
-                        console.log(result);
+                        // console.log("Results of concatenations:");
+                        // console.log(result);
 
                         window.result = result;
 
 
                         lines = result;
 
-                        const itemName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+                        const itemName = capitalizeFirstLetter(item.name);
 
                         const sanitizedActorCategory = sanitizeId(actorIconCategory);
                         const sanitizedDataCategory = sanitizeId(dataCategory);
@@ -2183,10 +2212,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // console.log(processString(item.text));
 
 
-                                const inheritances = dataInheritances[item.name];
+                                const inheritances = dataInheritances[itemName];
 
-                                console.log("inheritances for " + item.name);
-                                console.log(inheritances);
+                                // console.log("inheritances for " + itemName);
+                                // console.log(inheritances);
 
                                 let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor, inheritances);
 
@@ -2334,7 +2363,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const spacing = 65;
         const actorGroupScale = 0.55;
 
-                
+
         let actorGroups = svgActorIcons.nodes();
 
 
