@@ -1,4 +1,5 @@
 let UNSPECIFIED_DATA_RENAME = "unspecified data";
+let UNSPECIFIED_ACTOR_RENAME = "unspecified actor";
 const categories = {};
 
 categories.tiktok = {

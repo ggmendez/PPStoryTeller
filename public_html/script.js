@@ -657,13 +657,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     label: node.getAttribute('id') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.getAttribute('id'),
                     category: node.querySelector('data[key="d1"]')?.textContent === 'ACTOR' ? getCategory(node.getAttribute('id'), categories[who].actorCategories) : getCategory(node.getAttribute('id'), categories[who].dataCategories),
                     type: node.querySelector('data[key="d1"]')?.textContent,
-
                     name: capitalizeFirstLetter(node.querySelector('data[key="d0"]')?.textContent === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : node.querySelector('data[key="d0"]')?.textContent),
-
-
-
-
-
                     Indegree: 0,  // Initialize Indegree as 0, will be computed later
                 }));
 
@@ -673,7 +667,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             entities = nodes;
 
             // console.log("Actor entities processed (and XML files loaded)");
-
 
             // Load and process edges from GraphML
             const edges = Array.from(xmlDoc.querySelectorAll('edge'))
@@ -693,11 +686,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             });
 
-
             // console.log("Updated nodes with Indegree");
             // console.log(entities);
-
-
             // console.log("edges:");
             // console.log(edges);
 
@@ -744,12 +734,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 });
             });
 
-
-
-
-
-
-
             const subsums = Array.from(xmlDoc.querySelectorAll('edge'))
                 .filter(edge => edge.querySelector('data[key="d2"]')?.textContent === 'SUBSUM')
                 .map(edge => ({
@@ -760,28 +744,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
             subsums.forEach(subsum => {
-
                 const parentData = subsum.source;
                 const childData = subsum.target;
-
                 if (!dataInheritances[parentData]) {
                     dataInheritances[parentData] = new Array();
                 }
-
                 dataInheritances[parentData].push(childData);
-
             });
 
-
-            console.log("***************** dataInheritances *****************");
-            console.log(dataInheritances);
-
-
-
-            console.log("***************** actorDataMap *****************");
-            console.log(actorDataMap);
-
-
+            // console.log("***************** dataInheritances *****************");
+            // console.log(dataInheritances);
+            // console.log("***************** actorDataMap *****************");
+            // console.log(actorDataMap);
 
         })
 
@@ -800,7 +774,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             loadIconAt(logoIcon, './icons/logos/' + who + '.svg', svgWidth / 2, svgHeight / 2, 1, 1, true)
                 .then(dimensions => {
 
-
                     // drawRectAt(svgWidth / 2, svgHeight / 2, 20, 20, 'red');
 
                     logoIconWidth = dimensions.width;
@@ -811,7 +784,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     let initialPackingData = computeInitialPackingData(dataEntities, logoIconWidth, logoIconHeight);
 
-                    window.initialPackingData = initialPackingData;
+                    // window.initialPackingData = initialPackingData;
 
                     return initialPackingData;
 
@@ -893,8 +866,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const iconWidth = bbox.width;
                 const iconHeight = bbox.height;
 
-                console.log("iconWidth: " + iconWidth);
-                console.log("iconHeight: " + iconHeight);
+                // console.log("iconWidth: " + iconWidth);
+                // console.log("iconHeight: " + iconHeight);
 
                 tempG.remove();
 
@@ -906,95 +879,80 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     originY: iconHeight / 2
                 };
 
-
                 iconElement.append(() => importedNode);
 
                 iconElement
                     .style('transform-origin', `${iconWidth / 2}px ${iconHeight / 2}px`)
                     .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${actorIconScale})`);
 
-
-                // Define a GSAP timeline for the animations
-                let timeline = gsap.timeline({ paused: true });
-
-                iconElement.on('mouseover', function (event) {
-                    d3.select('#' + labelsOf[actorID]).style('font-weight', 'bolder');
-                });
-                iconElement.on('mouseout', function (event) {
-                    d3.select('#' + labelsOf[actorID]).style('font-weight', 'normal');
-                });
-
                 const cleanCategory = removeSpaces(category.toUpperCase());
                 const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
                 const numberOfActors = actorNames.length;
 
+
+
+                let allActors = "<ul>";
+                actorNames.forEach((name, index) => {
+                    if (name === 'UNSPECIFIED_ACTOR') {
+                        allActors += `<li style="padding-right: 20px;">${capitalizeFirstLetter(UNSPECIFIED_ACTOR_RENAME)}</li>`;
+                    } else {
+                        allActors += `<li style="padding-right: 20px;">${capitalizeFirstLetter(name)}</li>`;
+                    }
+
+                });
+                allActors += "</ul>";
+
+                // Define the content of the tooltip                    
+                const tooltipContent = `Including:<br/>${allActors}`;
+
+                // Initialize Tippy.js on the iconElement
+                const tooltipInstance = tippy(iconElement.node(), {
+                    content: tooltipContent,
+                    allowHTML: true,
+                    placement: 'top', // Use the computed placement
+                    theme: 'light-border',
+                    animation: 'scale',
+                    duration: [200, 200],
+                    delay: [0, 0],
+                    interactive: false,
+                    trigger: 'manual' // We'll control show/hide manually
+                });
+
+                iconElement.on('mouseover', function (event) {
+                    d3.select('#' + labelsOf[actorID]).style('font-weight', 'bolder');
+                    tooltipInstance.show();
+                });
+
+                iconElement.on('mouseout', function (event) {
+                    d3.select('#' + labelsOf[actorID]).style('font-weight', 'normal');
+                    tooltipInstance.hide();
+                });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 iconElement.attr('data-numberOfActors', numberOfActors);
 
-                // Add event listener to the actor icons
-                iconElement.on('click', function (event) {
-
-                    // Clear existing content
-                    centerText.selectAll('tspan').remove();
-
-                    // Add the category name part with bold style
-                    centerText.append('tspan')
-                        .attr('x', svgWidth / 2)
-                        .attr('dy', '0em')
-                        .style('font-weight', 'bold')
-                        .text(category + ':\n'); // category
-
-                    // Create a spacing after the category
-                    centerText.append('tspan')
-                        .attr('x', svgWidth / 2)
-                        .attr('dy', '1em') // Move down one line height from the last line
-                        .text('\u00A0'); // Non-breaking space as content for spacing
-
-                    // Add each actor name as a new line
-                    actorNames.forEach((name, index) => {
-                        centerText.append('tspan')
-                            .attr('x', svgWidth / 2)
-                            .attr('dy', '1.2em')
-                            .style('font-weight', 'normal')
-                            .text(`${index + 1}. ${name.charAt(0).toUpperCase() + name.slice(1)}`);
-                    });
 
 
-                    // Reset the disappearance timer
-                    gsap.killTweensOf(centerText.node());
 
-                    // Clear the previous timeline animations
-                    timeline.clear();
 
-                    // Animate the text appearance with GSAP
-                    timeline.fromTo(centerText.node(),
-                        {
-                            opacity: 0,
-                            y: "+=25",
-                            transformOrigin: '50% 50%'
-                        },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: animationDuration,
-                            ease: 'back.out(1.7)'
-                        }
-                    );
-
-                    gsap.fromTo(centerText.node(),
-                        {
-                            transformOrigin: '50% 50%',
-                        },
-                        {
-                            opacity: 0,
-                            duration: animationDuration,
-                            ease: 'back.in(1.7)',
-                            delay: 3
-                        }
-                    );
-
-                    // Play the timeline
-                    timeline.play();
-                });
 
 
 
@@ -1208,13 +1166,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
-
         // we need to find the biggest and smallest rect
 
         console.log("packedRectData:");
         console.log(packedRectData);
-
 
         const largestTopLeftRect = getLargestTopLeftRect(packedRectData);
 
@@ -1222,8 +1177,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const otherRects = packedRectData.filter(rect => rect !== largestTopLeftRect && rect !== smallestBottomRightRect);
 
-        otherRectsIDs = otherRects.map(d => "dataRect_" + d.id);
-        otherLabelsIDs = otherRects.map(d => "rectLabel_" + d.id);
+        otherRectsIDs = otherRects.map(d => "dataRect_" + makeID(d.id));
+        otherLabelsIDs = otherRects.map(d => "rectLabel_" + makeID(d.id));
 
         console.log("smallestBottomRightRect:");
         console.log(smallestBottomRightRect);
@@ -1350,11 +1305,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Create initial SVG rects
         svgRects = svg.selectAll('.dataRect')
-            .data(rectData, d => "dataRect_" + d.id)
+            .data(rectData, d => "dataRect_" + makeID(d.id))
             .enter()
             .append('rect')
             .attr('class', 'dataRect')
-            .attr('id', d => "dataRect_" + d.id)
+            .attr('id', d => "dataRect_" + makeID(d.id))
             .attr('x', d => d.x - (d.width / 2))
             .attr('y', d => d.y - (d.height / 2))
             .attr('width', d => Math.max(d.width, 0))
@@ -1373,7 +1328,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .append('g')
             .attr('class', 'category-label')
             .attr('opacity', 0)
-            .attr('id', d => sanitizeId(removeSpaces(d.toUpperCase()))); // here i need an ID for the category, it should be the same id used in the tect 
+            .attr('id', d => makeID(d)); // here i need an ID for the category, it should be the same id used in the tect 
 
 
         const categoryRectSize = targetSize;
@@ -1437,7 +1392,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const rectMap = {};
 
         const rects = svg.selectAll('.dataRect')
-            .data(rectData, d => d.id)
+            // .data(rectData, d => d.id)
+            .data(rectData, d => makeID(d.id))
             .join(
                 enter => enter.append('rect')
                     .attr('class', 'dataRect')
@@ -1453,7 +1409,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke', darkenColor(d.fill || '#000'))
                             .attr('opacity', d.opacity || 1);
                         // Store the rectangle DOM node in the map
-                        rectMap[d.id] = this;
+                        rectMap[makeID(d.id)] = this;
                     }),
                 update => update
                     .each(function (d) {
@@ -1468,7 +1424,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke', darkenColor(d.fill || '#000'))
                             .attr('opacity', d.opacity || 1);
                         // Update the rectangle DOM node in the map
-                        rectMap[d.id] = this;
+                        rectMap[makeID(d.id)] = this;
                     }),
                 exit => exit.remove()
             );
@@ -1484,11 +1440,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const rectsWithoutLabels = [];
 
         const texts = svg.selectAll('.rectLabel')
-            .data(rectData, d => d.id)
+            .data(rectData, d => makeID(d.id))
             .join(
                 enter => enter.append('text')
                     .attr('class', 'rectLabel')
-                    .attr('id', d => "rectLabel_" + d.id),
+                    .attr('id', d => "rectLabel_" + makeID(d.id)),
                 update => update,
                 exit => exit.remove()
             )
@@ -1534,7 +1490,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 if (fontSize < minFontSize || !fits) {
                     // Hide text if it's too small or doesn't fit
                     text.style('display', 'none');
-                    rectsWithoutLabels.push(rectMap[d.id]);
+                    rectsWithoutLabels.push(rectMap[makeID(d.id)]);
                 } else {
                     // Truncate lines with ellipsis if necessary
                     lines = lines.map(line => {
@@ -1623,7 +1579,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         function isAreaFree(x0, y0, x1, y1) {
             let overlap = false;
             rectQuadtree.visit(function (node, xMin, yMin, xMax, yMax) {
-                if (!node.data || node.data.id === d.id) return false; // Ignore current rectangle
+                if (!node.data || makeID(node.data.id) === makeID(d.id)) return false; // Ignore current rectangle
                 const nodeLeft = node.data.x - node.data.width / 2 - margin;
                 const nodeRight = node.data.x + node.data.width / 2 + margin;
                 const nodeTop = node.data.y - node.data.height / 2 - margin;
@@ -1689,18 +1645,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         tempDiv.style.fontSize = '14px'; // Adjust based on your tooltip's font size
         tempDiv.style.fontFamily = 'sans-serif'; // Adjust based on your tooltip's font family
         tempDiv.innerHTML = content;
-    
+
         document.body.appendChild(tempDiv);
-    
+
         const width = tempDiv.offsetWidth;
         const height = tempDiv.offsetHeight;
-    
+
         // Remove the temporary element
         document.body.removeChild(tempDiv);
-    
+
         return { width, height };
     }
-    
+
 
     // Helper function to split text into lines that fit within maxWidth
     function splitTextToFit(text, maxWidth, fontSize) {
@@ -1852,6 +1808,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     scale: 1,
                     transformOrigin: '50% 50%',
                     duration: animationDuration,
+                    ease: "back.out(2.9)",
                 }, "logo");
 
         // ***** INITIAL PACKING *****
@@ -2299,7 +2256,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .attr('stroke-width', 0)
                             .attr('stroke', darkenColor(dataRectCopy.fill))
                             .attr('data-name', itemName)
-                            .attr('data-data-category', sanitizeId(removeSpaces(dataCategory.toUpperCase())))
+                            .attr('data-data-category', makeID(dataCategory))
                             .each(function (d) {
 
 
@@ -2709,7 +2666,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     if (shouldShowDataCategories && !dataCategoryClicked) {
 
                         // Get the class that identifies the related rectangles
-                        let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                        let cleanDataType = makeID(d3.select(this).text());
                         let rectClasses = '.copyOfDataRect.' + cleanDataType;
 
                         // Reduce the opacity of rects that do not have the specific class
@@ -2768,9 +2725,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .style('font-weight', 'bolder')
                             .style('opacity', 1);
 
-
                         // Get the class that identifies the related rectangles
-                        let cleanDataType = sanitizeId(removeSpaces(d3.select(this).text()).toUpperCase());
+                        let cleanDataType = makeID(d3.select(this).text());
                         let rectClasses = '.copyOfDataRect.' + cleanDataType;
 
                         // Reduce the opacity of rects that do not have the specific class
@@ -3195,37 +3151,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('fill', color);
     }
 
-    function removeSpaces(str) {
-        return str.replace(/\s+/g, '');
-    }
-
-    function getRandomBetween(a, b) {
-        const lower = Math.min(a, b);
-        const upper = Math.max(a, b);
-        return Math.random() * (upper - lower) + lower;
-    }
-
-    function generateUniqueId(prefix = 'id') {
-        // Create a random alphanumeric string with a prefix
-        const randomString = Math.random().toString(36).substr(2, 9); // Generate a random string
-        const timestamp = Date.now(); // Get the current timestamp
-        return `${prefix}_${randomString}_${timestamp}`;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     function generateInitialTooltipContent(name, dataCategory, lines, actor, inheritances) {
 
@@ -3272,19 +3197,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return text.replace(regex, match => `<span class="highlight">${match}</span>`);
     }
 
-    function sanitizeId(inputString) {
-        // Replace any invalid character with an underscore
-        let sanitized = inputString.replace(/[^a-zA-Z0-9-_]/g, '_');
 
-        // Ensure the ID does not start with a digit, two hyphens, or a hyphen followed by a digit
-        if (/^[0-9]/.test(sanitized)) {
-            sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with a digit
-        } else if (/^--/.test(sanitized) || /^-\d/.test(sanitized)) {
-            sanitized = '_' + sanitized;  // Prefix with an underscore if the string starts with two hyphens or a hyphen followed by a digit
-        }
-
-        return sanitized;
-    }
 
 
 
@@ -3354,6 +3267,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function explainPacking() {
+
         const pathLength1 = pathSmallesRect.getTotalLength();
         pathSmallesRect.style.strokeDasharray = pathLength1;
         pathSmallesRect.style.strokeDashoffset = pathLength1;
@@ -3368,6 +3282,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const tl = gsap.timeline();
 
         otherRectsIDs.forEach((id, index) => {
+            console.log("id: " + id);
             tl.to(`#${id}`, { opacity: 0.05, duration: 1 }, "init");
         });
         otherLabelsIDs.forEach((id, index) => {
@@ -3574,10 +3489,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function blinkIcon(icon, repeat = 2) {
 
         gsap.fromTo(icon.node(),
-            { opacity: 0, scale: 0 },
+            { opacity: 0, scale: 0, transformOrigin: "50% 50%", },
             {
                 opacity: 1,
                 scale: 1,
+                transformOrigin: "50% 50%",
                 duration: 1,
                 ease: 'elastic.out(1, 0.3)',
                 repeat: repeat,
@@ -3804,137 +3720,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Convert Set to Array and sort it alphabetically
         const sortedResults = Array.from(uniqueResults).sort();
 
-        // sortedResults.forEach(name => {
-        //     const listItem = document.createElement('li');
-        //     const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
-
-        //     const dataCategory = rect.getAttribute('data-data-category');
-
-        //     // Create the small rect element as a preview
-        //     const smallRect = document.createElement('div');
-        //     smallRect.style.width = '15px';
-        //     smallRect.style.height = '15px';
-        //     smallRect.style.backgroundColor = rect.getAttribute('fill');
-        //     smallRect.style.border = `1px solid ${rect.getAttribute('stroke')}`;
-        //     smallRect.style.marginRight = '8px';
-        //     smallRect.style.display = 'inline-block';
-
-        //     // Create a container div for the main text and subtitle
-        //     const textContainer = document.createElement('div');
-        //     textContainer.style.display = 'flex';
-        //     textContainer.style.flexDirection = 'column';
-
-        //     // Set up the main text
-        //     const mainText = document.createElement('span');
-        //     mainText.textContent = name.charAt(0).toUpperCase() + name.slice(1);
-        //     textContainer.appendChild(mainText);
-
-        //     const inheritances = dataInheritances[name];
-
-        //     // Conditionally add a subtitle
-        //     if (inheritances && inheritances.length) { // Check if dataCategory is present or matches your criteria
-        //         const subtitle = document.createElement('span');
-        //         subtitle.textContent = "(" + inheritances.join(', ') + ")"; // Or any subtitle you want to display
-        //         subtitle.style.fontSize = '10px'; // Style the subtitle to distinguish it from the main text
-        //         subtitle.style.color = '#888'; // Lighter color for subtitle
-        //         textContainer.appendChild(subtitle);
-        //     }
-
-        //     listItem.prepend(smallRect); // Add the small rect before the name text
-        //     listItem.appendChild(textContainer); // Add the text container to the list item
-
-
-        //     // Hover effect to change the opacity of corresponding rectangles
-        //     listItem.addEventListener('mouseenter', function () {
-
-        //         const rectangles1 = document.querySelectorAll('.copyOfDataRect');
-
-        //         if (!selectedItem) { // Only apply hover effects if no item is selected
-
-        //             rectangles1.forEach(rect => {
-        //                 const rectName = rect.getAttribute('data-name').toLowerCase();
-        //                 if (rectName === name) {
-        //                     rect.style.opacity = '1'; // Highlight the corresponding rects
-        //                 } else {
-        //                     rect.style.opacity = '0.15'; // Dim others
-        //                 }
-        //             });
-
-
-        //             d3.selectAll('.category-label').each(function () {
-
-        //                 const labelElement = d3.select(this);
-        //                 const labelId = labelElement.attr('id');
-        //                 let fontWeight = 'normal';
-        //                 let opacity = 0.15;
-
-        //                 // console.log("labelId: " + labelId);
-        //                 // console.log("dataCategory: " + dataCategory);
-
-        //                 if (labelId == dataCategory) {
-        //                     fontWeight = 'bold';
-        //                     opacity = 1;
-        //                 }
-
-        //                 d3.select(this)
-        //                     .style('font-weight', fontWeight)
-        //                     .style('opacity', opacity);
-        //             });
-
-        //             // console.log("name>");
-        //             // console.log(name);
-
-        //         }
-        //     });
-
-        //     listItem.addEventListener('mouseleave', function () {
-        //         const rectangles1 = document.querySelectorAll('.copyOfDataRect');
-        //         if (!selectedItem) { // Only reset if no item is selected
-        //             rectangles1.forEach(rect => {
-        //                 rect.style.opacity = '1'; // Reset opacity of all rectangles
-        //             });
-        //         }
-        //     });
-
-        //     // Click event to persist selection and fade unrelated rectangles
-        //     listItem.addEventListener('click', function () {
-
-        //         dataCategoryClicked = true;
-
-        //         searchInput.value = name;
-
-        //         if (searchInput.value.length > 0) {
-        //             clearSearchButton.style.display = 'block'; // Ensure this line executes
-        //             searchInput.style.paddingRight = '40px';
-        //         } else {
-        //             clearSearchButton.style.display = 'none';
-        //             searchInput.style.paddingRight = '10px';
-        //         }
-
-
-        //         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
-        //             currentPermanentTooltip.hide();
-        //             currentPermanentTooltip = null;
-        //         }
-
-        //         const rectangles1 = document.querySelectorAll('.copyOfDataRect');
-        //         selectedItem = name; // Set the selected item
-        //         rectangles1.forEach(rect => {
-        //             const rectName = rect.getAttribute('data-name').toLowerCase();
-        //             if (rectName === name) {
-        //                 rect.style.opacity = '1'; // Keep the clicked result fully visible
-        //             } else {
-        //                 rect.style.opacity = '0.15'; // Fade unrelated rectangles
-        //             }
-        //         });
-        //         searchResultsPanel.style.display = 'none'; // Hide panel after selection
-        //     }, true);
-
-        //     ul.appendChild(listItem); // Append <li> to <ul>
-        // });
-
-
-
         sortedResults.forEach(name => {
             const listItem = document.createElement('li');
             const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
@@ -3959,12 +3744,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const mainText = document.createElement('span');
             mainText.innerHTML = highlightText(name.charAt(0).toUpperCase() + name.slice(1), searchTerm); // Use innerHTML to apply highlighting
             textContainer.appendChild(mainText);
-
-
-
-
-
-
 
             const inheritances = dataInheritances[name];
 
@@ -4041,9 +3820,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
 
-
-
-
         if (sortedResults.length > 0) {
             searchResultsPanel.appendChild(ul); // Append the <ul> to the panel
             searchResultsPanel.style.display = 'block';
@@ -4096,22 +3872,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
     clearSearchButton.addEventListener('click', function () {
-
-        // searchInput.placeholder = 'Search...';
         searchInput.value = '';
         searchInput.focus();
-
-
-        // clearSearchButton.style.display = 'none';
-        // searchResultsPanel.style.display = 'none';
-
-        // // Reset the opacity of all rectangles
-        // const rectangles2 = document.querySelectorAll('.copyOfDataRect');
-        // rectangles2.forEach(rect => {
-        //     rect.style.opacity = '1';
-        // });
-
-        // selectedItem = null; // Reset selected item        
     });
 
 
@@ -4121,7 +3883,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
 
         if (who === 'tiktok') {
-
 
             const liElements = iframeDocument.querySelectorAll('li');
 
@@ -4137,9 +3898,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     return true;
                 }
             }
-
-
-
 
             return false;
 
@@ -4210,6 +3968,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .style('opacity', 1);
 
     }
+
+
 
 
 
