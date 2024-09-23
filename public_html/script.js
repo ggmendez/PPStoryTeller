@@ -1431,13 +1431,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
-
     function drawRectsAndLabels(rectData) {
 
         // Create a map to store rectangles by their IDs
         const rectMap = {};
-    
+
         const rects = svg.selectAll('.dataRect')
             .data(rectData, d => d.id)
             .join(
@@ -1474,17 +1472,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }),
                 exit => exit.remove()
             );
-    
-        // **Destroy existing Tippy.js instances on all rectangles**
+
+        // Destroy existing Tippy.js instances on all rectangles
         rects.each(function () {
             if (this._tippy) {
                 this._tippy.destroy();
             }
         });
-    
+
         // Array to keep track of rectangles without labels
         const rectsWithoutLabels = [];
-    
+
         const texts = svg.selectAll('.rectLabel')
             .data(rectData, d => d.id)
             .join(
@@ -1498,27 +1496,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const text = d3.select(this);
                 const rectWidth = d.width;
                 const rectHeight = d.height;
-    
+
                 // Set initial fontSize proportional to rectangle size
                 const initialFontSize = rectHeight * 0.5; // Adjust multiplier as needed
                 const maxFontSize = 18; // Maximum font size cap
                 const minFontSize = 12;  // Minimum readable font size
-    
+
                 let fontSize = Math.min(initialFontSize, maxFontSize);
-    
+
                 let fits = false;
                 let lines = [];
-    
+
                 // Adjust font size until text fits or font size is below minimum
                 while (fontSize >= minFontSize && !fits) {
-    
+
                     // Split text into lines that fit within the rectangle's width
                     lines = splitTextToFit(d.name, rectWidth * 0.9, fontSize);
-    
+
                     // Calculate total text height
                     let lineHeight = fontSize * 1.2; // Line height multiplier
                     let totalTextHeight = lines.length * lineHeight;
-    
+
                     // Check if text fits within rectangle dimensions
                     if (totalTextHeight <= rectHeight * 0.9) {
                         // Check if each line fits within rectangle width
@@ -1526,15 +1524,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         if (allLinesFit) {
                             fits = true;
                         } else {
-                            // Reduce font size and try again
                             fontSize -= 1;
                         }
                     } else {
-                        // Reduce font size and try again
                         fontSize -= 1;
                     }
                 }
-    
+
                 if (fontSize < minFontSize || !fits) {
                     // Hide text if it's too small or doesn't fit
                     text.style('display', 'none');
@@ -1547,7 +1543,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         }
                         return line;
                     });
-    
+
                     // Display text
                     text.style('display', null)
                         .attr('x', d.x)
@@ -1558,14 +1554,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .style('font-size', `${fontSize}px`)
                         .style('line-height', '1')
                         .text('');
-    
+
                     text.selectAll('tspan').remove();
-    
+
                     // Vertically center the text block
                     let lineHeight = fontSize * 1.2;
                     let totalTextHeight = lines.length * lineHeight;
                     let startDy = -((totalTextHeight - lineHeight) / 2);
-    
+
                     lines.forEach((line, i) => {
                         text.append('tspan')
                             .attr('x', d.x)
@@ -1574,18 +1570,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     });
                 }
             });
-    
-        console.log("rectsWithoutLabels: " + rectsWithoutLabels.length);
-    
+
+        // **Build a quadtree of rectangles for spatial queries**
+        const rectQuadtree = d3.quadtree()
+            .x(d => d.x)
+            .y(d => d.y)
+            .addAll(rectData);
+
         // **Add Tippy.js tooltips to rectangles without labels**
         rectsWithoutLabels.forEach(function (rectNode) {
             const d = d3.select(rectNode).datum();
             const content = `<b>${capitalizeFirstLetter(d.name)}</b>`;
-    
+            const placement = getTooltipPlacement(d, rectQuadtree, svgWidth);
+
             tippy(rectNode, {
                 content: content,
                 allowHTML: true,
-                placement: 'top',
+                placement: placement, // Use the dynamically determined placement
                 theme: 'light-border',
                 animation: 'scale',
                 duration: [200, 200],
@@ -1594,10 +1595,112 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
         });
     }
+
+
+    function getTooltipPlacement(d, rectQuadtree, svgWidth) {
+        // Estimate tooltip size based on content
+        const content = `<b>${capitalizeFirstLetter(d.name)}</b>`;
+        const { width: tooltipWidth, height: tooltipHeight } = estimateTooltipSize(content);
+
+        const margin = 5; // Small margin around the tooltip area
+
+        const rectLeft = d.x - d.width / 2;
+        const rectRight = d.x + d.width / 2;
+        const rectTop = d.y - d.height / 2;
+        const rectBottom = d.y + d.height / 2;
+
+        // Decide preferred placements based on rectangle's x-position
+        let preferredPlacements;
+        if (d.x < svgWidth / 2) {
+            // Rectangle is on the left side; prefer 'left' placement
+            preferredPlacements = ['left', 'right', 'top', 'bottom'];
+        } else {
+            // Rectangle is on the right side; prefer 'right' placement
+            preferredPlacements = ['right', 'left', 'top', 'bottom'];
+        }
+
+        // Function to check if the area is free from other rectangles
+        function isAreaFree(x0, y0, x1, y1) {
+            let overlap = false;
+            rectQuadtree.visit(function (node, xMin, yMin, xMax, yMax) {
+                if (!node.data || node.data.id === d.id) return false; // Ignore current rectangle
+                const nodeLeft = node.data.x - node.data.width / 2 - margin;
+                const nodeRight = node.data.x + node.data.width / 2 + margin;
+                const nodeTop = node.data.y - node.data.height / 2 - margin;
+                const nodeBottom = node.data.y + node.data.height / 2 + margin;
+                if (nodeRight > x0 && nodeLeft < x1 && nodeBottom > y0 && nodeTop < y1) {
+                    overlap = true;
+                    return true; // Stop searching
+                }
+                return xMin > x1 || xMax < x0 || yMin > y1 || yMax < y0;
+            });
+            return !overlap;
+        }
+
+        // Try each preferred placement and check for overlaps
+        for (let i = 0; i < preferredPlacements.length; i++) {
+            let placement = preferredPlacements[i];
+            let x0, y0, x1, y1;
+
+            if (placement === 'left') {
+                x0 = rectLeft - tooltipWidth - margin;
+                x1 = rectLeft - margin;
+                y0 = d.y - tooltipHeight / 2;
+                y1 = d.y + tooltipHeight / 2;
+            } else if (placement === 'right') {
+                x0 = rectRight + margin;
+                x1 = rectRight + tooltipWidth + margin;
+                y0 = d.y - tooltipHeight / 2;
+                y1 = d.y + tooltipHeight / 2;
+            } else if (placement === 'top') {
+                x0 = d.x - tooltipWidth / 2;
+                x1 = d.x + tooltipWidth / 2;
+                y0 = rectTop - tooltipHeight - margin;
+                y1 = rectTop - margin;
+            } else if (placement === 'bottom') {
+                x0 = d.x - tooltipWidth / 2;
+                x1 = d.x + tooltipWidth / 2;
+                y0 = rectBottom + margin;
+                y1 = rectBottom + tooltipHeight + margin;
+            }
+
+            // Check if the area is free
+            const areaIsFree = isAreaFree(x0, y0, x1, y1);
+
+            if (areaIsFree) {
+                return placement;
+            }
+        }
+
+        // If none of the placements are free, default to 'right' or 'left' based on position
+        return d.x < svgWidth / 2 ? 'left' : 'right';
+    }
+
+    function estimateTooltipSize(content) {
+        // Create a temporary off-screen element
+        const tempDiv = document.createElement('div');
+        tempDiv.style.position = 'absolute';
+        tempDiv.style.visibility = 'hidden';
+        tempDiv.style.pointerEvents = 'none';
+        tempDiv.style.width = 'auto';
+        tempDiv.style.height = 'auto';
+        tempDiv.style.whiteSpace = 'nowrap';
+        tempDiv.style.padding = '8px'; // Adjust based on your tooltip's padding
+        tempDiv.style.fontSize = '14px'; // Adjust based on your tooltip's font size
+        tempDiv.style.fontFamily = 'sans-serif'; // Adjust based on your tooltip's font family
+        tempDiv.innerHTML = content;
     
-
-
-
+        document.body.appendChild(tempDiv);
+    
+        const width = tempDiv.offsetWidth;
+        const height = tempDiv.offsetHeight;
+    
+        // Remove the temporary element
+        document.body.removeChild(tempDiv);
+    
+        return { width, height };
+    }
+    
 
     // Helper function to split text into lines that fit within maxWidth
     function splitTextToFit(text, maxWidth, fontSize) {
