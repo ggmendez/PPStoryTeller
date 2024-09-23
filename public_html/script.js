@@ -889,8 +889,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
                 const numberOfActors = actorNames.length;
 
-
-
                 let allActors = "<ul>";
                 actorNames.forEach((name, index) => {
                     if (name === 'UNSPECIFIED_ACTOR') {
@@ -928,41 +926,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     tooltipInstance.hide();
                 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 iconElement.attr('data-numberOfActors', numberOfActors);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                 // drawRectAt(x, y, 20, 20, 'red')
 
@@ -989,97 +953,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return Promise.all(svgPromises);
     }
 
-
-
-
-
-
-
-    // Custom rectangle collision detection function
-    function rectCollision() {
-        for (let i = 0; i < nodes.length; ++i) {
-            const nodeA = nodes[i];
-            for (let j = i + 1; j < nodes.length; ++j) {
-                const nodeB = nodes[j];
-
-                // Skip if same node or both nodes are fixed
-                if (nodeA === nodeB || (nodeA.fx && nodeB.fx)) continue;
-
-                // Check for collision
-                if (isColliding(nodeA, nodeB)) {
-                    resolveCollision(nodeA, nodeB);
-                }
-            }
-        }
-    }
-
-    function isColliding(a, b) {
-        return !(
-            a.x + a.width / 2 < b.x - b.width / 2 ||
-            a.x - a.width / 2 > b.x + b.width / 2 ||
-            a.y + a.height / 2 < b.y - b.height / 2 ||
-            a.y - a.height / 2 > b.y + b.height / 2
-        );
-    }
-
-    function resolveCollision(a, b) {
-        const xDist = (a.x - b.x) / (a.width / 2 + b.width / 2);
-        const yDist = (a.y - b.y) / (a.height / 2 + b.height / 2);
-
-        const overlapX = (a.width / 2 + b.width / 2) - Math.abs(a.x - b.x);
-        const overlapY = (a.height / 2 + b.height / 2) - Math.abs(a.y - b.y);
-
-        if (overlapX < overlapY) {
-            const displacement = overlapX / 2;
-            if (xDist > 0) {
-                a.x += displacement;
-                b.x -= displacement;
-            } else {
-                a.x -= displacement;
-                b.x += displacement;
-            }
-        } else {
-            const displacement = overlapY / 2;
-            if (yDist > 0) {
-                a.y += displacement;
-                b.y -= displacement;
-            } else {
-                a.y -= displacement;
-                b.y += displacement;
-            }
-        }
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // Process entities and visualize
     function processDataEntities(entities, initialPackingData) {
 
         let dataEntities = entities.filter(d => d.type === 'DATA');
-
 
         dataEntities = dataEntities.map(entity => {
             return {
@@ -1087,7 +964,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 id: sanitizeId(entity.id)
             };
         });
-
 
         console.log("dataEntities:");
         console.log(dataEntities);

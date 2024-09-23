@@ -55,3 +55,39 @@ function makeID(str) {
   return sanitizeId(removeSpaces(str.toUpperCase()));
 }
 
+function isColliding(a, b) {
+  return !(
+    a.x + a.width / 2 < b.x - b.width / 2 ||
+    a.x - a.width / 2 > b.x + b.width / 2 ||
+    a.y + a.height / 2 < b.y - b.height / 2 ||
+    a.y - a.height / 2 > b.y + b.height / 2
+  );
+}
+
+function resolveCollision(a, b) {
+  const xDist = (a.x - b.x) / (a.width / 2 + b.width / 2);
+  const yDist = (a.y - b.y) / (a.height / 2 + b.height / 2);
+
+  const overlapX = (a.width / 2 + b.width / 2) - Math.abs(a.x - b.x);
+  const overlapY = (a.height / 2 + b.height / 2) - Math.abs(a.y - b.y);
+
+  if (overlapX < overlapY) {
+    const displacement = overlapX / 2;
+    if (xDist > 0) {
+      a.x += displacement;
+      b.x -= displacement;
+    } else {
+      a.x -= displacement;
+      b.x += displacement;
+    }
+  } else {
+    const displacement = overlapY / 2;
+    if (yDist > 0) {
+      a.y += displacement;
+      b.y -= displacement;
+    } else {
+      a.y -= displacement;
+      b.y += displacement;
+    }
+  }
+}
