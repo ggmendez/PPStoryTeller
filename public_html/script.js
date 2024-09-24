@@ -1838,6 +1838,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // disappearing the packed circles
         mainTimeline.addLabel("dataShared")
+
+            // disappearing data category names
+            .to(svgCategoryGroups.nodes(), {
+                duration: animationDuration,
+                opacity: 0,
+                ease: "back.out(1.25)",
+                stagger: { amount: 0.1 }
+            }, "dataShared")
+
+            // the logo appears back
+            .to(logoIcon.node(), {
+                opacity: 1,
+                scale: 1,
+                transformOrigin: '50% 50%',
+                duration: animationDuration / 2,
+            }, "dataShared")
+
+            // clustering the rects at the center and below the logo
             .to(rectData, {
                 width: 10,
                 height: 10,
@@ -1851,35 +1869,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "dataShared")
 
-
-
-
-            .to(svgCategoryGroups.nodes(), {
-                duration: animationDuration,
-                opacity: 0,
-                ease: "back.out(1.25)",
-                stagger: { amount: 0.1 }
-            }, "dataShared")
-
-
-            // the logo appears back
-            .to(logoIcon.node(), {
-                opacity: 1,
-                scale: 1,
-                transformOrigin: '50% 50%',
-                duration: animationDuration / 2,
-            }, "dataShared")
-
-
-
-
             // shifting things to the left
             .to(rectData, {
                 rx: 0,
                 ry: 0,
                 x: '-=' + (x1 - 150),
                 duration: animationDuration,
-                stagger: { amount: animationDuration / 3 },
+                stagger: { amount: animationDuration / 20 },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
@@ -1893,7 +1889,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // Bringing actors in
-
         const svgActorIcons = svg.selectAll('.actorIcon').filter(function () {
             return d3.select("#" + labelsOf[d3.select(this).node().id]).text() !== formatedNames[who]
         });
@@ -1902,7 +1897,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const actorNodes = svgActorIcons.nodes();
 
-        const whenActors = (2 * animationDuration + animationDuration / 3) + 0;
+        const whenActors = (2 * animationDuration + animationDuration / 3);
 
         // animationDuration = 3;
 
@@ -1927,7 +1922,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: actorIconScale,
                 duration: animationDuration,
                 ease: "back.inOut(3)",
-            }, "dataShared+=" + (whenActors + animationDuration/12 * index));
+            }, "dataShared+=" + (whenActors + animationDuration / 12 * index));
 
         });
 
@@ -1951,7 +1946,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: 1,
                 transformOrigin: 'center',
                 ease: "back.inOut(3)",
-                duration: animationDuration,                
+                duration: animationDuration,
                 onStart: () => {
                     explaining = "actors";
                 },
@@ -1960,13 +1955,55 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         blinkIcon(infoIcon);
                     }
                 }
-            }, "dataShared+=" + (whenActors + animationDuration/12 * index));
+            }, "dataShared+=" + (whenActors + animationDuration / 12 * index));
         });
 
 
 
 
+        //*****************************************//
+        // sending random of data to random actors //
+        //*****************************************//
 
+
+        const randomRects = getRandomElements(rectData, rectData.length / 2);
+
+
+        // let originals = originalTransformations[maxActorElementId];
+        // let x = originals.originalX + originals.originX;
+        // let y = originals.originalY + originals.originX;
+
+        window.originalTransformations = originalTransformations;
+
+        console.log(getRandomElementFromMap(originalTransformations));
+
+        mainTimeline.to(randomRects, {
+            x: (index) => getRandomElementFromMap(originalTransformations).originalX,
+            y: (index) => getRandomElementFromMap(originalTransformations).originalY,
+            // y: (index) => points[index].y,
+            opacity: 0,
+            duration: animationDuration,
+            ease: "back.out(1.25)",
+            stagger: { amount: animationDuration / 3 },
+            onUpdate: () => {
+                drawRectsAndLabels(rectData);
+            }
+        }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 1))
+
+
+
+
+
+
+
+
+
+
+
+
+        //*******************************************************//
+        // depicting the pieces of data each actor has access to //
+        //*******************************************************//
 
 
 
@@ -2619,7 +2656,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 d3.select(node).on('mouseover', function (event) {
 
                     console.log(d3.select(node).attr('opacity'));
-                    
+
                     if (d3.select(node).attr('opacity') === '1' && shouldShowDataCategories && !dataCategoryClicked) {
 
                         // Get the class that identifies the related rectangles

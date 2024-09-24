@@ -246,3 +246,27 @@ function getPointsOnCircle(n, r, centerX = 0, centerY = 0, startAngle = 0, endAn
 }
 
 
+
+
+function getRandomElements(arr, n) {
+  if (n > arr.length) {
+      throw new Error("The number of elements requested exceeds the array size.");
+  }
+  
+  const shuffled = arr.slice(); // Create a copy of the array
+  for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1)); // Random index
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; // Swap elements
+  }
+  
+  return shuffled.slice(0, n); // Return the first n elements from the shuffled array
+}
+
+
+
+
+function getRandomElementFromMap(map) {
+  const entries = Array.from(map.entries()); // Convert the Map to an array of [key, value] pairs
+  const randomIndex = Math.floor(Math.random() * entries.length); // Get a random index
+  return entries[randomIndex]; // Return the random [key, value] pair
+}
