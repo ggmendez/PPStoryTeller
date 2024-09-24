@@ -393,11 +393,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             d3.selectAll('.category-label')
                 .style('font-weight', 'normal')
                 .style('opacity', 1);
-
-
-
-
-
         }
 
 
@@ -544,7 +539,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let originalNames = {};
 
-    var actorIconScale = 0.35;
+    var actorIconScale = 0.27;
 
     // arrow animations
     let arrow = document.querySelector('.arrow');
@@ -586,10 +581,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const dataInheritances = {};
 
-    window.actorDataMap = actorDataMap;
+    // window.actorDataMap = actorDataMap;
 
     document.querySelector("#who").textContent = formatedNames[who];
-
+    document.querySelector("#they").textContent = formatedNames[who];
 
     function getCategory(item, categorization) {
 
@@ -838,9 +833,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         let svgPromises = shuffledCategories.map((category, index) => {  // Use map instead of forEach to return an array of promises
 
-            const angle = index * angleStep;
-            const x = svgWidth / 2 + dimension * Math.cos(angle);
-            const y = svgHeight / 2 + dimension * Math.sin(angle);
+
+            const circlePoints = getPointsOnCircle(shuffledCategories.length, Math.min(svgWidth / 2, svgHeight / 2) - 80, svgWidth / 2, svgHeight / 2 - 10, -90, 90);
+
+            // circlePoints.forEach(point => {
+            //     drawRectAt(point.x, point.y, 20, 20, 'red')
+            // });
+
+            // const angle = index * angleStep;
+            // const x = svgWidth / 2 + dimension * Math.cos(angle);
+            // const y = svgHeight / 2 + dimension * Math.sin(angle);
+
+            const x = circlePoints[index].x;
+            const y = circlePoints[index].y;
+
             const nameNoSpaces = category.replace(/\s+/g, '');
 
             let iconFile = `./icons/actors/${nameNoSpaces}.svg`;
@@ -883,7 +889,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 iconElement
                     .style('transform-origin', `${iconWidth / 2}px ${iconHeight / 2}px`)
-                    .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${actorIconScale})`);
+                    // .style('transform-origin', '50% 50%')
+                    // .attr('transform', `translate(${(x - iconWidth / 2)}, ${(y - iconHeight / 2)}) scale(${actorIconScale})`);
+                    .attr('transform', `translate(${(x)}, ${(y)}) scale(${actorIconScale})`);
 
                 const cleanCategory = removeSpaces(category.toUpperCase());
                 const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
@@ -937,8 +945,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .attr('class', 'actorCategoryName')
                     .attr('id', labelID)
                     .attr('x', x)
-                    .attr('y', y + (iconHeight * actorIconScale) / 2 + 10)
+                    .attr('y', y + (iconHeight * actorIconScale) / 2 + 5)
                     .attr('text-anchor', 'middle')
+                    .attr('transform-origin', 'center')
                     .attr('alignment-baseline', 'hanging')
                     .attr('opacity', '0')
                     .text(category);
@@ -1822,7 +1831,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         ];
 
 
-        let points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 5, 5, rectData.length, 15, 15);
+        const points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 5, 5, rectData.length, 15, 15);
 
         // console.log("points:");
         // console.log(points);
@@ -1832,8 +1841,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .to(rectData, {
                 width: 10,
                 height: 10,
-                // rx: 0,
-                // ry: 0,                
                 x: (index) => points[index].x,
                 y: (index) => points[index].y,
                 duration: animationDuration,
@@ -1844,16 +1851,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "dataShared")
 
-            .to(rectData, {
-                rx: 0,
-                ry: 0,                               
-                duration: animationDuration,
-                stagger: { amount: animationDuration / 3 },
-                onUpdate: () => {
-                    drawRectsAndLabels(rectData);
-                }
-            }, "dataShared+=" + (animationDuration + animationDuration/3))
-
 
 
 
@@ -1862,7 +1859,116 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 opacity: 0,
                 ease: "back.out(1.25)",
                 stagger: { amount: 0.1 }
-            }, "dataShared");
+            }, "dataShared")
+
+
+            // the logo appears back
+            .to(logoIcon.node(), {
+                opacity: 1,
+                scale: 1,
+                transformOrigin: '50% 50%',
+                duration: animationDuration / 2,
+            }, "dataShared")
+
+
+
+
+            // shifting things to the left
+            .to(rectData, {
+                rx: 0,
+                ry: 0,
+                x: '-=' + (x1 - 150),
+                duration: animationDuration,
+                stagger: { amount: animationDuration / 3 },
+                onUpdate: () => {
+                    drawRectsAndLabels(rectData);
+                }
+            }, "dataShared+=" + (animationDuration + animationDuration / 3))
+
+            .to(logoIcon.node(), {
+                x: '-=' + (x1 - 150),
+                duration: animationDuration,
+            }, "dataShared+=" + (animationDuration + animationDuration / 3));
+
+
+
+        // Bringing actors in
+
+        const svgActorIcons = svg.selectAll('.actorIcon').filter(function () {
+            return d3.select("#" + labelsOf[d3.select(this).node().id]).text() !== formatedNames[who]
+        });
+
+        // window.svgActorIcons = svgActorIcons;
+
+        const actorNodes = svgActorIcons.nodes();
+
+        const whenActors = (2 * animationDuration + animationDuration / 3) + 0;
+
+        // animationDuration = 3;
+
+        actorNodes.forEach((actorNode, index) => {
+
+            let id = actorNode.id;
+            let originals = originalTransformations[id];
+            let x = originals.originalX;
+            let y = originals.originalY;
+
+            mainTimeline.fromTo(actorNode, {
+                opacity: 0,
+                x: x + 200,
+                y: y,
+                scale: 0,
+                transformOrigin: 'center',
+            }, {
+                opacity: 1,
+                transformOrigin: 'center',
+                x: x,
+                y: y,
+                scale: actorIconScale,
+                duration: animationDuration,
+                ease: "back.inOut(3)",
+            }, "dataShared+=" + (whenActors + animationDuration/12 * index));
+
+        });
+
+
+        // actor labels
+        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function () {
+            return d3.select(this).text() != formatedNames[who];
+        });
+
+        // window.svgActorIconLabels = svgActorIconLabels;
+
+        const actorLabelNodes = svgActorIconLabels.nodes();
+
+        actorLabelNodes.forEach((actorLabelNode, index) => {
+            mainTimeline.fromTo(actorLabelNode, {
+                opacity: 0,
+                scale: 0,
+                transformOrigin: 'center',
+            }, {
+                opacity: 1,
+                scale: 1,
+                transformOrigin: 'center',
+                ease: "back.inOut(3)",
+                duration: animationDuration,                
+                onStart: () => {
+                    explaining = "actors";
+                },
+                onComplete: () => {
+                    if (index == actorLabelNodes.length - 1) {
+                        blinkIcon(infoIcon);
+                    }
+                }
+            }, "dataShared+=" + (whenActors + animationDuration/12 * index));
+        });
+
+
+
+
+
+
+
 
 
 
@@ -1914,24 +2020,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        // Bringing actors in
 
 
-        const svgActorIcons = svg.selectAll('.actorIcon').filter(function () {
-            return d3.select("#" + labelsOf[d3.select(this).node().id]).text() !== formatedNames[who]
-        });
 
 
-        window.svgActorIcons = svgActorIcons;
 
-        const actorNodes = svgActorIcons.nodes();
 
-        mainTimeline.to(logoIcon.node(), {
-            opacity: 1,
-            scale: 1,
-            transformOrigin: '50% 50%',
-            duration: animationDuration / 2,
-        }, "dataShared+=" + (actorNodes.length * animationDuration * 0.075))
 
 
 
@@ -1956,63 +2050,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        actorNodes.forEach((actorNode, index) => {
-
-            let id = actorNode.id;
-            let originals = originalTransformations[id];
-            let x = originals.originalX;
-            let y = originals.originalY;
-
-            // drawRectAt(x + originals.originX, y + originals.originX, 10, 10, "green")
-
-            mainTimeline.fromTo(actorNode, {
-                opacity: 0,
-                x: x,
-                y: y,
-                scale: 0
-            }, {
-                opacity: 1,
-                x: x,
-                y: y,
-                scale: actorIconScale,
-                duration: animationDuration,
-                ease: "back.inOut(3)",
-                stagger: { amount: animationDuration * 0.75 },
-            }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
-
-        });
 
 
-        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function () {
-            return d3.select(this).text() != formatedNames[who];
-        });
 
-        window.svgActorIconLabels = svgActorIconLabels;
 
-        const actorLabelNodes = svgActorIconLabels.nodes();
-
-        actorLabelNodes.forEach((actorLabelNode, index) => {
-            mainTimeline.fromTo(actorLabelNode, {
-                opacity: 0,
-                scale: 0,
-            }, {
-                opacity: 1,
-                scale: 1,
-                ease: "back.inOut(3)",
-                duration: animationDuration,
-                stagger: { amount: animationDuration * 0.75 },
-
-                onStart: () => {
-                    explaining = "actors";
-                },
-                onComplete: () => {
-                    if (index == actorLabelNodes.length - 1) {
-                        blinkIcon(infoIcon);
-                    }
-                }
-
-            }, `dataShared+=${0.1 + (index * animationDuration * 0.075)}`);
-        });
 
 
 
@@ -2577,7 +2618,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('mouseover', function (event) {
 
-                    if (shouldShowDataCategories && !dataCategoryClicked) {
+                    console.log(d3.select(node).attr('opacity'));
+                    
+                    if (d3.select(node).attr('opacity') === '1' && shouldShowDataCategories && !dataCategoryClicked) {
 
                         // Get the class that identifies the related rectangles
                         let cleanDataType = makeID(d3.select(this).text());
@@ -3452,7 +3495,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const randomElement = elements[randomIndex];
         const randomElementtId = randomElement.id;
 
-        window.randomElement = randomElement;
+        // window.randomElement = randomElement;
 
         const bbox = randomElement.getBBox();
 

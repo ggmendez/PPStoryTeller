@@ -227,3 +227,22 @@ function arrangeRectanglesByWidth(containerX, containerY, containerWidth, rectWi
 
   return positions;
 }
+
+
+
+function getPointsOnCircle(n, r, centerX = 0, centerY = 0, startAngle = 0, endAngle = 360) {
+  const points = [];
+  const angleStep = ((endAngle - startAngle) * Math.PI / 180) / (n - 1); // Step between each angle, converted to radians
+  const startAngleRad = startAngle * Math.PI / 180; // Convert start angle to radians
+
+  for (let i = 0; i < n; i++) {
+      const angle = startAngleRad + i * angleStep; // Calculate the angle for the current point
+      const x = centerX + r * Math.cos(angle); // X coordinate adjusted by centerX
+      const y = centerY + r * Math.sin(angle); // Y coordinate adjusted by centerY
+      points.push({ x: x, y: y });
+  }
+
+  return points;
+}
+
+
