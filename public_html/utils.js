@@ -270,3 +270,10 @@ function getRandomElementFromMap(map) {
   const randomIndex = Math.floor(Math.random() * entries.length); // Get a random index
   return entries[randomIndex]; // Return the random [key, value] pair
 }
+
+function getRandomProperty(obj) {
+  const keys = Object.keys(obj); // Get all the keys of the object
+  const randomIndex = Math.floor(Math.random() * keys.length); // Select a random index
+  const randomKey = keys[randomIndex]; // Get the random key
+  return { key: randomKey, value: obj[randomKey] }; // Return the key-value pair
+}

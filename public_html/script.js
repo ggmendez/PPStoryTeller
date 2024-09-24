@@ -469,7 +469,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const nodeHeight = sizeScale(d.Indegree) + padding;
             const nodeR = sizeScale(d.Indegree) / 2 + padding;
             return {
-                id: "" + d.id,
+                id: makeID("" + d.id),
                 width: nodeWidth,
                 height: nodeHeight,
                 r: nodeR, // Use half-diagonal as radius
@@ -1021,16 +1021,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .range([1 * sizeScaleMultiplier, maxConnections * sizeScaleMultiplier]); // Adjust the range as needed
 
         // Starting data with IDs 
-        rectData = d3.packSiblings(dataEntities.map(d => ({
-            id: "" + d.id,
-            width: sizeScale(d.Indegree) + padding,
-            height: sizeScale(d.Indegree) + padding,
-            r: sizeScale(d.Indegree) / 2 + padding,
-            fill: '#cbcbcb',
-            originalFill: '#cbcbcb',
-            name: d.name,
-            category: d.category
-        })));
+        // rectData = d3.packSiblings(dataEntities.map(d => ({
+        //     // id: "" + d.id,
+        //     id: makeID("" + d.id),
+        //     width: sizeScale(d.Indegree) + padding,
+        //     height: sizeScale(d.Indegree) + padding,
+        //     r: sizeScale(d.Indegree) / 2 + padding,
+        //     fill: '#cbcbcb',
+        //     originalFill: '#cbcbcb',
+        //     name: d.name,
+        //     category: d.category
+        // })));
 
         rectData = initialPackingData;
 
@@ -1252,41 +1253,47 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function drawRectsAndLabels(rectData) {
 
+
+        console.log(rectData[0]);
+
         // Create a map to store rectangles by their IDs
         const rectMap = {};
 
         const rects = svg.selectAll('.dataRect')
-            // .data(rectData, d => d.id)
             .data(rectData, d => makeID(d.id))
             .join(
                 enter => enter.append('rect')
                     .attr('class', 'dataRect')
                     .each(function (d) {
                         const rect = d3.select(this);
-                        rect.attr('x', d.x - (d.width / 2))
-                            .attr('y', d.y - (d.height / 2))
+                        rect.attr('x', (d.x - (d.width * d.scale / 2)) / d.scale)
+                            .attr('y', (d.y - (d.height * d.scale / 2)) / d.scale)
                             .attr('width', Math.max(0, d.width))
                             .attr('height', Math.max(0, d.height))
                             .attr('rx', d.rx || 0)
                             .attr('ry', d.ry || 0)
                             .attr('fill', d.fill || 'transparent')
                             .attr('stroke', darkenColor(d.fill || '#000'))
-                            .attr('opacity', d.opacity || 1);
+                            .attr('opacity', d.opacity)
+                            .style('opacity', d.opacity)
+                            .style('scale', d.scale)
                         // Store the rectangle DOM node in the map
                         rectMap[makeID(d.id)] = this;
                     }),
                 update => update
                     .each(function (d) {
                         const rect = d3.select(this);
-                        rect.attr('x', d.x - (d.width / 2))
-                            .attr('y', d.y - (d.height / 2))
+                        rect.attr('x', (d.x - (d.width * d.scale / 2)) / d.scale)
+                            .attr('y', (d.y - (d.height * d.scale / 2)) / d.scale)
                             .attr('width', Math.max(0, d.width))
                             .attr('height', Math.max(0, d.height))
                             .attr('rx', d.rx || 0)
                             .attr('ry', d.ry || 0)
                             .attr('fill', d.fill || 'transparent')
                             .attr('stroke', darkenColor(d.fill || '#000'))
-                            .attr('opacity', d.opacity || 1);
+                            .attr('opacity', d.opacity)
+                            .style('opacity', d.opacity)
+                            .style('scale', d.scale)
                         // Update the rectangle DOM node in the map
                         rectMap[makeID(d.id)] = this;
                     }),
@@ -1370,7 +1377,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('y', d.y)
                         .attr('text-anchor', 'middle')
                         .attr('dominant-baseline', 'middle')
-                        .attr('opacity', d.opacity || 1)
+                        .attr('opacity', d.opacity)
                         .style('font-size', `${fontSize}px`)
                         .style('line-height', '1')
                         .text('');
@@ -1965,26 +1972,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // sending random of data to random actors //
         //*****************************************//
 
+        // const randomRects = getRandomElements(rectData, rectData.length / 2);
+        
+        let destinations = [];
+        for (let index = 0; index < rectData.length; index++) {
+            let n = getRandomBetween(0, 100, true);
+            if (n % 2 == 0) {                            
+                destinations.push({ x: x1 - 150, y: y1 + logoIconHeight/2});
+            } else {
+                let value = getRandomProperty(originalTransformations).value;
+                destinations.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
+            }
+        }
 
-        const randomRects = getRandomElements(rectData, rectData.length / 2);
+        // window.originalTransformations = originalTransformations;
+        // console.log(getRandomProperty(originalTransformations));
 
-
-        // let originals = originalTransformations[maxActorElementId];
-        // let x = originals.originalX + originals.originX;
-        // let y = originals.originalY + originals.originX;
-
-        window.originalTransformations = originalTransformations;
-
-        console.log(getRandomElementFromMap(originalTransformations));
-
-        mainTimeline.to(randomRects, {
-            x: (index) => getRandomElementFromMap(originalTransformations).originalX,
-            y: (index) => getRandomElementFromMap(originalTransformations).originalY,
-            // y: (index) => points[index].y,
+        mainTimeline.to(rectData, {
+            x: (i) => destinations[i].x,
+            y: (i) => destinations[i].y,
             opacity: 0,
-            duration: animationDuration,
-            ease: "back.out(1.25)",
-            stagger: { amount: animationDuration / 3 },
+            duration: animationDuration * 2,
+            ease: "sine.inOut",
+            stagger: { amount: animationDuration },
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
             }
