@@ -1843,6 +1843,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // console.log("points:");
         // console.log(points);
 
+        const distance = 150;
+        const delta = (x1 - distance);
+
         // disappearing the packed circles
         mainTimeline.addLabel("dataShared")
 
@@ -1880,7 +1883,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .to(rectData, {
                 rx: 0,
                 ry: 0,
-                x: '-=' + (x1 - 150),
+                x: '-=' + delta,
                 duration: animationDuration,
                 stagger: { amount: animationDuration / 20 },
                 onUpdate: () => {
@@ -1889,7 +1892,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, "dataShared+=" + (animationDuration + animationDuration / 3))
 
             .to(logoIcon.node(), {
-                x: '-=' + (x1 - 150),
+                x: '-=' + delta,
                 duration: animationDuration,
             }, "dataShared+=" + (animationDuration + animationDuration / 3));
 
@@ -1973,32 +1976,100 @@ document.addEventListener("DOMContentLoaded", (event) => {
         //*****************************************//
 
         // const randomRects = getRandomElements(rectData, rectData.length / 2);
-        
+
         let destinations = [];
+
+        let chosenIndices = [];
+
+        let firstData = [];
+        let secondData = [];
+
         for (let index = 0; index < rectData.length; index++) {
             let n = getRandomBetween(0, 100, true);
-            if (n % 2 == 0) {                            
-                destinations.push({ x: x1 - 150, y: y1 + logoIconHeight/2});
-            } else {
-                let value = getRandomProperty(originalTransformations).value;
-                destinations.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
+            if (n % 2 == 0) {
+                chosenIndices.push(n);
             }
         }
+
+
+        for (let index = 0; index < rectData.length; index++) {
+            if (chosenIndices.includes(index)) {
+                firstData.push({ x: delta, y: y1 + logoIconHeight / 2 });
+            } else {
+                firstData.push({ x: points[index].x - delta, y: points[index].y });
+            }
+        }
+
+        for (let index = 0; index < rectData.length; index++) {
+            if (!chosenIndices.includes(index)) {
+                let value = getRandomProperty(originalTransformations).value;
+                secondData.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
+            } else {
+                secondData.push({ x: delta, y: y1 + logoIconHeight / 2 });
+            }
+        }
+
+
+
+
+
+
+
+
+
+        // working with the rects that correspond to the chosen indices
+
+
+        // for (let index = 0; index < rectData.length; index++) {
+        //     let n = getRandomBetween(0, 100, true);
+        //     if (n % 2 == 0) {
+
+        //         firstData.push({ x: x1 - 150, y: y1 + logoIconHeight / 2 });
+        //         secondData.push({ x: rectData[index].x, y: rectData[index].y });
+
+
+        //         destinations.push({ x: x1 - 150, y: y1 + logoIconHeight / 2 });
+        //     } else {
+        //         let value = getRandomProperty(originalTransformations).value;
+        //         destinations.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
+
+
+        //         firstData.push({ x: rectData[index].x, y: rectData[index].y });
+        //         secondData.push({ x: x1 - 150, y: y1 + logoIconHeight / 2 });
+
+
+
+        //     }
+        // }
 
         // window.originalTransformations = originalTransformations;
         // console.log(getRandomProperty(originalTransformations));
 
         mainTimeline.to(rectData, {
-            x: (i) => destinations[i].x,
-            y: (i) => destinations[i].y,
-            opacity: 0,
-            duration: animationDuration * 2,
+            x: (i) => firstData[i].x,
+            y: (i) => firstData[i].y,
+            // opacity: 0,
+            duration: animationDuration,
             ease: "sine.inOut",
             stagger: { amount: animationDuration },
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
             }
         }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 1))
+
+
+        mainTimeline.to(rectData, {
+            x: (i) => secondData[i].x,
+            y: (i) => secondData[i].y,
+            // opacity: 0,
+            duration: animationDuration * 5,
+            ease: "sine.inOut",
+            stagger: { amount: animationDuration },
+            onUpdate: () => {
+                drawRectsAndLabels(rectData);
+            }
+        }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
+
 
 
 
