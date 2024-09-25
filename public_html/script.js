@@ -1735,45 +1735,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "packing");
 
-
         // console.log("nonTargetLabels");
         // console.log(nonTargetLabels);
 
         // Check if elements with these IDs exist in the DOM
-        otherRectsIDs.forEach(id => {
-            if (!document.getElementById(id)) {
-                console.error(`Element with ID ${id} does not exist in the DOM`);
-            }
-        });
+        // otherRectsIDs.forEach(id => {
+        //     if (!document.getElementById(id)) {
+        //         console.error(`Element with ID ${id} does not exist in the DOM`);
+        //     }
+        // });
 
-        otherLabelsIDs.forEach(id => {
-            if (!document.getElementById(id)) {
-                console.error(`Element with ID ${id} does not exist in the DOM`);
-            }
-        });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        // otherLabelsIDs.forEach(id => {
+        //     if (!document.getElementById(id)) {
+        //         console.error(`Element with ID ${id} does not exist in the DOM`);
+        //     }
+        // });
 
         const deltaX = 50;
         const deltaY = 220;
@@ -2036,26 +2012,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }, "dataShared+=" + (animationDuration + animationDuration / 3 + 3))
 
 
-
-
-
-
-
-
-
-
-
-
-
-        //*******************************************************//
-        // depicting the pieces of data each actor has access to //
-        //*******************************************************//
-
-
-
-
-
-
         // Extract nodes and sort them alphabetically by the text content
         const sortedCategoryGroupNodes = svgCategoryGroups.nodes().sort((a, b) => {
             const textA = d3.select(a).select('text').text().toUpperCase();
@@ -2075,7 +2031,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const cellHeight = 30; // Adjust height as needed
             const x = column * cellWidth + cellWidth / 2;
             const y = svgHeight - (rows * cellHeight) + row * cellHeight + cellHeight / 2;
-            // drawRectAt(x, y, 20, 20, 'red')
             categoryTargetPositions[node.id] = { x: x, y: y - 20 };
         });
 
@@ -2098,51 +2053,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let currentY = svgHeight - totalHeight;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*********/
-
-
-
-        /*********/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // ***** ACTORS *****
-
         const globalFrequencyMap = {};
 
         // Compute the frequency of each data category globally
@@ -2160,301 +2070,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // console.log(globalFrequencyMap);
 
 
-        function generateRectCopies(collectedData, actorIconCategory, commonX, offsetY) {
-            const newRects = [];
-            let rectIndex = 0;
 
-            // Get sorted categories based on global frequency
-            const sortedCategories = Object.keys(collectedData).sort((a, b) => {
-                return globalFrequencyMap[b] - globalFrequencyMap[a];
-            });
-
-            // Iterate over the sorted data categories
-            sortedCategories.forEach(dataCategory => {
-                const items = collectedData[dataCategory];
-
-
-                // console.log("items: -------------------");
-                // console.log(items);
-
-
-                items.forEach((item, innerIndex) => {
-                    const dataRect = splitRectData.find(d => capitalizeFirstLetter(d.name) === capitalizeFirstLetter(item.name));
-                    if (dataRect) {
-                        const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
-                        const dataRectCopy = {
-                            ...dataRect,
-                            id: uniqueId,
-                            name: capitalizeFirstLetter(item.name),
-                            tooltipText: item.text
-                        };
-
-                        if (!tmpSearcher) {
-                            tmpSearcher = new IframeSearcher('contextIframe');
-
-                            window.tmpSearcher = tmpSearcher;
-
-                        }
-
-
-
-
-
-
-                        let lines = processString(item.text)
-                            .filter(text => !isHeader(text)) // to remove headers
-                            .map(line => normalizeText(line));
-
-
-
-                        // let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
-
-                        // let textToFind = "Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person";
-
-                        // const containsText = lines.some(line => line.includes(textToFind));
-
-
-
-                        // console.log("item.text:");
-                        // console.log(item.text);
-                        // window.text = item.text;
-                        // console.log("lines:");
-                        // console.log(lines);
-                        // window.lines = lines;
-
-
-
-
-
-
-
-
-
-
-
-
-                        const result = [];
-                        let i = 0;
-
-                        while (i < lines.length) {
-                            let currentConcat = lines[i];
-                            let successfulConcat = currentConcat;
-                            let lastSuccessfulIndex = i;
-
-                            // Attempt to concatenate with subsequent strings
-                            for (let j = i + 1; j < lines.length; j++) {
-                                currentConcat += ' ' + lines[j];
-
-                                // Check if the concatenated string exists in the text
-                                tmpSearcher.search(currentConcat, false);
-
-                                if (tmpSearcher.currentMatches.length) {
-                                    // If found, update the last successful concatenation and index
-                                    successfulConcat = currentConcat;
-                                    lastSuccessfulIndex = j;
-                                } else {
-                                    // If not found, break out of the loop as further concatenation won't help
-                                    break;
-                                }
-                            }
-
-                            // Add the last successful concatenation to the result
-                            result.push(successfulConcat);
-
-                            // Move the index to the last successfully concatenated string
-                            i = lastSuccessfulIndex + 1;
-                        }
-
-                        // Output the results
-                        // console.log("Results of concatenations:");
-                        // console.log(result);
-
-                        window.result = result;
-
-
-                        lines = result;
-
-                        const itemName = capitalizeFirstLetter(item.name);
-
-                        const sanitizedActorCategory = sanitizeId(actorIconCategory);
-                        const sanitizedDataCategory = sanitizeId(dataCategory);
-
-                        let theRect = svg.append('rect')
-                            .data([dataRectCopy]) // Binding data here
-                            .attr('id', uniqueId)
-                            .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
-                            .attr('opacity', 0)
-                            .attr('x', -targetSize)
-                            .attr('y', -targetSize)
-                            .attr('width', targetSize * 2)
-                            .attr('height', targetSize * 2)
-                            .attr('rx', targetSize)
-                            .attr('ry', targetSize)
-                            .attr('fill', dataRectCopy.fill)
-                            .attr('stroke-width', 0)
-                            .attr('stroke', darkenColor(dataRectCopy.fill))
-                            .attr('data-name', itemName)
-                            .attr('data-data-category', makeID(dataCategory))
-                            .each(function (d) {
-
-
-                                // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                                // console.log(this);
-
-                                // console.log("*********************************");
-                                // console.log("item.text");
-                                // console.log(item.text);
-                                // console.log("*********************************");
-
-                                // console.log("Processed string:");
-                                // console.log(processString(item.text));
-
-
-                                const inheritances = dataInheritances[itemName];
-
-                                // console.log("inheritances for " + itemName);
-                                // console.log(inheritances);
-
-                                let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor, inheritances);
-
-                                const tooltipInstance = tippy(this, {
-                                    theme: 'light-border',
-                                    content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
-                                    allowHTML: true,
-                                    trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
-                                    hideOnClick: false,
-                                    interactive: true,      // Set to false to make the tooltip non-interactive
-                                    placement: 'top',        // Prefer placement at the top
-                                    fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
-                                    appendTo: () => document.body
-                                });
-
-                                this.addEventListener('mouseenter', (z) => {
-
-                                    if (mainTimeline.currentLabel() !== "actorsColumn") {
-                                        return;
-                                    }
-
-                                    // console.log("theRect.style('opacity'):");
-                                    // console.log(theRect.style('opacity'));
-
-
-                                    if (theRect.style('opacity') === '1') {
-                                        tooltipInstance.show();
-                                    }
-
-                                    if (!dataCategoryClicked) {
-
-                                        changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
-                                    }
-                                });
-
-                                this.addEventListener('mouseleave', () => {
-                                    if (currentPermanentTooltip !== tooltipInstance) {
-                                        tooltipInstance.hide();
-                                    }
-                                    if (!dataCategoryClicked) {
-                                        restoreDataCategoriesLabelsOpacity();
-                                    }
-                                });
-
-                                // Make the tooltip permanent on click
-                                this.addEventListener('click', () => {
-
-                                    tooltipInstance.show();
-
-                                    dataCategoryClicked = true;
-
-                                    // Hide the currently permanent tooltip, if any
-                                    if (currentPermanentTooltip) {
-                                        currentPermanentTooltip.hide();
-                                    }
-
-                                    // Set the clicked tooltip as the permanent one
-                                    currentPermanentTooltip = tooltipInstance;
-
-                                    const rectangles = document.querySelectorAll('.copyOfDataRect');
-
-                                    // reducing the opacity of the other rectangles
-                                    rectangles.forEach(rect => {
-                                        const name = rect.getAttribute('data-name').toLowerCase();
-                                        if (name === this.getAttribute('data-name').toLowerCase()) {
-                                            rect.style.opacity = '1';
-                                        } else {
-                                            rect.style.opacity = '0.15';
-                                        }
-                                    });
-
-                                    // console.log("sanitizedDataCategory: ");
-                                    // console.log(sanitizedDataCategory);
-
-                                    changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
-
-
-
-
-
-
-
-
-
-                                });
-
-
-
-                            });
-
-
-
-
-
-                        // event to see the corresponding texts within the privacy policy
-                        theRect.on('click', () => {
-
-                            currentLinesArray = lines;
-                            currentLineIndex = 0;
-
-                            const currentText = currentLinesArray[currentLineIndex];
-                            const highlightColor = categoriesColorScale(originalNames[dataCategory]);
-
-                            document.querySelector("#dataName").textContent = itemName;
-                            document.querySelector("#pageInfo").textContent = "1/" + lines.length;
-                            document.querySelector("#squareIndicator").style.backgroundColor = highlightColor;
-                            document.querySelector("#overlay").style.borderTopColor = highlightColor;
-                            document.querySelector("#overlay").style.borderBottomColor = highlightColor;
-                            document.querySelector("#pageNavigation").style.borderLeftColor = highlightColor;
-                            document.querySelector("#overlay").style.backgroundColor = highlightColor + '05';
-
-                            popup.style.visibility = 'visible';
-                            popup.style.opacity = '1';
-
-                            gsap.to("#overlay", {
-                                duration: 0.25,
-                                height: '50px',
-                                padding: '10px 20px',
-                                borderTop: '2px solid ' + highlightColor,
-                                borderBottom: '3px solid ' + highlightColor,
-                                ease: 'linear',
-                                onComplete: () => {
-                                    scrollToAndHighlightInIframe(currentText, highlightColor + '61');
-                                },
-                            });
-
-                            document.addEventListener('keydown', escKeyListener);
-                            document.querySelector('.popup-content').addEventListener('keydown', escKeyListener);
-
-                        });
-
-                        newRects.push(dataRectCopy);
-                        rectIndex++;
-                    } else {
-                        console.error("Could not find the rect associated to " + item.name);
-                    }
-                });
-            });
-
-            return newRects;
-        }
 
         // console.log("!!!!!!!!!!!!!!!!!!! rectData[rectData.length - 1]");
         // console.log(rectData[rectData.length - 1]);
@@ -2543,7 +2159,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const actorType = removeSpaces(formatedNames[who].toUpperCase());
 
-        const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, rightAlignX, startY);
+        const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, globalFrequencyMap, splitRectData);
 
         rectsOfLogo.forEach((rect, rectIndex) => {
             mainTimeline.fromTo(`#${rect.id}`, {
@@ -2636,7 +2252,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const commonX = rightAlignX;
 
             // Generate rect copies first
-            const rectCopies = generateRectCopies(collectedData, actorType, commonX, offsetY);
+            const rectCopies = generateRectCopies(collectedData, actorType, globalFrequencyMap, splitRectData);
 
             // console.log("newRects.length:");
             // console.log(rectCopies.length);
@@ -2864,63 +2480,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
 
-        function getPackedDataForSplitRects(point1, point2, totalHeight, targetSize) {
-            const rectWidth1 = Math.abs(point2.x - point1.x);
-            const rectWidth2 = rectWidth1;
-            const rectHeight = totalHeight;
 
-            const data = movedRectData.map((d, i) => ({
-                id: d.id,
-                width: d.width,
-                height: d.height,
-                x: d.x,
-                y: d.y,
-                scale: d.scale,
-                fill: d.fill,
-                initialX: d.x,
-                initialY: d.y,
-                targetX: 0,
-                targetY: 0,
-                name: d.name
-            }));
-
-            const numRects = data.length;
-            const halfRects = Math.floor(numRects / 2);
-
-            const rect1Data = data.slice(0, halfRects);
-            const rect2Data = data.slice(halfRects);
-
-            function calculateColumnMajorPositions(rectData, startX, width, height, rightToLeft = false) {
-                const padding = 3;
-                const optimalRows = Math.ceil(Math.sqrt(rectData.length * (height / width)));
-                const optimalColumns = Math.ceil(rectData.length / optimalRows);
-                let rectDiameter = 2 * targetSize;
-                const rows = Math.floor((height - padding) / (rectDiameter + padding));
-                const columns = Math.ceil(rectData.length / rows);
-
-                if ((rectDiameter + padding) * rows < height) {
-                    rectDiameter = (height - (rows + 1) * padding) / rows;
-                }
-
-                rectData.forEach((d, i) => {
-                    const col = Math.floor(i / rows);
-                    const row = i % rows;
-
-                    if (rightToLeft) {
-                        const rightmostX = startX - (columns - 1) * (rectDiameter + padding);
-                        d.targetX = rightmostX + (columns - 1 - col) * (rectDiameter + padding);
-                    } else {
-                        d.targetX = startX + col * (rectDiameter + padding);
-                    }
-                    d.targetY = point1.y + row * (rectDiameter + padding);
-                });
-            }
-
-            calculateColumnMajorPositions(rect1Data, point1.x, rectWidth1, rectHeight);
-            calculateColumnMajorPositions(rect2Data, point2.x, rectWidth2, rectHeight, true);
-
-            return rect1Data.concat(rect2Data);
-        }
 
         const panel = document.getElementById('test');
         const texts = document.querySelectorAll("#test .explanationText");
@@ -4034,7 +3594,339 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
+    function generateRectCopies(collectedData, actorIconCategory, globalFrequencyMap, splitRectData) {
+        const newRects = [];
+        let rectIndex = 0;
 
+        // Get sorted categories based on global frequency
+        const sortedCategories = Object.keys(collectedData).sort((a, b) => {
+            return globalFrequencyMap[b] - globalFrequencyMap[a];
+        });
+
+        // Iterate over the sorted data categories
+        sortedCategories.forEach(dataCategory => {
+            const items = collectedData[dataCategory];
+
+            // console.log("items: -------------------");
+            // console.log(items);
+
+
+            items.forEach((item, innerIndex) => {
+                const dataRect = splitRectData.find(d => capitalizeFirstLetter(d.name) === capitalizeFirstLetter(item.name));
+                if (dataRect) {
+                    const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
+                    const dataRectCopy = {
+                        ...dataRect,
+                        id: uniqueId,
+                        name: capitalizeFirstLetter(item.name),
+                        tooltipText: item.text
+                    };
+
+                    if (!tmpSearcher) {
+                        tmpSearcher = new IframeSearcher('contextIframe');
+
+                        window.tmpSearcher = tmpSearcher;
+
+                    }
+
+
+
+
+
+
+                    let lines = processString(item.text)
+                        .filter(text => !isHeader(text)) // to remove headers
+                        .map(line => normalizeText(line));
+
+
+
+                    // let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
+
+                    // let textToFind = "Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person";
+
+                    // const containsText = lines.some(line => line.includes(textToFind));
+
+
+
+                    // console.log("item.text:");
+                    // console.log(item.text);
+                    // window.text = item.text;
+                    // console.log("lines:");
+                    // console.log(lines);
+                    // window.lines = lines;
+
+
+
+
+
+
+
+
+
+
+
+
+                    const result = [];
+                    let i = 0;
+
+                    while (i < lines.length) {
+                        let currentConcat = lines[i];
+                        let successfulConcat = currentConcat;
+                        let lastSuccessfulIndex = i;
+
+                        // Attempt to concatenate with subsequent strings
+                        for (let j = i + 1; j < lines.length; j++) {
+                            currentConcat += ' ' + lines[j];
+
+                            // Check if the concatenated string exists in the text
+                            tmpSearcher.search(currentConcat, false);
+
+                            if (tmpSearcher.currentMatches.length) {
+                                // If found, update the last successful concatenation and index
+                                successfulConcat = currentConcat;
+                                lastSuccessfulIndex = j;
+                            } else {
+                                // If not found, break out of the loop as further concatenation won't help
+                                break;
+                            }
+                        }
+
+                        // Add the last successful concatenation to the result
+                        result.push(successfulConcat);
+
+                        // Move the index to the last successfully concatenated string
+                        i = lastSuccessfulIndex + 1;
+                    }
+
+                    // Output the results
+                    // console.log("Results of concatenations:");
+                    // console.log(result);
+
+                    window.result = result;
+
+
+                    lines = result;
+
+                    const itemName = capitalizeFirstLetter(item.name);
+
+                    const sanitizedActorCategory = sanitizeId(actorIconCategory);
+                    const sanitizedDataCategory = sanitizeId(dataCategory);
+
+                    let theRect = svg.append('rect')
+                        .data([dataRectCopy]) // Binding data here
+                        .attr('id', uniqueId)
+                        .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
+                        .attr('opacity', 0)
+                        .attr('x', -targetSize)
+                        .attr('y', -targetSize)
+                        .attr('width', targetSize * 2)
+                        .attr('height', targetSize * 2)
+                        .attr('rx', targetSize)
+                        .attr('ry', targetSize)
+                        .attr('fill', dataRectCopy.fill)
+                        .attr('stroke-width', 0)
+                        .attr('stroke', darkenColor(dataRectCopy.fill))
+                        .attr('data-name', itemName)
+                        .attr('data-data-category', makeID(dataCategory))
+                        .each(function (d) {
+
+                            // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                            // console.log(this);
+                            // console.log("*********************************");
+                            // console.log("item.text");
+                            // console.log(item.text);
+                            // console.log("*********************************");
+                            // console.log("Processed string:");
+                            // console.log(processString(item.text));
+
+                            const inheritances = dataInheritances[itemName];
+
+                            // console.log("inheritances for " + itemName);
+                            // console.log(inheritances);
+
+                            let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor, inheritances);
+
+                            const tooltipInstance = tippy(this, {
+                                theme: 'light-border',
+                                content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
+                                allowHTML: true,
+                                trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
+                                hideOnClick: false,
+                                interactive: true,      // Set to false to make the tooltip non-interactive
+                                placement: 'top',        // Prefer placement at the top
+                                fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
+                                appendTo: () => document.body
+                            });
+
+                            this.addEventListener('mouseenter', (z) => {
+
+                                if (mainTimeline.currentLabel() !== "actorsColumn") {
+                                    return;
+                                }
+
+                                // console.log("theRect.style('opacity'):");
+                                // console.log(theRect.style('opacity'));
+
+                                if (theRect.style('opacity') === '1') {
+                                    tooltipInstance.show();
+                                }
+
+                                if (!dataCategoryClicked) {
+
+                                    changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
+                                }
+                            });
+
+                            this.addEventListener('mouseleave', () => {
+                                if (currentPermanentTooltip !== tooltipInstance) {
+                                    tooltipInstance.hide();
+                                }
+                                if (!dataCategoryClicked) {
+                                    restoreDataCategoriesLabelsOpacity();
+                                }
+                            });
+
+                            // Make the tooltip permanent on click
+                            this.addEventListener('click', () => {
+
+                                tooltipInstance.show();
+
+                                dataCategoryClicked = true;
+
+                                // Hide the currently permanent tooltip, if any
+                                if (currentPermanentTooltip) {
+                                    currentPermanentTooltip.hide();
+                                }
+
+                                // Set the clicked tooltip as the permanent one
+                                currentPermanentTooltip = tooltipInstance;
+
+                                const rectangles = document.querySelectorAll('.copyOfDataRect');
+
+                                // reducing the opacity of the other rectangles
+                                rectangles.forEach(rect => {
+                                    const name = rect.getAttribute('data-name').toLowerCase();
+                                    if (name === this.getAttribute('data-name').toLowerCase()) {
+                                        rect.style.opacity = '1';
+                                    } else {
+                                        rect.style.opacity = '0.15';
+                                    }
+                                });
+
+                                // console.log("sanitizedDataCategory: ");
+                                // console.log(sanitizedDataCategory);
+
+                                changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
+
+                            });
+                        });
+
+                    // event to see the corresponding texts within the privacy policy
+                    theRect.on('click', () => {
+
+                        currentLinesArray = lines;
+                        currentLineIndex = 0;
+
+                        const currentText = currentLinesArray[currentLineIndex];
+                        const highlightColor = categoriesColorScale(originalNames[dataCategory]);
+
+                        document.querySelector("#dataName").textContent = itemName;
+                        document.querySelector("#pageInfo").textContent = "1/" + lines.length;
+                        document.querySelector("#squareIndicator").style.backgroundColor = highlightColor;
+                        document.querySelector("#overlay").style.borderTopColor = highlightColor;
+                        document.querySelector("#overlay").style.borderBottomColor = highlightColor;
+                        document.querySelector("#pageNavigation").style.borderLeftColor = highlightColor;
+                        document.querySelector("#overlay").style.backgroundColor = highlightColor + '05';
+
+                        popup.style.visibility = 'visible';
+                        popup.style.opacity = '1';
+
+                        gsap.to("#overlay", {
+                            duration: 0.25,
+                            height: '50px',
+                            padding: '10px 20px',
+                            borderTop: '2px solid ' + highlightColor,
+                            borderBottom: '3px solid ' + highlightColor,
+                            ease: 'linear',
+                            onComplete: () => {
+                                scrollToAndHighlightInIframe(currentText, highlightColor + '61');
+                            },
+                        });
+
+                        document.addEventListener('keydown', escKeyListener);
+                        document.querySelector('.popup-content').addEventListener('keydown', escKeyListener);
+
+                    });
+
+                    newRects.push(dataRectCopy);
+                    rectIndex++;
+                } else {
+                    console.error("Could not find the rect associated to " + item.name);
+                }
+            });
+        });
+
+        return newRects;
+    }
+
+
+    function getPackedDataForSplitRects(point1, point2, totalHeight, targetSize) {
+        const rectWidth1 = Math.abs(point2.x - point1.x);
+        const rectWidth2 = rectWidth1;
+        const rectHeight = totalHeight;
+
+        const data = movedRectData.map((d, i) => ({
+            id: d.id,
+            width: d.width,
+            height: d.height,
+            x: d.x,
+            y: d.y,
+            scale: d.scale,
+            fill: d.fill,
+            initialX: d.x,
+            initialY: d.y,
+            targetX: 0,
+            targetY: 0,
+            name: d.name
+        }));
+
+        const numRects = data.length;
+        const halfRects = Math.floor(numRects / 2);
+
+        const rect1Data = data.slice(0, halfRects);
+        const rect2Data = data.slice(halfRects);
+
+        function calculateColumnMajorPositions(rectData, startX, width, height, rightToLeft = false) {
+            const padding = 3;
+            const optimalRows = Math.ceil(Math.sqrt(rectData.length * (height / width)));
+            const optimalColumns = Math.ceil(rectData.length / optimalRows);
+            let rectDiameter = 2 * targetSize;
+            const rows = Math.floor((height - padding) / (rectDiameter + padding));
+            const columns = Math.ceil(rectData.length / rows);
+
+            if ((rectDiameter + padding) * rows < height) {
+                rectDiameter = (height - (rows + 1) * padding) / rows;
+            }
+
+            rectData.forEach((d, i) => {
+                const col = Math.floor(i / rows);
+                const row = i % rows;
+
+                if (rightToLeft) {
+                    const rightmostX = startX - (columns - 1) * (rectDiameter + padding);
+                    d.targetX = rightmostX + (columns - 1 - col) * (rectDiameter + padding);
+                } else {
+                    d.targetX = startX + col * (rectDiameter + padding);
+                }
+                d.targetY = point1.y + row * (rectDiameter + padding);
+            });
+        }
+
+        calculateColumnMajorPositions(rect1Data, point1.x, rectWidth1, rectHeight);
+        calculateColumnMajorPositions(rect2Data, point2.x, rectWidth2, rectHeight, true);
+
+        return rect1Data.concat(rect2Data);
+    }
 
 
 });
