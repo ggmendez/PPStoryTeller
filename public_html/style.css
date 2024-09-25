@@ -1758,3 +1758,14 @@ code .token.url {
 .dataRect {
   opacity: 1;
 }
+
+
+.middle-div {
+  width: 200px;
+  height: 200px;
+  background-color: lightcoral; /* Example styles */  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Move back 50% of the div's own width and height */
+}
