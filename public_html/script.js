@@ -1879,7 +1879,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 y: (i) => firstData[i].y,
                 opacity: (i) => firstData[i].opacity, // only the ones that go to the logo will change their opacity
                 duration: animationDuration,
-                ease: "sine.inOut",
+                ease: "none",
                 stagger: { amount: animationDuration },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
@@ -1972,13 +1972,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        // sending random pieces of data to random actors
+        // sending random pieces of data to actors randomly
         mainTimeline.to(rectData, {
             x: (i) => secondData[i].x,
             y: (i) => secondData[i].y,
             opacity: 0,
-            duration: animationDuration * 2,
-            ease: "sine.inOut",
+            duration: animationDuration * 2,            
+            ease: "back.in(1.01)",
             stagger: { amount: animationDuration },
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
