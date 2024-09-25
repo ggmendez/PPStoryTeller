@@ -1780,7 +1780,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "categories");
 
-
         svgCategoryGroups.nodes().forEach((svgCategoryGroup, index) => {
             let id = svgCategoryGroup.id;
             let position = categoryStartPositions[id];
@@ -1796,33 +1795,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
 
-
-
-
-
-
-        // ***** DATA SHARED *****
-
-
-        let logoBBox = logoIcon.node().getBBox();
-
-        const d = 15;
+        // ***** DATA SHARED *****    
         const p = 10;
-
         const centerX = svgWidth / 2;
         const centerY = svgHeight / 2;
         const x1 = centerX - logoIconWidth / 2 - p;  // Left edge (minimum x)
-        const x2 = centerX + logoIconWidth / 2 + p;  // Right edge (maximum x)
         const y1 = centerY - logoIconHeight / 2 - p; // Top edge (minimum y)
         const y2 = centerY + logoIconHeight / 2 + p; // Bottom edge (maximum y)
-
-        const rectangle = [
-            { x: x1, y: y1 }, // Top-left corner
-            { x: x2, y: y1 }, // Top-right corner
-            { x: x2, y: y2 }, // Bottom-right corner
-            { x: x1, y: y2 }  // Bottom-left corner
-        ];
-
 
         const points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 5, 5, rectData.length, 15, 15);
 
@@ -1842,7 +1821,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 chosenIndices.push(n);
             }
         }
-
 
         for (let index = 0; index < rectData.length; index++) {
             if (chosenIndices.includes(index)) {
@@ -1917,12 +1895,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 1))
+            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 1))
 
             .to(logoIcon.node(), {
                 x: '-=' + delta,
                 duration: animationDuration,
-            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 1))
+            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 1))
 
 
         // Bringing actors in
@@ -1933,8 +1911,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // window.svgActorIcons = svgActorIcons;
 
         const actorNodes = svgActorIcons.nodes();
-
-        const whenActors = (2 * animationDuration + animationDuration / 3);
 
         // actor labels
         const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function () {
@@ -1952,7 +1928,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             mainTimeline.fromTo(actorNode, {
                 opacity: 0,
-                // x: x + 200,
                 x: x,
                 y: y,
                 scale: 0,
@@ -1966,7 +1941,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
                 ease: "back.inOut(3)",
                 // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 2))
-            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 2))
+            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 2))
 
         });
 
@@ -1991,7 +1966,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }
                 }
                 // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 2))
-            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 2))
+            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 2))
         });
 
 
@@ -2009,7 +1984,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 drawRectsAndLabels(rectData);
             }
             // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
-        }, "dataShared+=" + (animationDuration + animationDuration / 3 + 3))
+        }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 3))
 
 
         // Extract nodes and sort them alphabetically by the text content
