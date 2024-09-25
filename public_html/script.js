@@ -1657,12 +1657,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function addScrollEvents(logoIconWidth, logoIconHeight) {
 
-
-
-
         let progressElements = [];
         progressElements.push({ line: ".line-1", trigger: "#they", circle: "#circle-2" });
         progressElements.push({ line: ".line-2", trigger: "#divPiecesOfData", circle: "#circle-3" });
+        progressElements.push({ line: ".line-3", trigger: "#divTotalCategories", circle: "#circle-4" });
+        progressElements.push({ line: ".line-4", trigger: "#divDataShared", circle: "#circle-5" });
+        progressElements.push({ line: ".line-5", trigger: "#divDataPerActor", circle: "#circle-6" });
 
         for (let index = 0; index < progressElements.length; index++) {
 
