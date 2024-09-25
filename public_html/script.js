@@ -389,11 +389,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
 
-        if (shouldShowDataCategories || dataCategoryClicked) {
-            d3.selectAll('.category-label')
-                .style('font-weight', 'normal')
-                .style('opacity', 1);
+        if (mainTimeline.currentLabel() === "actorsColumn" || mainTimeline.currentLabel() === "dataShared") {
+            if (shouldShowDataCategories || dataCategoryClicked) {
+                d3.selectAll('.category-label')
+                    .style('font-weight', 'normal')
+                    .style('opacity', 1);
+            }
         }
+
+        
 
 
 
@@ -1253,9 +1257,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function drawRectsAndLabels(rectData) {
 
-
-        console.log(rectData[0]);
-
         // Create a map to store rectangles by their IDs
         const rectMap = {};
 
@@ -1881,8 +1882,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             // shifting things to the left
             .to(rectData, {
-                rx: 0,
-                ry: 0,
+                // rx: 0,
+                // ry: 0,
                 x: '-=' + delta,
                 duration: animationDuration,
                 stagger: { amount: animationDuration / 20 },
@@ -1971,16 +1972,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-        //*****************************************//
-        // sending random of data to random actors //
-        //*****************************************//
+        //************************************************//
+        // sending random pieces of data to random actors //
+        //************************************************//
 
         // const randomRects = getRandomElements(rectData, rectData.length / 2);
 
-        let destinations = [];
 
         let chosenIndices = [];
-
         let firstData = [];
         let secondData = [];
 
@@ -1994,9 +1993,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         for (let index = 0; index < rectData.length; index++) {
             if (chosenIndices.includes(index)) {
-                firstData.push({ x: delta, y: y1 + logoIconHeight / 2 });
+                firstData.push({ x: delta, y: y1 + logoIconHeight / 2 + 10, opacity: 0 });
             } else {
-                firstData.push({ x: points[index].x - delta, y: points[index].y });
+                firstData.push({ x: points[index].x - delta, y: points[index].y, opacity: 1 });
             }
         }
 
@@ -2010,45 +2009,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
 
-
-
-
-
-
-
-
-        // working with the rects that correspond to the chosen indices
-
-
-        // for (let index = 0; index < rectData.length; index++) {
-        //     let n = getRandomBetween(0, 100, true);
-        //     if (n % 2 == 0) {
-
-        //         firstData.push({ x: x1 - 150, y: y1 + logoIconHeight / 2 });
-        //         secondData.push({ x: rectData[index].x, y: rectData[index].y });
-
-
-        //         destinations.push({ x: x1 - 150, y: y1 + logoIconHeight / 2 });
-        //     } else {
-        //         let value = getRandomProperty(originalTransformations).value;
-        //         destinations.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
-
-
-        //         firstData.push({ x: rectData[index].x, y: rectData[index].y });
-        //         secondData.push({ x: x1 - 150, y: y1 + logoIconHeight / 2 });
-
-
-
-        //     }
-        // }
-
         // window.originalTransformations = originalTransformations;
         // console.log(getRandomProperty(originalTransformations));
 
+
+        // to the logo
         mainTimeline.to(rectData, {
-            x: (i) => firstData[i].x,
+            // x: (i) => firstData[i].x,
             y: (i) => firstData[i].y,
-            // opacity: 0,
+            opacity: (i) => firstData[i].opacity, // only the ones that go to the logo will change their opacity
             duration: animationDuration,
             ease: "sine.inOut",
             stagger: { amount: animationDuration },
@@ -2058,11 +2027,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 1))
 
 
+        // to the actors
         mainTimeline.to(rectData, {
             x: (i) => secondData[i].x,
             y: (i) => secondData[i].y,
-            // opacity: 0,
-            duration: animationDuration * 5,
+            opacity: 0,
+            duration: animationDuration * 2,
             ease: "sine.inOut",
             stagger: { amount: animationDuration },
             onUpdate: () => {
@@ -2364,7 +2334,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     appendTo: () => document.body
                                 });
 
-                                this.addEventListener('mouseenter', () => {
+                                this.addEventListener('mouseenter', (z  ) => {
+
+                                    if (mainTimeline.currentLabel() !== "actorsColumn") {
+                                        return;
+                                    }
 
                                     // console.log("theRect.style('opacity'):");
                                     // console.log(theRect.style('opacity'));
@@ -2584,8 +2558,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
                 y: startY + targetSize / 2,
                 opacity: 1,
-                rx: 0,
-                ry: 0,
+                // rx: 0,
+                // ry: 0,
                 duration: animationDuration,
                 ease: "power1.inOut",
             }, `actorsColumn+=${rectIndex * 0.01}`);
@@ -2679,8 +2653,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
                     y: offsetY + targetSize / 2,
                     opacity: 1,
-                    rx: 0,
-                    ry: 0,
+                    // rx: 0,
+                    // ry: 0,
                     duration: animationDuration,
                     ease: "power1.inOut",
                 }, `actorsColumn+=${groupStartTime + rectIndex * 0.01}`);
@@ -2736,7 +2710,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('mouseover', function (event) {
 
-                    console.log(d3.select(node).attr('opacity'));
+                    // console.log("mainTimeline.currentLabel():");
+                    // console.log(mainTimeline.currentLabel());
+
+                    // console.log(d3.select(node).attr('opacity'));
+
+                    if (mainTimeline.currentLabel() !== "actorsColumn") {
+                        return;
+                    }
 
                     if (d3.select(node).attr('opacity') === '1' && shouldShowDataCategories && !dataCategoryClicked) {
 
@@ -2767,7 +2748,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     if (shouldShowDataCategories && !dataCategoryClicked) {
 
                         console.log("Tunal");
-
 
                         d3.select(this).style('font-weight', 'normal');
 
