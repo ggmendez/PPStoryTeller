@@ -1378,12 +1378,7 @@ code .token.url {
 }
 
 
-.line-3 {
-  width: 10px;
-  background-color: red;
-  transform-origin: center center;
-  z-index: 2;
-}
+
 
 
 .progressCircle {
@@ -1759,13 +1754,3 @@ code .token.url {
   opacity: 1;
 }
 
-
-.middle-div {
-  width: 200px;
-  height: 800px;
-  background-color: lightcoral; /* Example styles */  
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Move back 50% of the div's own width and height */
-}

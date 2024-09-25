@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let currentLineIndex = null;
     let shouldShowDataCategories = false;
     let dataCategoryClicked = false;
+    let progressColor = "gray";
 
     const scrollOffset = 1000;
 
@@ -1659,66 +1660,127 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+        let progressElements = [];
+        progressElements.push({ line: ".line-1", trigger: "#they", circle: "#circle-2" });
+        progressElements.push({ line: ".line-2", trigger: "#divPiecesOfData", circle: "#circle-3" });
 
+        for (let index = 0; index < progressElements.length; index++) {
 
+            const element = progressElements[index];
 
-        gsap.fromTo(".line-2",
-            {
-                scaleY: 0, // Start with scaleY at 0 (no height)
-            },
-            {
-                scaleX: 1,
-                scaleY: 1, // ScaleY to 1 (full height)
-                ease: "none", // No easing for smooth linear progress
+            let tl = gsap.timeline({
                 scrollTrigger: {
-                    // trigger: "#middleDiv",
-                    trigger: ".line-2",
-                    start: "center center",
-                    end: "bottom top",
+                    trigger: element.trigger,
+
+                    // start: "top+=" + (scrollOffset * (index)) + " bottom",
+                    // end: "top+=" + (scrollOffset * (index)) + " top",
+
+                    // start: () => "top" + " bottom",
+                    // end: () => "top" + " top",
+
+                    start: () => "top+=" + (index * svgHeight) + " bottom",
+                    end: () => "top+=" + (index * svgHeight) + " top",
+
                     scrub: 1, // Scrub the progress smoothly
                     markers: true, // Debug markers for visualization
-                    onUpdate: (self) => {
-                        console.log("Scroll Progress:", self.progress.toFixed(3)); // Print smooth progress
-                    }
                 }
-            }
-        );
+            });
 
+            // Add the fromTo animation to the timeline
+            tl
+                .fromTo(element.line,
+                    {
+                        scaleY: 0, // Start with scaleY at 0 (no height)
+                        scaleX: 1,
+                    },
+                    {
+                        scaleX: 1,
+                        scaleY: 1, // ScaleY to 1 (full height)
+                        ease: "none", // No easing for smooth linear progress
+                    }
+                )
+                .to(element.circle,
+                    {
+                        backgroundColor: progressColor,
+                        // ease: "none",
+                        duration: 0
 
-
-
-
-
-
-
-
-
-
-        let progressColor = "gray";
-
-        gsap.to("#one", {
-            ease: "none",
-            scrollTrigger: {
-                trigger: "#one",
-                start: "top top",
-                scrub: true,
-                onUpdate: (self) => {
-
-                    restoreProgressCircles();
-
-                    const progress = self.progress;
-                    gsap.to('.scroll-down', {
-                        opacity: 1 - progress
                     });
-                    gsap.to('.line-1', { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
-                    if (progress > 0.99) {
-                        gsap.to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
-                    } else {
-                        gsap.to("#circle-2", { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
-                    }
-                }
-            }
-        });
+
+
+            // gsap.fromTo(element.line,
+            //     {
+            //         scaleY: 0, // Start with scaleY at 0 (no height)
+            //         scaleX: 1,
+            //     },
+            //     {
+            //         scaleX: 1,
+            //         scaleY: 1, // ScaleY to 1 (full height)
+            //         ease: "none", // No easing for smooth linear progress
+            //         scrollTrigger: {
+            //             trigger: element.trigger,
+            //             start: "top bottom",
+            //             end: "bottom top",
+            //             scrub: 1, // Scrub the progress smoothly
+            //             markers: true, // Debug markers for visualization
+
+            //         }
+            //     }
+            // )
+
+
+            // .to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
+
+
+        }
+
+        // gsap.fromTo(".line-1",
+        //     {
+        //         scaleY: 0, // Start with scaleY at 0 (no height)
+        //         scaleX: 1,
+        //     },
+        //     {
+        //         scaleX: 1,
+        //         scaleY: 1, // ScaleY to 1 (full height)
+        //         ease: "none", // No easing for smooth linear progress
+        //         scrollTrigger: {
+        //             trigger: "#they",
+        //             start: "top bottom",
+        //             end: "bottom top",
+        //             scrub: 1, // Scrub the progress smoothly
+        //             markers: true, // Debug markers for visualization
+        //             onUpdate: (self) => {
+        //                 console.log("Scroll Progress:", self.progress.toFixed(3)); // Print smooth progress
+        //             }
+        //         }
+        //     }
+        // );
+
+
+
+        // gsap.to("#one", {
+        //     ease: "none",
+        //     scrollTrigger: {
+        //         trigger: "#one",
+        //         start: "top top",
+        //         scrub: true,
+        //         onUpdate: (self) => {
+
+        //             restoreProgressCircles();
+
+        //             const progress = self.progress;
+        //             gsap.to('.scroll-down', {
+        //                 opacity: 1 - progress
+        //             });
+        //             // gsap.to('.line-1', { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
+        //             if (progress > 0.99) {
+        //                 gsap.to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
+        //             } else {
+        //                 gsap.to("#circle-2", { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
+        //             }
+        //         }
+        //     }
+        // });
 
         // console.log("++++ rectData ++++");
         // console.log(rectData);
@@ -2550,10 +2612,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
         const pairs = [
-            { line: '.line-2', circle: '#circle-3' },
+            // { line: '.line-2', circle: '#circle-3' },
             // { line: '.line-3', circle: '#circle-4' },
-            { line: '.line-4', circle: '#circle-5' },
-            { line: '.line-5', circle: '#circle-6' }
+            // { line: '.line-4', circle: '#circle-5' },
+            // { line: '.line-5', circle: '#circle-6' }
         ];
 
 
@@ -2666,6 +2728,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }
         });
+
+
+
 
         // Initialize the text scroll triggers
         setupTextScrollTriggers();
