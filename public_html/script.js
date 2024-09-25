@@ -11,6 +11,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let shouldShowDataCategories = false;
     let dataCategoryClicked = false;
 
+    const scrollOffset = 1000;
+
     let pathLargestRect, pathSmallesRect;
     let label1, label2;
     let nonTargetLabels;
@@ -1654,6 +1656,43 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function addScrollEvents(logoIconWidth, logoIconHeight) {
 
+
+
+
+
+
+
+        gsap.fromTo(".line-2",
+            {
+                scaleY: 0, // Start with scaleY at 0 (no height)
+            },
+            {
+                scaleX: 1,
+                scaleY: 1, // ScaleY to 1 (full height)
+                ease: "none", // No easing for smooth linear progress
+                scrollTrigger: {
+                    trigger: ".line-3", // The element being animated
+                    start: "top center", // Start when .line-3's top reaches the bottom of the viewport
+                    end: "top top", // End when .line-3's top reaches the top of the viewport
+                    scrub: 1, // Scrub the progress smoothly
+                    markers: true, // Debug markers for visualization
+                    onUpdate: (self) => {
+                        console.log("Scroll Progress:", self.progress.toFixed(3)); // Print smooth progress
+                    }
+                }
+            }
+        );
+
+
+
+
+
+
+
+
+
+
+
         let progressColor = "gray";
 
         gsap.to("#one", {
@@ -1977,7 +2016,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             x: (i) => secondData[i].x,
             y: (i) => secondData[i].y,
             opacity: 0,
-            duration: animationDuration * 2,            
+            duration: animationDuration * 2,
             ease: "back.in(1.01)",
             stagger: { amount: animationDuration },
             onUpdate: () => {
@@ -2337,10 +2376,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .style('opacity', 1);
 
                         d3.selectAll('.category-label').on('mouseout', mouseOutLabelCategory);
-
                     }
-
-
                 });
 
                 function mouseOutLabelCategory(event) {
@@ -2359,8 +2395,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .style('font-weight', 'normal')
                             .style('opacity', 1);
                     }
-
-
                 }
 
                 d3.select(node).on('mouseout', mouseOutLabelCategory);
@@ -2393,33 +2427,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             .style('opacity', 1);
 
                         dataCategoryClicked = true;
-
                     }
-
-
                 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             });
 
 
@@ -2449,9 +2458,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 },
             }, `actorsColumn+=${2 * animationDuration + 0.5} + 1`);
 
-
-
-
         }
 
 
@@ -2460,7 +2466,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const panel = document.getElementById('test');
         const texts = document.querySelectorAll("#test .explanationText");
 
-        const scrollOffset = 1000;
+
         const endValue = `+=${texts.length * scrollOffset}px`;
 
         gsap.registerPlugin(ScrollTrigger);
@@ -2544,7 +2550,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const pairs = [
             { line: '.line-2', circle: '#circle-3' },
-            { line: '.line-3', circle: '#circle-4' },
+            // { line: '.line-3', circle: '#circle-4' },
             { line: '.line-4', circle: '#circle-5' },
             { line: '.line-5', circle: '#circle-6' }
         ];
@@ -2556,13 +2562,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
         function setupTextScrollTriggers() {
 
             texts.forEach((text, index) => {
-                gsap.fromTo(text, { opacity: 0, y: 100 }, {
+                gsap.fromTo(text,
+                    {
+                        opacity: 0,
+                        y: 100
+
+                    }, {
                     opacity: 1, y: 0,
                     scrollTrigger: {
                         trigger: text,
                         start: () => "top bottom-=" + (scrollOffset * (index + 1)),
                         end: () => `center center+=${scrollOffset * (index + 1.5)}`,
-                        scrub: 1,
+
+                        scrub: true,
+
+                        onUpdate: (self) => {
+                            console.log("Scroll progress:", self.progress);
+                        },
                         onEnter: (self) => {
                             if (self.direction === 1) {
                                 onExplanationEnter(text, index);
@@ -2583,6 +2599,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 onExplanationLeave(text, index);
                             }
                         },
+
                     }
                 });
 
@@ -2617,6 +2634,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         const start = index * segmentDuration;
                         const end = (index + 1) * segmentDuration;
                         const progress = gsap.utils.clamp(0, 1, (totalProgress - start) / (end - start));
+
+
+
+                        // console.log("progress: " + progress);
+
+
 
                         gsap.to(pair.line, { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
 
