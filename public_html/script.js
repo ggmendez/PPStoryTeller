@@ -397,7 +397,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         }
 
-        
+
 
 
 
@@ -530,8 +530,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const targetSize = 8;
 
-    console.log("svgWidth: " + svgWidth);
-    console.log("svgHeight: " + svgHeight);
+    // console.log("svgWidth: " + svgWidth);
+    // console.log("svgHeight: " + svgHeight);
 
     // Animation duration
     let animationDuration = 0.85;
@@ -712,7 +712,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // console.log("dataEntities:");
                 // console.log(dataEntities);
 
-                console.log("dataName: " + dataName);
+                // console.log("dataName: " + dataName);
                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
                 if (!dataCategory) {
                     console.error(`Data category for ${dataCategory} not found.`);
@@ -1058,8 +1058,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // we need to find the biggest and smallest rect
 
-        console.log("packedRectData:");
-        console.log(packedRectData);
+        // console.log("packedRectData:");
+        // console.log(packedRectData);
 
         const largestTopLeftRect = getLargestTopLeftRect(packedRectData);
 
@@ -1070,8 +1070,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         otherRectsIDs = otherRects.map(d => "dataRect_" + makeID(d.id));
         otherLabelsIDs = otherRects.map(d => "rectLabel_" + makeID(d.id));
 
-        console.log("smallestBottomRightRect:");
-        console.log(smallestBottomRightRect);
+        // console.log("smallestBottomRightRect:");
+        // console.log(smallestBottomRightRect);
 
         const startPath1 = { x: smallestBottomRightRect.x, y: smallestBottomRightRect.y + smallestBottomRightRect.height / 2 };
         const midPath1 = { x: smallestBottomRightRect.x + 20, y: smallestBottomRightRect.y + 20 + smallestBottomRightRect.height / 2 };
@@ -1266,9 +1266,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 enter => enter.append('rect')
                     .attr('class', 'dataRect')
                     .each(function (d) {
-                        const rect = d3.select(this);
-                        rect.attr('x', (d.x - (d.width * d.scale / 2)) / d.scale)
-                            .attr('y', (d.y - (d.height * d.scale / 2)) / d.scale)
+
+                        console.log("d.scale: " + d.scale);
+
+
+                        rect.attr('x', d.scale === 0 ? d.x : (d.x - (d.width * (d.scale ?? 1) / 2)) / (d.scale ?? 1))
+                            .attr('y', d.scale === 0 ? d.y : (d.y - (d.height * (d.scale ?? 1) / 2)) / (d.scale ?? 1))
                             .attr('width', Math.max(0, d.width))
                             .attr('height', Math.max(0, d.height))
                             .attr('rx', d.rx || 0)
@@ -1284,8 +1287,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 update => update
                     .each(function (d) {
                         const rect = d3.select(this);
-                        rect.attr('x', (d.x - (d.width * d.scale / 2)) / d.scale)
-                            .attr('y', (d.y - (d.height * d.scale / 2)) / d.scale)
+
+                        let x, y;
+                        if (isUndefined(d.scale) || d.scale === 0 || d.scale === '0') {
+                            x = d.x - d.width / 2;
+                        } else {
+                            x = (d.x - (d.width * d.scale / 2)) / d.scale;
+                        }
+
+                        if (isUndefined(d.scale) || d.scale === 0 || d.scale === '0') {
+                            y = d.y - d.height / 2;
+                        } else {
+                            y = (d.y - (d.height * d.scale / 2)) / d.scale;
+                        }
+
+                        // console.log("d.scale: " + d.scale);
+
+                        rect.attr('x', x)
+                            .attr('y', y)
                             .attr('width', Math.max(0, d.width))
                             .attr('height', Math.max(0, d.height))
                             .attr('rx', d.rx || 0)
@@ -1661,8 +1680,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         });
 
-        console.log("++++ rectData ++++");
-        console.log(rectData);
+        // console.log("++++ rectData ++++");
+        // console.log(rectData);
 
         // Single GSAP Timeline with labels
         const mainTimeline = gsap.timeline({ paused: true });
@@ -1717,18 +1736,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, "packing");
 
 
-
-
-
-
-
-
-
-
-
-
-        console.log("nonTargetLabels");
-        console.log(nonTargetLabels);
+        // console.log("nonTargetLabels");
+        // console.log(nonTargetLabels);
 
         // Check if elements with these IDs exist in the DOM
         otherRectsIDs.forEach(id => {
@@ -1847,6 +1856,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const distance = 150;
         const delta = (x1 - distance);
 
+        let chosenIndices = [];
+        let firstData = [];
+        let secondData = [];
+
+        for (let index = 0; index < rectData.length; index++) {
+            let n = getRandomBetween(0, 100, true);
+            if (n % 2 == 0) {
+                chosenIndices.push(n);
+            }
+        }
+
+
+        for (let index = 0; index < rectData.length; index++) {
+            if (chosenIndices.includes(index)) {
+                firstData.push({ x: delta, y: y1 + logoIconHeight / 2 + 10, opacity: 0 });
+            } else {
+                firstData.push({ x: points[index].x - delta, y: points[index].y, opacity: 1 });
+            }
+        }
+
+        for (let index = 0; index < rectData.length; index++) {
+            if (!chosenIndices.includes(index)) {
+                let value = getRandomProperty(originalTransformations).value;
+                secondData.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
+            } else {
+                secondData.push({ x: delta, y: y1 + logoIconHeight / 2 });
+            }
+        }
+
         // disappearing the packed circles
         mainTimeline.addLabel("dataShared")
 
@@ -1880,23 +1918,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "dataShared")
 
+
+            // sending random pieces of data to the logo
+            .to(rectData, {
+                // x: (i) => firstData[i].x,
+                y: (i) => firstData[i].y,
+                opacity: (i) => firstData[i].opacity, // only the ones that go to the logo will change their opacity
+                duration: animationDuration,
+                ease: "sine.inOut",
+                stagger: { amount: animationDuration },
+                onUpdate: () => {
+                    drawRectsAndLabels(rectData);
+                }
+            }, "dataShared+=" + (animationDuration + animationDuration / 3))
+
+
             // shifting things to the left
             .to(rectData, {
-                // rx: 0,
-                // ry: 0,
                 x: '-=' + delta,
                 duration: animationDuration,
                 stagger: { amount: animationDuration / 20 },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "dataShared+=" + (animationDuration + animationDuration / 3))
+            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 1))
 
             .to(logoIcon.node(), {
                 x: '-=' + delta,
                 duration: animationDuration,
-            }, "dataShared+=" + (animationDuration + animationDuration / 3));
-
+            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 1))
 
 
         // Bringing actors in
@@ -1910,7 +1960,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const whenActors = (2 * animationDuration + animationDuration / 3);
 
-        // animationDuration = 3;
+        // actor labels
+        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function () {
+            return d3.select(this).text() != formatedNames[who];
+        });
+
+        const actorLabelNodes = svgActorIconLabels.nodes();
 
         actorNodes.forEach((actorNode, index) => {
 
@@ -1921,7 +1976,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             mainTimeline.fromTo(actorNode, {
                 opacity: 0,
-                x: x + 200,
+                // x: x + 200,
+                x: x,
                 y: y,
                 scale: 0,
                 transformOrigin: 'center',
@@ -1933,19 +1989,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: actorIconScale,
                 duration: animationDuration,
                 ease: "back.inOut(3)",
-            }, "dataShared+=" + (whenActors + animationDuration / 12 * index));
+                // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 2))
+            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 2))
 
         });
 
-
-        // actor labels
-        const svgActorIconLabels = svg.selectAll('.actorCategoryName').filter(function () {
-            return d3.select(this).text() != formatedNames[who];
-        });
-
-        // window.svgActorIconLabels = svgActorIconLabels;
-
-        const actorLabelNodes = svgActorIconLabels.nodes();
 
         actorLabelNodes.forEach((actorLabelNode, index) => {
             mainTimeline.fromTo(actorLabelNode, {
@@ -1966,68 +2014,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         blinkIcon(infoIcon);
                     }
                 }
-            }, "dataShared+=" + (whenActors + animationDuration / 12 * index));
+                // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 2))
+            }, "dataShared+=" + (animationDuration + animationDuration / 3 + 2))
         });
 
 
 
 
-        //************************************************//
-        // sending random pieces of data to random actors //
-        //************************************************//
-
-        // const randomRects = getRandomElements(rectData, rectData.length / 2);
-
-
-        let chosenIndices = [];
-        let firstData = [];
-        let secondData = [];
-
-        for (let index = 0; index < rectData.length; index++) {
-            let n = getRandomBetween(0, 100, true);
-            if (n % 2 == 0) {
-                chosenIndices.push(n);
-            }
-        }
-
-
-        for (let index = 0; index < rectData.length; index++) {
-            if (chosenIndices.includes(index)) {
-                firstData.push({ x: delta, y: y1 + logoIconHeight / 2 + 10, opacity: 0 });
-            } else {
-                firstData.push({ x: points[index].x - delta, y: points[index].y, opacity: 1 });
-            }
-        }
-
-        for (let index = 0; index < rectData.length; index++) {
-            if (!chosenIndices.includes(index)) {
-                let value = getRandomProperty(originalTransformations).value;
-                secondData.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
-            } else {
-                secondData.push({ x: delta, y: y1 + logoIconHeight / 2 });
-            }
-        }
-
-
-        // window.originalTransformations = originalTransformations;
-        // console.log(getRandomProperty(originalTransformations));
-
-
-        // to the logo
-        mainTimeline.to(rectData, {
-            // x: (i) => firstData[i].x,
-            y: (i) => firstData[i].y,
-            opacity: (i) => firstData[i].opacity, // only the ones that go to the logo will change their opacity
-            duration: animationDuration,
-            ease: "sine.inOut",
-            stagger: { amount: animationDuration },
-            onUpdate: () => {
-                drawRectsAndLabels(rectData);
-            }
-        }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 1))
-
-
-        // to the actors
+        // sending random pieces of data to random actors
         mainTimeline.to(rectData, {
             x: (i) => secondData[i].x,
             y: (i) => secondData[i].y,
@@ -2038,7 +2032,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
             }
-        }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
+            // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
+        }, "dataShared+=" + (animationDuration + animationDuration / 3 + 3))
 
 
 
@@ -2161,8 +2156,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
 
-        console.log("globalFrequencyMap:");
-        console.log(globalFrequencyMap);
+        // console.log("globalFrequencyMap:");
+        // console.log(globalFrequencyMap);
 
 
         function generateRectCopies(collectedData, actorIconCategory, commonX, offsetY) {
@@ -2179,8 +2174,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const items = collectedData[dataCategory];
 
 
-                console.log("items: -------------------");
-                console.log(items);
+                // console.log("items: -------------------");
+                // console.log(items);
 
 
                 items.forEach((item, innerIndex) => {
@@ -2334,7 +2329,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     appendTo: () => document.body
                                 });
 
-                                this.addEventListener('mouseenter', (z  ) => {
+                                this.addEventListener('mouseenter', (z) => {
 
                                     if (mainTimeline.currentLabel() !== "actorsColumn") {
                                         return;
@@ -2476,8 +2471,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         window.actorGroups = actorGroups;
 
-        console.log("actorGroups");
-        console.log(actorGroups);
+        // console.log("actorGroups");
+        // console.log(actorGroups);
 
         let totalClones = 0;
         let currentClones = 0;
@@ -2491,8 +2486,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const labelA = labelsOf[a.id];
             const labelB = labelsOf[b.id];
 
-            console.log("labelA: " + labelA);
-            console.log("labelB: " + labelB);
+            // console.log("labelA: " + labelA);
+            // console.log("labelB: " + labelB);
 
             const actorTypeAElement = d3.select("#" + labelA);
             const actorTypeBElement = d3.select("#" + labelB);
@@ -2502,28 +2497,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 return 0;
             }
 
-            console.log("actorTypeAElement: ");
-            console.log(actorTypeAElement);
-            console.log("actorTypeBElement: ");
-            console.log(actorTypeBElement);
+            // console.log("actorTypeAElement: ");
+            // console.log(actorTypeAElement);
+            // console.log("actorTypeBElement: ");
+            // console.log(actorTypeBElement);
 
             const actorTypeA = actorTypeAElement.text().toUpperCase();
             const actorTypeB = actorTypeBElement.text().toUpperCase();
 
-            console.log("actorTypeA: " + actorTypeA);
-            console.log("actorTypeB: " + actorTypeB);
+            // console.log("actorTypeA: " + actorTypeA);
+            // console.log("actorTypeB: " + actorTypeB);
 
             const dataSizeA = Object.keys(actorDataMap[removeSpaces(actorTypeA)] || {}).reduce((sum, key) => sum + actorDataMap[removeSpaces(actorTypeA)][key].length, 0);
             const dataSizeB = Object.keys(actorDataMap[removeSpaces(actorTypeB)] || {}).reduce((sum, key) => sum + actorDataMap[removeSpaces(actorTypeB)][key].length, 0);
 
-            console.log("dataSizeA: " + dataSizeA);
-            console.log("dataSizeB: " + dataSizeB);
+            // console.log("dataSizeA: " + dataSizeA);
+            // console.log("dataSizeB: " + dataSizeB);
 
             return dataSizeB - dataSizeA; // Sort descending
         });
 
-        console.log("SORTED actorGroups:");
-        console.log(actorGroups);
+        // console.log("SORTED actorGroups:");
+        // console.log(actorGroups);
 
         window.actorGroups = actorGroups;
         window.labelsOf = labelsOf;
@@ -2568,6 +2563,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+
+
+
+        rectsOfLogo.forEach((rect, rectIndex) => {
+            mainTimeline.to(`#${rect.id}`, {
+                rx: 0,
+                ry: 0,
+                duration: animationDuration,
+                ease: "none",
+            }, `actorsColumn+=${3 + rectIndex * 0.01}`);
+        });
+
+
+
+
         actorGroups.forEach((actorGroup, index) => {
 
             index++;
@@ -2576,8 +2586,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const actorLabelElement = d3.select("#" + labelID);
             const actorLabelText = actorLabelElement.text();
 
-            console.log("*********************");
-            console.log("actorLabelText: " + actorLabelText);
+            // console.log("*********************");
+            // console.log("actorLabelText: " + actorLabelText);
 
             const groupBBox = actorGroup.getBBox();
             const groupStartTime = index * 0.1;
@@ -2616,36 +2626,33 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             const actorType = removeSpaces(actorLabelText.toUpperCase());
 
-            console.log("--- actorIconCategory: " + actorType);
+            // console.log("--- actorIconCategory: " + actorType);
 
             const collectedData = actorDataMap[actorType] || {};
 
-            console.log("collectedData:");
-            console.log(collectedData);
+            // console.log("collectedData:");
+            // console.log(collectedData);
 
             const commonX = rightAlignX;
 
             // Generate rect copies first
             const rectCopies = generateRectCopies(collectedData, actorType, commonX, offsetY);
 
-            console.log("newRects.length:");
-            console.log(rectCopies.length);
+            // console.log("newRects.length:");
+            // console.log(rectCopies.length);
 
-            console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-            console.log("Actor type: " + actorType);
-            console.log("the generated rect copies:");
-            console.log(rectCopies);
+            // console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+            // console.log("Actor type: " + actorType);
+            // console.log("the generated rect copies:");x
+            // console.log(rectCopies);
 
             window.mainTimeline = mainTimeline;
 
             totalClones += rectCopies.length;
 
             rectCopies.forEach((rect, rectIndex) => {
-
                 currentClones++;
-
                 // console.log("+++++++++ " + currentClones);
-
                 mainTimeline.fromTo(`#${rect.id}`, {
                     x: svgWidth * 1.25,
                     y: getRandomBetween(-100, svgHeight + 100),
@@ -2653,12 +2660,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
                     y: offsetY + targetSize / 2,
                     opacity: 1,
-                    // rx: 0,
-                    // ry: 0,
                     duration: animationDuration,
                     ease: "power1.inOut",
                 }, `actorsColumn+=${groupStartTime + rectIndex * 0.01}`);
             });
+
+
+            rectCopies.forEach((rect, rectIndex) => {
+                mainTimeline.to(`#${rect.id}`, {
+                    rx: 0,
+                    ry: 0,
+                    duration: animationDuration,
+                    ease: "none",
+                }, `actorsColumn+=${3 + rectIndex * 0.01}`);
+            });
+
+
+
 
         });
 
@@ -2671,12 +2689,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // console.log(currentClones);
 
             // console.log("totalClones:");
-            // console.log(totalClones);
-
-            const maxDelay = 1.5 * animationDuration + 2 * (totalClones - 1) * 0.01;
-
-            console.log("maxDelay:");
-            console.log(maxDelay);
+            // console.log(totalClones);         
 
             sortedCategoryGroupNodes.forEach((node, index) => {
 
@@ -2710,14 +2723,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('mouseover', function (event) {
 
-                    // console.log("mainTimeline.currentLabel():");
-                    // console.log(mainTimeline.currentLabel());
+                    console.log("mainTimeline.currentLabel():");
+                    console.log(mainTimeline.currentLabel());
 
                     // console.log(d3.select(node).attr('opacity'));
-
-                    if (mainTimeline.currentLabel() !== "actorsColumn") {
-                        return;
-                    }
 
                     if (d3.select(node).attr('opacity') === '1' && shouldShowDataCategories && !dataCategoryClicked) {
 
@@ -2747,7 +2756,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     if (shouldShowDataCategories && !dataCategoryClicked) {
 
-                        console.log("Tunal");
+                        console.log("mouseOutLabelCategory");
 
                         d3.select(this).style('font-weight', 'normal');
 
@@ -3042,8 +3051,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }
                 });
 
-                console.log("scrollOffset * (index + 1): ");
-                console.log(scrollOffset * (index + 1));
+                // console.log("scrollOffset * (index + 1): ");
+                // console.log(scrollOffset * (index + 1));
 
 
 

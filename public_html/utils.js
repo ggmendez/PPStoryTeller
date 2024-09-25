@@ -280,3 +280,8 @@ function getRandomProperty(obj) {
 
 
 
+
+
+function isUndefined(value) {
+  return value === undefined;
+}
