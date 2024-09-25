@@ -1762,7 +1762,7 @@ code .token.url {
 
 .middle-div {
   width: 200px;
-  height: 200px;
+  height: 800px;
   background-color: lightcoral; /* Example styles */  
   position: absolute;
   top: 50%;

@@ -1671,9 +1671,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scaleY: 1, // ScaleY to 1 (full height)
                 ease: "none", // No easing for smooth linear progress
                 scrollTrigger: {
-                    trigger: ".line-3", // The element being animated
-                    start: "top center", // Start when .line-3's top reaches the bottom of the viewport
-                    end: "top top", // End when .line-3's top reaches the top of the viewport
+                    // trigger: "#middleDiv",
+                    trigger: ".line-2",
+                    start: "center center",
+                    end: "bottom top",
                     scrub: 1, // Scrub the progress smoothly
                     markers: true, // Debug markers for visualization
                     onUpdate: (self) => {
