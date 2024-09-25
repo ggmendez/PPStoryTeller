@@ -1682,7 +1682,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     end: () => "top+=" + (index * svgHeight) + " top",
 
                     scrub: 1, // Scrub the progress smoothly
-                    markers: true, // Debug markers for visualization
+                    // markers: true, // Debug markers for visualization
                 }
             });
 
@@ -2611,12 +2611,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             circle.addEventListener('click', handleCircleClick);
         });
 
-        const pairs = [
-            // { line: '.line-2', circle: '#circle-3' },
-            // { line: '.line-3', circle: '#circle-4' },
-            // { line: '.line-4', circle: '#circle-5' },
-            // { line: '.line-5', circle: '#circle-6' }
-        ];
+        // const pairs = [
+        // { line: '.line-2', circle: '#circle-3' },
+        // { line: '.line-3', circle: '#circle-4' },
+        // { line: '.line-4', circle: '#circle-5' },
+        // { line: '.line-5', circle: '#circle-6' }
+        // ];
 
 
         let scrollersForCircles = {};
@@ -2629,7 +2629,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     {
                         opacity: 0,
                         y: 100
-
                     }, {
                     opacity: 1, y: 0,
                     scrollTrigger: {
@@ -2679,7 +2678,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
         }
 
-        // Create the main timeline for the lines and circles
+        // Create the timeline for the lines and circles
         const tl2 = gsap.timeline({
             scrollTrigger: {
                 trigger: panel,
@@ -2688,44 +2687,44 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 pin: true,
                 scrub: true,
                 anticipatePin: 1,
-                onUpdate: (self) => {
-                    const totalProgress = self.progress;
-                    const totalPairs = pairs.length;
-                    const segmentDuration = 1 / totalPairs;
+                // onUpdate: (self) => {
+                //     const totalProgress = self.progress;
+                //     const totalPairs = pairs.length;
+                //     const segmentDuration = 1 / totalPairs;
 
-                    pairs.forEach((pair, index) => {
-                        const start = index * segmentDuration;
-                        const end = (index + 1) * segmentDuration;
-                        const progress = gsap.utils.clamp(0, 1, (totalProgress - start) / (end - start));
-
-
-
-                        // console.log("progress: " + progress);
+                //     pairs.forEach((pair, index) => {
+                //         const start = index * segmentDuration;
+                //         const end = (index + 1) * segmentDuration;
+                //         const progress = gsap.utils.clamp(0, 1, (totalProgress - start) / (end - start));
 
 
 
-                        gsap.to(pair.line, { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
+                //         // console.log("progress: " + progress);
 
-                        if (pair.circle) {
-                            if (progress < 0.99) {
-                                gsap.to(pair.circle, { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
-                            } else {
-                                gsap.to(pair.circle, { backgroundColor: progressColor, ease: "none", duration: 0 });
-                            }
-                        }
 
-                        if (progress < 0.99) {
-                            if (pair.line == ".line-5") {
-                                gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none", backgroundColor: "light" + progressColor });
-                            }
-                        } else {
-                            if (pair.line == ".line-5") {
-                                gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none", backgroundColor: progressColor });
 
-                            }
-                        }
-                    });
-                }
+                //         gsap.to(pair.line, { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
+
+                //         if (pair.circle) {
+                //             if (progress < 0.99) {
+                //                 gsap.to(pair.circle, { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
+                //             } else {
+                //                 gsap.to(pair.circle, { backgroundColor: progressColor, ease: "none", duration: 0 });
+                //             }
+                //         }
+
+                //         if (progress < 0.99) {
+                //             if (pair.line == ".line-5") {
+                //                 gsap.to('.line-6', { scaleX: 1, scaleY: 0, duration: 0, ease: "none", backgroundColor: "light" + progressColor });
+                //             }
+                //         } else {
+                //             if (pair.line == ".line-5") {
+                //                 gsap.to('.line-6', { scaleX: 1, scaleY: 1, duration: 0.5, ease: "none", backgroundColor: progressColor });
+
+                //             }
+                //         }
+                //     });
+                // }
             }
         });
 
