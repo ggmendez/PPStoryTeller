@@ -1971,8 +1971,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             // clustering the rects at the center and below the logo
             .to(rectData, {
-                width: 15,
-                height: 15,
+                width: targetSize * 2,
+                height: targetSize * 2,
                 x: (index) => points[index].x,
                 y: (index) => points[index].y,
                 duration: animationDuration,
@@ -2094,14 +2094,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             opacity: 0,
             duration: animationDuration * 1.5,
             ease: "none",
-            stagger: { amount: animationDuration },
+            stagger: { amount: animationDuration * 1.5 },
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
             }
         }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3 + 1))
-
-
-
 
 
 
@@ -2165,34 +2162,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
         });
 
-
         // console.log("globalFrequencyMap:");
         // console.log(globalFrequencyMap);
-
-
-
-
         // console.log("!!!!!!!!!!!!!!!!!!! rectData[rectData.length - 1]");
         // console.log(rectData[rectData.length - 1]);
 
-        // ***** ACTORS COLUMNS *****
+
         const rightAlignX = 250;
         const startY = 175;
         const spacing = 65;
         const actorGroupScale = 0.55;
-
-
-        let actorGroups = svgActorIcons.nodes();
-
-
-        window.actorGroups = actorGroups;
-
-        // console.log("actorGroups");
-        // console.log(actorGroups);
-
         let totalClones = 0;
         let currentClones = 0;
 
+        let actorGroups = svgActorIcons.nodes();
+
+        // window.actorGroups = actorGroups;
+        // console.log("actorGroups");
+        // console.log(actorGroups);
 
 
         // This allows to sort author groups by the amount of data each collects
@@ -2239,13 +2226,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         window.actorGroups = actorGroups;
         window.labelsOf = labelsOf;
 
-
         actorGroups = actorGroups.filter(d => d3.select("#" + labelsOf[d.id]).text() !== formatedNames[who]);
 
-
         // drawRectAt(rightAlignX, 100, 10, 10, 'red')
-
-
 
         const logoIconScale = 0.55;
 
@@ -2265,35 +2248,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, globalFrequencyMap, splitRectData);
 
         rectsOfLogo.forEach((rect, rectIndex) => {
-            mainTimeline.fromTo(`#${rect.id}`, {
-                x: svgWidth * 1.25,
-                y: getRandomBetween(-100, svgHeight + 100),
-            }, {
-                x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
-                y: startY + targetSize / 2,
-                opacity: 1,
-                // rx: 0,
-                // ry: 0,
-                duration: animationDuration,
-                ease: "power1.inOut",
-            }, `actorsColumn+=${rectIndex * 0.01}`);
+            mainTimeline
+                .fromTo(`#${rect.id}`, {
+                    x: svgWidth * 1.25,
+                    y: getRandomBetween(-100, svgHeight + 100),
+                }, {
+                    x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
+                    y: startY + targetSize / 2,
+                    opacity: 1,
+                    duration: animationDuration,
+                    ease: "power1.inOut",
+                }, `actorsColumn+=${rectIndex * 0.01}`)
+                .to(`#${rect.id}`, {
+                    rx: 0,
+                    ry: 0,
+                    duration: animationDuration,
+                    ease: "none",
+                }, `actorsColumn+=${3 + rectIndex * 0.01}`);
         });
-
-
-
-
-
-
-
-        rectsOfLogo.forEach((rect, rectIndex) => {
-            mainTimeline.to(`#${rect.id}`, {
-                rx: 0,
-                ry: 0,
-                duration: animationDuration,
-                ease: "none",
-            }, `actorsColumn+=${3 + rectIndex * 0.01}`);
-        });
-
 
 
 
@@ -2372,30 +2344,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             rectCopies.forEach((rect, rectIndex) => {
                 currentClones++;
                 // console.log("+++++++++ " + currentClones);
-                mainTimeline.fromTo(`#${rect.id}`, {
-                    x: svgWidth * 1.25,
-                    y: getRandomBetween(-100, svgHeight + 100),
-                }, {
-                    x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
-                    y: offsetY + targetSize / 2,
-                    opacity: 1,
-                    duration: animationDuration,
-                    ease: "power1.inOut",
-                }, `actorsColumn+=${groupStartTime + rectIndex * 0.01}`);
+                mainTimeline
+                    .fromTo(`#${rect.id}`, {
+                        x: svgWidth * 1.25,
+                        y: getRandomBetween(-100, svgHeight + 100),
+                    }, {
+                        x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
+                        y: offsetY + targetSize / 2,
+                        opacity: 1,
+                        duration: animationDuration,
+                        ease: "power1.inOut",
+                    }, `actorsColumn+=${groupStartTime + rectIndex * 0.01}`)
+                    .to(`#${rect.id}`, {
+                        rx: 0,
+                        ry: 0,
+                        duration: animationDuration,
+                        ease: "none",
+                    }, `actorsColumn+=${3 + rectIndex * 0.01}`);
             });
-
-
-            rectCopies.forEach((rect, rectIndex) => {
-                mainTimeline.to(`#${rect.id}`, {
-                    rx: 0,
-                    ry: 0,
-                    duration: animationDuration,
-                    ease: "none",
-                }, `actorsColumn+=${3 + rectIndex * 0.01}`);
-            });
-
-
-
 
         });
 
@@ -2438,7 +2404,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     duration: animationDuration,
                     opacity: 1,
                 }, `actorsColumn+=${2 * animationDuration + 0.5}`);
-
 
                 d3.select(node).on('mouseover', function (event) {
 
@@ -2525,16 +2490,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
             mainTimeline.fromTo('#floatingSearchBar', {
-                // y: -30,
-                // opacity: 0,
                 scaleX: 0,
-                // scaleY: 0
             }, {
-                // y: 0,         
                 duration: animationDuration,
-                // opacity: 1,
                 scaleX: 1,
-                // scaleY: 1,
                 ease: 'elastic.out(1, 0.45)',
                 onComplete: () => {
                     shouldShowDataCategories = true;
@@ -2599,30 +2558,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     explaining = "packing";
                     break;
                 case 'circle-4':
-                    divID = "divDataShared";
+                    divID = "onlyTiktok";
                     break;
                 case 'circle-5':
-                    divID = "divDataPerActor";
-                    explaining = "actors";
+                    divID = "sharedWithOthers";                    
                     break;
                 case 'circle-6':
-                    divID = "divDataPerActor";
+                    divID = "divDataShared";
+                    explaining = "actors";
                     break;
                 default:
                     console.log('Unknown circle clicked');
             }
 
-            restoreProgressCircles();
-            // gsap.to("#" + circleId, { borderColor: progressBorderColor, duration: 0.5 });
+            // restoreProgressCircles();
 
             if (divID) {
                 let linkST = scrollersForCircles[divID];
                 gsap.to(window, {
                     duration: 0.5, scrollTo: linkST.start, overwrite: "auto", onComplete: () => {
-                        if (circleId == 'circle-6') {
-                            mainTimeline.play("actorsColumn");
-                            gsap.to(window, { duration: 0.5, scrollTo: { y: document.body.scrollHeight }, overwrite: "auto" });
-                        }
+                        // if (circleId == 'circle-6') {
+                        //     mainTimeline.play("actorsColumn");
+                        //     gsap.to(window, { duration: 0.5, scrollTo: { y: document.body.scrollHeight }, overwrite: "auto" });
+                        // }
                     }
                 });
             }
