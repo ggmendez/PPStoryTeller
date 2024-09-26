@@ -179,20 +179,6 @@ function generatePointAroundRectangle(rectangle, d) {
 
 
 
-
-/**
- * Arranges a series of rectangles within a container.
- *
- * @param {number} containerX - The x-coordinate of the top-left corner of the container.
- * @param {number} containerY - The y-coordinate of the top-left corner of the container.
- * @param {number} containerWidth - The width of the container rectangle.
- * @param {number} rectWidth - The width of each rectangle.
- * @param {number} rectHeight - The common height for all rectangles.
- * @param {number} numRectangles - The total number of rectangles to arrange.
- * @param {number} [spacingX=10] - Optional horizontal spacing between rectangles.
- * @param {number} [spacingY=10] - Optional vertical spacing between rows.
- * @returns {Array} - An array of rectangles with calculated `x` and `y` positions.
- */
 function arrangeRectanglesByWidth(containerX, containerY, containerWidth, rectWidth, rectHeight, numRectangles, spacingX = 10, spacingY = 10) {
   const positions = [];
   let currentX = containerX;

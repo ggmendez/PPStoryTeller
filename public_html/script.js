@@ -1907,7 +1907,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const y1 = centerY - logoIconHeight / 2 - p; // Top edge (minimum y)
         const y2 = centerY + logoIconHeight / 2 + p; // Bottom edge (maximum y)
 
-        const points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 5, 5, rectData.length, 15, 15);
+        const points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 10, 10, rectData.length, 15, 15);
 
         // console.log("points:");
         // console.log(points);
@@ -1971,8 +1971,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             // clustering the rects at the center and below the logo
             .to(rectData, {
-                width: 10,
-                height: 10,
+                width: 15,
+                height: 15,
                 x: (index) => points[index].x,
                 y: (index) => points[index].y,
                 duration: animationDuration,
@@ -2005,16 +2005,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // ************************************* //
         // Showing data accessed by other actors //
         // ************************************* //
-
-
-
-
-
-
-
-
-
-
 
         mainTimeline.addLabel("accessedByOtherActors")
 
@@ -2102,13 +2092,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             x: (i) => secondData[i].x,
             y: (i) => secondData[i].y,
             opacity: 0,
-            duration: animationDuration * 2,
-            ease: "back.in(1.01)",
+            duration: animationDuration * 1.5,
+            ease: "none",
             stagger: { amount: animationDuration },
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
             }
-            // }, "accessedByOtherActors+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
         }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3 + 1))
 
 
