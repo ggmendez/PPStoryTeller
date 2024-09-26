@@ -592,6 +592,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     document.querySelector("#who").textContent = formatedNames[who];
     document.querySelector("#they").textContent = formatedNames[who];
+    document.querySelector("#they2").textContent = formatedNames[who];
 
     function getCategory(item, categorization) {
 
@@ -1661,8 +1662,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
         progressElements.push({ line: ".line-1", trigger: "#they", circle: "#circle-2" });
         progressElements.push({ line: ".line-2", trigger: "#divPiecesOfData", circle: "#circle-3" });
         progressElements.push({ line: ".line-3", trigger: "#divTotalCategories", circle: "#circle-4" });
-        progressElements.push({ line: ".line-4", trigger: "#divDataShared", circle: "#circle-5" });
-        progressElements.push({ line: ".line-5", trigger: "#divDataPerActor", circle: "#circle-6" });
+        progressElements.push({ line: ".line-4", trigger: "#onlyTiktok", circle: "#circle-5" });
+        progressElements.push({ line: ".line-5", trigger: "#sharedWithOthers", circle: "#circle-6" });
+        progressElements.push({ line: ".line-6", trigger: "#divDataShared", circle: "#circle-7" });
 
         for (let index = 0; index < progressElements.length; index++) {
 
@@ -1941,8 +1943,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         }
 
+
+
+
+        // *************************************** //
+        // Showing data accessed by the owner only //
+        // *************************************** //
+
         // disappearing the packed circles
-        mainTimeline.addLabel("dataShared")
+        mainTimeline.addLabel("accessedOnlyByTikTok")
 
             // disappearing data category names
             .to(svgCategoryGroups.nodes(), {
@@ -1950,7 +1959,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 opacity: 0,
                 ease: "back.out(1.25)",
                 stagger: { amount: 0.1 }
-            }, "dataShared")
+            }, "accessedOnlyByTikTok")
 
             // the logo appears back
             .to(logoIcon.node(), {
@@ -1958,7 +1967,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: 1,
                 transformOrigin: '50% 50%',
                 duration: animationDuration / 2,
-            }, "dataShared")
+            }, "accessedOnlyByTikTok")
 
             // clustering the rects at the center and below the logo
             .to(rectData, {
@@ -1972,8 +1981,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "dataShared")
-
+            }, "accessedOnlyByTikTok")
 
             // sending random pieces of data to the logo
             .to(rectData, {
@@ -1986,8 +1994,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "dataShared+=" + (animationDuration + animationDuration / 3))
+            }, "accessedOnlyByTikTok+=" + (animationDuration + animationDuration / 3))
 
+
+
+
+
+
+
+        // ************************************* //
+        // Showing data accessed by other actors //
+        // ************************************* //
+
+
+
+
+
+
+
+
+
+
+
+        mainTimeline.addLabel("accessedByOtherActors")
 
             // shifting things to the left
             .to(rectData, {
@@ -1997,12 +2026,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 1))
+            }, "accessedByOtherActors")
 
             .to(logoIcon.node(), {
                 x: '-=' + delta,
                 duration: animationDuration,
-            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 1))
+            }, "accessedByOtherActors")
 
 
         // Bringing actors in
@@ -2042,11 +2071,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: actorIconScale,
                 duration: animationDuration,
                 ease: "back.inOut(3)",
-                // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 2))
-            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 2))
+            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3))
 
         });
-
 
         actorLabelNodes.forEach((actorLabelNode, index) => {
             mainTimeline.fromTo(actorLabelNode, {
@@ -2067,12 +2094,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         blinkIcon(infoIcon);
                     }
                 }
-                // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 2))
-            }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 2))
+            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3))
         });
-
-
-
 
         // sending random pieces of data to actors randomly
         mainTimeline.to(rectData, {
@@ -2085,8 +2108,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
             onUpdate: () => {
                 drawRectsAndLabels(rectData);
             }
-            // }, "dataShared+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
-        }, "dataShared+=" + (2 * animationDuration + animationDuration / 3 + 3))
+            // }, "accessedByOtherActors+=" + (whenActors + animationDuration / 12 * actorLabelNodes.length + 3))
+        }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3 + 1))
+
+
+
+
+
+
+
+
+
+
+
 
 
         // Extract nodes and sort them alphabetically by the text content
@@ -2170,7 +2204,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let totalClones = 0;
         let currentClones = 0;
 
-        mainTimeline.addLabel("actorsColumn");
+
 
         // This allows to sort author groups by the amount of data each collects
         // Thus, when the actors form a column, the one that collects more data appears on top
@@ -2223,16 +2257,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // drawRectAt(rightAlignX, 100, 10, 10, 'red')
 
 
-        // Dealing with the main logo
+
         const logoIconScale = 0.55;
-        mainTimeline.to(logoIcon.node(), {
-            x: rightAlignX + 10,
-            y: startY - logoIconScale * logoIconHeight / 2 + 25,
-            scale: logoIconScale,
-            transformOrigin: '0% 50%',
-            duration: animationDuration,
-            ease: "power1.inOut"
-        }, "actorsColumn");
+
+        // Dealing with the main logo
+        mainTimeline.addLabel("actorsColumn")
+            .to(logoIcon.node(), {
+                x: rightAlignX + 10,
+                y: startY - logoIconScale * logoIconHeight / 2 + 25,
+                scale: logoIconScale,
+                transformOrigin: '0% 50%',
+                duration: animationDuration,
+                ease: "power1.inOut"
+            }, "actorsColumn");
 
         const actorType = removeSpaces(formatedNames[who].toUpperCase());
 
@@ -2740,10 +2777,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             } else if (element.id === "divPiecesOfData") {
                 mainTimeline.play("packing");
             } else if (element.id === "divTotalCategories") {
-                mainTimeline.tweenFromTo("categories", "dataShared");
+                mainTimeline.tweenFromTo("categories", "accessedOnlyByTikTok");
+            } else if (element.id === "onlyTiktok") {
+                mainTimeline.tweenFromTo("accessedOnlyByTikTok", "accessedByOtherActors");
+            } else if (element.id === "sharedWithOthers") {
+                mainTimeline.tweenFromTo("accessedByOtherActors", "actorsColumn");
             } else if (element.id === "divDataShared") {
-                mainTimeline.tweenFromTo("dataShared", "actorsColumn");
-            } else if (element.id === "divDataPerActor") {
                 mainTimeline.play("actorsColumn");
             }
         }
@@ -2754,10 +2793,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             } else if (element.id === "divPiecesOfData") {
                 mainTimeline.tweenFromTo("categories", "packing");
             } else if (element.id === "divTotalCategories") {
-                mainTimeline.tweenFromTo("dataShared", "categories");
+                mainTimeline.tweenFromTo("accessedOnlyByTikTok", "categories");
+            } else if (element.id === "onlyTiktok") {
+                mainTimeline.tweenFromTo("accessedByOtherActors", "accessedOnlyByTikTok");
+            } else if (element.id === "sharedWithOthers") {
+                mainTimeline.tweenFromTo("actorsColumn", "accessedByOtherActors");
             } else if (element.id === "divDataShared") {
-                mainTimeline.tweenFromTo("actorsColumn", "dataShared");
-            } else if (element.id === "divDataPerActor") {
                 mainTimeline.tweenFromTo(mainTimeline.nextLabel(), "actorsColumn");
             }
         }
