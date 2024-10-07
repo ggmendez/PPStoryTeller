@@ -325,19 +325,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
         gsap.to(contextIframe, {
             height: '100%',
             duration: duration,
-            ease: 'none'
+            ease: 'power2.in'
         });
 
         gsap.to(iframeContainer, {
             height: '100%',
             duration: duration,
-            ease: 'none'
+            ease: 'power2.in'
         });
 
         gsap.to('.popup', {
             height: '96vh',  // Set to your compressed height
             duration: duration,
-            ease: 'none',
+            ease: 'power2.in',
             onComplete: () => {
                 ppCompressed = false;
             }
@@ -499,9 +499,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 rect.style.opacity = '1';
             });
 
-            if (searcher) {
-                searcher.clearSearch();
-            }
+            compressPP();
+
+            // if (searcher) {
+            //     searcher.clearSearch();
+            // }
 
             // gsap.to("#overlay", {
             //     duration: 0.5,
