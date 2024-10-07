@@ -546,7 +546,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let originalNames = {};
 
-    var actorIconScale = 0.27;
+    var actorIconScale = 0.3;
 
     // arrow animations
     let arrow = document.querySelector('.arrow');
@@ -1918,6 +1918,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let chosenIndices = [];
         let firstData = [];
         let secondData = [];
+        let thirdData = [];
 
         for (let index = 0; index < rectData.length; index++) {
             let n = getRandomBetween(0, 100, true);
@@ -1943,7 +1944,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         }
 
-
+        for (let index = 0; index < rectData.length; index++) {
+            let value = getRandomProperty(originalTransformations).value;
+            thirdData.push({ x: value.originX + value.originalX, y: value.originY + value.originalY });
+        }
 
 
         // *************************************** //
@@ -1969,32 +1973,62 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration / 2,
             }, "accessedOnlyByTikTok")
 
-            // clustering the rects at the center and below the logo
-            .to(rectData, {
-                width: targetSize * 2,
-                height: targetSize * 2,
-                x: (index) => points[index].x,
-                y: (index) => points[index].y,
-                duration: animationDuration,
-                ease: "back.out(1.25)",
-                stagger: { amount: animationDuration / 3 },
-                onUpdate: () => {
-                    drawRectsAndLabels(rectData);
-                }
-            }, "accessedOnlyByTikTok")
 
-            // sending random pieces of data to the logo
+            // all the circles go to the logo
             .to(rectData, {
-                // x: (i) => firstData[i].x,
-                y: (i) => firstData[i].y,
-                opacity: (i) => firstData[i].opacity, // only the ones that go to the logo will change their opacity
+                width: 0,
+                height: 0,
+                // width: targetSize * 2,
+                // height: targetSize * 2,
+                // opacity: 0,
+                x: svgWidth / 2,
+                y: svgHeight / 2,
                 duration: animationDuration,
-                ease: "none",
-                stagger: { amount: animationDuration },
+                ease: "back.in",
+                stagger: { amount: animationDuration * 2 },
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "accessedOnlyByTikTok+=" + (animationDuration + animationDuration / 3))
+            }, "accessedOnlyByTikTok+=" + 0.5)
+
+
+
+
+        // clustering the rects at the center and below the logo
+        // .to(rectData, {
+        //     width: targetSize * 2,
+        //     height: targetSize * 2,
+        //     x: (index) => points[index].x,
+        //     y: (index) => points[index].y,
+        //     duration: animationDuration,
+        //     ease: "back.out(1.25)",
+        //     stagger: { amount: animationDuration / 3 },
+        //     onUpdate: () => {
+        //         drawRectsAndLabels(rectData);
+        //     }
+        // }, "accessedOnlyByTikTok")            
+
+        // // sending random pieces of data to the logo
+        // .to(rectData, {
+        //     // x: (i) => firstData[i].x,
+        //     y: (i) => firstData[i].y,
+        //     opacity: (i) => firstData[i].opacity, // only the ones that go to the logo will change their opacity
+        //     duration: animationDuration,
+        //     ease: "none",
+        //     stagger: { amount: animationDuration },
+        //     onUpdate: () => {
+        //         drawRectsAndLabels(rectData);
+        //     }
+        // }, "accessedOnlyByTikTok+=" + (animationDuration + animationDuration / 3))
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2061,7 +2095,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: actorIconScale,
                 duration: animationDuration,
                 ease: "back.inOut(3)",
-            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3))
+            }, "accessedByOtherActors+=" + (animationDuration * 0.5 + index * 0.1))
 
         });
 
@@ -2084,21 +2118,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         blinkIcon(infoIcon);
                     }
                 }
-            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3))
+            }, "accessedByOtherActors+=" + (animationDuration * 0.5 + index * 0.1))
         });
 
         // sending random pieces of data to actors randomly
-        mainTimeline.to(rectData, {
-            x: (i) => secondData[i].x,
-            y: (i) => secondData[i].y,
-            opacity: 0,
-            duration: animationDuration * 1.5,
-            ease: "none",
-            stagger: { amount: animationDuration * 1.5 },
-            onUpdate: () => {
-                drawRectsAndLabels(rectData);
-            }
-        }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3 + 1))
+        mainTimeline.fromTo(rectData,
+            {
+                opacity: 1,
+                width: 0,
+                height: 0,                
+            },
+            {
+                x: (i) => thirdData[i].x,
+                y: (i) => thirdData[i].y,
+                width: targetSize * 2.5,
+                height: targetSize * 2.5,
+                opacity: 0,
+                duration: animationDuration,
+                ease: "none",
+                stagger: { amount: animationDuration * 1.75 },
+                onUpdate: () => {
+                    drawRectsAndLabels(rectData);
+                }
+            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3))
 
 
 
@@ -2171,7 +2213,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const rightAlignX = 250;
         const startY = 175;
         const spacing = 65;
-        const actorGroupScale = 0.55;
+        const actorGroupScale = 0.65;
         let totalClones = 0;
         let currentClones = 0;
 
@@ -2561,7 +2603,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     divID = "onlyTiktok";
                     break;
                 case 'circle-5':
-                    divID = "sharedWithOthers";                    
+                    divID = "sharedWithOthers";
                     break;
                 case 'circle-6':
                     divID = "divDataShared";
