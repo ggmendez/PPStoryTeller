@@ -1464,6 +1464,9 @@ code .token.url {
   backdrop-filter: blur(5px);
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
+
+  border-left: 2px solid gray;
+  border-right: 2px solid gray;
   border-top: 2px solid gray;
   border-bottom: 3px solid gray;
 }

@@ -26,10 +26,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Track whether the iframe container is compressed or expanded
     let isCompressed = false;
 
-
-
-
-
     document.getElementById('topButton').addEventListener('click', function () {
 
         var button = document.getElementById('topButton');
@@ -4065,8 +4061,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 const opacity = window.getComputedStyle(this).opacity;
 
-                                console.log("opacity: " + opacity);
-                                console.log(typeof opacity);
+                                // console.log("opacity: " + opacity);
+                                // console.log(typeof opacity);
 
                                 if (opacity !== "1") {
                                     return;
@@ -4093,8 +4089,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 const opacity = window.getComputedStyle(this).opacity;
 
-                                console.log("opacity: " + opacity);
-                                console.log(typeof opacity);
+                                // console.log("opacity: " + opacity);
+                                // console.log(typeof opacity);
 
 
                                 if (opacity !== "1") {
@@ -4116,8 +4112,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 const opacity = window.getComputedStyle(this).opacity;
 
-                                console.log("opacity: " + opacity);
-                                console.log(typeof opacity);
+                                // console.log("opacity: " + opacity);
+                                // console.log(typeof opacity);
 
                                 if (opacity !== "1") {
                                     return;
@@ -4174,6 +4170,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         document.querySelector("#squareIndicator").style.backgroundColor = highlightColor;
                         document.querySelector("#overlay").style.borderTopColor = highlightColor;
                         document.querySelector("#overlay").style.borderBottomColor = highlightColor;
+                        document.querySelector("#overlay").style.borderLeftColor = highlightColor;
+                        document.querySelector("#overlay").style.borderRightColor = highlightColor;
+
+
                         document.querySelector("#pageNavigation").style.borderLeftColor = highlightColor;
                         document.querySelector("#overlay").style.backgroundColor = highlightColor + '05';
 
