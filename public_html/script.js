@@ -293,7 +293,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const contextIframe = document.getElementById('contextIframe');
         const iframeContainer = document.getElementById('iframe-container');
         const duration = 0.8;
-        
+
         gsap.to(contextIframe, {
             height: 0,
             duration: duration,
@@ -4108,21 +4108,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             // Make the tooltip permanent on click
                             this.addEventListener('click', () => {
 
-                                if (ppCompressed) {
-                                    expandPP();
-                                } 
-
-
-
-                                const opacity = window.getComputedStyle(this).opacity;
-
-                                // console.log("opacity: " + opacity);
-                                // console.log(typeof opacity);
-
-                                // if (opacity !== "1") {
-                                //     return;
-                                // }
-
                                 tooltipInstance.show();
 
                                 dataCategoryClicked = true;
@@ -4176,8 +4161,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         document.querySelector("#overlay").style.borderBottomColor = highlightColor;
                         document.querySelector("#overlay").style.borderLeftColor = highlightColor;
                         document.querySelector("#overlay").style.borderRightColor = highlightColor;
-
-
                         document.querySelector("#pageNavigation").style.borderLeftColor = highlightColor;
                         document.querySelector("#overlay").style.backgroundColor = highlightColor + '05';
 
@@ -4191,8 +4174,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             borderTop: '2px solid ' + highlightColor,
                             borderBottom: '3px solid ' + highlightColor,
                             ease: 'linear',
+                            onStart: () => {
+                                if (ppCompressed) {
+                                    expandPP();
+                                }
+                            },
                             onComplete: () => {
-                                scrollToAndHighlightInIframe(currentText, highlightColor + '61');
+                                if (ppCompressed) {
+                                    setTimeout(function () {
+                                        scrollToAndHighlightInIframe(currentText, highlightColor + '61');
+                                    }, 500);
+                                } else {
+                                    scrollToAndHighlightInIframe(currentText, highlightColor + '61');
+                                }
                             },
                         });
 
