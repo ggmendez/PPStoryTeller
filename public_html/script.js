@@ -23,6 +23,130 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let pathString1, pathString2, endPath1, endPath2;
     let explaining = "packing";
 
+    // Track whether the iframe container is compressed or expanded
+    let isCompressed = false;
+
+    document.getElementById('topButton').addEventListener('click', function () {
+
+        var button = document.getElementById('topButton');
+        var buttonText = document.getElementById('topButtonText');
+        const toggleButton = document.getElementById('overlayToggleButton');
+
+        const contextIframe = document.getElementById('contextIframe');
+        const iframeContainer = document.getElementById('iframe-container');
+
+        const diagonalArrowsIcon = document.getElementById('diagonalArrowsIcon');
+
+
+        toggleButton.addEventListener('click', function () {
+
+            if (isCompressed) {
+                // Expand the iframe container
+                gsap.to(contextIframe, {
+                    height: '100%',  // Set to your expanded height
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                gsap.to(iframeContainer, {
+                    height: '100%',  // Set to your compressed height
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                diagonalArrowsIcon.classList.remove('compressed'); // Remove rotation
+
+
+                gsap.to('.popup', {
+                    height: '96vh',  // Set to your compressed height
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+            } else {
+
+
+                // Compress the iframe container
+                gsap.to(contextIframe, {
+                    height: 0,
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                gsap.to(iframeContainer, {
+                    height: 0,
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                gsap.to('.popup', {
+                    height: 50,
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                // Compress action
+                diagonalArrowsIcon.classList.add('compressed'); // Rotate 180 degrees
+
+            }
+            // Toggle the compressed state
+            isCompressed = !isCompressed;
+        });
+
+
+        button.style.overflow = 'hidden';
+
+        const duration = 0.8;
+
+        const timeline = gsap.timeline();
+
+        timeline.addLabel("button");
+
+        timeline
+            .to(button, {
+                duration: duration,
+                width: 0,
+                height: 0,
+                padding: 0,
+                ease: "back.in(1.7)",
+                onComplete: function () {
+                    button.remove();
+                }
+            }, "button")
+            .to(buttonText, {
+                duration: duration * 0.75,
+                opacity: 0,
+                ease: "power1.out"
+            }, "button")
+
+
+
+            .to('#popup', {
+                duration: duration * 0.75,
+                width: '28%',
+                height: window.innerHeight,
+                top: '20px',
+                transform: 'translateY(0%)',
+                left: '1%',
+                ease: "power4.out",
+            }, "button+=" + duration)
+
+
+
+
+
+
+
+
+
+
+
+    });
+
+
+
+
+
 
     // Function to get the value of a query parameter
     function getQueryParam(param) {
@@ -53,6 +177,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Add the popup structure to the body
     const popup = document.createElement('div');
+    popup.id = 'popup';
     popup.className = 'popup';
 
     popup.innerHTML = `
@@ -60,11 +185,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         <div id="overlay" class="overlay">
 
 
-            <div class="left-content">
+
+            <div class="left-content first-element">
                 <div id="squareIndicator" class="square-indicator"></div>
-                <div id="dataName" class="main-question">Same or different person?</div>
+                <div id="dataName" class="main-question">${formatedNames[who]}'s Privacy Policy</div>
             </div>
-            <div id="pageNavigation" class="page-navigation">
+
+
+            <div id="pageNavigation" class="page-navigation other-element">
                 <span id="pageInfo" class="page-info">0/0</span>
                 <div class="navigation">
                     <button id="upButtonPreviousMention" class="nav-button up-button">
@@ -76,18 +204,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
-                    </button>
-                    <button id="overlayCloseButton" class="overlay-close-button">
-                        <svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="18" y1="6" x2="6" y2="18" />
-                            <line x1="6" y1="6" x2="18" y2="18" />
-                        </svg>
-                    </button>
+                    </button>                                        
                 </div>
             </div>
-
-
-
+            <div class"other-element" style="border-left: 1px solid black; padding-left: 5px; padding-right: 5px;">
+                <button id="overlayToggleButton" class="nav-button overlay-toggle-button">
+                    <svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="6" y1="18" x2="18" y2="6" /> <!-- Diagonal line for first arrow -->
+                        <polyline points="6 12 6 18 12 18" /> <!-- Arrowhead for the first arrow -->                    
+                        <polyline points="18 12 18 6 12 6" /> <!-- Arrowhead for the second arrow -->
+                    </svg>
+                </button>
+            </div>
         </div>
         <div id="iframe-container">
             <iframe id="contextIframe" src="" style="width: 100%; height: 100%; border: none;" sandbox="allow-scripts allow-same-origin allow-popups allow-forms"></iframe>
@@ -130,7 +258,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             iframe.onload = () => {
                 popup.style.display = 'block';
-                hidePopup();
+                // hidePopup();
             };
         })
         .catch(error => {
@@ -202,9 +330,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
 
 
-    document.getElementById('overlayCloseButton').addEventListener('click', function () {
-        hidePopup();
-    });
+    // document.getElementById('overlayCloseButton').addEventListener('click', function () {
+    //     hidePopup();
+    // });
 
 
 
@@ -373,14 +501,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 searcher.clearSearch();
             }
 
-            gsap.to("#overlay", {
-                duration: 0.5,
-                height: 0,
-                padding: '0px 0px',
-                borderTopWidth: 0,
-                borderBottomWidth: 0,
-                ease: "power4.out",
-            });
+            // gsap.to("#overlay", {
+            //     duration: 0.5,
+            //     height: 0,
+            //     padding: '0px 0px',
+            //     borderTopWidth: 0,
+            //     borderBottomWidth: 0,
+            //     ease: "power4.out",
+            // });
 
 
         }
@@ -1429,7 +1557,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .addAll(rectData);
 
         // **Add Tippy.js tooltips to rectangles without labels**
-        rectsWithoutLabels.forEach(function (rectNode) {
+        /*rectsWithoutLabels.forEach(function (rectNode) {
             const d = d3.select(rectNode).datum();
             const content = `<b>${capitalizeFirstLetter(d.name)}</b>`;
             const placement = getTooltipPlacement(d, rectQuadtree, svgWidth);
@@ -1444,7 +1572,44 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 delay: [0, 0],
                 interactive: false
             });
+        });*/
+
+        rectsWithoutLabels.forEach(function (rectNode) {
+            const d = d3.select(rectNode).datum();
+            const content = `<b>${capitalizeFirstLetter(d.name)}</b>`;
+            const placement = getTooltipPlacement(d, rectQuadtree, svgWidth);
+
+            tippy(rectNode, {
+                content: content,
+                allowHTML: true,
+                placement: placement, // Use the dynamically determined placement
+                theme: 'light-border',
+                animation: 'scale',
+                duration: [200, 200],
+                delay: [0, 0],
+                interactive: false,
+                onShow(instance) {
+                    // Get the current opacity of the rectangle
+                    const opacity = window.getComputedStyle(rectNode).opacity;
+
+                    // Prevent tooltip from showing if opacity is not 1
+                    if (opacity !== "1") {
+                        return false; // Prevents the tooltip from appearing
+                    }
+                }
+            });
         });
+
+
+
+
+
+
+
+
+
+
+
     }
 
 
@@ -2126,7 +2291,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             {
                 opacity: 1,
                 width: 0,
-                height: 0,                
+                height: 0,
             },
             {
                 x: (i) => thirdData[i].x,
@@ -2402,6 +2567,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         ry: 0,
                         duration: animationDuration,
                         ease: "none",
+
+                        onUpdate: () => {
+                            shouldShowDataCategories = false;
+                        },
+                        onComplete: () => {
+                            shouldShowDataCategories = true;
+                        },
                     }, `actorsColumn+=${3 + rectIndex * 0.01}`);
             });
 
@@ -2445,12 +2617,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 mainTimeline.to(node, {
                     duration: animationDuration,
                     opacity: 1,
+                    onUpdate: () => {
+                        shouldShowDataCategories = false;
+                    },
+                    onComplete: () => {
+                        shouldShowDataCategories = true;
+                    },
                 }, `actorsColumn+=${2 * animationDuration + 0.5}`);
 
                 d3.select(node).on('mouseover', function (event) {
 
+                    if (d3.select(node).attr('opacity') !== '1') {
+                        return;
+                    }
+
                     console.log("mainTimeline.currentLabel():");
                     console.log(mainTimeline.currentLabel());
+
+                    console.log("shouldShowDataCategories: " + shouldShowDataCategories);
 
                     // console.log(d3.select(node).attr('opacity'));
 
@@ -2477,6 +2661,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 function mouseOutLabelCategory(event) {
 
+                    if (d3.select(node).attr('opacity') !== '1') {
+                        return;
+                    }
+
                     if (shouldShowDataCategories && !dataCategoryClicked) {
 
                         console.log("mouseOutLabelCategory");
@@ -2496,6 +2684,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 d3.select(node).on('mouseout', mouseOutLabelCategory);
 
                 d3.select(node).on('click', function (event) {
+
+                    if (d3.select(node).attr('opacity') !== '1') {
+                        return;
+                    }
 
                     if (shouldShowDataCategories && !dataCategoryClicked) {
 
@@ -2527,10 +2719,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 });
             });
 
-
-
-
-
             mainTimeline.fromTo('#floatingSearchBar', {
                 scaleX: 0,
             }, {
@@ -2540,10 +2728,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onComplete: () => {
                     shouldShowDataCategories = true;
                 },
-                onLeave: () => {
-                    shouldShowDataCategories = false;
-                },
-                onLeaveBack: () => {
+                onUpdate: () => {
                     shouldShowDataCategories = false;
                 },
             }, `actorsColumn+=${2 * animationDuration + 0.5} + 1`);
@@ -2618,12 +2803,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             if (divID) {
                 let linkST = scrollersForCircles[divID];
                 gsap.to(window, {
-                    duration: 0.5, scrollTo: linkST.start, overwrite: "auto", onComplete: () => {
-                        // if (circleId == 'circle-6') {
-                        //     mainTimeline.play("actorsColumn");
-                        //     gsap.to(window, { duration: 0.5, scrollTo: { y: document.body.scrollHeight }, overwrite: "auto" });
-                        // }
-                    }
+                    duration: 0.5, scrollTo: linkST.start, overwrite: "auto"
                 });
             }
 
@@ -2761,6 +2941,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         setupTextScrollTriggers();
 
         function onExplanationEnter(element, index) {
+            shouldShowDataCategories = false;
             if (element.id === "they") {
                 mainTimeline.tweenFromTo("logo", "packing");
             } else if (element.id === "divPiecesOfData") {
@@ -2772,11 +2953,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
             } else if (element.id === "sharedWithOthers") {
                 mainTimeline.tweenFromTo("accessedByOtherActors", "actorsColumn");
             } else if (element.id === "divDataShared") {
+                shouldShowDataCategories = true;
                 mainTimeline.play("actorsColumn");
             }
         }
 
         function onExplanationLeave(element, index) {
+            shouldShowDataCategories = false;
             if (element.id === "they") {
                 mainTimeline.tweenFromTo("packing", "logo");
             } else if (element.id === "divPiecesOfData") {
@@ -2788,6 +2971,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             } else if (element.id === "sharedWithOthers") {
                 mainTimeline.tweenFromTo("actorsColumn", "accessedByOtherActors");
             } else if (element.id === "divDataShared") {
+                shouldShowDataCategories = true;
                 mainTimeline.tweenFromTo(mainTimeline.nextLabel(), "actorsColumn");
             }
         }
@@ -2869,7 +3053,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
-    function generateInitialTooltipContent(name, dataCategory, lines, actor, inheritances) {
+    function generateInitialTooltipContent(name, dataCategory, lines, actor, inheritances, showFinalActor) {
 
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
 
@@ -2882,9 +3066,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
             finalActor = actor.charAt(0).toUpperCase() + actor.slice(1);
         }
 
-        let initialContent = '<span style="color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
+        // let initialContent = '<span style="color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
 
-        let inheritanceElements = '<div class="inheritances"><ul>';
+        let initialContent = '';
+
+        if (showFinalActor) {
+            initialContent = '<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
+        }
+
+
+
+        let inheritanceElements = `<div class="inheritances" style = "${showFinalActor ? "border-bottom: 1px solid #eee;" : ""}"><ul>`;
 
         if (inheritances && inheritances.length) {
             inheritances.forEach((inheritance, index) => {
@@ -2895,7 +3087,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         inheritanceElements += '</ul></div>';
 
         return {
-            header: `<div class="tooltip-header"><b>${name}</div>`,
+            header: `<div class="tooltip-header" style = "${showFinalActor ? "border-bottom: 1px solid #eee; padding-bottom: 8px;" : ""}"><b>${name}</div>`,
             inheritances: inheritanceElements,
             content: `<div class="tooltip-content">${initialContent}</div>`,
             button: `<div class="tooltip-button"><button id="contextButton">View in Policy</button></div>`,
@@ -3677,8 +3869,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function restoreDataCategoriesLabelsOpacity() {
 
-        console.log("iuyglob 8iuhglopb8iuygñp 8giuyl ujv km");
-
+        console.log("restoreDataCategoriesLabelsOpacity");
 
         d3.selectAll('.category-label')
             .style('font-weight', 'normal')
@@ -3832,12 +4023,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             // console.log("Processed string:");
                             // console.log(processString(item.text));
 
-                            const inheritances = dataInheritances[itemName];
+
+                            // window.dataInheritances = dataInheritances;
+
+                            // console.log(dataInheritances);
+
+
+                            const inheritances = dataInheritances[itemName.toLowerCase()];
 
                             // console.log("inheritances for " + itemName);
                             // console.log(inheritances);
 
-                            let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, item.actor, inheritances);
+                            let actor = item.actor;
+
+                            showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
+
+                            let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, actor, inheritances, showFinalActor);
 
                             const tooltipInstance = tippy(this, {
                                 theme: 'light-border',
@@ -3851,7 +4052,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 appendTo: () => document.body
                             });
 
-                            this.addEventListener('mouseenter', (z) => {
+                            this.addEventListener('mouseenter', () => {
+
+
+
+
+                                const opacity = window.getComputedStyle(this).opacity;
+
+                                console.log("opacity: " + opacity);
+                                console.log(typeof opacity);
+
+                                if (opacity !== "1") {
+                                    return;
+                                }
 
                                 if (mainTimeline.currentLabel() !== "actorsColumn") {
                                     return;
@@ -3864,23 +4077,45 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     tooltipInstance.show();
                                 }
 
-                                if (!dataCategoryClicked) {
+                                if (shouldShowDataCategories && !dataCategoryClicked) {
 
                                     changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
                                 }
                             });
 
                             this.addEventListener('mouseleave', () => {
+
+                                const opacity = window.getComputedStyle(this).opacity;
+
+                                console.log("opacity: " + opacity);
+                                console.log(typeof opacity);
+
+
+                                if (opacity !== "1") {
+                                    return;
+                                }
+
                                 if (currentPermanentTooltip !== tooltipInstance) {
                                     tooltipInstance.hide();
                                 }
-                                if (!dataCategoryClicked) {
+                                if (shouldShowDataCategories && !dataCategoryClicked) {
                                     restoreDataCategoriesLabelsOpacity();
                                 }
                             });
 
                             // Make the tooltip permanent on click
                             this.addEventListener('click', () => {
+
+
+
+                                const opacity = window.getComputedStyle(this).opacity;
+
+                                console.log("opacity: " + opacity);
+                                console.log(typeof opacity);
+
+                                if (opacity !== "1") {
+                                    return;
+                                }
 
                                 tooltipInstance.show();
 
@@ -3916,6 +4151,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     // event to see the corresponding texts within the privacy policy
                     theRect.on('click', () => {
+
+                        const opacity = window.getComputedStyle(theRect.node()).opacity;
+                        if (opacity !== "1") {
+                            return;
+                        }
 
                         currentLinesArray = lines;
                         currentLineIndex = 0;

@@ -1224,8 +1224,6 @@ code .token.url {
   text-align: center;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-weight: bold;
-  padding-bottom: 8px;
-  border-bottom: 1px solid #eee;
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -1246,6 +1244,23 @@ code .token.url {
 
 
 .popup {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 100%;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  max-height: 96vh; /* Ensure it doesn’t overflow out of the viewport */
+  height: auto; /* Allow the popup to grow dynamically with content */
+  overflow: hidden; /* Ensure no scrollbars appear */
+}
+
+
+
+.popupCompressed {
   display: none;
   position: fixed;
   top: 50%;
@@ -1263,14 +1278,8 @@ code .token.url {
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: auto;
-  /* Set to auto to avoid unnecessary overflow */
-  max-height: 100%;
-  /* Ensure it doesn’t exceed the viewport height */
-  overflow: visible;
-  /* Ensure no unnecessary scrolling inside this div */
   position: relative;
-  /* Relative positioning for contained elements */
+  overflow: hidden; /* Ensure no scrollbars appear */
 }
 
 .popup-close {
@@ -1288,7 +1297,7 @@ code .token.url {
   flex-grow: 1;
   display: flex;
   overflow: auto;
-  /* Allow iframe to scroll independently if needed */
+  overflow: hidden; /* Ensure no scrollbars appear */
 }
 
 #iframe-container iframe {
@@ -1439,46 +1448,35 @@ code .token.url {
 }
 
 .overlay {
-
-  height: 0;
-
+  height: 50px;
   width: 100%;
-
   overflow: hidden;
-
-  /* Full width of the container */
   background-color: rgba(255, 255, 255, 0.95);
-  /* Slightly transparent white background */
-  padding: 10px 20px;
-  /* Slightly larger padding for more space */
   border-bottom: 3px solid black;
-  /* Blue bottom border for emphasis */
   border-radius: 5px;
-  /* Rounded corners for a refined look */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  /* Subtle shadow for depth */
   display: flex;
-  /* Flexbox layout */
   justify-content: space-between;
-  /* Space between left and right-aligned content */
   align-items: center;
-  /* Center content vertically */
   font-family: Arial, sans-serif;
-  /* Consistent font */
   font-size: 14px;
-  /* Font size for text */
   box-sizing: border-box;
-  /* Include padding and border in width/height */
   backdrop-filter: blur(5px);
-  /* Slight blur effect on the background */
-
   border-top-left-radius: 0px;
   border-top-right-radius: 0px;
-
   border-top: 2px solid gray;
   border-bottom: 3px solid gray;
+}
 
-  /* Blue bottom border for emphasis */
+/* First element should grow to take up all available space */
+.overlay .first-element {
+  flex-grow: 1; /* This element will take up the remaining space */
+  margin-right: 10px; /* Optional spacing before other elements */
+}
+
+/* Other elements will take only as much space as they need */
+.overlay .other-element {
+  flex-shrink: 0; /* Prevent other elements from shrinking */
 }
 
 .left-content {
@@ -1492,7 +1490,7 @@ code .token.url {
   /* Width of the square */
   height: 16px;
   /* Height of the square */
-  background-color: #1f78b4;
+  background-color: transparent;
   /* Blue color */
   margin-right: 5px;
   /* Minimal space between the square and the question text */
@@ -1518,6 +1516,8 @@ code .token.url {
   align-items: center;
   flex-shrink: 0;
   border-left: 1px solid black;
+  /* width: auto; */
+  max-width: 200px;
 }
 
 .page-info {
@@ -1544,6 +1544,8 @@ code .token.url {
   align-items: center;
   flex-shrink: 0;
 }
+
+
 
 .nav-button svg,
 .overlay-close-button svg {
@@ -1612,9 +1614,6 @@ code .token.url {
   box-sizing: border-box;
 }
 
-
-
-
 .inheritances {
   padding-left: 12px;
   padding-right: 12px;
@@ -1623,7 +1622,6 @@ code .token.url {
   font-family: inherit;
   font-weight: inherit;
   border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
 }
 
 .inheritances ul {
@@ -1754,3 +1752,90 @@ code .token.url {
   opacity: 1;
 }
 
+
+
+
+
+
+
+/* Center the button horizontally and fix it to the top */
+#topButton {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  padding: 20px 32px;
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
+  background-color: #ffe033; /* Vibrant orange color */
+  border: none;
+  border-radius: 30px; /* Rounded corners */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Notorious shadow */
+  cursor: pointer;
+  z-index: 20000;
+  text-transform: none;
+  animation: pulse 1.5s infinite ease-in-out; /* Add pulsing animation */
+  /* Initial transform that centers the button */
+  transform: translate(-50%, -50%);
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1); /* Center and normal size */
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1); /* Grow slightly */
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1); /* Shrink back to normal */
+}
+
+/* Hover effect */
+#topButton:hover {
+  background-color: #e7b93c; /* Slightly darker shade of orange on hover */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4); /* Bigger shadow on hover */
+  /* Only change the background color and shadow on hover; do not redefine the transform */
+}
+
+/* Active/clicked effect */
+#topButton:active {
+  background-color: #c0392b; /* Even darker color when clicked */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
+  transform: translate(-50%, -50%) scale(0.95); /* Pressed-in effect */
+}
+
+/* Hidden state for the button (fades out smoothly) */
+#topButton.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.6s ease-out; /* Smooth fade-out animation */
+}
+
+
+/* Optional styles for the button */
+.overlay-toggle-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+/* Chevron rotation when compressed */
+.chevron-up {
+  transform: rotate(180deg); /* Rotate chevron to point up */
+  transition: transform 0.3s ease;
+}
+
+
+/* Rotate effect for the arrows */
+#diagonalArrowsIcon {
+  transition: transform 0.3s ease; /* Smooth transition for rotation */
+  color: #0a157a;
+}
+
+#diagonalArrowsIcon.compressed {
+  transform: rotate(45deg); /* Rotate 180 degrees when compressed */
+}
