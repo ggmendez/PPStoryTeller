@@ -26,72 +26,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
     // Track whether the iframe container is compressed or expanded
     let isCompressed = false;
 
+
+
+
+
     document.getElementById('topButton').addEventListener('click', function () {
 
         var button = document.getElementById('topButton');
         var buttonText = document.getElementById('topButtonText');
-        const toggleButton = document.getElementById('overlayToggleButton');
-
-        const contextIframe = document.getElementById('contextIframe');
-        const iframeContainer = document.getElementById('iframe-container');
-
-        const diagonalArrowsIcon = document.getElementById('diagonalArrowsIcon');
 
 
-        toggleButton.addEventListener('click', function () {
-
-            if (isCompressed) {
-                // Expand the iframe container
-                gsap.to(contextIframe, {
-                    height: '100%',  // Set to your expanded height
-                    duration: duration,
-                    ease: 'power2.out'
-                });
-
-                gsap.to(iframeContainer, {
-                    height: '100%',  // Set to your compressed height
-                    duration: duration,
-                    ease: 'power2.out'
-                });
-
-                diagonalArrowsIcon.classList.remove('compressed'); // Remove rotation
-
-
-                gsap.to('.popup', {
-                    height: '96vh',  // Set to your compressed height
-                    duration: duration,
-                    ease: 'power2.out'
-                });
-
-            } else {
-
-
-                // Compress the iframe container
-                gsap.to(contextIframe, {
-                    height: 0,
-                    duration: duration,
-                    ease: 'power2.out'
-                });
-
-                gsap.to(iframeContainer, {
-                    height: 0,
-                    duration: duration,
-                    ease: 'power2.out'
-                });
-
-                gsap.to('.popup', {
-                    height: 50,
-                    duration: duration,
-                    ease: 'power2.out'
-                });
-
-                // Compress action
-                diagonalArrowsIcon.classList.add('compressed'); // Rotate 180 degrees
-
-            }
-            // Toggle the compressed state
-            isCompressed = !isCompressed;
-        });
 
 
         button.style.overflow = 'hidden';
@@ -207,7 +151,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     </button>                                        
                 </div>
             </div>
-            <div class"other-element" style="border-left: 1px solid black; padding-left: 5px; padding-right: 5px;">
+            <div class"other-element" style="border-left: 1px solid black; padding-left: 5px; padding-right: 5px; ">
                 <button id="overlayToggleButton" class="nav-button overlay-toggle-button">
                     <svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="6" y1="18" x2="18" y2="6" /> <!-- Diagonal line for first arrow -->
@@ -359,6 +303,71 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 hidePopup();
             }
         });
+
+
+
+
+        document.getElementById('overlayToggleButton').addEventListener('click', function () {
+
+            const contextIframe = document.getElementById('contextIframe');
+            const iframeContainer = document.getElementById('iframe-container');
+            const duration = 0.8;
+
+            if (isCompressed) {
+
+                gsap.to(contextIframe, {
+                    height: '100%',
+                    duration: duration,
+                    ease: 'none'
+                });
+
+                gsap.to(iframeContainer, {
+                    height: '100%',
+                    duration: duration,
+                    ease: 'none'
+                });
+
+
+
+                gsap.to('.popup', {
+                    height: '96vh',  // Set to your compressed height
+                    duration: duration,
+                    ease: 'none'
+                });
+
+            } else {
+
+
+                // Compress the iframe container
+                gsap.to(contextIframe, {
+                    // top: '50px',
+                    height: 0,  // Set to your compressed height
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                gsap.to(iframeContainer, {
+                    height: 0,  // Set to your compressed height
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+                gsap.to('.popup', {
+                    height: 50,  // Set to your compressed height
+                    duration: duration,
+                    ease: 'power2.out'
+                });
+
+
+
+            }
+            // Toggle the compressed state
+            isCompressed = !isCompressed;
+        });
+
+
+
+
     });
 
     const scrollToAndHighlightInIframe = (currentText, highlightColor) => {

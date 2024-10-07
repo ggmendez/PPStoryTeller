@@ -1253,8 +1253,8 @@ code .token.url {
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  max-height: 96vh; /* Ensure it doesn’t overflow out of the viewport */
-  height: auto; /* Allow the popup to grow dynamically with content */
+  max-height: 100%; /* Ensure it doesn’t overflow out of the viewport */
+  height: 100%; /* Allow the popup to grow dynamically with content */
   overflow: hidden; /* Ensure no scrollbars appear */
 }
 
@@ -1755,6 +1755,14 @@ code .token.url {
 
 
 
+/* Rotate effect for the arrows */
+#diagonalArrowsIcon {
+  transition: transform 0.3s ease; /* Smooth transition for rotation */
+}
+
+#diagonalArrowsIcon.compressed {
+  transform: rotate(45deg); /* Rotate 180 degrees when compressed */
+}
 
 
 
@@ -1779,6 +1787,8 @@ code .token.url {
   transform: translate(-50%, -50%);
 }
 
+
+
 /* Pulse animation */
 @keyframes pulse {
   0% {
@@ -1791,51 +1801,3 @@ code .token.url {
     transform: translate(-50%, -50%) scale(1); /* Shrink back to normal */
 }
 
-/* Hover effect */
-#topButton:hover {
-  background-color: #e7b93c; /* Slightly darker shade of orange on hover */
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4); /* Bigger shadow on hover */
-  /* Only change the background color and shadow on hover; do not redefine the transform */
-}
-
-/* Active/clicked effect */
-#topButton:active {
-  background-color: #c0392b; /* Even darker color when clicked */
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); /* Smaller shadow on click */
-  transform: translate(-50%, -50%) scale(0.95); /* Pressed-in effect */
-}
-
-/* Hidden state for the button (fades out smoothly) */
-#topButton.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.6s ease-out; /* Smooth fade-out animation */
-}
-
-
-/* Optional styles for the button */
-.overlay-toggle-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-}
-
-/* Chevron rotation when compressed */
-.chevron-up {
-  transform: rotate(180deg); /* Rotate chevron to point up */
-  transition: transform 0.3s ease;
-}
-
-
-/* Rotate effect for the arrows */
-#diagonalArrowsIcon {
-  transition: transform 0.3s ease; /* Smooth transition for rotation */
-  color: #0a157a;
-}
-
-#diagonalArrowsIcon.compressed {
-  transform: rotate(45deg); /* Rotate 180 degrees when compressed */
-}
