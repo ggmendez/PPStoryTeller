@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let explaining = "packing";
 
     // Track whether the iframe container is compressed or expanded
-    let isCompressed = false;
+    let ppCompressed = false;
 
     document.getElementById('topButton').addEventListener('click', function () {
 
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             duration: duration,
             ease: 'power2.out',
             onComplete: () => {
-                isCompressed = true;
+                ppCompressed = true;
             }
         });
     }
@@ -339,7 +339,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             duration: duration,
             ease: 'none',
             onComplete: () => {
-                isCompressed = false;
+                ppCompressed = false;
             }
         });
 
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         });
         document.getElementById('overlayToggleButton').addEventListener('click', function () {
-            if (isCompressed) {
+            if (ppCompressed) {
                 expandPP();
             } else {
                 compressPP();
@@ -4108,6 +4108,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             // Make the tooltip permanent on click
                             this.addEventListener('click', () => {
 
+                                if (ppCompressed) {
+                                    expandPP();
+                                } 
+
 
 
                                 const opacity = window.getComputedStyle(this).opacity;
@@ -4115,9 +4119,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // console.log("opacity: " + opacity);
                                 // console.log(typeof opacity);
 
-                                if (opacity !== "1") {
-                                    return;
-                                }
+                                // if (opacity !== "1") {
+                                //     return;
+                                // }
 
                                 tooltipInstance.show();
 
