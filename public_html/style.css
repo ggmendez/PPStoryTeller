@@ -380,6 +380,18 @@ body {
   background-color: white;
 }
 
+body {
+  overflow-y: scroll; /* Ensure scrolling is enabled */
+}
+
+/* Hide scrollbar for Chrome, Safari, and Opera */
+body::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+
+
 h1,
 h2,
 h3,
@@ -1811,7 +1823,7 @@ code .token.url {
 
 #pageNavigation,
 #expandButtonDiv {
-  visibility: hidden;  
+  visibility: hidden;
 }
 
 

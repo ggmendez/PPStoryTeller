@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     let shouldShowDataCategories = false;
     let dataCategoryClicked = false;
     let progressColor = "gray";
+    let shouldShowDataRects = false;
 
     const scrollOffset = 1000;
 
@@ -305,9 +306,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             height: 50,
             duration: duration,
             ease: 'power2.out',
-            onComplete: () => {
-                ppCompressed = true;
-                // Update the button to use the expand icon
+            onStart: () => {
                 button.innerHTML = `<svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="10.2" y1="13.8" x2="1" y2="23"/>
                     <polyline points="10.2 23 1 23 1 13.8"/>
@@ -316,6 +315,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     <polyline points="13.8 1 23 1 23 10.2"/>
                     <line x1="13.8" y1="10.2" x2="23" y2="1"/>
                 </svg>`;
+            },
+            onComplete: () => {
+                ppCompressed = true;
             }
         });
     }
@@ -344,9 +346,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             height: '96vh',  // Set to your compressed height
             duration: duration,
             ease: 'power2.in',
-            onComplete: () => {
-                ppCompressed = false;
-                // Update the button to use the compress icon
+            onStart: () => {
                 button.innerHTML = `<svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="24" x2="14.8" y2="9.2"/>
                     <polyline points="24 9.2 14.8 9.2 14.8 0"/>
@@ -355,6 +355,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     <polyline points="0 14.8 9.2 14.8 9.2 24"/>
                     <line y1="24" x2="9.2" y2="14.8"/>
                 </svg>`;
+            },
+            onComplete: () => {
+                ppCompressed = false;
             }
         });
 
@@ -508,35 +511,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     svgElement.addEventListener('click', (event) => {
 
-
-        if (mainTimeline.currentLabel() === "actorsColumn") {
-            if (!event.target.classList.contains('copyOfDataRect')) {
-                const rectangles = document.querySelectorAll('.copyOfDataRect');
-                rectangles.forEach(rect => {
-                    rect.style.opacity = '1';
-                });
-
-                compressPP();
-
-                // if (searcher) {
-                //     searcher.clearSearch();
-                // }
-
-                // gsap.to("#overlay", {
-                //     duration: 0.5,
-                //     height: 0,
-                //     padding: '0px 0px',
-                //     borderTopWidth: 0,
-                //     borderBottomWidth: 0,
-                //     ease: "power4.out",
-                // });
-
-
+        if (shouldShowDataRects) {
+            if (mainTimeline.currentLabel() === "actorsColumn") {
+                if (!event.target.classList.contains('copyOfDataRect')) {
+                    const rectangles = document.querySelectorAll('.copyOfDataRect');
+                    rectangles.forEach(rect => {
+                        rect.style.opacity = '1';
+                    });
+                    compressPP();
+                }
             }
-
         }
-
-
 
         // Ensure the click isn't on the currently active tooltip or its trigger element
         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
@@ -574,18 +559,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
     const cursorIcon = svg.append('g');
     const logoIcon = svg.append('g');
 
-    loadIconAt(infoIcon, './icons/info.svg', svgWidth - 40, 40)
-        .then(data => {
-            infoIcon.on('click', () => {
-                if (explaining == "packing") {
-                    explainPacking();
-                } else if (explaining == "actors") {
-                    explainActors();
-                } else if (explaining == "dataPerActor") {
-                    explainDataPerActor();
-                }
-            });
-        });
+    // loadIconAt(infoIcon, './icons/info.svg', svgWidth - 40, 40)
+    //     .then(data => {
+    //         infoIcon.on('click', () => {
+    //             if (explaining == "packing") {
+    //                 explainPacking();
+    //             } else if (explaining == "actors") {
+    //                 explainActors();
+    //             } else if (explaining == "dataPerActor") {
+    //                 explainDataPerActor();
+    //             }
+    //         });
+    //     });
 
 
     loadIconAt(cursorIcon, './icons/cursor.svg', svgWidth / 2, svgHeight / 2);
@@ -1863,138 +1848,52 @@ document.addEventListener("DOMContentLoaded", (event) => {
             let tl = gsap.timeline({
                 scrollTrigger: {
                     trigger: element.trigger,
-
-                    // start: "top+=" + (scrollOffset * (index)) + " bottom",
-                    // end: "top+=" + (scrollOffset * (index)) + " top",
-
-                    // start: () => "top" + " bottom",
-                    // end: () => "top" + " top",
-
                     start: () => "top+=" + (index * svgHeight) + " bottom",
                     end: () => "top+=" + (index * svgHeight) + " top",
-
                     scrub: 1, // Scrub the progress smoothly
                     // markers: true, // Debug markers for visualization
+                    onUpdate: (self) => {
+                        if (self.progress === 1) {
+                            console.log("eddd");
+                            
+                            // Change the circle's background color when progress reaches 1
+                            gsap.to(element.circle, {
+                                backgroundColor: progressColor,
+                                duration: 0,
+                            });
+                        }
+                    }
                 }
             });
 
             // Add the fromTo animation to the timeline
             tl
-                .fromTo(element.line,
-                    {
-                        scaleY: 0, // Start with scaleY at 0 (no height)
-                        scaleX: 1,
-                    },
-                    {
-                        scaleX: 1,
-                        scaleY: 1, // ScaleY to 1 (full height)
-                        ease: "none", // No easing for smooth linear progress
-                    }
-                )
-                .to(element.circle,
-                    {
-                        backgroundColor: progressColor,
-                        // ease: "none",
-                        duration: 0
-
-                    });
-
-
-            // gsap.fromTo(element.line,
-            //     {
-            //         scaleY: 0, // Start with scaleY at 0 (no height)
-            //         scaleX: 1,
-            //     },
-            //     {
-            //         scaleX: 1,
-            //         scaleY: 1, // ScaleY to 1 (full height)
-            //         ease: "none", // No easing for smooth linear progress
-            //         scrollTrigger: {
-            //             trigger: element.trigger,
-            //             start: "top bottom",
-            //             end: "bottom top",
-            //             scrub: 1, // Scrub the progress smoothly
-            //             markers: true, // Debug markers for visualization
-
-            //         }
-            //     }
-            // )
-
-
-            // .to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
-
-
+                .fromTo(element.line, {
+                    scaleY: 0, // Start with scaleY at 0 (no height)
+                    scaleX: 1,
+                }, {
+                    scaleX: 1,
+                    scaleY: 1, // ScaleY to 1 (full height)
+                    ease: "none",
+                });
         }
-
-        // gsap.fromTo(".line-1",
-        //     {
-        //         scaleY: 0, // Start with scaleY at 0 (no height)
-        //         scaleX: 1,
-        //     },
-        //     {
-        //         scaleX: 1,
-        //         scaleY: 1, // ScaleY to 1 (full height)
-        //         ease: "none", // No easing for smooth linear progress
-        //         scrollTrigger: {
-        //             trigger: "#they",
-        //             start: "top bottom",
-        //             end: "bottom top",
-        //             scrub: 1, // Scrub the progress smoothly
-        //             markers: true, // Debug markers for visualization
-        //             onUpdate: (self) => {
-        //                 console.log("Scroll Progress:", self.progress.toFixed(3)); // Print smooth progress
-        //             }
-        //         }
-        //     }
-        // );
-
-
-
-        // gsap.to("#one", {
-        //     ease: "none",
-        //     scrollTrigger: {
-        //         trigger: "#one",
-        //         start: "top top",
-        //         scrub: true,
-        //         onUpdate: (self) => {
-
-        //             restoreProgressCircles();
-
-        //             const progress = self.progress;
-        //             gsap.to('.scroll-down', {
-        //                 opacity: 1 - progress
-        //             });
-        //             // gsap.to('.line-1', { scaleX: 1, scaleY: progress, duration: 0, ease: "none", backgroundColor: progressColor });
-        //             if (progress > 0.99) {
-        //                 gsap.to("#circle-2", { backgroundColor: progressColor, ease: "none", duration: 0 });
-        //             } else {
-        //                 gsap.to("#circle-2", { backgroundColor: "light" + progressColor, ease: "none", duration: 0 });
-        //             }
-        //         }
-        //     }
-        // });
-
-        // console.log("++++ rectData ++++");
-        // console.log(rectData);
 
         // Single GSAP Timeline with labels
         const mainTimeline = gsap.timeline({ paused: true });
 
         // ***** SHOWING THE LOGO *****        
         mainTimeline.addLabel("logo")
-            .fromTo(logoIcon.node(),
-                {
-                    opacity: 0,
-                    scale: 0,
-                    transformOrigin: '50% 50%'
-                },
-                {
-                    opacity: 1,
-                    scale: 1,
-                    transformOrigin: '50% 50%',
-                    duration: animationDuration,
-                    ease: "back.out(2.9)",
-                }, "logo");
+            .fromTo(logoIcon.node(), {
+                opacity: 0,
+                scale: 0,
+                transformOrigin: '50% 50%'
+            }, {
+                opacity: 1,
+                scale: 1,
+                transformOrigin: '50% 50%',
+                duration: animationDuration,
+                ease: "back.out(2.9)",
+            }, "logo");
 
         // ***** INITIAL PACKING *****
         mainTimeline.addLabel("packing")
@@ -2029,22 +1928,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             }, "packing");
 
-        // console.log("nonTargetLabels");
-        // console.log(nonTargetLabels);
-
-        // Check if elements with these IDs exist in the DOM
-        // otherRectsIDs.forEach(id => {
-        //     if (!document.getElementById(id)) {
-        //         console.error(`Element with ID ${id} does not exist in the DOM`);
-        //     }
-        // });
-
-        // otherLabelsIDs.forEach(id => {
-        //     if (!document.getElementById(id)) {
-        //         console.error(`Element with ID ${id} does not exist in the DOM`);
-        //     }
-        // });
-
         const deltaX = 50;
         const deltaY = 220;
 
@@ -2054,13 +1937,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // ***** CATEGORIES *****
         mainTimeline.addLabel("categories")
-            .to(logoIcon.node(),
-                {
-                    opacity: 0,
-                    scale: 0,
-                    transformOrigin: '50% 50%',
-                    duration: animationDuration / 2,
-                }, "categories")
+            .to(logoIcon.node(), {
+                opacity: 0,
+                scale: 0,
+                transformOrigin: '50% 50%',
+                duration: animationDuration / 2,
+            }, "categories")
             .to(rectData, {
                 x: (index) => movedRectData[index].x,
                 y: (index) => movedRectData[index].y,
@@ -2098,9 +1980,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const y2 = centerY + logoIconHeight / 2 + p; // Bottom edge (maximum y)
 
         const points = arrangeRectanglesByWidth(x1 - p, y2 + p, logoIconWidth + p * 2 + 30, 10, 10, rectData.length, 15, 15);
-
-        // console.log("points:");
-        // console.log(points);
 
         const distance = 150;
         const delta = (x1 - distance);
@@ -2330,7 +2209,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onUpdate: () => {
                     drawRectsAndLabels(rectData);
                 }
-            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3))
+            }, "accessedByOtherActors+=" + (animationDuration + animationDuration / 3 + 0.5 * Math.random()))
 
 
 
@@ -2613,8 +2492,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .fromTo(`#${rect.id}`, {
                         // x: svgWidth * 1.25,
                         // y: getRandomBetween(-100, svgHeight + 100),
-
-
                         // x: rightAlignX + distanceFromLogo,
                         x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (targetSize * 2 + padding * 0.75),
                         y: offsetY + targetSize / 2,
@@ -2693,18 +2570,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('mouseover', function (event) {
 
-                    if (d3.select(node).attr('opacity') !== '1') {
-                        return;
-                    }
+                    console.log("node");
+                    console.log(node);
+
+                    console.log("d3.select(node)");
+                    console.log(d3.select(node));
+
+
+                    console.log("Here 111");
+
+                    console.log("d3.select(node).attr('opacity')");
+                    console.log(d3.select(node).attr('opacity'));
+
+
+
+                    // if (d3.select(node).attr('opacity') !== '1') {
+                    //     return;
+                    // }
+
+                    console.log("Here 222");
 
                     console.log("mainTimeline.currentLabel():");
                     console.log(mainTimeline.currentLabel());
 
                     console.log("shouldShowDataCategories: " + shouldShowDataCategories);
 
+                    console.log("shouldShowDataRects: " + shouldShowDataRects);
+
                     // console.log(d3.select(node).attr('opacity'));
 
-                    if (d3.select(node).attr('opacity') === '1' && shouldShowDataCategories && !dataCategoryClicked) {
+                    if (shouldShowDataRects && shouldShowDataCategories && !dataCategoryClicked) {
 
                         // Get the class that identifies the related rectangles
                         let cleanDataType = makeID(d3.select(this).text());
@@ -2727,11 +2622,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 function mouseOutLabelCategory(event) {
 
-                    if (d3.select(node).attr('opacity') !== '1') {
-                        return;
-                    }
+                    // if (d3.select(node).attr('opacity') !== '1') {
+                    //     return;
+                    // }
 
-                    if (shouldShowDataCategories && !dataCategoryClicked) {
+                    if (shouldShowDataRects && shouldShowDataCategories && !dataCategoryClicked) {
 
                         console.log("mouseOutLabelCategory");
 
@@ -2751,11 +2646,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 d3.select(node).on('click', function (event) {
 
-                    if (d3.select(node).attr('opacity') !== '1') {
-                        return;
-                    }
-
-                    if (shouldShowDataCategories && !dataCategoryClicked) {
+                    if (shouldShowDataRects && shouldShowDataCategories && !dataCategoryClicked) {
 
                         // Prevent mouseout effect from restoring the original state
                         d3.selectAll('.category-label').on('mouseout', null);
@@ -2791,8 +2682,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 duration: animationDuration,
                 scaleX: 1,
                 ease: 'elastic.out(1, 0.45)',
+                onReverseComplete: () => {
+                    shouldShowDataCategories = false;
+                    shouldShowDataRects = false;
+                },
                 onComplete: () => {
                     shouldShowDataCategories = true;
+                    shouldShowDataRects = true;
+                    explainDataPerActor();
                 },
                 onUpdate: () => {
                     shouldShowDataCategories = false;
@@ -3339,7 +3236,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // const maxActorElementId = getElementWithHighestNumberOfActors();
 
-
         const elements = d3.selectAll('.actorIcon').nodes();
         const randomIndex = Math.floor(Math.random() * elements.length);
         const randomElement = elements[randomIndex];
@@ -3374,7 +3270,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ease: 'expo.out'
             })
             .to(cursor, {
-                duration: 0.75, // Adjust duration as needed
+                duration: 0.75,
                 motionPath: {
                     path: [
                         { x: svgWidth / 2, y: svgHeight / 2 }, // Start at the center of the SVG
@@ -4120,9 +4016,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                             this.addEventListener('mouseenter', () => {
 
-
-
-
                                 const opacity = window.getComputedStyle(this).opacity;
 
                                 // console.log("opacity: " + opacity);
@@ -4219,10 +4112,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                         document.querySelector("#expandButtonDiv").style.visibility = 'visible';
                         document.querySelector("#pageNavigation").style.visibility = 'visible';
-
-
-
-
 
                         const currentText = currentLinesArray[currentLineIndex];
                         const highlightColor = categoriesColorScale(originalNames[dataCategory]);
