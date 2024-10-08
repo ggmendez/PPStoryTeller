@@ -145,13 +145,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     </button>                                        
                 </div>
             </div>
-            <div id="expandButtonDiv" class"other-element" style="border-left: 1px solid black; padding-left: 5px; padding-right: 5px; ">
-                <button id="overlayToggleButton" class="nav-button overlay-toggle-button">
-                    <svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="6" y1="18" x2="18" y2="6" /> <!-- Diagonal line for first arrow -->
-                        <polyline points="6 12 6 18 12 18" /> <!-- Arrowhead for the first arrow -->                    
-                        <polyline points="18 12 18 6 12 6" /> <!-- Arrowhead for the second arrow -->
+            <div id="expandButtonDiv" class"other-element" style="border-left: 1px solid black; padding-left: 5px; ">
+                <button id="expandPPButton" class="nav-button overlay-toggle-button">
+                    
+
+
+
+                    <svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <!-- Top-right arrow pointing inward -->
+                        <line x1="21" y1="3" x2="14" y2="10" /> <!-- Diagonal arrow line -->
+                        <line x1="18" y1="3" x2="21" y2="3" />
+                        <line x1="21" y1="3" x2="21" y2="6" />
+
+                        <!-- Bottom-left arrow pointing inward -->
+                        <line x1="3" y1="21" x2="10" y2="14" /> <!-- Diagonal arrow line -->
+                        <line x1="3" y1="18" x2="3" y2="21" />
+                        <line x1="3" y1="21" x2="6" y2="21" />
                     </svg>
+
+
+
+
                 </button>
             </div>
         </div>
@@ -294,12 +308,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const iframeContainer = document.getElementById('iframe-container');
         const duration = 0.8;
 
+        // Your code to compress the panel
+        const button = document.getElementById('expandPPButton');
+
+        // Update the button to use the expand icon
+        button.innerHTML = `<svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="6" y1="18" x2="18" y2="6" />
+            <polyline points="6 12 6 18 12 18" />
+            <polyline points="18 12 18 6 12 6" />
+        </svg>`;
+
         gsap.to(contextIframe, {
             height: 0,
             duration: duration,
             ease: 'power2.out'
         });
 
+        
         gsap.to(iframeContainer, {
             height: 0,
             duration: duration,
@@ -317,6 +342,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     function expandPP() {
+
+        // Your code to expand the panel
+        const button = document.getElementById('expandPPButton');
+
+        // Update the button to use the compress icon
+        button.innerHTML = `<svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="21" y1="3" x2="14" y2="10" />
+            <line x1="18" y1="3" x2="21" y2="3" />
+            <line x1="21" y1="3" x2="21" y2="6" />
+            <line x1="3" y1="21" x2="10" y2="14" />
+            <line x1="3" y1="18" x2="3" y2="21" />
+            <line x1="3" y1="21" x2="6" y2="21" />
+        </svg>`;
 
         const contextIframe = document.getElementById('contextIframe');
         const iframeContainer = document.getElementById('iframe-container');
@@ -354,7 +392,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 compressPP();
             }
         });
-        document.getElementById('overlayToggleButton').addEventListener('click', function () {
+        document.getElementById('expandPPButton').addEventListener('click', function () {
             if (ppCompressed) {
                 expandPP();
             } else {
@@ -2496,7 +2534,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
                     // x: rightAlignX + distanceFromLogo,
-                    x: rightAlignX + distanceFromLogo + (rectIndex-2) * (targetSize * 2 + padding * 0.75),
+                    x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (targetSize * 2 + padding * 0.75),
                     y: startY + targetSize / 2,
                     opcity: 0,
 
@@ -2506,16 +2544,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     y: startY + targetSize / 2,
                     opacity: 1,
                     duration: animationDuration,
-                    ease: "power1.inOut",                
-                // }, `actorsColumn+=${1}`)
-                }, `actorsColumn+=${1 + rectIndex * 0.025}`)
+                    ease: "power1.inOut",
+                    // }, `actorsColumn+=${1}`)
+                }, `actorsColumn+=${1 + rectIndex * 0.015}`)
 
                 .to(`#${rect.id}`, {
                     rx: 0,
                     ry: 0,
                     duration: animationDuration,
                     ease: "none",
-                }, `actorsColumn+=${3 + rectIndex * 0.025}`);
+                }, `actorsColumn+=${3 + rectIndex * 0.015}`);
         });
 
 
@@ -2531,7 +2569,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // console.log("*********************");
             // console.log("actorLabelText: " + actorLabelText);
 
-            const groupBBox = actorGroup.getBBox();            
+            const groupBBox = actorGroup.getBBox();
             const label = d3.select("#" + labelID);
             const actorIconHeight = groupBBox.height;
             const offsetY = startY + index * spacing;
@@ -2574,7 +2612,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // console.log("collectedData:");
             // console.log(collectedData);
 
-            
+
 
             // Generate rect copies first
             const rectCopies = generateRectCopies(collectedData, actorType, globalFrequencyMap, splitRectData);
@@ -2598,10 +2636,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .fromTo(`#${rect.id}`, {
                         // x: svgWidth * 1.25,
                         // y: getRandomBetween(-100, svgHeight + 100),
-                      
+
 
                         // x: rightAlignX + distanceFromLogo,
-                        x: rightAlignX + distanceFromLogo + (rectIndex-2) * (targetSize * 2 + padding * 0.75),
+                        x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (targetSize * 2 + padding * 0.75),
                         y: offsetY + targetSize / 2,
 
                     }, {
@@ -2610,8 +2648,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         opacity: 1,
                         duration: animationDuration,
                         ease: "power1.inOut",
-                    // }, `actorsColumn+=${1}`)
-                    }, `actorsColumn+=${1 + rectIndex * 0.025}`)
+                        // }, `actorsColumn+=${1}`)
+                    }, `actorsColumn+=${1 + rectIndex * 0.015}`)
 
                     .to(`#${rect.id}`, {
                         rx: 0,
@@ -2625,7 +2663,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         onComplete: () => {
                             shouldShowDataCategories = true;
                         },
-                    }, `actorsColumn+=${3 + rectIndex * 0.025}`);
+                    }, `actorsColumn+=${3 + rectIndex * 0.015}`);
             });
 
         });
@@ -4220,6 +4258,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         document.querySelector("#overlay").style.borderLeftColor = highlightColor;
                         document.querySelector("#overlay").style.borderRightColor = highlightColor;
                         document.querySelector("#pageNavigation").style.borderLeftColor = highlightColor;
+                        document.querySelector("#expandButtonDiv").style.borderLeftColor = highlightColor;
                         document.querySelector("#overlay").style.backgroundColor = highlightColor + '05';
 
                         popup.style.visibility = 'visible';
@@ -4228,7 +4267,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         gsap.to("#overlay", {
                             duration: 0.25,
                             height: '50px',
-                            padding: '10px 20px',
+                            // padding: '10px 10px',
                             borderTop: '2px solid ' + highlightColor,
                             borderBottom: '3px solid ' + highlightColor,
                             ease: 'linear',

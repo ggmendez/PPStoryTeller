@@ -1475,6 +1475,9 @@ code .token.url {
   border-right: 2px solid gray;
   border-top: 2px solid gray;
   border-bottom: 3px solid gray;
+
+  padding-left: 10px;
+  padding-right: 5px;
 }
 
 /* First element should grow to take up all available space */
@@ -1805,9 +1808,10 @@ code .token.url {
   transform: translate(-50%, -50%);
 }
 
+
 #pageNavigation,
 #expandButtonDiv {
-  visibility: hidden;
+  visibility: hidden;  
 }
 
 
