@@ -146,27 +146,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 </div>
             </div>
             <div id="expandButtonDiv" class"other-element" style="border-left: 1px solid black; padding-left: 5px; ">
-                <button id="expandPPButton" class="nav-button overlay-toggle-button">
-                    
-
-
-
-                    <svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <!-- Top-right arrow pointing inward -->
-                        <line x1="21" y1="3" x2="14" y2="10" /> <!-- Diagonal arrow line -->
-                        <line x1="18" y1="3" x2="21" y2="3" />
-                        <line x1="21" y1="3" x2="21" y2="6" />
-
-                        <!-- Bottom-left arrow pointing inward -->
-                        <line x1="3" y1="21" x2="10" y2="14" /> <!-- Diagonal arrow line -->
-                        <line x1="3" y1="18" x2="3" y2="21" />
-                        <line x1="3" y1="21" x2="6" y2="21" />
-                    </svg>
-
-
-
-
-                </button>
+                <button id="expandPPButton" class="nav-button overlay-toggle-button"></button>
             </div>
         </div>
         <div id="iframe-container">
@@ -313,10 +293,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Update the button to use the expand icon
         button.innerHTML = `<svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="6" y1="18" x2="18" y2="6" />
-            <polyline points="6 12 6 18 12 18" />
-            <polyline points="18 12 18 6 12 6" />
-        </svg>`;
+                                <line x1="10.2" y1="13.8" x2="1" y2="23"/>
+                                <polyline points="10.2 23 1 23 1 13.8"/>
+                                <line x1="10.2" y1="13.8" x2="1" y2="23"/>
+                                <line x1="13.8" y1="10.2" x2="23" y2="1"/>
+                                <polyline points="13.8 1 23 1 23 10.2"/>
+                                <line x1="13.8" y1="10.2" x2="23" y2="1"/>
+                            </svg>`;
 
         gsap.to(contextIframe, {
             height: 0,
@@ -347,14 +330,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const button = document.getElementById('expandPPButton');
 
         // Update the button to use the compress icon
-        button.innerHTML = `<svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="21" y1="3" x2="14" y2="10" />
-            <line x1="18" y1="3" x2="21" y2="3" />
-            <line x1="21" y1="3" x2="21" y2="6" />
-            <line x1="3" y1="21" x2="10" y2="14" />
-            <line x1="3" y1="18" x2="3" y2="21" />
-            <line x1="3" y1="21" x2="6" y2="21" />
-        </svg>`;
+        button.innerHTML = `<svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="24" x2="14.8" y2="9.2"/>
+                                <polyline points="24 9.2 14.8 9.2 14.8 0"/>
+                                <line x1="24" x2="14.8" y2="9.2"/>
+                                <line y1="24" x2="9.2" y2="14.8"/>
+                                <polyline points="0 14.8 9.2 14.8 9.2 24"/>
+                                <line y1="24" x2="9.2" y2="14.8"/>
+                            </svg>`;
 
         const contextIframe = document.getElementById('contextIframe');
         const iframeContainer = document.getElementById('iframe-container');
