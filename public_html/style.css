@@ -1244,7 +1244,8 @@ code .token.url {
 
 
 .popup {
-  display: none; /* Hidden by default */
+  display: none;
+  /* Hidden by default */
   position: fixed;
   top: 50%;
   left: 0;
@@ -1253,9 +1254,12 @@ code .token.url {
   background: white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 1000;
-  max-height: 100%; /* Ensure it doesn’t overflow out of the viewport */
-  height: 100%; /* Allow the popup to grow dynamically with content */
-  overflow: hidden; /* Ensure no scrollbars appear */
+  max-height: 100%;
+  /* Ensure it doesn’t overflow out of the viewport */
+  height: 100%;
+  /* Allow the popup to grow dynamically with content */
+  overflow: hidden;
+  /* Ensure no scrollbars appear */
 }
 
 
@@ -1279,7 +1283,8 @@ code .token.url {
   flex-direction: column;
   width: 100%;
   position: relative;
-  overflow: hidden; /* Ensure no scrollbars appear */
+  overflow: hidden;
+  /* Ensure no scrollbars appear */
 }
 
 .popup-close {
@@ -1297,7 +1302,8 @@ code .token.url {
   flex-grow: 1;
   display: flex;
   overflow: auto;
-  overflow: hidden; /* Ensure no scrollbars appear */
+  overflow: hidden;
+  /* Ensure no scrollbars appear */
 }
 
 #iframe-container iframe {
@@ -1473,13 +1479,16 @@ code .token.url {
 
 /* First element should grow to take up all available space */
 .overlay .first-element {
-  flex-grow: 1; /* This element will take up the remaining space */
-  margin-right: 10px; /* Optional spacing before other elements */
+  flex-grow: 1;
+  /* This element will take up the remaining space */
+  margin-right: 10px;
+  /* Optional spacing before other elements */
 }
 
 /* Other elements will take only as much space as they need */
 .overlay .other-element {
-  flex-shrink: 0; /* Prevent other elements from shrinking */
+  flex-shrink: 0;
+  /* Prevent other elements from shrinking */
 }
 
 .left-content {
@@ -1760,11 +1769,13 @@ code .token.url {
 
 /* Rotate effect for the arrows */
 #diagonalArrowsIcon {
-  transition: transform 0.3s ease; /* Smooth transition for rotation */
+  transition: transform 0.3s ease;
+  /* Smooth transition for rotation */
 }
 
 #diagonalArrowsIcon.compressed {
-  transform: rotate(45deg); /* Rotate 180 degrees when compressed */
+  transform: rotate(45deg);
+  /* Rotate 180 degrees when compressed */
 }
 
 
@@ -1778,29 +1789,41 @@ code .token.url {
   font-size: 28px;
   font-weight: bold;
   color: black;
-  background-color: #ffe033; /* Vibrant orange color */
+  background-color: #ffe033;
+  /* Vibrant orange color */
   border: none;
-  border-radius: 30px; /* Rounded corners */
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* Notorious shadow */
+  border-radius: 30px;
+  /* Rounded corners */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+  /* Notorious shadow */
   cursor: pointer;
   z-index: 20000;
   text-transform: none;
-  animation: pulse 1.5s infinite ease-in-out; /* Add pulsing animation */
+  animation: pulse 1.5s infinite ease-in-out;
+  /* Add pulsing animation */
   /* Initial transform that centers the button */
   transform: translate(-50%, -50%);
 }
 
+#pageNavigation,
+#expandButtonDiv {
+  visibility: hidden;
+}
 
 
 /* Pulse animation */
 @keyframes pulse {
   0% {
-    transform: translate(-50%, -50%) scale(1); /* Center and normal size */
+    transform: translate(-50%, -50%) scale(1);
+    /* Center and normal size */
   }
-  50% {
-    transform: translate(-50%, -50%) scale(1.1); /* Grow slightly */
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(1); /* Shrink back to normal */
-}
 
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    /* Grow slightly */
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    /* Shrink back to normal */
+  }

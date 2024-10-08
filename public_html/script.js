@@ -145,7 +145,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     </button>                                        
                 </div>
             </div>
-            <div class"other-element" style="border-left: 1px solid black; padding-left: 5px; padding-right: 5px; ">
+            <div id="expandButtonDiv" class"other-element" style="border-left: 1px solid black; padding-left: 5px; padding-right: 5px; ">
                 <button id="overlayToggleButton" class="nav-button overlay-toggle-button">
                     <svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="6" y1="18" x2="18" y2="6" /> <!-- Diagonal line for first arrow -->
@@ -493,29 +493,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     svgElement.addEventListener('click', (event) => {
 
-        if (!event.target.classList.contains('copyOfDataRect')) {
-            const rectangles = document.querySelectorAll('.copyOfDataRect');
-            rectangles.forEach(rect => {
-                rect.style.opacity = '1';
-            });
 
-            compressPP();
+        if (mainTimeline.currentLabel() === "actorsColumn") {
+            if (!event.target.classList.contains('copyOfDataRect')) {
+                const rectangles = document.querySelectorAll('.copyOfDataRect');
+                rectangles.forEach(rect => {
+                    rect.style.opacity = '1';
+                });
 
-            // if (searcher) {
-            //     searcher.clearSearch();
-            // }
+                compressPP();
 
-            // gsap.to("#overlay", {
-            //     duration: 0.5,
-            //     height: 0,
-            //     padding: '0px 0px',
-            //     borderTopWidth: 0,
-            //     borderBottomWidth: 0,
-            //     ease: "power4.out",
-            // });
+                // if (searcher) {
+                //     searcher.clearSearch();
+                // }
 
+                // gsap.to("#overlay", {
+                //     duration: 0.5,
+                //     height: 0,
+                //     padding: '0px 0px',
+                //     borderTopWidth: 0,
+                //     borderBottomWidth: 0,
+                //     ease: "power4.out",
+                // });
+
+
+            }
 
         }
+
+
 
         // Ensure the click isn't on the currently active tooltip or its trigger element
         if (currentPermanentTooltip && !currentPermanentTooltip.popper.contains(event.target)) {
@@ -2434,8 +2440,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // console.log("SORTED actorGroups:");
         // console.log(actorGroups);
 
-        window.actorGroups = actorGroups;
-        window.labelsOf = labelsOf;
+        // window.actorGroups = actorGroups;
+        // window.labelsOf = labelsOf;
 
         actorGroups = actorGroups.filter(d => d3.select("#" + labelsOf[d.id]).text() !== formatedNames[who]);
 
@@ -2458,24 +2464,58 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, globalFrequencyMap, splitRectData);
 
+        // rectsOfLogo.forEach((rect, rectIndex) => {
+        //     mainTimeline
+        //         .fromTo(`#${rect.id}`, {
+        //             x: svgWidth * 1.25,
+        //             y: getRandomBetween(-100, svgHeight + 100),
+        //         }, {
+        //             x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
+        //             y: startY + targetSize / 2,
+        //             opacity: 1,
+        //             duration: animationDuration,
+        //             ease: "power1.inOut",
+        //         }, `actorsColumn+=${rectIndex * 0.01}`)
+        //         .to(`#${rect.id}`, {
+        //             rx: 0,
+        //             ry: 0,
+        //             duration: animationDuration,
+        //             ease: "none",
+        //         }, `actorsColumn+=${3 + rectIndex * 0.01}`);
+        // });
+
+        let distanceFromLogo = 50;
+
+
         rectsOfLogo.forEach((rect, rectIndex) => {
             mainTimeline
                 .fromTo(`#${rect.id}`, {
-                    x: svgWidth * 1.25,
-                    y: getRandomBetween(-100, svgHeight + 100),
+
+                    // x: svgWidth * 1.25,
+                    // y: getRandomBetween(-100, svgHeight + 100),
+
+
+                    // x: rightAlignX + distanceFromLogo,
+                    x: rightAlignX + distanceFromLogo + (rectIndex-2) * (targetSize * 2 + padding * 0.75),
+                    y: startY + targetSize / 2,
+                    opcity: 0,
+
+
                 }, {
-                    x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
+                    x: rightAlignX + distanceFromLogo + rectIndex * (targetSize * 2 + padding * 0.75),
                     y: startY + targetSize / 2,
                     opacity: 1,
                     duration: animationDuration,
-                    ease: "power1.inOut",
-                }, `actorsColumn+=${rectIndex * 0.01}`)
+                    ease: "power1.inOut",                
+                // }, `actorsColumn+=${1}`)
+                }, `actorsColumn+=${1 + rectIndex * 0.025}`)
+
                 .to(`#${rect.id}`, {
                     rx: 0,
                     ry: 0,
                     duration: animationDuration,
                     ease: "none",
-                }, `actorsColumn+=${3 + rectIndex * 0.01}`);
+                }, `actorsColumn+=${3 + rectIndex * 0.025}`);
         });
 
 
@@ -2491,8 +2531,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // console.log("*********************");
             // console.log("actorLabelText: " + actorLabelText);
 
-            const groupBBox = actorGroup.getBBox();
-            const groupStartTime = index * 0.1;
+            const groupBBox = actorGroup.getBBox();            
             const label = d3.select("#" + labelID);
             const actorIconHeight = groupBBox.height;
             const offsetY = startY + index * spacing;
@@ -2535,7 +2574,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // console.log("collectedData:");
             // console.log(collectedData);
 
-            const commonX = rightAlignX;
+            
 
             // Generate rect copies first
             const rectCopies = generateRectCopies(collectedData, actorType, globalFrequencyMap, splitRectData);
@@ -2557,15 +2596,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // console.log("+++++++++ " + currentClones);
                 mainTimeline
                     .fromTo(`#${rect.id}`, {
-                        x: svgWidth * 1.25,
-                        y: getRandomBetween(-100, svgHeight + 100),
+                        // x: svgWidth * 1.25,
+                        // y: getRandomBetween(-100, svgHeight + 100),
+                      
+
+                        // x: rightAlignX + distanceFromLogo,
+                        x: rightAlignX + distanceFromLogo + (rectIndex-2) * (targetSize * 2 + padding * 0.75),
+                        y: offsetY + targetSize / 2,
+
                     }, {
-                        x: commonX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
+                        x: rightAlignX + distanceFromLogo + rectIndex * (targetSize * 2 + padding * 0.75),
                         y: offsetY + targetSize / 2,
                         opacity: 1,
                         duration: animationDuration,
                         ease: "power1.inOut",
-                    }, `actorsColumn+=${groupStartTime + rectIndex * 0.01}`)
+                    // }, `actorsColumn+=${1}`)
+                    }, `actorsColumn+=${1 + rectIndex * 0.025}`)
+
                     .to(`#${rect.id}`, {
                         rx: 0,
                         ry: 0,
@@ -2578,7 +2625,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         onComplete: () => {
                             shouldShowDataCategories = true;
                         },
-                    }, `actorsColumn+=${3 + rectIndex * 0.01}`);
+                    }, `actorsColumn+=${3 + rectIndex * 0.025}`);
             });
 
         });
@@ -4152,6 +4199,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                         currentLinesArray = lines;
                         currentLineIndex = 0;
+
+
+
+                        document.querySelector("#expandButtonDiv").style.visibility = 'visible';
+                        document.querySelector("#pageNavigation").style.visibility = 'visible';
+
+
+
+
 
                         const currentText = currentLinesArray[currentLineIndex];
                         const highlightColor = categoriesColorScale(originalNames[dataCategory]);
