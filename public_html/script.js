@@ -287,19 +287,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const contextIframe = document.getElementById('contextIframe');
         const iframeContainer = document.getElementById('iframe-container');
         const duration = 0.8;
-
-        // Your code to compress the panel
         const button = document.getElementById('expandPPButton');
-
-        // Update the button to use the expand icon
-        button.innerHTML = `<svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="10.2" y1="13.8" x2="1" y2="23"/>
-                                <polyline points="10.2 23 1 23 1 13.8"/>
-                                <line x1="10.2" y1="13.8" x2="1" y2="23"/>
-                                <line x1="13.8" y1="10.2" x2="23" y2="1"/>
-                                <polyline points="13.8 1 23 1 23 10.2"/>
-                                <line x1="13.8" y1="10.2" x2="23" y2="1"/>
-                            </svg>`;
 
         gsap.to(contextIframe, {
             height: 0,
@@ -307,7 +295,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
             ease: 'power2.out'
         });
 
-        
         gsap.to(iframeContainer, {
             height: 0,
             duration: duration,
@@ -320,6 +307,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
             ease: 'power2.out',
             onComplete: () => {
                 ppCompressed = true;
+                // Update the button to use the expand icon
+                button.innerHTML = `<svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="10.2" y1="13.8" x2="1" y2="23"/>
+                    <polyline points="10.2 23 1 23 1 13.8"/>
+                    <line x1="10.2" y1="13.8" x2="1" y2="23"/>
+                    <line x1="13.8" y1="10.2" x2="23" y2="1"/>
+                    <polyline points="13.8 1 23 1 23 10.2"/>
+                    <line x1="13.8" y1="10.2" x2="23" y2="1"/>
+                </svg>`;
             }
         });
     }
@@ -328,17 +324,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         // Your code to expand the panel
         const button = document.getElementById('expandPPButton');
-
-        // Update the button to use the compress icon
-        button.innerHTML = `<svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="24" x2="14.8" y2="9.2"/>
-                                <polyline points="24 9.2 14.8 9.2 14.8 0"/>
-                                <line x1="24" x2="14.8" y2="9.2"/>
-                                <line y1="24" x2="9.2" y2="14.8"/>
-                                <polyline points="0 14.8 9.2 14.8 9.2 24"/>
-                                <line y1="24" x2="9.2" y2="14.8"/>
-                            </svg>`;
-
         const contextIframe = document.getElementById('contextIframe');
         const iframeContainer = document.getElementById('iframe-container');
         const duration = 0.8;
@@ -361,6 +346,15 @@ document.addEventListener("DOMContentLoaded", (event) => {
             ease: 'power2.in',
             onComplete: () => {
                 ppCompressed = false;
+                // Update the button to use the compress icon
+                button.innerHTML = `<svg id="compressIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="24" x2="14.8" y2="9.2"/>
+                    <polyline points="24 9.2 14.8 9.2 14.8 0"/>
+                    <line x1="24" x2="14.8" y2="9.2"/>
+                    <line y1="24" x2="9.2" y2="14.8"/>
+                    <polyline points="0 14.8 9.2 14.8 9.2 24"/>
+                    <line y1="24" x2="9.2" y2="14.8"/>
+                </svg>`;
             }
         });
 
