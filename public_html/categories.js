@@ -11,7 +11,7 @@ categories.tiktok = {
         "We": ["we", "tiktok"],
         "Researchers": ["researcher", "independent researcher"],
         "Law Enforcement": ["law enforcement", "law enforcement agency", "public authority"],
-        "Service Providers": ["service provider", "payment provider"],
+        "Service Providers": ["service provider", "payment provider", "transaction fulfillment provider"],
         "Commercial Entities": ["merchant", "creator"],
         "Other": ["UNSPECIFIED_ACTOR"]
     },
@@ -32,10 +32,10 @@ categories.tiktok = {
             "user content", "video content", "audio recording", "content", "content you create"
         ],
         "General Data": [
-            "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you send we", "information you provide", UNSPECIFIED_DATA_RENAME
+            "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you provide", UNSPECIFIED_DATA_RENAME
         ],
         "Behavioral Data": [
-            "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
+            "external activity tracking", "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
         ],
         "Location Data": [
             "geolocation", "coarse geolocation", "system language"

@@ -2689,7 +2689,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onComplete: () => {
                     shouldShowDataCategories = true;
                     shouldShowDataRects = true;
-                    explainDataPerActor();
+                    // explainDataPerActor(); // TMP
                 },
                 onUpdate: () => {
                     shouldShowDataCategories = false;
@@ -2941,7 +2941,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // TMP
-        // mainTimeline.tweenFromTo("actorsColumn");
+        mainTimeline.play("actorsColumn");
 
 
     }
@@ -3043,7 +3043,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         if (inheritances && inheritances.length) {
             inheritances.forEach((inheritance, index) => {
-                inheritanceElements += '<li>' + inheritance + '</li>';
+                inheritanceElements += '<li>' + capitalizeFirstLetter(inheritance) + '</li>';
             });
         }
 
