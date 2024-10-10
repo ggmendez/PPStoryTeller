@@ -1120,14 +1120,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
         categoriesColorScale = d3.scaleOrdinal(customSchemePaired).domain([
             "Identifiers",
             "General Data",
-            "Aggregated & Inferred Data",
-            "Metadata",
+            "Automatically Logged/Inferred Data",
+            "Contacts",
             "Media Content",
             "Personal Information",
             "Behavioral Data",
             "Location Data",
             "Tracking",
-            "Message Data",
+            "Messages and Assistance",
             "Technical Data",
             "Financial Data"
         ]);
@@ -1462,7 +1462,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // Set initial fontSize proportional to rectangle size
                 const initialFontSize = rectHeight * 0.5; // Adjust multiplier as needed
                 const maxFontSize = 18; // Maximum font size cap
-                const minFontSize = 12;  // Minimum readable font size
+                const minFontSize = 10;  // Minimum readable font size
 
                 let fontSize = Math.min(initialFontSize, maxFontSize);
 

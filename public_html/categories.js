@@ -13,20 +13,19 @@ categories.tiktok = {
         "Law Enforcement": ["law enforcement", "law enforcement agency", "public authority"],
         "Service Providers": ["service provider", "payment provider", "transaction fulfillment provider"],
         "Commercial Entities": ["merchant", "creator"],
-        "Other": ["UNSPECIFIED_ACTOR"]
+        "Other": ["UNSPECIFIED_ACTOR", "third-party platform"]
     },
     dataCategories: {
         "Identifiers": [
-            "mobile identifiers", "username", "email address", "phone number", "device identifier", "person name", "sim card", "advertising id", "password"
+            "contact name", "user identifier", "advertising identifier", "username", "email address", "phone number", "device identifier", "person name", "sim card", "advertising id", "password"
         ],
         "Personal Information": [
-            "social network profile", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
+            "profile information", "social network profile", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
         ],
-        "Inferred Data": [
-            "inferred interests", "inferred personal attributes", "age range", "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information"
-        ],
-        "Metadata": [
-            "aggregated statistics", "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
+        "Automatically Logged/Inferred Data": [
+            "message metadata", "automatically collected information", "inferred interests", "inferred personal attributes", "age range", "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information",
+        
+            "media characteristics", "aggregated statistics", "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
         ],
         "Media Content": [
             "user content", "video content", "audio recording", "content", "content you create"
@@ -43,18 +42,15 @@ categories.tiktok = {
         "Tracking": [
             "cookie / pixel tag"
         ],
-        "Message Data": [
-            "message you send", "direct message", "content of message", "message", "information from form you use", "text"
+        "Messages and Assistance": [
+            "information you provide when contacting us", "message you send", "direct message", "content of message", "message", "information from form you use", "text"
         ],
         "Technical Data": [
             "setting", "technical information", "ip address", "device information", "technical information about device", "performance log", "device model", "operating system", "crash report", "keystroke pattern"
         ],
         "Financial Data": [
-            "information about purchase transaction", "credit / debit card number", "payment confirmation detail", "purchase information relate to transaction", "order item", "item you purchase", "purchase information", "delivery information"
-        ],
-        "Support and Assistance": [
-            "information you provide when contacting us"
-        ],
+            "delivery of products", "payment confirmation detail", "information about purchase transaction", "credit / debit card number", "payment confirmation detail", "purchase information relate to transaction", "order item", "item you purchase", "purchase information", "delivery information"
+        ],        
         "Contacts": [
             "phone book", "social network contacts"
         ]
