@@ -17,16 +17,16 @@ categories.tiktok = {
     },
     dataCategories: {
         "Identifiers": [
-            "username", "email address", "phone number", "device identifier", "person name", "sim card", "advertising id", "password"
+            "mobile identifiers", "username", "email address", "phone number", "device identifier", "person name", "sim card", "advertising id", "password"
         ],
         "Personal Information": [
-            "public profile information", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
+            "social network profile", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
         ],
-        "Aggregated & Inferred Data": [
-            "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information", "aggregate statistic"
+        "Inferred Data": [
+            "inferred interests", "inferred personal attributes", "age range", "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information"
         ],
         "Metadata": [
-            "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
+            "aggregated statistics", "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
         ],
         "Media Content": [
             "user content", "video content", "audio recording", "content", "content you create"
@@ -35,10 +35,10 @@ categories.tiktok = {
             "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you provide", UNSPECIFIED_DATA_RENAME
         ],
         "Behavioral Data": [
-            "external activity tracking", "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
+            "external user activity", "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
         ],
         "Location Data": [
-            "geolocation", "coarse geolocation", "system language"
+            "geolocation", "coarse geolocation", "system language", "approximate location"
         ],
         "Tracking": [
             "cookie / pixel tag"
@@ -51,6 +51,12 @@ categories.tiktok = {
         ],
         "Financial Data": [
             "information about purchase transaction", "credit / debit card number", "payment confirmation detail", "purchase information relate to transaction", "order item", "item you purchase", "purchase information", "delivery information"
+        ],
+        "Support and Assistance": [
+            "information you provide when contacting us"
+        ],
+        "Contacts": [
+            "phone book", "social network contacts"
         ]
     }
 };

@@ -387,6 +387,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
             searcher = new IframeSearcher('contextIframe');
         }
 
+        console.log("currentText:");
+        console.log(currentText);
+
         let normalizedText = normalizeText(healPunctuation(currentText));
 
         console.log("normalizedText:");
@@ -454,42 +457,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
             // }
 
         }
-
-
-
-
-
     }
 
 
-    const normalizeText = (text) => {
-        return text.replace(/\s+([,.;])/g, '$1')
-            .replace(/\s+/g, ' ')
-            .replace(/"\s*(.*?)\s*"/g, '"$1"')
-            .trim();
-    };
+   
 
-    function healPunctuation(text) {
-        return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
-            .replace(/(\.)(?!\s|$)/g, '. ')
-            .replace(/\be\. g\./g, 'e.g.')
-            .replace(/"(\S)/g, '" $1')
-            .replace(/\s+:/g, ":")
-            .replace(/"\s+\)/g, "\")")
-            .replace(/_, _/g, "_,_");
-    }
-
-    const recursiveConcatText = (node) => {
-        let text = '';
-        node.childNodes.forEach(child => {
-            if (child.nodeType === Node.TEXT_NODE) {
-                text += child.textContent;
-            } else if (child.nodeType === Node.ELEMENT_NODE) {
-                text += recursiveConcatText(child);
-            }
-        });
-        return text;
-    };
+    
 
 
 
@@ -3495,6 +3468,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const uniqueLines = [...new Set(initialLines)];
 
+        console.log("uniqueLines:");
+        console.log(uniqueLines);
+        
+
         // Replacing a line break (\n) followed by a colon (:) 
         // with just the colon (remove the line break)
         let text = uniqueLines.join("\n").replace(/(\r?\n|\r):/g, ":");
@@ -3877,14 +3854,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-
+                    console.log("----- item.text:");
+                    console.log(item.text);
+                    
 
 
                     let lines = processString(item.text)
-                        .filter(text => !isHeader(text)) // to remove headers
+                        .filter(d => !isHeader(d)) // to remove headers
                         .map(line => normalizeText(line));
 
 
+                        console.log("lines: ");
+                        console.log(lines);
+                        
 
                     // let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
 

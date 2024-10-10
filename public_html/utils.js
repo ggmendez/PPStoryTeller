@@ -271,3 +271,34 @@ function getRandomProperty(obj) {
 function isUndefined(value) {
   return value === undefined;
 }
+
+
+
+const normalizeText = (text) => {
+  return text.replace(/\s+([,.;])/g, '$1')
+      .replace(/\s+/g, ' ')
+      .replace(/"\s*(.*?)\s*"/g, '"$1"')
+      .trim();
+};
+
+function healPunctuation(text) {
+  return text.replace(/([,:;!?])(?=\S)/g, '$1 ')
+      .replace(/(\.)(?!\s|$)/g, '. ')
+      .replace(/\be\. g\./g, 'e.g.')
+      .replace(/"(\S)/g, '" $1')
+      .replace(/\s+:/g, ":")
+      .replace(/"\s+\)/g, "\")")
+      .replace(/_, _/g, "_,_");
+}
+
+const recursiveConcatText = (node) => {
+  let text = '';
+  node.childNodes.forEach(child => {
+      if (child.nodeType === Node.TEXT_NODE) {
+          text += child.textContent;
+      } else if (child.nodeType === Node.ELEMENT_NODE) {
+          text += recursiveConcatText(child);
+      }
+  });
+  return text;
+};
