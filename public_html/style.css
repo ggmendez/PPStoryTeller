@@ -1824,6 +1824,7 @@ code .token.url {
 #pageNavigation,
 #expandButtonDiv {
   visibility: hidden;
+  transition: "visibility 0.3s";
 }
 
 

@@ -368,8 +368,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
     iframe.addEventListener('load', function () {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
         iframeDocument.addEventListener('keydown', (event) => {
+
+
+
             if (event.key === 'Escape') {
-                compressPP();
+
+                
+
+                // Programmatically fire the click event
+                const clickEvent = new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                });
+
+                svgElement.dispatchEvent(clickEvent);
+
+
+
             }
         });
         document.getElementById('expandPPButton').addEventListener('click', function () {
@@ -460,9 +476,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
-   
 
-    
+
+
 
 
 
@@ -491,7 +507,32 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     rectangles.forEach(rect => {
                         rect.style.opacity = '1';
                     });
-                    compressPP();
+
+
+                    if (searcher) {
+                        searcher.clearSearch();
+
+                        document.querySelector("#dataName").textContent = `${formatedNames[who]}'s Privacy Policy`;
+
+
+                        document.querySelector("#pageInfo").textContent = "0/0";
+                        document.querySelector("#squareIndicator").style.backgroundColor = 'gray';
+
+                        document.querySelector("#overlay").style.borderTopColor = 'gray';
+                        document.querySelector("#overlay").style.borderBottomColor = 'gray';
+                        document.querySelector("#overlay").style.borderLeftColor = 'gray';
+                        document.querySelector("#overlay").style.borderRightColor = 'gray';
+
+                        document.querySelector("#pageNavigation").style.borderLeftColor = 'gray';
+                        document.querySelector("#expandButtonDiv").style.borderLeftColor = 'gray';
+                        document.querySelector("#overlay").style.backgroundColor = 'white';
+
+                        
+                        document.querySelector("#pageNavigation").style.visibility = 'hidden';
+
+                    }
+
+
                 }
             }
         }
@@ -1120,7 +1161,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         categoriesColorScale = d3.scaleOrdinal(customSchemePaired).domain([
             "Identifiers",
             "General Data",
-            "Automatically Logged/Inferred Data",
+            "Derived & Inferred Data",
             "Contacts",
             "Media Content",
             "Personal Information",
@@ -1363,7 +1404,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             categoryStartPositions[this.id] = { x: centerX, y: centerY };
         });
 
-        window.addEventListener('resize', resizeSVG);
+        // window.addEventListener('resize', resizeSVG);
         resizeSVG();  // Initial resize to set SVG size
 
     }
@@ -1824,23 +1865,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     start: () => "top+=" + (index * svgHeight) + " bottom",
                     end: () => "top+=" + (index * svgHeight) + " top",
                     scrub: 1, // Scrub the progress smoothly
-                    // markers: true, // Debug markers for visualization
-                    onUpdate: (self) => {
-                        if (self.progress === 1) {
-                            console.log("eddd");
-                            
-                            // Change the circle's background color when progress reaches 1
-                            gsap.to(element.circle, {
-                                backgroundColor: progressColor,
-                                duration: 0,
-                            });
-                        }
-                    }
+                    // markers: true, // Debug markers for visualization                    
                 }
-            });
+            })
 
             // Add the fromTo animation to the timeline
-            tl
+            
                 .fromTo(element.line, {
                     scaleY: 0, // Start with scaleY at 0 (no height)
                     scaleX: 1,
@@ -1848,6 +1878,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     scaleX: 1,
                     scaleY: 1, // ScaleY to 1 (full height)
                     ease: "none",
+                })
+                .to(element.circle, {
+                    backgroundColor: progressColor,
+                    duration: 0,
                 });
         }
 
@@ -2013,6 +2047,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 scale: 1,
                 transformOrigin: '50% 50%',
                 duration: animationDuration / 2,
+                onStart: () => {
+                    bringToFront(logoIcon.node());
+                }
             }, "accessedOnlyByTikTok")
 
 
@@ -2914,7 +2951,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // TMP
-        mainTimeline.play("actorsColumn");
+        // mainTimeline.play("actorsColumn");
 
 
     }
@@ -3318,7 +3355,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             } else {
                 // Set final scale and opacity without animation
                 icon.attr('transform', `translate(${translateX}, ${translateY}) scale(${scale})`)
-                    .attr('opacity', opacity);  // Directly set to full opacity
+                    .attr('opacity', opacity);  // Directly set to full opacity                    
             }
 
             // **Return the icon's dimensions**
@@ -3470,7 +3507,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         console.log("uniqueLines:");
         console.log(uniqueLines);
-        
+
 
         // Replacing a line break (\n) followed by a colon (:) 
         // with just the colon (remove the line break)
@@ -3856,7 +3893,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     console.log("----- item.text:");
                     console.log(item.text);
-                    
+
 
 
                     let lines = processString(item.text)
@@ -3864,9 +3901,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .map(line => normalizeText(line));
 
 
-                        console.log("lines: ");
-                        console.log(lines);
-                        
+                    console.log("lines: ");
+                    console.log(lines);
+
 
                     // let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
 

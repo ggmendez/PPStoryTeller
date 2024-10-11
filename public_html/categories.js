@@ -22,13 +22,13 @@ categories.tiktok = {
         "Personal Information": [
             "profile information", "social network profile", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
         ],
-        "Automatically Logged/Inferred Data": [
+        "Derived & Inferred Data": [
             "message metadata", "automatically collected information", "inferred interests", "inferred personal attributes", "age range", "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information",
         
             "media characteristics", "aggregated statistics", "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
         ],
         "Media Content": [
-            "user content", "video content", "audio recording", "content", "content you create"
+            "cross-platform content", "user content", "video content", "audio recording", "content", "content you create"
         ],
         "General Data": [
             "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you provide", UNSPECIFIED_DATA_RENAME
@@ -37,7 +37,7 @@ categories.tiktok = {
             "external user activity", "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
         ],
         "Location Data": [
-            "geolocation", "coarse geolocation", "system language", "approximate location"
+            "location information", "geolocation", "coarse geolocation", "system language", "approximate location"
         ],
         "Tracking": [
             "cookie / pixel tag"
@@ -52,7 +52,7 @@ categories.tiktok = {
             "delivery of products", "payment confirmation detail", "information about purchase transaction", "credit / debit card number", "payment confirmation detail", "purchase information relate to transaction", "order item", "item you purchase", "purchase information", "delivery information"
         ],        
         "Contacts": [
-            "phone book", "social network contacts"
+            "your phone book contacts", "phone book", "your social network contacts"
         ]
     }
 };
