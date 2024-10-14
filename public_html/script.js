@@ -67,6 +67,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 ease: "power1.in",
                 onComplete: () => {
                     compressPP();
+                    setTimeout(function () {
+                        document.querySelector("#expandButtonDiv").style.visibility = 'visible';
+                    }, 750);
                 }
             }, "button+=" + duration)
 
@@ -1142,7 +1145,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const uniqueCategories = [...new Set(dataEntities.map(d => d.category))];
         document.querySelector("#totalCategories").textContent = uniqueCategories.length;
 
+        // azul #ED5952 
+
         const customSchemePaired = d3.schemePaired.map((color, index) => {
+            if (index === 1) {
+                return '#696969'; // dimgray color
+            }
+            // if (index === 2) {
+            //     return '#ffffff'; // dimgray color
+            // }
+            if (index === 3) {
+                return '#4A7D7D'; // dark green color
+            }
             if (index === 5) {
                 return '#ED5952'; // Golden color
             }
@@ -2951,7 +2965,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // TMP
-        // mainTimeline.play("actorsColumn");
+        mainTimeline.play("actorsColumn");
 
 
     }
@@ -3989,8 +4003,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('rx', targetSize)
                         .attr('ry', targetSize)
                         .attr('fill', dataRectCopy.fill)
-                        .attr('stroke-width', 0)
-                        .attr('stroke', darkenColor(dataRectCopy.fill))
+                        
+                        .attr('stroke-width', 1)
+                        // .attr('stroke', darkenColor(dataRectCopy.fill))
+
+                        .attr('stroke', '#ffffff')
+
                         .attr('data-name', itemName)
                         .attr('data-data-category', makeID(dataCategory))
                         .each(function (d) {
@@ -4129,7 +4147,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                        document.querySelector("#expandButtonDiv").style.visibility = 'visible';
+                        
                         document.querySelector("#pageNavigation").style.visibility = 'visible';
 
                         const currentText = currentLinesArray[currentLineIndex];

@@ -2,10 +2,13 @@
 <key id="d2" for="edge" attr.name="relationship" attr.type="string" />
 <key id="d1" for="node" attr.name="type" attr.type="string" />
 <key id="d0" for="node" attr.name="label" attr.type="string" />
-<graph edgedefault="directed"><node id="information you provide">
+<graph edgedefault="directed">
+
+<node id="information you provide">
   <data key="d0">information you provide</data>
   <data key="d1">DATA</data>
 </node>
+
 <node id="date of birth">
   <data key="d0">date of birth</data>
   <data key="d1">DATA</data>
@@ -505,23 +508,23 @@
   <data key="d1">DATA</data>
 </node>
 
-<edge source="information you provide" target="email address" id="e0">
+<edge source="profile information" target="email address" id="e0">
   <data key="d2">SUBSUM</data>
   <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
-<edge source="information you provide" target="phone number" id="e1">
+<edge source="profile information" target="phone number" id="e1">
   <data key="d2">SUBSUM</data>
   <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
-<edge source="information you provide" target="date of birth" id="e2">
+<edge source="profile information" target="date of birth" id="e2">
   <data key="d2">SUBSUM</data>
   <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
-<edge source="information you provide" target="password" id="e3">
+<edge source="profile information" target="password" id="e3">
   <data key="d2">SUBSUM</data>
   <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
-<edge source="information you provide" target="username" id="e4">
+<edge source="profile information" target="username" id="e4">
   <data key="d2">SUBSUM</data>
   <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
@@ -806,8 +809,9 @@
 
 <edge source="advertiser" target="information you provide" id="e28">
   <data key="d2">COLLECT</data>
-  <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+  <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
 </edge>
+
 <edge source="advertiser" target="technical information" id="e29">
   <data key="d2">COLLECT</data>
   <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
@@ -948,10 +952,12 @@ Third party platforms provide us with information (such as your email address, u
   <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.
 These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
 </edge>
+
 <edge source="UNSPECIFIED_ACTOR" target="user identifier" id="e39">
   <data key="d2">COLLECT</data>
   <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
 </edge>
+
 <edge source="UNSPECIFIED_ACTOR" target="public profile" id="e40">
   <data key="d2">COLLECT</data>
   <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
