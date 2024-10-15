@@ -4,10 +4,20 @@
 <key id="d0" for="node" attr.name="label" attr.type="string" />
 <graph edgedefault="directed">
 
+
+
 <node id="information you provide">
   <data key="d0">information you provide</data>
   <data key="d1">DATA</data>
 </node>
+
+<node id="content metadata">
+  <data key="d0">content metadata</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
 
 <node id="date of birth">
   <data key="d0">date of birth</data>
@@ -160,7 +170,7 @@
 
 
 <node id="user identifier">
-  <data key="d0">personal identifier</data>
+  <data key="d0">user identifier</data>
   <data key="d1">DATA</data>
 </node>
 
@@ -457,7 +467,7 @@
   <data key="d1">DATA</data>
 </node>
 <node id="aggregated statistics">
-  <data key="d0">aggregate statistic</data>
+  <data key="d0">aggregated statistics</data>
   <data key="d1">DATA</data>
 </node>
 <node id="aggregate demographic information about follower">

@@ -1272,6 +1272,7 @@ code .token.url {
   /* Allow the popup to grow dynamically with content */
   overflow: hidden;
   /* Ensure no scrollbars appear */
+  transform-origin: 0% 0%;
 }
 
 

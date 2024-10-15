@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         var button = document.getElementById('topButton');
         var buttonText = document.getElementById('topButtonText');
+        const contextIframe = document.getElementById('contextIframe');
+        const iframeContainer = document.getElementById('iframe-container');
+        const expandPPButton = document.getElementById('expandPPButton');
 
         button.style.overflow = 'hidden';
 
@@ -51,6 +54,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     button.remove();
                 }
             }, "button")
+
             .to(buttonText, {
                 duration: duration * 0.75,
                 opacity: 0,
@@ -58,15 +62,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }, "button")
 
             .to('#popup', {
-                duration: duration * 1.25,
+                duration: duration,
                 width: '28.25%',
-                height: window.innerHeight,
-                top: '20px',
-                transform: 'translateY(0%)',
+                height: '50px',
+                top: '40px',
                 left: '1%',
-                ease: "power1.in",
+                ease: "power2.out",
+                onStart: () => {
+                    expandPPButton.innerHTML = `<svg id="diagonalArrowsIcon" width="24" height="24" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="10.2" y1="13.8" x2="1" y2="23"/>
+                        <polyline points="10.2 23 1 23 1 13.8"/>
+                        <line x1="10.2" y1="13.8" x2="1" y2="23"/>
+                        <line x1="13.8" y1="10.2" x2="23" y2="1"/>
+                        <polyline points="13.8 1 23 1 23 10.2"/>
+                        <line x1="13.8" y1="10.2" x2="23" y2="1"/>
+                    </svg>`;
+                },
                 onComplete: () => {
-                    compressPP();
+                    ppCompressed = true;
                     setTimeout(function () {
                         document.querySelector("#expandButtonDiv").style.visibility = 'visible';
                     }, 750);
@@ -77,6 +90,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
+            .to(contextIframe, {
+                height: 0,
+                duration: duration,
+                ease: 'power2.out'
+            }, "button+=" + duration)
+
+            .to(iframeContainer, {
+                height: 0,
+                duration: duration,
+                ease: 'power2.out'
+            }, "button+=" + duration)
+
+
 
 
 
@@ -84,6 +110,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     });
+
+
+
+
 
 
 
@@ -194,7 +224,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             iframe.onload = () => {
                 popup.style.display = 'block';
-                // hidePopup();
+
+
+
+                // TMP
+                // Get the button element by ID
+                const topButton = document.getElementById('topButton');
+
+                // Check if the button exists before triggering the event
+                if (topButton) {
+                    // Programmatically create a click event
+                    const clickEvent = new MouseEvent('click', {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window
+                    });
+
+                    // Dispatch the event, triggering the attached event listener
+                    topButton.dispatchEvent(clickEvent);
+                }
+
+                // end of popup
+
+
             };
         })
         .catch(error => {
@@ -306,7 +358,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
         gsap.to('.popup', {
-            height: 50,
+            height: '50px',
             duration: duration,
             ease: 'power2.out',
             onStart: () => {
@@ -346,6 +398,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
         });
 
         gsap.to('.popup', {
+            duration: 0,
+            ease: 'none',
+            top: '15px',
+            transform: 'translateY(0%)'
+        });
+
+        gsap.to('.popup', {
             height: '96vh',  // Set to your compressed height
             duration: duration,
             ease: 'power2.in',
@@ -371,24 +430,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
     iframe.addEventListener('load', function () {
         const iframeDocument = iframe.contentDocument || iframe.contentWindow.document;
         iframeDocument.addEventListener('keydown', (event) => {
-
-
-
             if (event.key === 'Escape') {
-
-                
-
                 // Programmatically fire the click event
                 const clickEvent = new MouseEvent('click', {
                     bubbles: true,
                     cancelable: true,
                     view: window
                 });
-
                 svgElement.dispatchEvent(clickEvent);
-
-
-
             }
         });
         document.getElementById('expandPPButton').addEventListener('click', function () {
@@ -530,7 +579,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         document.querySelector("#expandButtonDiv").style.borderLeftColor = 'gray';
                         document.querySelector("#overlay").style.backgroundColor = 'white';
 
-                        
+
                         document.querySelector("#pageNavigation").style.visibility = 'hidden';
 
                     }
@@ -871,7 +920,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // console.log("dataEntities:");
                 // console.log(dataEntities);
 
+
                 // console.log("dataName: " + dataName);
+
                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
                 if (!dataCategory) {
                     console.error(`Data category for ${dataCategory} not found.`);
@@ -1437,8 +1488,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     .attr('class', 'dataRect')
                     .each(function (d) {
 
-                        console.log("d.scale: " + d.scale);
-
+                        // console.log("d.scale: " + d.scale);
 
                         rect.attr('x', d.scale === 0 ? d.x : (d.x - (d.width * (d.scale ?? 1) / 2)) / (d.scale ?? 1))
                             .attr('y', d.scale === 0 ? d.y : (d.y - (d.height * (d.scale ?? 1) / 2)) / (d.scale ?? 1))
@@ -1883,8 +1933,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             })
 
-            // Add the fromTo animation to the timeline
-            
+                // Add the fromTo animation to the timeline
+
                 .fromTo(element.line, {
                     scaleY: 0, // Start with scaleY at 0 (no height)
                     scaleX: 1,
@@ -2382,26 +2432,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, globalFrequencyMap, splitRectData);
 
-        // rectsOfLogo.forEach((rect, rectIndex) => {
-        //     mainTimeline
-        //         .fromTo(`#${rect.id}`, {
-        //             x: svgWidth * 1.25,
-        //             y: getRandomBetween(-100, svgHeight + 100),
-        //         }, {
-        //             x: rightAlignX + 55 + rectIndex * (targetSize * 2 + padding * 0.75),
-        //             y: startY + targetSize / 2,
-        //             opacity: 1,
-        //             duration: animationDuration,
-        //             ease: "power1.inOut",
-        //         }, `actorsColumn+=${rectIndex * 0.01}`)
-        //         .to(`#${rect.id}`, {
-        //             rx: 0,
-        //             ry: 0,
-        //             duration: animationDuration,
-        //             ease: "none",
-        //         }, `actorsColumn+=${3 + rectIndex * 0.01}`);
-        // });
-
         let distanceFromLogo = 50;
 
 
@@ -2416,7 +2446,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // x: rightAlignX + distanceFromLogo,
                     x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (targetSize * 2 + padding * 0.75),
                     y: startY + targetSize / 2,
-                    opcity: 0,
+                    opacity: 0,
 
 
                 }, {
@@ -2428,12 +2458,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // }, `actorsColumn+=${1}`)
                 }, `actorsColumn+=${1 + rectIndex * 0.015}`)
 
-                .to(`#${rect.id}`, {
-                    rx: 0,
-                    ry: 0,
-                    duration: animationDuration,
-                    ease: "none",
-                }, `actorsColumn+=${3 + rectIndex * 0.015}`);
+            // .to(`#${rect.id}`, {
+            //     rx: 0,
+            //     ry: 0,
+            //     duration: animationDuration,
+            //     ease: "none",
+            // }, `actorsColumn+=${3 + rectIndex * 0.015}`);
         });
 
 
@@ -2529,19 +2559,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // }, `actorsColumn+=${1}`)
                     }, `actorsColumn+=${1 + rectIndex * 0.015}`)
 
-                    .to(`#${rect.id}`, {
-                        rx: 0,
-                        ry: 0,
-                        duration: animationDuration,
-                        ease: "none",
+                // .to(`#${rect.id}`, {
+                //     rx: 0,
+                //     ry: 0,
+                //     duration: animationDuration,
+                //     ease: "none",
 
-                        onUpdate: () => {
-                            shouldShowDataCategories = false;
-                        },
-                        onComplete: () => {
-                            shouldShowDataCategories = true;
-                        },
-                    }, `actorsColumn+=${3 + rectIndex * 0.015}`);
+                //     onUpdate: () => {
+                //         shouldShowDataCategories = false;
+                //     },
+                //     onComplete: () => {
+                //         shouldShowDataCategories = true;
+                //     },
+                // }, `actorsColumn+=${3 + rectIndex * 0.015}`);
             });
 
         });
@@ -2785,8 +2815,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     console.log('Unknown circle clicked');
             }
 
-            // restoreProgressCircles();
-
             if (divID) {
                 let linkST = scrollersForCircles[divID];
                 gsap.to(window, {
@@ -2803,13 +2831,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         circles.forEach(circle => {
             circle.addEventListener('click', handleCircleClick);
         });
-
-        // const pairs = [
-        // { line: '.line-2', circle: '#circle-3' },
-        // { line: '.line-3', circle: '#circle-4' },
-        // { line: '.line-4', circle: '#circle-5' },
-        // { line: '.line-5', circle: '#circle-6' }
-        // ];
 
 
         let scrollersForCircles = {};
@@ -3519,8 +3540,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const uniqueLines = [...new Set(initialLines)];
 
-        console.log("uniqueLines:");
-        console.log(uniqueLines);
+        // console.log("uniqueLines:");
+        // console.log(uniqueLines);
 
 
         // Replacing a line break (\n) followed by a colon (:) 
@@ -3867,6 +3888,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
 
+    function calculateTrianglePoints(d) {
+        const size = targetSize;
+        const x = 0, y = 0; // Center the triangle
+        return `${x},${y - size} ${x - size},${y + size} ${x + size},${y + size}`;
+    }
+
+
+    function calculateHexagonPoints(d) {
+        const size = targetSize;
+        const x = 0, y = 0; // Center the hexagon
+        return `${x + size},${y} ${x + size / 2},${y + size * Math.sqrt(3) / 2} 
+            ${x - size / 2},${y + size * Math.sqrt(3) / 2} ${x - size},${y} 
+            ${x - size / 2},${y - size * Math.sqrt(3) / 2} ${x + size / 2},${y - size * Math.sqrt(3) / 2}`;
+    }
+
+
 
     function generateRectCopies(collectedData, actorIconCategory, globalFrequencyMap, splitRectData) {
         const newRects = [];
@@ -3898,34 +3935,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     if (!tmpSearcher) {
                         tmpSearcher = new IframeSearcher('contextIframe');
-
                         window.tmpSearcher = tmpSearcher;
-
                     }
 
-
-
-                    console.log("----- item.text:");
-                    console.log(item.text);
-
-
+                    // console.log("----- item.text:");
+                    // console.log(item.text);
 
                     let lines = processString(item.text)
                         .filter(d => !isHeader(d)) // to remove headers
                         .map(line => normalizeText(line));
 
 
-                    console.log("lines: ");
-                    console.log(lines);
-
-
-                    // let textToFind = "Google collects your Gemini Apps conversations, related product usage information, info about your location, and your feedback";
-
-                    // let textToFind = "Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person";
-
-                    // const containsText = lines.some(line => line.includes(textToFind));
-
-
+                    // console.log("lines: ");
+                    // console.log(lines);
 
                     // console.log("item.text:");
                     // console.log(item.text);
@@ -3933,16 +3955,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // console.log("lines:");
                     // console.log(lines);
                     // window.lines = lines;
-
-
-
-
-
-
-
-
-
-
 
 
                     const result = [];
@@ -3991,148 +4003,201 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     const sanitizedActorCategory = sanitizeId(actorIconCategory);
                     const sanitizedDataCategory = sanitizeId(dataCategory);
 
-                    let theRect = svg.append('rect')
-                        .data([dataRectCopy]) // Binding data here
+                    let theRect = svg.selectAll(null)  // Create an empty selection to append different shapes
+                        .data([dataRectCopy])  // Binding data here
+                        .enter()
+                        .append(function (d) {
+                            let n = getRandomBetween(0, 100, true);
+                            d.shapeType = n % 3;
+                            // Conditionally return different shape elements based on shapeType
+                            if (d.shapeType === 0) {
+                                return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            } else if (d.shapeType === 1) {
+                                return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                            } else if (d.shapeType === 2) {
+                                return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            }
+                        })
                         .attr('id', uniqueId)
                         .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
                         .attr('opacity', 0)
-                        .attr('x', -targetSize)
-                        .attr('y', -targetSize)
-                        .attr('width', targetSize * 2)
-                        .attr('height', targetSize * 2)
-                        .attr('rx', targetSize)
-                        .attr('ry', targetSize)
                         .attr('fill', dataRectCopy.fill)
-                        
-                        .attr('stroke-width', 1)
-                        // .attr('stroke', darkenColor(dataRectCopy.fill))
-
-                        .attr('stroke', '#ffffff')
-
                         .attr('data-name', itemName)
-                        .attr('data-data-category', makeID(dataCategory))
+                        .attr('data-data-category', makeID(dataCategory));
+
+                    // Set attributes specific to each shape
+                    theRect
                         .each(function (d) {
-
-                            // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                            // console.log(this);
-                            // console.log("*********************************");
-                            // console.log("item.text");
-                            // console.log(item.text);
-                            // console.log("*********************************");
-                            // console.log("Processed string:");
-                            // console.log(processString(item.text));
-
-
-                            // window.dataInheritances = dataInheritances;
-
-                            // console.log(dataInheritances);
-
-
-                            const inheritances = dataInheritances[itemName.toLowerCase()];
-
-                            // console.log("inheritances for " + itemName);
-                            // console.log(inheritances);
-
-                            let actor = item.actor;
-
-                            showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
-
-                            let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, actor, inheritances, showFinalActor);
-
-                            const tooltipInstance = tippy(this, {
-                                theme: 'light-border',
-                                content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
-                                allowHTML: true,
-                                trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
-                                hideOnClick: false,
-                                interactive: true,      // Set to false to make the tooltip non-interactive
-                                placement: 'top',        // Prefer placement at the top
-                                fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
-                                appendTo: () => document.body
-                            });
-
-                            this.addEventListener('mouseenter', () => {
-
-                                const opacity = window.getComputedStyle(this).opacity;
-
-                                // console.log("opacity: " + opacity);
-                                // console.log(typeof opacity);
-
-                                if (opacity !== "1") {
-                                    return;
-                                }
-
-                                if (mainTimeline.currentLabel() !== "actorsColumn") {
-                                    return;
-                                }
-
-                                // console.log("theRect.style('opacity'):");
-                                // console.log(theRect.style('opacity'));
-
-                                if (theRect.style('opacity') === '1') {
-                                    tooltipInstance.show();
-                                }
-
-                                if (shouldShowDataCategories && !dataCategoryClicked) {
-
-                                    changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
-                                }
-                            });
-
-                            this.addEventListener('mouseleave', () => {
-
-                                const opacity = window.getComputedStyle(this).opacity;
-
-                                // console.log("opacity: " + opacity);
-                                // console.log(typeof opacity);
-
-
-                                if (opacity !== "1") {
-                                    return;
-                                }
-
-                                if (currentPermanentTooltip !== tooltipInstance) {
-                                    tooltipInstance.hide();
-                                }
-                                if (shouldShowDataCategories && !dataCategoryClicked) {
-                                    restoreDataCategoriesLabelsOpacity();
-                                }
-                            });
-
-                            // Make the tooltip permanent on click
-                            this.addEventListener('click', () => {
-
-                                tooltipInstance.show();
-
-                                dataCategoryClicked = true;
-
-                                // Hide the currently permanent tooltip, if any
-                                if (currentPermanentTooltip) {
-                                    currentPermanentTooltip.hide();
-                                }
-
-                                // Set the clicked tooltip as the permanent one
-                                currentPermanentTooltip = tooltipInstance;
-
-                                const rectangles = document.querySelectorAll('.copyOfDataRect');
-
-                                // reducing the opacity of the other rectangles
-                                rectangles.forEach(rect => {
-                                    const name = rect.getAttribute('data-name').toLowerCase();
-                                    if (name === this.getAttribute('data-name').toLowerCase()) {
-                                        rect.style.opacity = '1';
-                                    } else {
-                                        rect.style.opacity = '0.15';
-                                    }
-                                });
-
-                                // console.log("sanitizedDataCategory: ");
-                                // console.log(sanitizedDataCategory);
-
-                                changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
-
-                            });
+                            const shape = d3.select(this);
+                            if (d.shapeType === 0) {
+                                shape.attr('x', -targetSize + 0.5)
+                                    .attr('y', -targetSize + 0.5)
+                                    .attr('width', targetSize * 2 - 1)
+                                    .attr('height', targetSize * 2 - 1);
+                            } else if (d.shapeType === 1) {
+                                shape.attr('points', calculateTrianglePoints(d));
+                            } else if (d.shapeType === 2) {
+                                shape.attr('x', -targetSize)
+                                    .attr('y', -targetSize)
+                                    .attr('width', targetSize * 2)
+                                    .attr('height', targetSize * 2)
+                                    .attr('rx', targetSize)
+                                    .attr('ry', targetSize);
+                            }
                         });
+
+
+                    /*let theRect = svg.append('rect')
+                 .data([dataRectCopy]) // Binding data here
+                 .attr('id', uniqueId)
+                 .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
+                 .attr('opacity', 0)
+                 .attr('x', -targetSize)
+                 .attr('y', -targetSize)
+                 .attr('width', targetSize * 2)
+                 .attr('height', targetSize * 2)
+                 .attr('rx', targetSize)
+                 .attr('ry', targetSize)
+                 .attr('fill', dataRectCopy.fill)
+
+                 .attr('stroke-width', 1)
+                 // .attr('stroke', darkenColor(dataRectCopy.fill))
+
+                 .attr('stroke', '#ffffff')
+
+                 .attr('data-name', itemName)
+                 .attr('data-data-category', makeID(dataCategory));*/
+
+                    theRect.each(function (d) {
+
+                        // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                        // console.log(this);
+                        // console.log("*********************************");
+                        // console.log("item.text");
+                        // console.log(item.text);
+                        // console.log("*********************************");
+                        // console.log("Processed string:");
+                        // console.log(processString(item.text));
+
+
+                        // window.dataInheritances = dataInheritances;
+
+                        // console.log(dataInheritances);
+
+
+                        const inheritances = dataInheritances[itemName.toLowerCase()];
+
+                        // console.log("inheritances for " + itemName);
+                        // console.log(inheritances);
+
+                        let actor = item.actor;
+
+                        showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
+
+                        let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, actor, inheritances, showFinalActor);
+
+                        const tooltipInstance = tippy(this, {
+                            theme: 'light-border',
+                            content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
+                            allowHTML: true,
+                            trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
+                            hideOnClick: false,
+                            interactive: true,      // Set to false to make the tooltip non-interactive
+                            placement: 'top',        // Prefer placement at the top
+                            fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
+                            appendTo: () => document.body
+                        });
+
+                        this.addEventListener('mouseenter', () => {
+
+                            const opacity = window.getComputedStyle(this).opacity;
+
+                            // console.log("opacity: " + opacity);
+                            // console.log(typeof opacity);
+
+                            if (opacity !== "1") {
+                                return;
+                            }
+
+                            if (mainTimeline.currentLabel() !== "actorsColumn") {
+                                return;
+                            }
+
+                            // console.log("theRect.style('opacity'):");
+                            // console.log(theRect.style('opacity'));
+
+                            if (theRect.style('opacity') === '1') {
+                                tooltipInstance.show();
+                            }
+
+                            if (shouldShowDataCategories && !dataCategoryClicked) {
+
+                                changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
+                            }
+                        });
+
+                        this.addEventListener('mouseleave', () => {
+
+                            const opacity = window.getComputedStyle(this).opacity;
+
+                            // console.log("opacity: " + opacity);
+                            // console.log(typeof opacity);
+
+
+                            if (opacity !== "1") {
+                                return;
+                            }
+
+                            if (currentPermanentTooltip !== tooltipInstance) {
+                                tooltipInstance.hide();
+                            }
+                            if (shouldShowDataCategories && !dataCategoryClicked) {
+                                restoreDataCategoriesLabelsOpacity();
+                            }
+                        });
+
+                        // Make the tooltip permanent on click
+                        this.addEventListener('click', () => {
+
+                            tooltipInstance.show();
+
+                            dataCategoryClicked = true;
+
+                            // Hide the currently permanent tooltip, if any
+                            if (currentPermanentTooltip) {
+                                currentPermanentTooltip.hide();
+                            }
+
+                            // Set the clicked tooltip as the permanent one
+                            currentPermanentTooltip = tooltipInstance;
+
+                            const rectangles = document.querySelectorAll('.copyOfDataRect');
+
+                            // reducing the opacity of the other rectangles
+                            rectangles.forEach(rect => {
+                                const name = rect.getAttribute('data-name').toLowerCase();
+                                if (name === this.getAttribute('data-name').toLowerCase()) {
+                                    rect.style.opacity = '1';
+                                } else {
+                                    rect.style.opacity = '0.15';
+                                }
+                            });
+
+                            // console.log("sanitizedDataCategory: ");
+                            // console.log(sanitizedDataCategory);
+
+                            changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
+
+                        });
+
+
+                    });
+
+
+
+
+
+
 
                     // event to see the corresponding texts within the privacy policy
                     theRect.on('click', () => {
@@ -4147,7 +4212,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                        
+
                         document.querySelector("#pageNavigation").style.visibility = 'visible';
 
                         const currentText = currentLinesArray[currentLineIndex];
