@@ -10,7 +10,7 @@
 
 "We (TikTok)","Password","Personally Identifiable Information","Information You Provide","Basic Personal Details","Password","We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password."
 
-"We (TikTok)","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","You can add other information to your profile, such as a bio or a profile photo."
+"We (TikTok)","Profile Bio","Personally Identifiable Information","Information You Provide","Profile Information","Profile Bio","You can add other information to your profile, such as a bio or a profile photo."
 
 "We (TikTok)","Profile Photo","Personally Identifiable Information","Information You Provide","Profile Information","Profile Photo","You can add other information to your profile, such as a bio or a profile photo."
 
@@ -30,7 +30,13 @@
 
 "We (TikTok)","Reviews","User-Generated Content","Information You Provide","Textual Content","Reviews","We collect the content you create or publish through the Platform, such as comments, hashtags, feedback, reviews."
 
-"We (TikTok)","Content Metadata","User-Generated Content","Information You Provide","Content Metadata","When, where, and by whom the content was created","We collect the associated metadata (such as when, where, and by whom the content was created)."
+"We (TikTok)","Creation Time","User-Generated Content","Information You Provide","Content Metadata","Creation Time","We collect the associated metadata (such as when, where, and by whom the content was created)."
+
+"We (TikTok)","Creation Date","User-Generated Content","Information You Provide","Content Metadata","Creation Date","We collect the associated metadata (such as when, where, and by whom the content was created)."
+
+"We (TikTok)","Location of Content Creation","User-Generated Content","Information You Provide","Content Metadata","Location of Content Creation","We collect the associated metadata (such as when, where, and by whom the content was created)."
+
+"We (TikTok)","Creator Identity","User-Generated Content","Information You Provide","Content Metadata","Creator Identity","We collect the associated metadata (such as when, where, and by whom the content was created)."
 
 "We (TikTok)","Clipboard Text","User-Generated Content","Information You Provide","Clipboard Content","Text from device's clipboard","We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform."
 
@@ -38,7 +44,7 @@
 
 "We (TikTok)","Clipboard Videos","User-Generated Content","Information You Provide","Clipboard Content","Videos from device's clipboard","We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform."
 
-"We (TikTok)","Location Tags in Content","Location Data","Information You Provide","Location Tags in Content","Tagged locations in posts (e.g., tourist attractions, shops)","In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content."
+"We (TikTok)","Location Information","Location Data","Information You Provide","Location Tags in Content","Location Information","In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content."
 
 "We (TikTok)","Direct Message Content","Communication Data","Information You Provide","Direct Messages","Content of the message","If you communicate with others using direct messages, we collect the content of the message."
 
@@ -79,7 +85,7 @@
 
 "We (TikTok)","Research Participation Data","User-Generated Content","Information You Provide","User Participation Data","Research Participation Data","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
-"We (TikTok)","Contest Entries","User-Generated Content","Information You Provide","User Participation Data","Contest Entries,"We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
+"We (TikTok)","Contest Entries","User-Generated Content","Information You Provide","User Participation Data","Contest Entries","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
 "We (TikTok)","Marketing Campaign Participation","User-Generated Content","Information You Provide","User Participation Data","Marketing Campaign Participation","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
@@ -201,7 +207,7 @@
 
 "Service Providers","Password","Personally Identifiable Information","Information You Provide","Basic Personal Details","Password","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Profile Bio","Personally Identifiable Information","Information You Provide","Profile Information","Profile Bio","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Service Providers","Profile Photo","Personally Identifiable Information","Information You Provide","Profile Information","Profile Photo","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
@@ -229,7 +235,7 @@
 
 "Service Providers","Clipboard Videos","User-Generated Content","Information You Provide","Clipboard Content","Videos from device's clipboard","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Location Tags in Content","Location Data","Information You Provide","Location Tags in Content","Tagged locations in posts","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Location Information","Location Data","Information You Provide","Location Tags in Content","Location Information","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Service Providers","Direct Message Content","Communication Data","Information You Provide","Direct Messages","Content of the message","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
@@ -263,13 +269,13 @@
 
 "Service Providers","Items Purchased","Transaction and Financial Information","Information You Provide","Purchase Details","Items you purchased","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Survey Responses","User-Generated Content","Information You Provide","Survey Responses","Responses to surveys","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Survey Responses","User-Generated Content","Information You Provide","User Participation Data","Responses to surveys","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Research Participation Data","User-Generated Content","Information You Provide","Survey Responses","Participation data in research","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Research Participation Data","User-Generated Content","Information You Provide","User Participation Data","Research Participation Data","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Contest Entries","User-Generated Content","Information You Provide","Survey Responses","Entries to contests","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Contest Entries","User-Generated Content","Information You Provide","User Participation Data","Contest Entries","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Marketing Campaign Participation","User-Generated Content","Information You Provide","Survey Responses","Participation in marketing campaigns or events","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Marketing Campaign Participation","User-Generated Content","Information You Provide","User Participation Data","Marketing Campaign Participation","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Service Providers","Proof of Identity","Personally Identifiable Information","Information You Provide","Identification Documents","Proof of identity","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
@@ -381,7 +387,7 @@
 
 "Third Party Platforms and Partners","Telephone Number","Personally Identifiable Information","Information You Provide","Basic Personal Details","Telephone Number","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
-"Third Party Platforms and Partners","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
+"Third Party Platforms and Partners","Profile Bio","Personally Identifiable Information","Information You Provide","Profile Information","Profile Bio","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
 "Third Party Platforms and Partners","Profile Photo","Personally Identifiable Information","Information You Provide","Profile Information","Profile Photo","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
@@ -409,7 +415,7 @@
 
 "Third Party Platforms and Partners","Clipboard Videos","User-Generated Content","Information You Provide","Clipboard Content","Videos from device's clipboard","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
-"Third Party Platforms and Partners","Location Tags in Content","Location Data","Information You Provide","Location Tags in Content","Tagged locations in posts","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
+"Third Party Platforms and Partners","Location Information","Location Data","Information You Provide","Location Information","Tagged locations in posts","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
 "Third Party Platforms and Partners","Direct Message Content","Communication Data","Information You Provide","Direct Messages","Content of the message","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
@@ -451,7 +457,7 @@
 
 "Third Party Platforms and Partners","Settings","Usage and Interaction Data","Automatically Collected Information","Settings and Preferences","Your settings","We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform."
 
-"Advertisers","Information about ad performance","Inferred and Analytical Data","Automatically Collected Information","•	Aggregated Statistics","Information about ad performance","We provide advertisers with aggregate information about the performance of their ads and other content on the Platform in order to help them measure their effectiveness."
+"Advertisers","Information about ad performance","Inferred and Analytical Data","Automatically Collected Information","Aggregated Statistics","Information about ad performance","We provide advertisers with aggregate information about the performance of their ads and other content on the Platform in order to help them measure their effectiveness."
 
 "Third Party Measurement Providers","Date of Birth","Personally Identifiable Information","Information You Provide","Basic Personal Details","Date of Birth","We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform."
 
@@ -461,7 +467,7 @@
 
 "Third Party Measurement Providers","Telephone Number","Personally Identifiable Information","Information You Provide","Basic Personal Details","Telephone Number","We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform."
 
-"Third Party Measurement Providers","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform."
+"Third Party Measurement Providers","Profile Bio","Personally Identifiable Information","Information You Provide","Profile Information","Profile Bio","We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform."
 
 "Third Party Measurement Providers","Profile Photo","Personally Identifiable Information","Information You Provide","Profile Information","Profile Photo","We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform."
 
@@ -553,9 +559,9 @@
 
 "Entities within our corporate group","Telephone Number","Personally Identifiable Information","Information You Provide","Basic Personal Details","Telephone Number","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Entities within our corporate group","Password","Basic Personal Details","Information You Provide","Basic Personal Details","Password","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Entities within our corporate group","Password","Personally Identifiable Information","Information You Provide","Basic Personal Details","Password","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Entities within our corporate group","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Entities within our corporate group","Profile Bio","Personally Identifiable Information","Information You Provide","Profile Information","Profile Bio","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Entities within our corporate group","Profile Photo","Personally Identifiable Information","Information You Provide","Profile Information","Profile Photo","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
@@ -583,7 +589,7 @@
 
 "Entities within our corporate group","Clipboard Videos","User-Generated Content","Information You Provide","Clipboard Content","Videos from device's clipboard","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Entities within our corporate group","Location Tags in Content","Location Data","Information You Provide","Location Tags in Content","Tagged locations in posts","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Entities within our corporate group","Location Information","Location Data","Information You Provide","Location Information","Tagged locations in posts","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Entities within our corporate group","Direct Message Content","Communication Data","Information You Provide","Direct Messages","Content of the message","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
@@ -620,7 +626,7 @@
 
 
 
-"Entities within our corporate group","Survey Responses","User-Generated Content","Information You Provide","User Participation Data","Responses to surveys","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Entities within our corporate group","Survey Responses","User-Generated Content","Information You Provide","User Participation Data","Survey Responses","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Entities within our corporate group","Research Participation Data","User-Generated Content","Information You Provide","User Participation Data","Research Participation Data","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
