@@ -8,7 +8,7 @@
 
 "We (TikTok)","Telephone Number","Personally Identifiable Information","Information You Provide","Basic Personal Details","Telephone Number","We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password."
 
-"We (TikTok)","Password","Basic Personal Details","Information You Provide","Basic Personal Details","Password","We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password."
+"We (TikTok)","Password","Personally Identifiable Information","Information You Provide","Basic Personal Details","Password","We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password."
 
 "We (TikTok)","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","You can add other information to your profile, such as a bio or a profile photo."
 
@@ -75,15 +75,15 @@
 
 
 
-"We (TikTok)","Survey Responses","User-Generated Content","Information You Provide","Survey Responses","Responses to surveys","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
+"We (TikTok)","Survey Responses","User-Generated Content","Information You Provide","User Participation Data","Survey Responses","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
-"We (TikTok)","Research Participation Data","User-Generated Content","Information You Provide","Survey Responses","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
+"We (TikTok)","Research Participation Data","User-Generated Content","Information You Provide","User Participation Data","Research Participation Data","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
-"We (TikTok)","Contest Entries","User-Generated Content","Information You Provide","Survey Responses","Entries to contests","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
+"We (TikTok)","Contest Entries","User-Generated Content","Information You Provide","User Participation Data","Contest Entries,"We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
-"We (TikTok)","Marketing Campaign Participation","User-Generated Content","Information You Provide","Survey Responses","Participation in marketing campaigns or events","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
+"We (TikTok)","Marketing Campaign Participation","User-Generated Content","Information You Provide","User Participation Data","Marketing Campaign Participation","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
-"We (TikTok)","Event Participation","User-Generated Content","Information You Provide","Survey Responses","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
+"We (TikTok)","Event Participation","User-Generated Content","Information You Provide","User Participation Data","Event Participation","We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us."
 
 
 
@@ -97,7 +97,7 @@
 
 "We (TikTok)","Information about Possible Violations","Communication Data","Information You Provide","Support and Feedback","Information about possible violations of our Terms","When you contact us, we collect the information you send us, such as... information about possible violations of our Terms of Service."
 
-"We (TikTok)","Form Data","User-Generated Content","Information You Provide","Form Data","Information entered into forms on the Platform","We collect the Information You Provide when you fill in a form on the Platform."
+"We (TikTok)","Form Data","User-Generated Content","Information You Provide","User Participation Data","Form Data","We collect the Information You Provide when you fill in a form on the Platform."
 
 "We (TikTok)","Device Model","Device and Technical Information","Automatically Collected Information","Device Information","Device model","We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language."
 
@@ -199,7 +199,7 @@
 
 "Service Providers","Telephone Number","Personally Identifiable Information","Information You Provide","Basic Personal Details","Telephone Number","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
-"Service Providers","Password","Basic Personal Details","Information You Provide","Basic Personal Details","Password","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
+"Service Providers","Password","Personally Identifiable Information","Information You Provide","Basic Personal Details","Password","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
 "Service Providers","Bio","Personally Identifiable Information","Information You Provide","Profile Information","Bio","We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services."
 
