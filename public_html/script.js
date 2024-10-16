@@ -2,6 +2,8 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
+    const sizeScaleMultiplier = 12;
+
     let currentPermanentTooltip = null;
     let searcher = null;
     let tmpSearcher = null;
@@ -648,7 +650,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     function computeInitialPackingData(dataEntities, centerIconWidth, centerIconHeight) {
         // Define a scale for the rectangle sizes based on IncomingConnections
         const maxConnections = d3.max(dataEntities, d => d.Indegree);
-        const sizeScaleMultiplier = 22;
+
+
+
         const padding = 2; // Adjust padding as needed
         const extraPadding = 50; // Extra padding for the iconNode to prevent overlap
         const sizeScale = d3.scaleSqrt()
@@ -2430,6 +2434,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const actorType = removeSpaces(formatedNames[who].toUpperCase());
 
+        console.log("actorType: " + actorType);
+
+
+
+
         const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, globalFrequencyMap, splitRectData);
 
         let distanceFromLogo = 50;
@@ -3909,6 +3918,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const newRects = [];
         let rectIndex = 0;
 
+        console.log("collectedData:");
+        console.log(collectedData);
+
+
         // Get sorted categories based on global frequency
         const sortedCategories = Object.keys(collectedData).sort((a, b) => {
             return globalFrequencyMap[b] - globalFrequencyMap[a];
@@ -4025,48 +4038,51 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('data-name', itemName)
                         .attr('data-data-category', makeID(dataCategory));
 
-                    // Set attributes specific to each shape
-                    theRect
-                        .each(function (d) {
-                            const shape = d3.select(this);
-                            if (d.shapeType === 0) {
-                                shape.attr('x', -targetSize + 0.5)
-                                    .attr('y', -targetSize + 0.5)
-                                    .attr('width', targetSize * 2 - 1)
-                                    .attr('height', targetSize * 2 - 1);
-                            } else if (d.shapeType === 1) {
-                                shape.attr('points', calculateTrianglePoints(d));
-                            } else if (d.shapeType === 2) {
-                                shape.attr('x', -targetSize)
-                                    .attr('y', -targetSize)
-                                    .attr('width', targetSize * 2)
-                                    .attr('height', targetSize * 2)
-                                    .attr('rx', targetSize)
-                                    .attr('ry', targetSize);
-                            }
-                        });
+                    // // Set attributes specific to each shape
+                    // theRect
+                    //     .each(function (d) {
+                    //         const shape = d3.select(this);
+                    //         if (d.shapeType === 0) {
+                    //             shape.attr('x', -targetSize + 0.5)
+                    //                 .attr('y', -targetSize + 0.5)
+                    //                 .attr('width', targetSize * 2 - 1)
+                    //                 .attr('height', targetSize * 2 - 1);
+                    //         } else if (d.shapeType === 1) {
+                    //             shape.attr('points', calculateTrianglePoints(d));
+                    //         } else if (d.shapeType === 2) {
+                    //             shape.attr('x', -targetSize)
+                    //                 .attr('y', -targetSize)
+                    //                 .attr('width', targetSize * 2)
+                    //                 .attr('height', targetSize * 2)
+                    //                 .attr('rx', targetSize)
+                    //                 .attr('ry', targetSize);
+                    //         }
+                    //     });
 
 
-                    /*let theRect = svg.append('rect')
-                 .data([dataRectCopy]) // Binding data here
-                 .attr('id', uniqueId)
-                 .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
-                 .attr('opacity', 0)
-                 .attr('x', -targetSize)
-                 .attr('y', -targetSize)
-                 .attr('width', targetSize * 2)
-                 .attr('height', targetSize * 2)
-                 .attr('rx', targetSize)
-                 .attr('ry', targetSize)
-                 .attr('fill', dataRectCopy.fill)
+                    theRect = svg.append('rect')
+                        .data([dataRectCopy]) // Binding data here
+                        .attr('id', uniqueId)
+                        .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
+                        .attr('opacity', 0)
+                        .attr('x', -targetSize)
+                        .attr('y', -targetSize)
+                        .attr('width', targetSize * 2)
+                        .attr('height', targetSize * 2)
+                        .attr('rx', targetSize)
+                        .attr('ry', targetSize)
+                        .attr('fill', dataRectCopy.fill)
 
-                 .attr('stroke-width', 1)
-                 // .attr('stroke', darkenColor(dataRectCopy.fill))
+                        .attr('stroke-width', 1)
+                        // .attr('stroke', darkenColor(dataRectCopy.fill))
 
-                 .attr('stroke', '#ffffff')
+                        .attr('stroke', '#ffffff')
 
-                 .attr('data-name', itemName)
-                 .attr('data-data-category', makeID(dataCategory));*/
+                        .attr('data-name', itemName)
+                        .attr('data-data-category', makeID(dataCategory));
+
+
+
 
                     theRect.each(function (d) {
 

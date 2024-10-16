@@ -3,58 +3,220 @@ let UNSPECIFIED_ACTOR_RENAME = "unspecified actor";
 const categories = {};
 
 categories.tiktok = {
+    // actorCategories: {
+    //     "Advertisers": ["advertiser"],
+    //     "Analytic Providers": ["analytic provider", "measurement"],
+    //     "Corporations": ["entity within corporate group"],
+    //     "Geographic Entities": ["country with adequacy decision", "country list", "company in eea"],
+    //     "We": ["we", "tiktok"],
+    //     "Researchers": ["researcher", "independent researcher"],
+    //     "Law Enforcement": ["law enforcement", "law enforcement agency", "public authority"],
+    //     "Service Providers": ["service provider", "payment provider", "transaction fulfillment provider"],
+    //     "Commercial Entities": ["merchant", "creator"],
+    //     "Other": ["UNSPECIFIED_ACTOR", "third-party platform"]
+    // },
+
+
     actorCategories: {
-        "Advertisers": ["advertiser"],
-        "Analytic Providers": ["analytic provider", "measurement"],
-        "Corporations": ["entity within corporate group"],
-        "Geographic Entities": ["country with adequacy decision", "country list", "company in eea"],
-        "We": ["we", "tiktok"],
-        "Researchers": ["researcher", "independent researcher"],
-        "Law Enforcement": ["law enforcement", "law enforcement agency", "public authority"],
-        "Service Providers": ["service provider", "payment provider", "transaction fulfillment provider"],
-        "Commercial Entities": ["merchant", "creator"],
-        "Other": ["UNSPECIFIED_ACTOR", "third-party platform"]
+        "Advertisers": ["Advertisers", "advertiser"],
+        "Analytic Providers": ["Third Party Measurement Providers", "Measurement Partner", "Other Partner", "Third Party Providers"],
+        "Corporations": ["Entities within our corporate group", "Corporate Transaction Parties"],
+        "Geographic Entities": ["Search Engines, Content Aggregators, and News Sites"],
+        "We": ["we", "We (TikTok)", "TikTok"],
+        "Researchers": ["Researchers"],
+        "Law Enforcement": ["Law Enforcement Agencies, or Other Third Parties", "Public Authorities"],
+        "Service Providers": [
+            "Service Providers",
+            "Merchants, Payment and Transaction Fulfillment Providers",
+            "Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers"
+        ],
+        "Commercial Entities": ["Advertisers", "Merchants", "Third Party Platforms"],
+        "Other": [
+            "Advertising, Measurement and Other Partners",
+            "Organisations, Businesses, People, and Others",
+            "Other Users",
+            "Other Third Parties",
+            "Third Party Platforms and Partners",
+            "Third Party Services with TikTok Developer Tools"
+        ]
     },
+
+
+
+    // dataCategories: {
+    //     "Identifiers": [
+    //         "contact name", "user identifier", "advertising identifier", "username", "email address", "phone number", "device identifier", "person name", "sim card", "advertising id", "password"
+    //     ],
+    //     "Personal Information": [
+    //         "profile information", "social network profile", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
+    //     ],
+    //     "Derived & Inferred Data": [
+    //         "content metadata", "message metadata", "automatically collected information", "inferred interests", "inferred personal attributes", "age range", "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information",
+
+    //         "media characteristics", "aggregated statistics", "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
+    //     ],
+    //     "Media Content": [
+    //         "cross-platform content", "user content", "video content", "audio recording", "content", "content you create"
+    //     ],
+    //     "General Data": [
+    //         "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you provide", UNSPECIFIED_DATA_RENAME
+    //     ],
+    //     "Behavioral Data": [
+    //         "external user activity", "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
+    //     ],
+    //     "Location Data": [
+    //         "location information", "geolocation", "coarse geolocation", "system language", "approximate location"
+    //     ],
+    //     "Tracking": [
+    //         "cookie / pixel tag"
+    //     ],
+    //     "Messages and Assistance": [
+    //         "information you provide when contacting us", "message you send", "direct message", "content of message", "message", "information from form you use", "text"
+    //     ],
+    //     "Technical Data": [
+    //         "setting", "technical information", "ip address", "device information", "technical information about device", "performance log", "device model", "operating system", "crash report", "keystroke pattern"
+    //     ],
+    //     "Financial Data": [
+    //         "delivery of products", "payment confirmation detail", "information about purchase transaction", "credit / debit card number", "payment confirmation detail", "purchase information relate to transaction", "order item", "item you purchase", "purchase information", "delivery information"
+    //     ],
+    //     "Contacts": [
+    //         "your phone book contacts", "phone book", "your social network contacts"
+    //     ]
+    // }
+
+
     dataCategories: {
-        "Identifiers": [
-            "contact name", "user identifier", "advertising identifier", "username", "email address", "phone number", "device identifier", "person name", "sim card", "advertising id", "password"
+        "Personally Identifiable Information": [
+            "Date of Birth",
+            "Email Address",
+            "Telephone Number",
+            "Username",
+            "Password",
+            "Profile Bio",
+            "Profile Photo",
+            "Proof of Identity",
+            "Proof of Age"
         ],
-        "Personal Information": [
-            "profile information", "social network profile", "contact", "credit / debit card number", "information about you", "information you provide", "profile", "profile information", "public profile", "basic account information", "contact information", "identity", "characteristic", "age", "date of birth", "personal identifier"
+        "Contact Information": [
+            "Names from Phone Book",
+            "Phone Numbers from Phone Book",
+            "Email Addresses from Phone Book",
+            "Your Social Network Public Profile Information",
+            "Names of Social Network Contacts",
+            "Profiles of Social Network Contacts",
+            "Contacts Provided by Others",
+            "Contact Information Synced by Others"
         ],
-        "Derived & Inferred Data": [
-            "content metadata", "message metadata", "automatically collected information", "inferred interests", "inferred personal attributes", "age range", "aggregate demographic information about follower", "inference", "infer information", "aggregate / deidentified / pseudonymized information",
-        
-            "media characteristics", "aggregated statistics", "information from source", "information about number of view of video", "content characteristic", "associate metadata", "metadata", "category of information", "information about processing", "relate information"
+        "User-Generated Content": [
+            "Photographs",
+            "Videos",
+            "Audio Recordings",
+            "Livestreams",
+            "Comments",
+            "Hashtags",
+            "Feedback",
+            "Reviews",
+            "Clipboard Text",
+            "Clipboard Images",
+            "Clipboard Videos",
+            "Survey Responses",
+            "Research Participation Data",
+            "Contest Entries",
+            "Marketing Campaign Participation",
+            "Event Participation",
+            "Form Data"
         ],
-        "Media Content": [
-            "cross-platform content", "user content", "video content", "audio recording", "content", "content you create"
+        "Content Metadata": [
+            "Creation Time",
+            "Creation Date",
+            "Creator Identity",
+            "Location of Content Creation"
         ],
-        "General Data": [
-            "collect information", "information describe in information we collect section", "information describe in", "information we collect", "information we have", "information about", "information you provide", UNSPECIFIED_DATA_RENAME
+        "Communication Data": [
+            "Message Content",
+            "Timestamps",
+            "Chats with Merchants",
+            "Virtual Assistant Interactions"
         ],
-        "Behavioral Data": [
-            "external user activity", "information from form you use", "rhythm", "browsing / search history", "usage information", "engagement with user", "information about content you view", "aggregate demographic information about follower", "point of interest", "hashtag"
+        "Transaction and Financial Information": [
+            "Payment Card Information",
+            "Billing Information",
+            "Delivery Information",
+            "Contact Information (Purchases)",
+            "Items Purchased",
+            "Payment Confirmation Details",
+            "Transaction Amounts",
+            "Purchase or Payment Dates",
+            "Shipping Address",
+            "Delivery Status"
+        ],
+        "Device and Technical Information": [
+            "Device Model",
+            "Operating System",
+            "Keystroke Patterns or Rhythms",
+            "IP Address",
+            "System Language",
+            "Crash Reports",
+            "Performance Logs",
+            "Device ID",
+            "User ID"
         ],
         "Location Data": [
-            "location information", "geolocation", "coarse geolocation", "system language", "approximate location"
+            "Approximate Location (SIM and IP)",
+            "Approximate Location (Device)",
+            "Location Information",
+            "Location of Content Creation"
         ],
-        "Tracking": [
-            "cookie / pixel tag"
+        "Usage and Interaction Data": [
+            "Content Viewed",
+            "Duration of Use",
+            "Frequency of Use",
+            "Engagement with Other Users",
+            "Search History",
+            "Settings"
         ],
-        "Messages and Assistance": [
-            "information you provide when contacting us", "message you send", "direct message", "content of message", "message", "information from form you use", "text"
+        "Cookies and Tracking Technologies": [
+            "Cookie Identifiers",
+            "Session Tokens",
+            "Web Beacons",
+            "Pixel Tags"
         ],
-        "Technical Data": [
-            "setting", "technical information", "ip address", "device information", "technical information about device", "performance log", "device model", "operating system", "crash report", "keystroke pattern"
+        "Inferred and Analytical Data": [
+            "Inferred Age-Range",
+            "Inferred Gender",
+            "Interests and Preferences",
+            "Objects and Scenery Recognition",
+            "Face or Body Part Detection",
+            "Speech-to-Text Transcriptions",
+            "Information about ad performance"
         ],
-        "Financial Data": [
-            "delivery of products", "payment confirmation detail", "information about purchase transaction", "credit / debit card number", "payment confirmation detail", "purchase information relate to transaction", "order item", "item you purchase", "purchase information", "delivery information"
-        ],        
-        "Contacts": [
-            "your phone book contacts", "phone book", "your social network contacts"
+        "Third-Party and External Data": [
+            "Activities on Other Websites and Apps",
+            "Products or Services Purchased Elsewhere",
+            "Mobile Identifiers for Advertising",
+            "Hashed Email Addresses",
+            "Hashed Phone Numbers",
+            "Email Address from Third Parties",
+            "User ID from Third Parties",
+            "Public Profile from Third Parties",
+            "Data from TikTok Developer Tools Integrations",
+            "Safety and Content Moderation Data",
+            "Publicly Available Information",
+            "Data from Government Authorities",
+            "Data from Professional Organisations",
+            "Data from Charity Groups",
+            "Mentions in Content",
+            "Cookie Identifiers (Third Parties)",
+            "Delivery Information (from Merchants)"
+        ],
+        "Ambiguous or Non-specified Data": [
+            "Ambiguous or Non-specified Data"
         ]
     }
+
+
+
+
 };
 
 categories.openai = {
@@ -164,7 +326,7 @@ categories.amazon = {
         "Financial Data": [
             "payment information", "shipping rate", "carrier info", "shipping carrier information", "balance"
         ]
-    }    
+    }
 };
 
 categories.bixby = {

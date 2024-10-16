@@ -1,0 +1,1689 @@
+<graphml xmlns:ns0="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d3" for="edge" attr.name="text" attr.type="string" />
+<key id="d2" for="edge" attr.name="relationship" attr.type="string" />
+<key id="d1" for="node" attr.name="type" attr.type="string" />
+<key id="d0" for="node" attr.name="label" attr.type="string" />
+<graph edgedefault="directed">
+
+
+
+<node id="information you provide">
+  <data key="d0">information you provide</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="content metadata">
+  <data key="d0">content metadata</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+<node id="date of birth">
+  <data key="d0">date of birth</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="username">
+  <data key="d0">username</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="email address">
+  <data key="d0">email address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="phone number">
+  <data key="d0">phone number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="password">
+  <data key="d0">password</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="content you create">
+  <data key="d0">content you create</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="audio recording">
+  <data key="d0">audio recording</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="cross-platform content">
+  <data key="d0">cross-platform content</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="text">
+  <data key="d0">text</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+<node id="location information">
+  <data key="d0">location information</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+<node id="hashtag">
+  <data key="d0">hashtag</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="message">
+  <data key="d0">message</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="contact name">
+  <data key="d0">contact name</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about purchase transaction">
+  <data key="d0">information about purchase transaction</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="credit / debit card number">
+  <data key="d0">credit / debit card number</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="contact information">
+  <data key="d0">contact information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="item you purchase">
+  <data key="d0">item you purchase</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information you provide when contacting us">
+  <data key="d0">information you provide when contacting us</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+<node id="message metadata">
+  <data key="d0">message metadata</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+
+<node id="proof of identity">
+  <data key="d0">proof of identity</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Proof of age">
+  <data key="d0">Proof of age</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Feedback">
+  <data key="d0">Feedback</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Inquiries about the use of the platform">
+  <data key="d0">Inquiries about the use of the platform</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Possible violations of our terms of service">
+  <data key="d0">Possible violations of our terms of service</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Possible violations of our guidelines">
+  <data key="d0">Possible violations of our guidelines</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="Possible violations of other policies">
+  <data key="d0">Possible violations of other policies</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+
+<node id="information about you">
+  <data key="d0">information about you</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="external user activity">
+  <data key="d0">external user activity</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+
+<node id="device identifier">
+  <data key="d0">device identifier</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="advertising identifier">
+  <data key="d0">advertising identifier</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+<node id="user identifier">
+  <data key="d0">user identifier</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="relate information">
+  <data key="d0">relate information</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="crash report">
+  <data key="d0">crash report</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="performance log">
+  <data key="d0">performance log</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="UNSPECIFIED_DATA">
+  <data key="d0">UNSPECIFIED_DATA</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="device model">
+  <data key="d0">device model</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="operating system">
+  <data key="d0">operating system</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="keystroke pattern">
+  <data key="d0">keystroke pattern</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="rhythm">
+  <data key="d0">rhythm</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="ip address">
+  <data key="d0">ip address</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="system language">
+  <data key="d0">system language</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="technical information">
+  <data key="d0">technical information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="sim card">
+  <data key="d0">sim card</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="approximate location">
+  <data key="d0">approximate location</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about">
+  <data key="d0">information about</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about content you view">
+  <data key="d0">information about content you view</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="engagement with user">
+  <data key="d0">engagement with user</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="browsing / search history">
+  <data key="d0">browsing / search history</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="setting">
+  <data key="d0">setting</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+<node id="advertising id">
+  <data key="d0">advertising id</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="cookie / pixel tag">
+  <data key="d0">cookie / pixel tag</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="advertiser">
+  <data key="d0">advertiser</data>
+  <data key="d1">ACTOR</data>
+</node>
+
+<node id="third-party platform">
+  <data key="d0">third-party platform</data>
+  <data key="d1">ACTOR</data>
+</node>
+
+
+
+<node id="payment confirmation detail">
+  <data key="d0">payment confirmation detail</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="delivery of products">
+  <data key="d0">delivery of products</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+
+
+
+
+<node id="public profile">
+  <data key="d0">public profile</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="UNSPECIFIED_ACTOR">
+  <data key="d0">UNSPECIFIED_ACTOR</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="analytic provider">
+  <data key="d0">analytic provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="usage information">
+  <data key="d0">usage information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="profile information">
+  <data key="d0">profile information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="user content">
+  <data key="d0">user content</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="we">
+  <data key="d0">we</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="category of information">
+  <data key="d0">category of information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="law enforcement agency">
+  <data key="d0">law enforcement agency</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="video content">
+  <data key="d0">video content</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="direct message">
+  <data key="d0">direct message</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="country with adequacy decision">
+  <data key="d0">country with adequacy decision</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="country list">
+  <data key="d0">country list</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="device information">
+  <data key="d0">device information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="service provider">
+  <data key="d0">service provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+
+
+
+<node id="entity within corporate group">
+  <data key="d0">entity within corporate group</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information about number of view of video">
+  <data key="d0">information about number of view of video</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="creator">
+  <data key="d0">creator</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information we have">
+  <data key="d0">information we have</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="researcher">
+  <data key="d0">researcher</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="independent researcher">
+  <data key="d0">independent researcher</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="content of message">
+  <data key="d0">content of message</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="message you send">
+  <data key="d0">message you send</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="social network profile">
+  <data key="d0">social network profile</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+
+<node id="your phone book contacts">
+  <data key="d0">your phone book contacts</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="your social network contacts">
+  <data key="d0">your social network contacts</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+<node id="information from form you use">
+  <data key="d0">information from form you use</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="automatically collected information">
+  <data key="d0">automatically collected information</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="media characteristics">
+  <data key="d0">media characteristics</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+<node id="inference">
+  <data key="d0">inference</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="measurement">
+  <data key="d0">measurement</data>
+  <data key="d1">ACTOR</data>
+</node>
+
+
+<node id="merchant">
+  <data key="d0">merchant</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="payment provider">
+  <data key="d0">payment provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="transaction fulfillment provider">
+  <data key="d0">transaction fulfillment provider</data>
+  <data key="d1">ACTOR</data>
+</node>
+
+
+
+<node id="mobile identifiers">
+  <data key="d0">mobile identifiers</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+<node id="basic account information">
+  <data key="d0">basic account information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="purchase information relate to transaction">
+  <data key="d0">purchase information relate to transaction</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="order item">
+  <data key="d0">order item</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="delivery information">
+  <data key="d0">delivery information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="technical information about device">
+  <data key="d0">technical information about device</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="aggregated statistics">
+  <data key="d0">aggregated statistics</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="aggregate demographic information about follower">
+  <data key="d0">aggregate demographic information about follower</data>
+  <data key="d1">DATA</data>
+</node>
+
+<node id="information describe in">
+  <data key="d0">information describe in</data>
+  <data key="d1">DATA</data>
+</node>
+
+
+<node id="public authority">
+  <data key="d0">public authority</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="law enforcement">
+  <data key="d0">law enforcement</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="information we collect">
+  <data key="d0">information we collect</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information about processing">
+  <data key="d0">information about processing</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="information describe in information we collect section">
+  <data key="d0">information describe in information we collect section</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="company in eea">
+  <data key="d0">company in eea</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="tiktok">
+  <data key="d0">tiktok</data>
+  <data key="d1">ACTOR</data>
+</node>
+<node id="purchase information">
+  <data key="d0">purchase information</data>
+  <data key="d1">DATA</data>
+</node>
+<node id="inferred personal attributes">
+  <data key="d0">inferred personal attributes</data>
+  <data key="d1">DATA</data>
+</node>
+
+<edge source="profile information" target="email address" id="e0">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
+</edge>
+<edge source="profile information" target="phone number" id="e1">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
+</edge>
+<edge source="profile information" target="date of birth" id="e2">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
+</edge>
+<edge source="profile information" target="password" id="e3">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
+</edge>
+<edge source="profile information" target="username" id="e4">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
+</edge>
+
+
+<edge source="content you create" target="audio recording" id="e5">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+
+
+<edge source="content you create" target="photographs" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="videos" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="audio recordings" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="hashtag" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="livestreams" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="comments" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="hashtags" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="feedback" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content you create" target="reviews" id="e6">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+
+<edge source="we" target="content metadata" id="e7">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+
+<edge source="content metadata" target="date of content creation" id="content metadata 001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content metadata" target="location of content creation" id="content metadata 002">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+<edge source="content metadata" target="identity of content creator" id="content metadata 003">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<edge source="cross-platform content" target="text from your device's clipboard" id="e8001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform or share content between it and a third party platform.</data>
+</edge>
+
+<edge source="cross-platform content" target="images from your device" id="e8002">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform or share content between it and a third party platform.</data>
+</edge>
+
+<edge source="cross-platform content" target="video from your device" id="e8003">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform or share content between it and a third party platform.</data>
+</edge>
+
+<edge source="cross-platform content" target="content from third party platform" id="e8004">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform or share content between it and a third party platform.</data>
+</edge>
+
+
+<edge source="location information" target="tourist attractions" id="e901">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content .</data>
+</edge>
+<edge source="location information" target="shops" id="e902">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content .</data>
+</edge>
+<edge source="location information" target="other points of interest" id="e903">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content .</data>
+</edge>
+
+
+
+
+
+<edge source="information about purchase transaction" target="item you purchase" id="e11">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased.</data>
+</edge>
+<edge source="information about purchase transaction" target="credit / debit card number" id="e12">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased.</data>
+</edge>
+<edge source="information about purchase transaction" target="contact information" id="e13">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased.</data>
+</edge>
+
+
+<edge source="information you provide when contacting us" target="proof of identity" id="e1401">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+<edge source="information you provide when contacting us" target="Proof of age" id="e1402">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+<edge source="information you provide when contacting us" target="Feedback" id="e1403">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+<edge source="information you provide when contacting us" target="Inquiries about the use of the platform" id="e1404">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+<edge source="information you provide when contacting us" target="Possible violations of our terms of service" id="e1405">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+<edge source="information you provide when contacting us" target="Possible violations of our guidelines" id="e1406">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+
+
+<edge source="information you provide when contacting us" target="Possible violations of other policies" id="e1407">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+
+
+
+
+<edge source="advertising identifier" target="mobile identifier" id="e1407ddfgh01">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+
+<edge source="advertising identifier" target="hashed email address" id="e1407fdg01">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+<edge source="advertising identifier" target="phone number" id="e14g0702">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+<edge source="advertising identifier" target="cookie identifier" id="e14f07rwt03">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+
+
+<edge source="technical information" target="ip address" id="e18">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).</data>
+</edge>
+<edge source="technical information" target="sim card" id="e19">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).</data>
+</edge>
+
+
+<edge source="information about" target="browsing / search history" id="e20">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
+</edge>
+
+<edge source="information about" target="setting" id="e21">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
+</edge>
+
+<edge source="information about" target="engagement with user" id="e22">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
+</edge>
+<edge source="information about" target="information about content you view" id="e23">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
+</edge>
+<edge source="setting" target="profile information" id="e24">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">You can change or correct much of your information through the in-app controls and settings (such as your Profile Information and video content).</data>
+</edge>
+<edge source="setting" target="video content" id="e25">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">You can change or correct much of your information through the in-app controls and settings (such as your Profile Information and video content).</data>
+</edge>
+
+
+<edge source="advertiser" target="aggregated statistics" id="e26">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We provide advertisers with aggregate information about the performance of their ads and other content on the Platform in order to help them measure their effectiveness.</data>
+</edge>
+
+
+<edge source="advertiser" target="UNSPECIFIED_DATA" id="e27">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share your information directly with advertisers where you give us your permission.
+  We process limited categories of your information to make sure our advertising service is useful to our advertisers (for example, to serve ads to users in a particular country or to users who speak the same language).</data>
+</edge>
+
+<edge source="advertiser" target="external user activity" id="e27010">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="analytic provider" target="external user activity" id="e27011">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="UNSPECIFIED_ACTOR" target="external user activity" id="e27012">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="we" target="external user activity" id="e27013">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.
+  Some of our advertisers and other partners enable us to collect similar information directly from their website or app by integrating our TikTok Advertiser Tools (such as TikTok Pixel).</data>
+</edge>
+
+
+
+
+
+
+<edge source="advertiser" target="information you provide" id="e28">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+
+<edge source="advertiser" target="technical information" id="e29">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+<edge source="advertiser" target="usage information" id="e30">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+<edge source="advertiser" target="information about number of view of video" id="e31">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, creators and advertisers can receive information about the number of views, likes, comments and shares of their videos, as well as aggregate demographic information about their followers and the viewers of their videos.</data>
+</edge>
+<edge source="advertiser" target="aggregate demographic information about follower" id="e32">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, creators and advertisers can receive information about the number of views, likes, comments and shares of their videos, as well as aggregate demographic information about their followers and the viewers of their videos.</data>
+</edge>
+
+
+
+
+<edge source="merchant" target="payment confirmation detail" id="e3301">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+<edge source="payment provider" target="payment confirmation detail" id="e3302">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+<edge source="transaction fulfillment provider" target="payment confirmation detail" id="e3303">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+
+<edge source="payment provider" target="delivery of products" id="e3302">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+<edge source="transaction fulfillment provider" target="delivery of products" id="e3303">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+
+
+
+
+<edge source="merchant" target="information about you" id="e33011">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants</data>
+</edge>
+<edge source="payment provider" target="information about you" id="e33022">
+  <data key="d2">COLLECT</data>
+  <data key="d3">as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+<edge source="transaction fulfillment provider" target="information about you" id="e33033">
+  <data key="d2">COLLECT</data>
+  <data key="d3">as well as payment and transaction fulfillment providers, such as payment confirmation details, and information about the delivery of products you have purchased through our shopping features.</data>
+</edge>
+
+
+
+
+
+<edge source="we" target="device identifier" id="e3dsffdfds400">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Where you log-in from multiple devices, we use information such as your device ID and user ID to identify your activity across devices to give you a seamless log-in experience and for security purposes.</data>
+</edge>
+
+
+
+<edge source="we" target="advertising identifier" id="e3400">
+  <data key="d2">COLLECT</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+<edge source="UNSPECIFIED_ACTOR" target="advertising identifier" id="e34ddddd00">
+  <data key="d2">COLLECT</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+<edge source="advertiser" target="advertising identifier" id="e3401">
+  <data key="d2">COLLECT</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+<edge source="analytic provider" target="advertising identifier" id="e3402">
+  <data key="d2">COLLECT</data>
+  <data key="d3">These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+
+
+
+<edge source="UNSPECIFIED_ACTOR" target="UNSPECIFIED_DATA" id="e3ddd4">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Share your information with third party platforms to provide you with features, like content sharing at your request when you integrate your TikTok account with a third party service.
+Your information may be disclosed to third parties in connection with a corporate transaction, such as a merger, sale of assets or shares, reorganisation, financing, change of control, or acquisition of all or a portion of our business.
+Share your information with third parties.
+We share your information with third parties whose platforms or services are integrated with the Platform.</data>
+</edge>
+
+
+<edge source="UNSPECIFIED_ACTOR" target="cookie / pixel tag" id="e35">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+
+
+
+<edge source="UNSPECIFIED_ACTOR" target="email address" id="e37">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.
+Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+
+<edge source="third-party platform" target="email address" id="e37001">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+<edge source="third-party platform" target="user identifier" id="e37002">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+<edge source="third-party platform" target="public profile" id="e37003">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+
+
+
+
+<edge source="UNSPECIFIED_ACTOR" target="phone number" id="e38">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+<edge source="UNSPECIFIED_ACTOR" target="user identifier" id="e39">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+<edge source="UNSPECIFIED_ACTOR" target="public profile" id="e40">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="usage information" id="e41">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share limited information which may include Information You Provide , Technical Information , and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="technical information" id="e42">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share limited information which may include Information You Provide , Technical Information , and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="information you provide" id="e43">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share limited information which may include Information You Provide , Technical Information , and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
+</edge>
+<edge source="UNSPECIFIED_ACTOR" target="technical information about device" id="e44">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.</data>
+</edge>
+
+
+
+<edge source="UNSPECIFIED_ACTOR" target="information describe in" id="e45">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may access, preserve, and share the information described in " What Information We Collect " with law enforcement agencies, public authorities, researchers, copyright holders, or other third parties if we have good faith belief that it is necessary to:</data>
+</edge>
+
+<edge source="analytic provider" target="information you provide" id="e46">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+<edge source="analytic provider" target="technical information" id="e47">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+<edge source="analytic provider" target="usage information" id="e48">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+
+
+<edge source="we" target="approximate location" id="e49001">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address). Also, where you enable location services for the TikTok app within your device settings, we collect approximate location information from your device.</data>
+</edge>
+
+<edge source="approximate location" target="country" id="e4900101">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).</data>
+</edge>
+
+<edge source="approximate location" target="state" id="e4900101">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).</data>
+</edge>
+
+<edge source="approximate location" target="city" id="e4900101">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).
+  </data>
+</edge>
+
+
+
+
+
+
+<edge source="we" target="UNSPECIFIED_DATA" id="e49">
+  <data key="d2">COLLECT</data>
+  <data key="d3">
+When you interact with any third party service (such as third party apps, websites or products) that integrate TikTok Developer Tools, we will receive the information necessary to provide you with features like cross-service authentication or cross-posting.
+We may also receive information from third party providers which we use for safety purposes, including to protect users on the Platform and for content moderation.
+We share your information directly with advertisers where you give us your permission.
+We share your information with independent researchers to facilitate research that meets certain criteria as described in Our Legal Bases and How We Process Your Information.
+We use your information to process orders, such as to facilitate the purchase and delivery of products, and communicate with you about your orders.
+We use your information to enforce our Terms, Guidelines, and policies (including through automated means and human moderation).
+We use your information where this is necessary to achieve legitimate interests - whether belonging to us, you, or a third party - provided these interests are not outweighed by your interests or fundamental rights and freedoms.
+We use your information to ensure the safety and well-being of our community, including by reviewing User Content (and if permitted under applicable law, Direct Messages and associated metadata) for breaches of our Terms, Guidelines, and other policies.
+We use your information to ensure the stability and security of the Platform, including by identifying and combating technical or security issues (such as technical bugs, spam accounts, and detecting abuse, fraud, and illegal activity).
+We share your information with independent researchers to facilitate research that meets certain criteria, including where such researchers have demonstrable experience and expertise in their area.
+We share your information with third parties whose platforms or services are integrated with the Platform.
+We use your information to allow you to access and use the Platform, including allowing you to create, share, and consume content, interact with others, utilise features, and provide you with products and services you purchase.
+We use your information to personalise  certain  features and content on the Platform, such as providing your "For You" feed, which shows you videos that we think you would be interested in (see here for more information) and by suggesting accounts to you.
+We may use your information where it is necessary to perform a task in the public interest, including undertaking research, preventing and detecting crime, safeguarding children and promoting public safety, security, and integrity as laid down by applicable law. We generally use Information You Provide and Automatically Collected Information, although it depends on the specific situation.
+We may use your information where it is necessary to protect your or someone else's life, physical integrity, or safety.
+We retain information for as long as necessary to provide the Platform and for the other purposes set out in this Privacy Policy.
+We also retain information when necessary to comply with contractual and legal obligations, when we have a legitimate business interest to do so (such as improving and developing the Platform, and enhancing its safety, security and stability), and for the exercise or defence of legal claims.
+If you violate our Guidelines or Terms, we may remove your Profile Information and/or User Content from public view immediately but keep your information as is necessary to process the violation.
+We transfer your information as described in "What Information We Collect" to some countries with adequacy decisions, such as the countries listed here; or
+We process limited categories of your information to make sure our advertising service is useful to our advertisers (for example, to serve ads to users in a particular country or to users who speak the same language).</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<edge source="we" target="information you provide" id="e50">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.
+We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us.
+We collect the Information You Provide when you fill in a form on the Platform.
+We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.
+We share limited information which may include Information You Provide , Technical Information , and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.
+Some examples include if you: log-in to a third party platform using your account, we will share your basic account information and any other Information You Provide ,
+We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.
+If you have the legal capacity to enter into an enforceable contract, we use Information You Provide , Automatically Collected Information , and Information From Other Sources where it is necessary to perform the contract you enter into (our Terms) when you register for, access, or use the Platform.
+We generally use Information You Provide and Automatically Collected Information , although it depends on the specific situation.</data>
+</edge>
+
+
+
+
+
+
+<edge source="we" target="direct message" id="e51">
+  <data key="d2">COLLECT</data>
+  <data key="d3">What Information We Collect
+
+Information You Provide
+Direct Messages.
+For example, when we process your information to provide you with the Platform, we keep this information for as long as you have an account.
+This information includes your Profile Information , User Content , and Direct Messages .</data>
+</edge>
+
+
+<edge source="we" target="your phone book contacts" id="e52001">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device&#8217;s phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.</data>
+</edge>
+
+<edge source="your phone book contacts" target="their names" id="e520010041">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device&#8217;s phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.</data>
+</edge>
+<edge source="your phone book contacts" target="their phone numbers" id="e520011001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device&#8217;s phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.</data>
+</edge>
+<edge source="your phone book contacts" target="their email addresses" id="e520010001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device&#8217;s phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.</data>
+</edge>
+
+<edge source="we" target="your social network contacts" id="e52002">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you choose to find other users through your social network contacts, we will collect your public profile information as well as names and profiles of your social network contacts.</data>
+</edge>
+
+<edge source="your social network contacts" target="their names" id="e5200100101">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you choose to find other users through your social network contacts, we will collect your public profile information as well as names and profiles of your social network contacts.</data>
+</edge>
+<edge source="your social network contacts" target="their social network profiles" id="e5200100101">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you choose to find other users through your social network contacts, we will collect your public profile information as well as names and profiles of your social network contacts.</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+<edge source="we" target="information from form you use" id="e53">
+  <data key="d2">COLLECT</data>
+  <data key="d3">What Information We Collect
+
+Information You Provide
+Information From Forms and Features You Use .</data>
+</edge>
+
+
+
+<edge source="we" target="automatically collected information" id="e54">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.
+If you have the legal capacity to enter into an enforceable contract, we use Information You Provide , Automatically Collected Information, and Information From Other Sources where it is necessary to perform the contract you enter into (our Terms) when you register for, access, or use the Platform.
+We generally use Information You Provide and Automatically Collected Information, although it depends on the specific situation.</data>
+</edge>
+
+
+
+
+
+<edge source="we" target="profile information" id="e57">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may use your information including your Profile Information or User Content where it is necessary to comply with a legal obligation.
+For example, when we process your information to provide you with the Platform, we keep this information for as long as you have an account. This information includes your Profile Information, User Content, and Direct Messages.</data>
+</edge>
+
+
+
+
+
+
+
+
+<edge source="we" target="purchase information" id="e58">
+  <data key="d2">COLLECT</data>
+  <data key="d3">What Information We Collect
+Information You Provide
+
+Purchase Information.</data>
+</edge>
+
+
+
+<edge source="we" target="technical information" id="e59">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share limited information which may include Information You Provide , Technical Information , and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.
+Some examples include if you: sign-up or log-in to the Platform using your account details from a third party platform (such as Facebook or Google), we will share certain  Technical Information to facilitate this,
+We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.
+We automatically collect information about your approximate location (e.g. country, state, or city) based on your Technical Information (such as SIM card and IP address).
+We also collect service-related, diagnostic, and performance information, including crash reports and performance logs.
+We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.</data>
+</edge>
+
+<edge source="we" target="location information" id="e60">
+  <data key="d2">COLLECT</data>
+  <data key="d3">In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content.</data>
+</edge>
+
+<edge source="we" target="usage information" id="e61">
+  <data key="d2">COLLECT</data>
+  <data key="d3">What Information We Collect
+Automatically Collected Information
+
+Usage Information.
+We share limited information which may include Information You Provide , Technical Information , and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.
+We also share Information You Provide , Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform and help our advertisers determine how effective their ads have been.</data>
+</edge>
+
+
+<edge source="we" target="inferred personal attributes" id="e6201">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We infer your attributes (such as age-range and gender) and interests based on the information we have about you. We use inferences, for example, to keep the Platform safe, for content moderation and, where permitted, to serve you personalised ads based on your interests.
+  We also infer your age range</data>
+</edge>
+
+<edge source="inferred personal attributes" target="inferred age range" id="e4900101001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We infer your attributes (such as age-range and gender) and interests based on the information we have about you.</data>
+</edge>
+<edge source="inferred personal attributes" target="inferred gender" id="e4900101002">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We infer your attributes (such as age-range and gender) and interests based on the information we have about you.</data>
+</edge>
+<edge source="inferred personal attributes" target="inferred interests" id="e4900101002">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We infer your attributes (such as age-range and gender) and interests based on the information we have about you.</data>
+</edge>
+
+
+
+
+<edge source="we" target="cookie / pixel tag" id="e63">
+  <data key="d2">COLLECT</data>
+  <data key="d3">What Information We Collect
+Automatically Collected Information
+
+Cookies.
+We use cookies and similar tracking technologies to operate and provide the Platform.
+For example, we use cookies to remember your language preferences, make sure you don't see the same video more than once, and for security purposes.
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+<edge source="we" target="user content" id="e64">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect User Content through pre-loading at the time of creation, import, or upload, regardless of whether you choose to save or upload that User Content , for example, to recommend music based on the video.
+We may use your information including your Profile Information or User Content where it is necessary to comply with a legal obligation.
+For example, when we process your information to provide you with the Platform, we keep this information for as long as you have an account.
+This information includes your Profile Information , User Content , and Direct Messages .</data>
+</edge>
+<edge source="we" target="cross-platform content" id="e65">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform or share content between it and a third party platform.</data>
+</edge>
+
+
+
+
+<edge source="we" target="content you create" id="e66">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams, comments, hashtags, feedback, reviews, and the associated metadata (such as when, where, and by whom the content was created).</data>
+</edge>
+
+
+
+
+
+
+
+
+<edge source="we" target="content of message" id="e67">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
+</edge>
+
+
+<edge source="we" target="message metadata" id="e68">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
+</edge>
+
+
+
+<edge source="message metadata" target="time of message sent" id="message metadata 001021">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
+</edge>
+<edge source="message metadata" target="time of message received" id="message metadata 001021">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
+</edge>
+<edge source="message metadata" target="time of message read" id="message metadata 001021">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
+</edge>
+<edge source="message metadata" target="participants in the communication" id="message metadata 001021">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<edge source="we" target="message you send" id="e69">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also collect the messages you send or receive through our chat functionality when communicating with merchants who sell goods to you, and your use of virtual assistants when purchasing items through the Platform.</data>
+</edge>
+<edge source="we" target="email address" id="e70">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device's phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.
+Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+<edge source="we" target="phone number" id="e71">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device's phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.
+These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers, which we use to help match you and your actions outside of the Platform with your TikTok account.</data>
+</edge>
+
+
+<edge source="we" target="contact name" id="e72ddd0">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you choose to sync your contacts, we will collect information from your device's phone book such as names, phone numbers, and email addresses, and match that information to users of the Platform.
+If you choose to find other users through your social network contacts, we will collect your public profile information as well as names and profiles of your social network contacts.</data>
+</edge>
+
+
+
+
+
+<edge source="we" target="social network profile" id="e74">
+  <data key="d2">COLLECT</data>
+  <data key="d3">If you choose to find other users through your social network contacts, we will collect your public profile information as well as names and profiles of your social network contacts.</data>
+</edge>
+
+
+
+<edge source="we" target="information about purchase transaction" id="e75">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased.</data>
+</edge>
+<edge source="we" target="information you provide when contacting us" id="e76">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service (our " Terms "), Community Guidelines (our " Guidelines "), or other policies.</data>
+</edge>
+<edge source="we" target="device information" id="e77">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.</data>
+</edge>
+
+
+
+
+
+<edge source="we" target="user identifier" id="e80">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Where you log-in from multiple devices, we use information such as your device ID and user ID to identify your activity across devices to give you a seamless log-in experience and for security purposes.
+Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+
+<edge source="we" target="information about" id="e82">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
+</edge>
+
+
+
+<edge source="we" target="media characteristics" id="e83">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="objects" id="media characteristics001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="scenery" id="media characteristics002">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="existence of a face" id="media characteristics003">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="location of a face" id="media characteristics004">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="existence of other body parts" id="media characteristics005">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="location of other body parts" id="media characteristics006">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+<edge source="media characteristics" target="words spoken" id="media characteristics007">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content, for example, by identifying objects and scenery, the existence or location within an image of a face or other body parts; and the text of words spoken in your User Content.</data>
+</edge>
+
+
+
+
+
+
+
+
+
+
+
+
+<edge source="we" target="information about you" id="e86">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We receive information about you from merchants
+We may collect or receive information about you from organisations, businesses, people, and others, including, for example, publicly available sources, government authorities, professional organisations, and charity groups.
+We also collect information about you where you are included or mentioned in User Content, Direct Messages, in a complaint, appeal, request or feedback submitted by a user or third party, or if your contact information is provided to us by a user.</data>
+</edge>
+
+
+
+<edge source="we" target="public profile" id="e87">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+<edge source="we" target="email address" id="e87001">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+<edge source="we" target="user identifier" id="e871012">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties.</data>
+</edge>
+
+
+
+<edge source="we" target="contact information" id="e88">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may also receive contact information that you hold or is held about you when contact information is synced with our Platform by you or another user.
+For example, we will share the order items, contact details and delivery information so your order can be processed.</data>
+</edge>
+<edge source="we" target="basic account information" id="e89">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Some examples include if you: log-in to a third party platform using your account, we will share your basic account information and any other Information You Provide ,</data>
+</edge>
+
+
+<edge source="we" target="aggregated statistics" id="e90">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We provide advertisers with aggregate information about the performance of their ads and other content on the Platform in order to help them measure their effectiveness.</data>
+</edge>
+
+
+
+<edge source="we" target="purchase information relate to transaction" id="e91">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers.</data>
+</edge>
+<edge source="we" target="order item" id="e92">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, we will share the order items, contact details and delivery information so your order can be processed.</data>
+</edge>
+<edge source="we" target="delivery information" id="e93">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, we will share the order items, contact details and delivery information so your order can be processed.</data>
+</edge>
+
+
+
+<edge source="we" target="aggregated statistics" id="e95">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We provide aggregated statistics and insights to help people and businesses understand how people are engaging with the Platform.</data>
+</edge>
+
+<edge source="we" target="information describe in" id="e96">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may access, preserve, and share the information described in " What Information We Collect " with law enforcement agencies, public authorities, researchers, copyright holders, or other third parties if we have good faith belief that it is necessary to:</data>
+</edge>
+<edge source="we" target="ip address" id="e97">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, we may provide information (such as your IP address) to law enforcement in the event of an emergency where someone's life or safety is at risk,</data>
+</edge>
+<edge source="we" target="information we have" id="e98">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We also use the information we have to administer the Platform, such as to communicate with you on service related matters, provide you with updates and support regarding any purchase you make on or through the Platform, and respond to and process your queries, claims or disputes (including when you tell us about a problem, or ask for a copy of your information).
+We use the information we have to understand how people are using the Platform and to develop, test, and make improvements to the Platform, including to develop and improve our technology, such as our machine learning models and algorithms.
+We also use this information to better understand and promote the Platform, popular topics, and emerging trends.
+- We use the information we have to administer the Platform, such as to communicate with users and respond to and process queries, claims or disputes (including when you tell us about a problem, or ask for a copy of your information).</data>
+</edge>
+<edge source="we" target="information we collect" id="e99">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We use the information we collect to:
+If you are under the age of majority (under 18 in most relevant countries), with a limited ability to enter into an enforceable contract only, where we may be unable to process your information on the grounds of contractual necessity, we rely on legitimate interests and use the information we collect to:</data>
+</edge>
+
+
+
+
+<edge source="we" target="information about processing" id="e101">
+  <data key="d2">COLLECT</data>
+  <data key="d3">You can ask us, free of charge, to confirm what information we process about you, to provide certain information about the processing, and for a copy of your information.</data>
+</edge>
+<edge source="we" target="information describe in information we collect section" id="e102">
+  <data key="d2">COLLECT</data>
+  <data key="d3">To support our global operations: We store the information described in the " What Information We Collect " section in servers located in the United States, Malaysia and Singapore.</data>
+</edge>
+<edge source="law enforcement agency" target="information describe in" id="e103">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may access, preserve, and share the information described in " What Information We Collect " with law enforcement agencies, public authorities, researchers, copyright holders, or other third parties if we have good faith belief that it is necessary to:</data>
+</edge>
+<edge source="country with adequacy decision" target="country list" id="e104">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We transfer your information as described in " What Information We Collect " to some countries with adequacy decisions, such as the countries listed here ; or</data>
+</edge>
+<edge source="country with adequacy decision" target="UNSPECIFIED_DATA" id="e105">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We transfer your information as described in " What Information We Collect " to some countries with adequacy decisions, such as the countries listed here ; or</data>
+</edge>
+<edge source="device information" target="operating system" id="e106">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.
+This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
+</edge>
+<edge source="device information" target="device model" id="e107">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.
+This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
+</edge>
+<edge source="device information" target="keystroke pattern" id="e108">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.
+This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
+</edge>
+<edge source="device information" target="system language" id="e109">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.
+This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
+</edge>
+<edge source="device information" target="rhythm" id="e110">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.
+This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
+</edge>
+<edge source="device information" target="ip address" id="e111">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">We collect certain device and network connection information when you access the Platform.
+This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
+</edge>
+<edge source="service provider" target="purchase information relate to transaction" id="e112">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers.</data>
+</edge>
+<edge source="service provider" target="information you provide" id="e113">
+  <data key="d2">COLLECT</data>
+  <data key="d3">How We Share Your Information
+
+Service Providers
+We share Information You Provide , Automatically Collected Information , and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+
+<edge source="service provider" target="automatically collected information" id="e114">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We share Information You Provide , Automatically Collected Information , and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+
+
+
+
+
+
+
+<edge source="entity within corporate group" target="information you provide" id="e116">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a global company, the Platform is supported by certain entities within our corporate group (" Corporate Group ").
+These entities process Information You Provide , Automatically Collected Information , and Information From Other Sources for us, as necessary to provide certain functions, such as storage, content delivery, security, research and development, analytics, online payments, customer and technical support, and content moderation.</data>
+</edge>
+
+<edge source="entity within corporate group" target="automatically collected information" id="e117">
+  <data key="d2">COLLECT</data>
+  <data key="d3">As a global company, the Platform is supported by certain entities within our corporate group (" Corporate Group ").
+These entities process Information You Provide , Automatically Collected Information , and Information From Other Sources for us, as necessary to provide certain functions, such as storage, content delivery, security, research and development, analytics, online payments, customer and technical support, and content moderation.</data>
+</edge>
+
+
+
+<edge source="creator" target="information about number of view of video" id="e118">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, creators and advertisers can receive information about the number of views, likes, comments and shares of their videos, as well as aggregate demographic information about their followers and the viewers of their videos.</data>
+</edge>
+<edge source="creator" target="aggregate demographic information about follower" id="e119">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, creators and advertisers can receive information about the number of views, likes, comments and shares of their videos, as well as aggregate demographic information about their followers and the viewers of their videos.</data>
+</edge>
+<edge source="researcher" target="information describe in" id="e120">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may access, preserve, and share the information described in " What Information We Collect " with law enforcement agencies, public authorities, researchers, copyright holders, or other third parties if we have good faith belief that it is necessary to:</data>
+</edge>
+<edge source="independent researcher" target="UNSPECIFIED_DATA" id="e121">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Independent Researchers: We share your information with independent researchers to facilitate research that meets certain criteria as described in Our Legal Bases and How We Process Your Information .
+We share your information with independent researchers to facilitate research that meets certain criteria, including where such researchers have demonstrable experience and expertise in their area.</data>
+</edge>
+<edge source="measurement" target="UNSPECIFIED_DATA" id="e122">
+  <data key="d2">COLLECT</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+<edge source="merchant" target="purchase information relate to transaction" id="e123">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers.</data>
+</edge>
+<edge source="payment provider" target="purchase information relate to transaction" id="e124">
+  <data key="d2">COLLECT</data>
+  <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers.</data>
+</edge>
+<edge source="public authority" target="information describe in" id="e125">
+  <data key="d2">COLLECT</data>
+  <data key="d3">We may access, preserve, and share the information described in " What Information We Collect " with law enforcement agencies, public authorities, researchers, copyright holders, or other third parties if we have good faith belief that it is necessary to:</data>
+</edge>
+<edge source="law enforcement" target="ip address" id="e126">
+  <data key="d2">COLLECT</data>
+  <data key="d3">For example, we may provide information (such as your IP address) to law enforcement in the event of an emergency where someone's life or safety is at risk,</data>
+</edge>
+<edge source="company in eea" target="UNSPECIFIED_DATA" id="e127">
+  <data key="d2">COLLECT</data>
+  <data key="d3">The European Commission has approved contractual clauses under Article 46 of the GDPR that allows companies in the EEA to transfer data outside the EEA.</data>
+</edge>
+
+
+
+
+
+<edge source="external user activity" target="Actions you have taken outside of the platform" id="e001">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="external user activity" target="Your activities on other websites" id="e002">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="external user activity" target="Your activities on other apps" id="e003">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="external user activity" target="Your activities in stores" id="e004">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="external user activity" target="services you purchase (online or in person)" id="e005">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+<edge source="external user activity" target="products you purchase (online or in person)" id="e006">
+  <data key="d2">SUBSUM</data>
+  <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person.</data>
+</edge>
+
+
+
+
+
+</graph></graphml>
