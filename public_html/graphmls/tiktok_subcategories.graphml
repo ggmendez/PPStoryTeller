@@ -445,10 +445,6 @@
 </node>
 
 
-<edge source="Basic Personal Details" target="Date of Birth" id="edge_subsum_Basic Personal Details_Date of Birth">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Personally Identifiable Information" target="Basic Personal Details" id="edge_subsum_Personally Identifiable Information_Basic Personal Details">
     <data key="d2">SUBSUM</data>
 </edge>
@@ -457,35 +453,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Basic Personal Details" target="Username" id="edge_subsum_Basic Personal Details_Username">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Basic Personal Details" target="Email Address" id="edge_subsum_Basic Personal Details_Email Address">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Basic Personal Details" target="Telephone Number" id="edge_subsum_Basic Personal Details_Telephone Number">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Basic Personal Details" target="Password" id="edge_subsum_Basic Personal Details_Password">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Profile Information" target="Profile Bio" id="edge_subsum_Profile Information_Profile Bio">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Personally Identifiable Information" target="Profile Information" id="edge_subsum_Personally Identifiable Information_Profile Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Profile Information" target="Profile Photo" id="edge_subsum_Profile Information_Profile Photo">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Media Content" target="Photographs" id="edge_subsum_Media Content_Photographs">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -497,31 +465,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Media Content" target="Videos" id="edge_subsum_Media Content_Videos">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Media Content" target="Audio Recordings" id="edge_subsum_Media Content_Audio Recordings">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Media Content" target="Livestreams" id="edge_subsum_Media Content_Livestreams">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Textual Content" target="Comments" id="edge_subsum_Textual Content_Comments">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="User-Generated Content" target="Textual Content" id="edge_subsum_User-Generated Content_Textual Content">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Textual Content" target="Hashtags" id="edge_subsum_Textual Content_Hashtags">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Support and Feedback" target="Feedback" id="edge_subsum_Support and Feedback_Feedback">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -529,23 +473,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Textual Content" target="Reviews" id="edge_subsum_Textual Content_Reviews">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Content Metadata" target="Creation Time" id="edge_subsum_Content Metadata_Creation Time">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="User-Generated Content" target="Content Metadata" id="edge_subsum_User-Generated Content_Content Metadata">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Content Metadata" target="Creation Date" id="edge_subsum_Content Metadata_Creation Date">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Location Tags in Content" target="Location of Content Creation" id="edge_subsum_Location Tags in Content_Location of Content Creation">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -557,31 +485,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Content Metadata" target="Creator Identity" id="edge_subsum_Content Metadata_Creator Identity">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Clipboard Content" target="Text from Clipboard" id="edge_subsum_Clipboard Content_Text from Clipboard">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="User-Generated Content" target="Clipboard Content" id="edge_subsum_User-Generated Content_Clipboard Content">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Clipboard Content" target="Images from Clipboard" id="edge_subsum_Clipboard Content_Images from Clipboard">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Clipboard Content" target="Videos from Clipboard" id="edge_subsum_Clipboard Content_Videos from Clipboard">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Location Tags in Content" target="Location Information" id="edge_subsum_Location Tags in Content_Location Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Direct Messages" target="Message Content" id="edge_subsum_Direct Messages_Message Content">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -593,23 +497,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Direct Messages" target="Timestamps" id="edge_subsum_Direct Messages_Timestamps">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Merchant Communications" target="Chats with Merchants" id="edge_subsum_Merchant Communications_Chats with Merchants">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Communication Data" target="Merchant Communications" id="edge_subsum_Communication Data_Merchant Communications">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Merchant Communications" target="Virtual Assistant Interactions" id="edge_subsum_Merchant Communications_Virtual Assistant Interactions">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Device Contacts" target="Names from Phone Book" id="edge_subsum_Device Contacts_Names from Phone Book">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -621,39 +509,11 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Device Contacts" target="Phone Numbers from Phone Book" id="edge_subsum_Device Contacts_Phone Numbers from Phone Book">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Device Contacts" target="Email Addresses from Phone Book" id="edge_subsum_Device Contacts_Email Addresses from Phone Book">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Social Network Contacts" target="Your Social Network Public Profile Information" id="edge_subsum_Social Network Contacts_Your Social Network Public Profile Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Contact Information" target="Social Network Contacts" id="edge_subsum_Contact Information_Social Network Contacts">
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Social Network Contacts" target="Names of Social Network Contacts" id="edge_subsum_Social Network Contacts_Names of Social Network Contacts">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Social Network Contacts" target="Profiles of Social Network Contacts" id="edge_subsum_Social Network Contacts_Profiles of Social Network Contacts">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Contacts Provided by Others" target="Contacts Provided by Others" id="edge_subsum_Contacts Provided by Others_Contacts Provided by Others">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Contact Information" target="Contacts Provided by Others" id="edge_subsum_Contact Information_Contacts Provided by Others">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Payment Information" target="Payment Card Details" id="edge_subsum_Payment Information_Payment Card Details">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -665,19 +525,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Payment Information" target="Billing Information" id="edge_subsum_Payment Information_Billing Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Delivery Information" target="Delivery Information" id="edge_subsum_Delivery Information_Delivery Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Transaction and Financial Information" target="Delivery Information" id="edge_subsum_Transaction and Financial Information_Delivery Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Purchase Details" target="Contact Information (Purchases)" id="edge_subsum_Purchase Details_Contact Information (Purchases)">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -685,35 +533,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Purchase Details" target="Items Purchased" id="edge_subsum_Purchase Details_Items Purchased">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="User Participation Data" target="Survey Responses" id="edge_subsum_User Participation Data_Survey Responses">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="User-Generated Content" target="User Participation Data" id="edge_subsum_User-Generated Content_User Participation Data">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="User Participation Data" target="Research Participation Data" id="edge_subsum_User Participation Data_Research Participation Data">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="User Participation Data" target="Contest Entries" id="edge_subsum_User Participation Data_Contest Entries">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="User Participation Data" target="Marketing Campaign Participation" id="edge_subsum_User Participation Data_Marketing Campaign Participation">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="User Participation Data" target="Event Participation" id="edge_subsum_User Participation Data_Event Participation">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Identification Documents" target="Proof of Identity" id="edge_subsum_Identification Documents_Proof of Identity">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -721,23 +541,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Identification Documents" target="Proof of Age" id="edge_subsum_Identification Documents_Proof of Age">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Communication Data" target="Support and Feedback" id="edge_subsum_Communication Data_Support and Feedback">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Support and Feedback" target="Policy Violation Reports" id="edge_subsum_Support and Feedback_Policy Violation Reports">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="User Participation Data" target="Form Data" id="edge_subsum_User Participation Data_Form Data">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Device Information" target="Device Model" id="edge_subsum_Device Information_Device Model">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -749,19 +553,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Device Information" target="Operating System" id="edge_subsum_Device Information_Operating System">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Technical Diagnostics" target="Keystroke Patterns or Rhythms" id="edge_subsum_Technical Diagnostics_Keystroke Patterns or Rhythms">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Device and Technical Information" target="Technical Diagnostics" id="edge_subsum_Device and Technical Information_Technical Diagnostics">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Network Information" target="IP Address" id="edge_subsum_Network Information_IP Address">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -769,31 +561,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Device Information" target="System Language" id="edge_subsum_Device Information_System Language">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Technical Diagnostics" target="Crash Reports" id="edge_subsum_Technical Diagnostics_Crash Reports">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Technical Diagnostics" target="Performance Logs" id="edge_subsum_Technical Diagnostics_Performance Logs">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Automatically Assigned Identifiers" target="Device ID" id="edge_subsum_Automatically Assigned Identifiers_Device ID">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Device and Technical Information" target="Automatically Assigned Identifiers" id="edge_subsum_Device and Technical Information_Automatically Assigned Identifiers">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Automatically Assigned Identifiers" target="User ID" id="edge_subsum_Automatically Assigned Identifiers_User ID">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Approximate Location" target="Approximate Location (SIM and IP)" id="edge_subsum_Approximate Location_Approximate Location (SIM and IP)">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -805,14 +573,6 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Approximate Location" target="Approximate Location (Device)" id="edge_subsum_Approximate Location_Approximate Location (Device)">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Engagement Metrics" target="Content Viewed" id="edge_subsum_Engagement Metrics_Content Viewed">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Usage and Interaction Data" target="Engagement Metrics" id="edge_subsum_Usage and Interaction Data_Engagement Metrics">
     <data key="d2">SUBSUM</data>
 </edge>
@@ -821,35 +581,11 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Engagement Metrics" target="Duration of Use" id="edge_subsum_Engagement Metrics_Duration of Use">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Engagement Metrics" target="Frequency of Use" id="edge_subsum_Engagement Metrics_Frequency of Use">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Engagement Metrics" target="Interactions with Other Users" id="edge_subsum_Engagement Metrics_Interactions with Other Users">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Search and Activity History" target="Search History" id="edge_subsum_Search and Activity History_Search History">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Usage and Interaction Data" target="Search and Activity History" id="edge_subsum_Usage and Interaction Data_Search and Activity History">
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Settings and Preferences" target="Settings" id="edge_subsum_Settings and Preferences_Settings">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Usage and Interaction Data" target="Settings and Preferences" id="edge_subsum_Usage and Interaction Data_Settings and Preferences">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Content Analysis" target="Objects and Scenery Recognition" id="edge_subsum_Content Analysis_Objects and Scenery Recognition">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -861,31 +597,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Content Analysis" target="Face or Body Part Detection" id="edge_subsum_Content Analysis_Face or Body Part Detection">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Content Analysis" target="Speech-to-Text Transcriptions" id="edge_subsum_Content Analysis_Speech-to-Text Transcriptions">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Inferred Attributes" target="Inferred Age-Range" id="edge_subsum_Inferred Attributes_Inferred Age-Range">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Inferred and Analytical Data" target="Inferred Attributes" id="edge_subsum_Inferred and Analytical Data_Inferred Attributes">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Inferred Attributes" target="Inferred Gender" id="edge_subsum_Inferred Attributes_Inferred Gender">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Inferred Attributes" target="Interests and Preferences" id="edge_subsum_Inferred Attributes_Interests and Preferences">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Cookie Data" target="Cookie Identifiers" id="edge_subsum_Cookie Data_Cookie Identifiers">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -897,23 +609,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Cookie Data" target="Session Tokens" id="edge_subsum_Cookie Data_Session Tokens">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Tracking Information" target="Web Beacons" id="edge_subsum_Tracking Information_Web Beacons">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Cookies and Tracking Technologies" target="Tracking Information" id="edge_subsum_Cookies and Tracking Technologies_Tracking Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Tracking Information" target="Pixel Tags" id="edge_subsum_Tracking Information_Pixel Tags">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Advertising and Analytics Partners" target="Activities on Other Websites and Apps" id="edge_subsum_Data from Advertising and Analytics Partners_Activities on Other Websites and Apps">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -925,39 +621,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Data from Advertising and Analytics Partners" target="Products or Services Purchased Elsewhere" id="edge_subsum_Data from Advertising and Analytics Partners_Products or Services Purchased Elsewhere">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Advertising and Analytics Partners" target="Mobile Identifiers for Advertising" id="edge_subsum_Data from Advertising and Analytics Partners_Mobile Identifiers for Advertising">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Advertising and Analytics Partners" target="Hashed Email Addresses" id="edge_subsum_Data from Advertising and Analytics Partners_Hashed Email Addresses">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Advertising and Analytics Partners" target="Hashed Phone Numbers" id="edge_subsum_Data from Advertising and Analytics Partners_Hashed Phone Numbers">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Advertising and Analytics Partners" target="Cookie Identifiers" id="edge_subsum_Data from Advertising and Analytics Partners_Cookie Identifiers">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Merchants and Service Providers" target="Payment Confirmation Details" id="edge_subsum_Data from Merchants and Service Providers_Payment Confirmation Details">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Third-Party and External Data" target="Data from Merchants and Service Providers" id="edge_subsum_Third-Party and External Data_Data from Merchants and Service Providers">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Merchants and Service Providers" target="Delivery Information" id="edge_subsum_Data from Merchants and Service Providers_Delivery Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Third-Party Platforms" target="Email Address from Third Parties" id="edge_subsum_Data from Third-Party Platforms_Email Address from Third Parties">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -965,31 +629,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Data from Third-Party Platforms" target="User ID from Third Parties" id="edge_subsum_Data from Third-Party Platforms_User ID from Third Parties">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Third-Party Platforms" target="Public Profile from Third Parties" id="edge_subsum_Data from Third-Party Platforms_Public Profile from Third Parties">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Contacts Provided by Others" target="Contact Information Synced by Others" id="edge_subsum_Contacts Provided by Others_Contact Information Synced by Others">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Information From Other Sources" target="Contact Information" id="edge_subsum_Information From Other Sources_Contact Information">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Third-Party Platforms" target="Data from TikTok Developer Tools Integrations" id="edge_subsum_Data from Third-Party Platforms_Data from TikTok Developer Tools Integrations">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Third-Party Platforms" target="Safety and Content Moderation Data" id="edge_subsum_Data from Third-Party Platforms_Safety and Content Moderation Data">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Public and External Sources" target="Publicly Available Information" id="edge_subsum_Data from Public and External Sources_Publicly Available Information">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -997,35 +637,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Data from Public and External Sources" target="Data from Government Authorities" id="edge_subsum_Data from Public and External Sources_Data from Government Authorities">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Public and External Sources" target="Data from Professional Organisations" id="edge_subsum_Data from Public and External Sources_Data from Professional Organisations">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Public and External Sources" target="Data from Charity Groups" id="edge_subsum_Data from Public and External Sources_Data from Charity Groups">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Mentions in Content" target="Mentions in Content" id="edge_subsum_Mentions in Content_Mentions in Content">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Third-Party and External Data" target="Mentions in Content" id="edge_subsum_Third-Party and External Data_Mentions in Content">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Advertising and Analytics Partners" target="Cookie Identifiers (Third Parties)" id="edge_subsum_Data from Advertising and Analytics Partners_Cookie Identifiers (Third Parties)">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Data from Merchants and Service Providers" target="Delivery Information (from Merchants)" id="edge_subsum_Data from Merchants and Service Providers_Delivery Information (from Merchants)">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Aggregated Statistics" target="Information about ad performance" id="edge_subsum_Aggregated Statistics_Information about ad performance">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1033,43 +645,11 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Payment Information" target="Payment Confirmation Details" id="edge_subsum_Payment Information_Payment Confirmation Details">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Purchase Details" target="Transaction Amounts" id="edge_subsum_Purchase Details_Transaction Amounts">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Purchase Details" target="Purchase or Payment Dates" id="edge_subsum_Purchase Details_Purchase or Payment Dates">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Delivery Information" target="Shipping Address" id="edge_subsum_Delivery Information_Shipping Address">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Delivery Information" target="Delivery Status" id="edge_subsum_Delivery Information_Delivery Status">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Network Information" target="Network Type" id="edge_subsum_Network Information_Network Type">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Content Metadata" target="Location of Content Creation" id="edge_subsum_Content Metadata_Location of Content Creation">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Device Information" target="Notification Settings" id="edge_subsum_Device Information_Notification Settings">
+<edge source="Ambiguous or Non-specified Data" target="All Data" id="edge_subsum_Ambiguous or Non-specified Data_All Data">
     <data key="d2">SUBSUM</data>
 </edge>
 
 <edge source="All Data" target="Ambiguous or Non-specified Data" id="edge_subsum_All Data_Ambiguous or Non-specified Data">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Ambiguous or Non-specified Data" target="All Data" id="edge_subsum_Ambiguous or Non-specified Data_All Data">
     <data key="d2">SUBSUM</data>
 </edge>
 

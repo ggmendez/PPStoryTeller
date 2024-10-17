@@ -925,7 +925,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // console.log(dataEntities);
 
 
-                // console.log("dataName: " + dataName);
+                console.log("dataName: " + dataName);
 
                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
                 if (!dataCategory) {
@@ -955,9 +955,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     text: edge.querySelector('data[key="d3"]')?.textContent || ''
                 }));
 
+                console.log("subsums");
+                console.log(subsums);
+                
 
             subsums.forEach(subsum => {
-                const parentData = subsum.source;
+                const parentData = sanitizeId(subsum.source);
                 const childData = subsum.target;
                 if (!dataInheritances[parentData]) {
                     dataInheritances[parentData] = new Array();
@@ -965,8 +968,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 dataInheritances[parentData].push(childData);
             });
 
-            // console.log("***************** dataInheritances *****************");
-            // console.log(dataInheritances);
+            console.log("***************** dataInheritances *****************");
+            console.log(dataInheritances);
             // console.log("***************** actorDataMap *****************");
             // console.log(actorDataMap);
 
@@ -3629,19 +3632,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const ul = document.createElement('ul'); // Create a <ul> element
 
         rectangles.forEach(rect => {
-            const name = rect.getAttribute('data-name').toLowerCase();
-            const inheritances = dataInheritances[name];
+            const name = rect.getAttribute('data-name');
+            const inheritances = dataInheritances[sanitizeId(name)];
+
+            console.log("%%% inheritances: ");
+            console.log(inheritances);
+
             let foundInInheritances = false;
 
             if (inheritances && inheritances.length) {
                 inheritances.forEach(inheritance => {
-                    if (inheritance.includes(searchTerm)) {
+                    if (inheritance.toLocaleLowerCase().includes(searchTerm)) {
                         foundInInheritances = true;
                     }
                 });
             }
 
-            if ((name.includes(searchTerm) || foundInInheritances) && !uniqueResults.has(name)) {
+            if ((name.toLocaleLowerCase().includes(searchTerm) || foundInInheritances) && !uniqueResults.has(name)) {
                 uniqueResults.add(name); // Add name to the set to ensure uniqueness
             }
         });
@@ -3651,7 +3658,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         sortedResults.forEach(name => {
             const listItem = document.createElement('li');
-            const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name);
+            const rect = Array.from(rectangles).find(r => r.getAttribute('data-name').toLowerCase() === name.toLowerCase());
 
             const dataCategory = rect.getAttribute('data-data-category');
 
@@ -3674,7 +3681,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             mainText.innerHTML = highlightText(name.charAt(0).toUpperCase() + name.slice(1), searchTerm); // Use innerHTML to apply highlighting
             textContainer.appendChild(mainText);
 
-            const inheritances = dataInheritances[name];
+            const inheritances = dataInheritances[sanitizeId(name)];
 
             // Conditionally add a subtitle
             if (inheritances && inheritances.length) { // Check if dataCategory is present or matches your criteria
@@ -4101,7 +4108,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // console.log(dataInheritances);
 
 
-                        const inheritances = dataInheritances[itemName.toLowerCase()];
+                        // const inheritances = dataInheritances[itemName.toLowerCase()];
+                        const inheritances = dataInheritances[sanitizeId(itemName)];
 
                         // console.log("inheritances for " + itemName);
                         // console.log(inheritances);

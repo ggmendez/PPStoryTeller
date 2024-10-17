@@ -21,7 +21,7 @@ categories.tiktok = {
         "Advertisers": ["Advertisers", "advertiser"],
         "Analytic Providers": ["Third Party Measurement Providers", "Measurement Partner", "Other Partner", "Third Party Providers"],
         "Corporations": [
-            "Entities within our corporate group", 
+            "Entities within our corporate group",
             "Corporate Transaction Parties",
             "Copyright Holders"
         ],
@@ -90,7 +90,7 @@ categories.tiktok = {
     // }
 
 
-    dataCategories: {
+    /*dataCategories: {
         "Personally Identifiable Information": [
             "Date of Birth",
             "Email Address",
@@ -133,7 +133,7 @@ categories.tiktok = {
             "Creation Time",
             "Creation Date",
             "Creator Identity"
-        ],        
+        ],
         "Communication Data": [
             "Message Content",
             "Timestamps",
@@ -216,6 +216,74 @@ categories.tiktok = {
         ],
         "Ambiguous or Non-specified Data": [
             "Ambiguous or Non-specified Data"
+        ]
+    },*/
+
+
+    dataCategories: {
+        "Personally Identifiable Information": [
+            "Basic Personal Details",
+            "Profile Information",
+            "Identification Documents"
+        ],
+        "Contact Information": [
+            "Device Contacts",
+            "Social Network Contacts",
+            "Contacts Provided by Others"
+        ],
+        "User-Generated Content": [
+            "Media Content",
+            "Textual Content",
+            "Clipboard Content",
+            "Content Metadata",
+            "User Participation Data"
+        ],
+        "Communication Data": [
+            "Direct Messages",
+            "Merchant Communications",
+            "Support and Feedback"
+        ],
+        "Transaction and Financial Information": [
+            "Payment Information",
+            "Purchase Details",
+            "Delivery Information"
+        ],
+        "Device and Technical Information": [
+            "Device Information",
+            "Network Information",
+            "Technical Diagnostics",
+            "Automatically Assigned Identifiers"
+        ],
+        "Location Data": [
+            "Approximate Location",
+            "Precise Location (with Permission)",
+            "Location Tags in Content"
+        ],
+        "Usage and Interaction Data": [
+            "Engagement Metrics",
+            "Search and Activity History",
+            "Settings and Preferences"
+        ],
+        "Cookies and Tracking Technologies": [
+            "Cookie Data",
+            "Tracking Information",
+            "Usage Purposes"
+        ],
+        "Inferred and Analytical Data": [
+            "Inferred Attributes",
+            "Content Analysis",
+            "Behavioral Profiles",
+            "Aggregated Statistics"
+        ],
+        "Third-Party and External Data": [
+            "Data from Advertising and Analytics Partners",
+            "Data from Merchants and Service Providers",
+            "Data from Third-Party Platforms",
+            "Data from Public and External Sources",
+            "Mentions in Content"
+        ],
+        "Ambiguous or Non-specified Data": [
+            "All Data"
         ]
     }
 
