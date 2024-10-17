@@ -1,7 +1,7 @@
 <graph>
 
 <node id="we">
-    <data key="d0">We</data>
+    <data key="d0">we</data>
     <data key="d1">ACTOR</data>
 </node>
 
@@ -230,7 +230,7 @@
 
 <node id="Feedback">
     <data key="level_0">Feedback</data>
-    <data key="level_1">Textual Content</data>
+    <data key="level_1">Support and Feedback</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Feedback</data>
@@ -282,30 +282,30 @@
     <data key="d1">DATA</data>
 </node>
 
-<node id="Clipboard Text">
-    <data key="level_0">Clipboard Text</data>
+<node id="Text from Clipboard">
+    <data key="level_0">Text from Clipboard</data>
     <data key="level_1">Clipboard Content</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
-    <data key="d0">Clipboard Text</data>
+    <data key="d0">Text from Clipboard</data>
     <data key="d1">DATA</data>
 </node>
 
-<node id="Clipboard Images">
-    <data key="level_0">Clipboard Images</data>
+<node id="Images from Clipboard">
+    <data key="level_0">Images from Clipboard</data>
     <data key="level_1">Clipboard Content</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
-    <data key="d0">Clipboard Images</data>
+    <data key="d0">Images from Clipboard</data>
     <data key="d1">DATA</data>
 </node>
 
-<node id="Clipboard Videos">
-    <data key="level_0">Clipboard Videos</data>
+<node id="Videos from Clipboard">
+    <data key="level_0">Videos from Clipboard</data>
     <data key="level_1">Clipboard Content</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
-    <data key="d0">Clipboard Videos</data>
+    <data key="d0">Videos from Clipboard</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -417,12 +417,12 @@
     <data key="d1">DATA</data>
 </node>
 
-<node id="Payment Card Information">
-    <data key="level_0">Payment Card Information</data>
+<node id="Payment Card Details">
+    <data key="level_0">Payment Card Details</data>
     <data key="level_1">Payment Information</data>
     <data key="level_2">Transaction and Financial Information</data>
     <data key="level_3">Information You Provide</data>
-    <data key="d0">Payment Card Information</data>
+    <data key="d0">Payment Card Details</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -525,21 +525,12 @@
     <data key="d1">DATA</data>
 </node>
 
-<node id="Feedback or Inquiries">
-    <data key="level_0">Feedback or Inquiries</data>
+<node id="Policy Violation Reports">
+    <data key="level_0">Policy Violation Reports</data>
     <data key="level_1">Support and Feedback</data>
     <data key="level_2">Communication Data</data>
     <data key="level_3">Information You Provide</data>
-    <data key="d0">Feedback or Inquiries</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Information about Possible Violations">
-    <data key="level_0">Information about Possible Violations</data>
-    <data key="level_1">Support and Feedback</data>
-    <data key="level_2">Communication Data</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Information about Possible Violations</data>
+    <data key="d0">Policy Violation Reports</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -678,12 +669,12 @@
     <data key="d1">DATA</data>
 </node>
 
-<node id="Engagement with Other Users">
-    <data key="level_0">Engagement with Other Users</data>
+<node id="Interactions with Other Users">
+    <data key="level_0">Interactions with Other Users</data>
     <data key="level_1">Engagement Metrics</data>
     <data key="level_2">Usage and Interaction Data</data>
     <data key="level_3">Automatically Collected Information</data>
-    <data key="d0">Engagement with Other Users</data>
+    <data key="d0">Interactions with Other Users</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -948,15 +939,6 @@
     <data key="d1">DATA</data>
 </node>
 
-<node id="Content Metadata">
-    <data key="level_0">Content Metadata</data>
-    <data key="level_1">Content Metadata</data>
-    <data key="level_2">User-Generated Content</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Content Metadata</data>
-    <data key="d1">DATA</data>
-</node>
-
 <node id="Cookie Identifiers (Third Parties)">
     <data key="level_0">Cookie Identifiers (Third Parties)</data>
     <data key="level_1">Data from Advertising and Analytics Partners</data>
@@ -981,15 +963,6 @@
     <data key="level_2">Inferred and Analytical Data</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Information about ad performance</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Payment Card Details">
-    <data key="level_0">Payment Card Details</data>
-    <data key="level_1">Payment Information</data>
-    <data key="level_2">Transaction and Financial Information</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Payment Card Details</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -1035,87 +1008,6 @@
     <data key="level_2">Device and Technical Information</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Network Type</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Merchant Communications">
-    <data key="level_0">Merchant Communications</data>
-    <data key="level_1">Merchant Communications</data>
-    <data key="level_2">Communication Data</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Merchant Communications</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Text from Clipboard">
-    <data key="level_0">Text from Clipboard</data>
-    <data key="level_1">Clipboard Content</data>
-    <data key="level_2">User-Generated Content</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Text from Clipboard</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Images from Clipboard">
-    <data key="level_0">Images from Clipboard</data>
-    <data key="level_1">Clipboard Content</data>
-    <data key="level_2">User-Generated Content</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Images from Clipboard</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Videos from Clipboard">
-    <data key="level_0">Videos from Clipboard</data>
-    <data key="level_1">Clipboard Content</data>
-    <data key="level_2">User-Generated Content</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Videos from Clipboard</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Creation Time and Date">
-    <data key="level_0">Creation Time and Date</data>
-    <data key="level_1">Content Metadata</data>
-    <data key="level_2">User-Generated Content</data>
-    <data key="level_3">Information You Provide</data>
-    <data key="d0">Creation Time and Date</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Duration and Frequency of Use">
-    <data key="level_0">Duration and Frequency of Use</data>
-    <data key="level_1">Engagement Metrics</data>
-    <data key="level_2">Usage and Interaction Data</data>
-    <data key="level_3">Automatically Collected Information</data>
-    <data key="d0">Duration and Frequency of Use</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Interactions with Other Users">
-    <data key="level_0">Interactions with Other Users</data>
-    <data key="level_1">Engagement Metrics</data>
-    <data key="level_2">Usage and Interaction Data</data>
-    <data key="level_3">Automatically Collected Information</data>
-    <data key="d0">Interactions with Other Users</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Search Queries">
-    <data key="level_0">Search Queries</data>
-    <data key="level_1">Search and Activity History</data>
-    <data key="level_2">Usage and Interaction Data</data>
-    <data key="level_3">Automatically Collected Information</data>
-    <data key="d0">Search Queries</data>
-    <data key="d1">DATA</data>
-</node>
-
-<node id="Browsing History">
-    <data key="level_0">Browsing History</data>
-    <data key="level_1">Search and Activity History</data>
-    <data key="level_2">Usage and Interaction Data</data>
-    <data key="level_3">Automatically Collected Information</data>
-    <data key="d0">Browsing History</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -1223,7 +1115,11 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Textual Content" target="Feedback" id="edge_subsum_Textual Content_Feedback">
+<edge source="Support and Feedback" target="Feedback" id="edge_subsum_Support and Feedback_Feedback">
+    <data key="d2">SUBSUM</data>
+</edge>
+
+<edge source="User-Generated Content" target="Support and Feedback" id="edge_subsum_User-Generated Content_Support and Feedback">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1259,7 +1155,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Clipboard Content" target="Clipboard Text" id="edge_subsum_Clipboard Content_Clipboard Text">
+<edge source="Clipboard Content" target="Text from Clipboard" id="edge_subsum_Clipboard Content_Text from Clipboard">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1267,11 +1163,11 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Clipboard Content" target="Clipboard Images" id="edge_subsum_Clipboard Content_Clipboard Images">
+<edge source="Clipboard Content" target="Images from Clipboard" id="edge_subsum_Clipboard Content_Images from Clipboard">
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Clipboard Content" target="Clipboard Videos" id="edge_subsum_Clipboard Content_Clipboard Videos">
+<edge source="Clipboard Content" target="Videos from Clipboard" id="edge_subsum_Clipboard Content_Videos from Clipboard">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1351,7 +1247,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Payment Information" target="Payment Card Information" id="edge_subsum_Payment Information_Payment Card Information">
+<edge source="Payment Information" target="Payment Card Details" id="edge_subsum_Payment Information_Payment Card Details">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1423,15 +1319,11 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Support and Feedback" target="Feedback or Inquiries" id="edge_subsum_Support and Feedback_Feedback or Inquiries">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Communication Data" target="Support and Feedback" id="edge_subsum_Communication Data_Support and Feedback">
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Support and Feedback" target="Information about Possible Violations" id="edge_subsum_Support and Feedback_Information about Possible Violations">
+<edge source="Support and Feedback" target="Policy Violation Reports" id="edge_subsum_Support and Feedback_Policy Violation Reports">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1531,7 +1423,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Engagement Metrics" target="Engagement with Other Users" id="edge_subsum_Engagement Metrics_Engagement with Other Users">
+<edge source="Engagement Metrics" target="Interactions with Other Users" id="edge_subsum_Engagement Metrics_Interactions with Other Users">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1719,10 +1611,6 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Content Metadata" target="Content Metadata" id="edge_subsum_Content Metadata_Content Metadata">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Data from Advertising and Analytics Partners" target="Cookie Identifiers (Third Parties)" id="edge_subsum_Data from Advertising and Analytics Partners_Cookie Identifiers (Third Parties)">
     <data key="d2">SUBSUM</data>
 </edge>
@@ -1736,10 +1624,6 @@
 </edge>
 
 <edge source="Inferred and Analytical Data" target="Aggregated Statistics" id="edge_subsum_Inferred and Analytical Data_Aggregated Statistics">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Payment Information" target="Payment Card Details" id="edge_subsum_Payment Information_Payment Card Details">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1767,43 +1651,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Merchant Communications" target="Merchant Communications" id="edge_subsum_Merchant Communications_Merchant Communications">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Clipboard Content" target="Text from Clipboard" id="edge_subsum_Clipboard Content_Text from Clipboard">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Clipboard Content" target="Images from Clipboard" id="edge_subsum_Clipboard Content_Images from Clipboard">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Clipboard Content" target="Videos from Clipboard" id="edge_subsum_Clipboard Content_Videos from Clipboard">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Content Metadata" target="Creation Time and Date" id="edge_subsum_Content Metadata_Creation Time and Date">
-    <data key="d2">SUBSUM</data>
-</edge>
-
 <edge source="Content Metadata" target="Location of Content Creation" id="edge_subsum_Content Metadata_Location of Content Creation">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Engagement Metrics" target="Duration and Frequency of Use" id="edge_subsum_Engagement Metrics_Duration and Frequency of Use">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Engagement Metrics" target="Interactions with Other Users" id="edge_subsum_Engagement Metrics_Interactions with Other Users">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Search and Activity History" target="Search Queries" id="edge_subsum_Search and Activity History_Search Queries">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Search and Activity History" target="Browsing History" id="edge_subsum_Search and Activity History_Browsing History">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -1824,382 +1672,378 @@
 </edge>
 
 
-<edge source="we" target="Date of Birth" id="edge_collect_We_Date of Birth">
+<edge source="we" target="Date of Birth" id="edge_collect_we_Date of Birth">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
 
-<edge source="we" target="Username" id="edge_collect_We_Username">
+<edge source="we" target="Username" id="edge_collect_we_Username">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
 
-<edge source="we" target="Email Address" id="edge_collect_We_Email Address">
+<edge source="we" target="Email Address" id="edge_collect_we_Email Address">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
 
-<edge source="we" target="Telephone Number" id="edge_collect_We_Telephone Number">
+<edge source="we" target="Telephone Number" id="edge_collect_we_Telephone Number">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
 
-<edge source="we" target="Password" id="edge_collect_We_Password">
+<edge source="we" target="Password" id="edge_collect_we_Password">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password.</data>
 </edge>
 
-<edge source="we" target="Profile Bio" id="edge_collect_We_Profile Bio">
+<edge source="we" target="Profile Bio" id="edge_collect_we_Profile Bio">
     <data key="d2">COLLECT</data>
     <data key="d3">You can add other information to your profile, such as a bio or a profile photo.</data>
 </edge>
 
-<edge source="we" target="Profile Photo" id="edge_collect_We_Profile Photo">
+<edge source="we" target="Profile Photo" id="edge_collect_we_Profile Photo">
     <data key="d2">COLLECT</data>
     <data key="d3">You can add other information to your profile, such as a bio or a profile photo.</data>
 </edge>
 
-<edge source="we" target="Photographs" id="edge_collect_We_Photographs">
+<edge source="we" target="Photographs" id="edge_collect_we_Photographs">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams.</data>
 </edge>
 
-<edge source="we" target="Videos" id="edge_collect_We_Videos">
+<edge source="we" target="Videos" id="edge_collect_we_Videos">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams.</data>
 </edge>
 
-<edge source="we" target="Audio Recordings" id="edge_collect_We_Audio Recordings">
+<edge source="we" target="Audio Recordings" id="edge_collect_we_Audio Recordings">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams.</data>
 </edge>
 
-<edge source="we" target="Livestreams" id="edge_collect_We_Livestreams">
+<edge source="we" target="Livestreams" id="edge_collect_we_Livestreams">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams.</data>
 </edge>
 
-<edge source="we" target="Comments" id="edge_collect_We_Comments">
+<edge source="we" target="Comments" id="edge_collect_we_Comments">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as comments, hashtags, feedback, reviews.</data>
 </edge>
 
-<edge source="we" target="Hashtags" id="edge_collect_We_Hashtags">
+<edge source="we" target="Hashtags" id="edge_collect_we_Hashtags">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as comments, hashtags, feedback, reviews.</data>
 </edge>
 
-<edge source="we" target="Feedback" id="edge_collect_We_Feedback">
+<edge source="we" target="Feedback" id="edge_collect_we_Feedback">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We collect the content you create or publish through the Platform, such as comments, hashtags, feedback, reviews.
+When you contact us, we collect the information you send us, such as... feedback or inquiries about your use of the Platform.</data>
+</edge>
+
+<edge source="we" target="Reviews" id="edge_collect_we_Reviews">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as comments, hashtags, feedback, reviews.</data>
 </edge>
 
-<edge source="we" target="Reviews" id="edge_collect_We_Reviews">
-    <data key="d2">COLLECT</data>
-    <data key="d3">We collect the content you create or publish through the Platform, such as comments, hashtags, feedback, reviews.</data>
-</edge>
-
-<edge source="we" target="Creation Time" id="edge_collect_We_Creation Time">
+<edge source="we" target="Creation Time" id="edge_collect_we_Creation Time">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the associated metadata (such as when, where, and by whom the content was created).</data>
 </edge>
 
-<edge source="we" target="Creation Date" id="edge_collect_We_Creation Date">
+<edge source="we" target="Creation Date" id="edge_collect_we_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the associated metadata (such as when, where, and by whom the content was created).</data>
 </edge>
 
-<edge source="we" target="Location of Content Creation" id="edge_collect_We_Location of Content Creation">
+<edge source="we" target="Location of Content Creation" id="edge_collect_we_Location of Content Creation">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the associated metadata (such as when, where, and by whom the content was created).</data>
 </edge>
 
-<edge source="we" target="Creator Identity" id="edge_collect_We_Creator Identity">
+<edge source="we" target="Creator Identity" id="edge_collect_we_Creator Identity">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the associated metadata (such as when, where, and by whom the content was created).</data>
 </edge>
 
-<edge source="we" target="Clipboard Text" id="edge_collect_We_Clipboard Text">
+<edge source="we" target="Text from Clipboard" id="edge_collect_we_Text from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform.</data>
 </edge>
 
-<edge source="we" target="Clipboard Images" id="edge_collect_We_Clipboard Images">
+<edge source="we" target="Images from Clipboard" id="edge_collect_we_Images from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform.</data>
 </edge>
 
-<edge source="we" target="Clipboard Videos" id="edge_collect_We_Clipboard Videos">
+<edge source="we" target="Videos from Clipboard" id="edge_collect_we_Videos from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform.</data>
 </edge>
 
-<edge source="we" target="Location Information" id="edge_collect_We_Location Information">
+<edge source="we" target="Location Information" id="edge_collect_we_Location Information">
     <data key="d2">COLLECT</data>
     <data key="d3">In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content.</data>
 </edge>
 
-<edge source="we" target="Message Content" id="edge_collect_We_Message Content">
+<edge source="we" target="Message Content" id="edge_collect_we_Message Content">
     <data key="d2">COLLECT</data>
     <data key="d3">If you communicate with others using direct messages, we collect the content of the message.</data>
 </edge>
 
-<edge source="we" target="Timestamps" id="edge_collect_We_Timestamps">
+<edge source="we" target="Timestamps" id="edge_collect_we_Timestamps">
     <data key="d2">COLLECT</data>
     <data key="d3">...and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication).</data>
 </edge>
 
-<edge source="we" target="Chats with Merchants" id="edge_collect_We_Chats with Merchants">
+<edge source="we" target="Chats with Merchants" id="edge_collect_we_Chats with Merchants">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect the messages you send or receive through our chat functionality when communicating with merchants who sell goods to you.</data>
 </edge>
 
-<edge source="we" target="Virtual Assistant Interactions" id="edge_collect_We_Virtual Assistant Interactions">
+<edge source="we" target="Virtual Assistant Interactions" id="edge_collect_we_Virtual Assistant Interactions">
     <data key="d2">COLLECT</data>
     <data key="d3">...and your use of virtual assistants when purchasing items through the Platform.</data>
 </edge>
 
-<edge source="we" target="Names from Phone Book" id="edge_collect_We_Names from Phone Book">
+<edge source="we" target="Names from Phone Book" id="edge_collect_we_Names from Phone Book">
     <data key="d2">COLLECT</data>
     <data key="d3">If you choose to sync your contacts, we will collect information from your device’s phone book such as names.</data>
 </edge>
 
-<edge source="we" target="Phone Numbers from Phone Book" id="edge_collect_We_Phone Numbers from Phone Book">
+<edge source="we" target="Phone Numbers from Phone Book" id="edge_collect_we_Phone Numbers from Phone Book">
     <data key="d2">COLLECT</data>
     <data key="d3">If you choose to sync your contacts, we will collect information from your device’s phone book such as... phone numbers.</data>
 </edge>
 
-<edge source="we" target="Email Addresses from Phone Book" id="edge_collect_We_Email Addresses from Phone Book">
+<edge source="we" target="Email Addresses from Phone Book" id="edge_collect_we_Email Addresses from Phone Book">
     <data key="d2">COLLECT</data>
     <data key="d3">If you choose to sync your contacts, we will collect information from your device’s phone book such as... email addresses.</data>
 </edge>
 
-<edge source="we" target="Your Social Network Public Profile Information" id="edge_collect_We_Your Social Network Public Profile Information">
+<edge source="we" target="Your Social Network Public Profile Information" id="edge_collect_we_Your Social Network Public Profile Information">
     <data key="d2">COLLECT</data>
     <data key="d3">If you choose to find other users through your social network contacts, we will collect your public profile information.</data>
 </edge>
 
-<edge source="we" target="Names of Social Network Contacts" id="edge_collect_We_Names of Social Network Contacts">
+<edge source="we" target="Names of Social Network Contacts" id="edge_collect_we_Names of Social Network Contacts">
     <data key="d2">COLLECT</data>
     <data key="d3">...as well as names and profiles of your social network contacts.</data>
 </edge>
 
-<edge source="we" target="Profiles of Social Network Contacts" id="edge_collect_We_Profiles of Social Network Contacts">
+<edge source="we" target="Profiles of Social Network Contacts" id="edge_collect_we_Profiles of Social Network Contacts">
     <data key="d2">COLLECT</data>
     <data key="d3">...as well as names and profiles of your social network contacts.</data>
 </edge>
 
-<edge source="we" target="Contacts Provided by Others" id="edge_collect_We_Contacts Provided by Others">
+<edge source="we" target="Contacts Provided by Others" id="edge_collect_we_Contacts Provided by Others">
     <data key="d2">COLLECT</data>
     <data key="d3">We may also receive contact information that you hold or is held about you when contact information is synced with our Platform by you or another user.</data>
 </edge>
 
-<edge source="we" target="Payment Card Information" id="edge_collect_We_Payment Card Information">
+<edge source="we" target="Payment Card Details" id="edge_collect_we_Payment Card Details">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information.</data>
 </edge>
 
-<edge source="we" target="Billing Information" id="edge_collect_We_Billing Information">
+<edge source="we" target="Billing Information" id="edge_collect_we_Billing Information">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform... we collect information about the purchase or payment transaction, such as... billing.</data>
 </edge>
 
-<edge source="we" target="Delivery Information" id="edge_collect_We_Delivery Information">
+<edge source="we" target="Delivery Information" id="edge_collect_we_Delivery Information">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform... we collect information about the purchase or payment transaction, such as... delivery.</data>
 </edge>
 
-<edge source="we" target="Contact Information (Purchases)" id="edge_collect_We_Contact Information (Purchases)">
+<edge source="we" target="Contact Information (Purchases)" id="edge_collect_we_Contact Information (Purchases)">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform... we collect information about the purchase or payment transaction, such as... contact information.</data>
 </edge>
 
-<edge source="we" target="Items Purchased" id="edge_collect_We_Items Purchased">
+<edge source="we" target="Items Purchased" id="edge_collect_we_Items Purchased">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform... we collect information about the purchase or payment transaction, such as... items you purchased.</data>
 </edge>
 
-<edge source="we" target="Survey Responses" id="edge_collect_We_Survey Responses">
+<edge source="we" target="Survey Responses" id="edge_collect_we_Survey Responses">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us.</data>
 </edge>
 
-<edge source="we" target="Research Participation Data" id="edge_collect_We_Research Participation Data">
+<edge source="we" target="Research Participation Data" id="edge_collect_we_Research Participation Data">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us.</data>
 </edge>
 
-<edge source="we" target="Contest Entries" id="edge_collect_We_Contest Entries">
+<edge source="we" target="Contest Entries" id="edge_collect_we_Contest Entries">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us.</data>
 </edge>
 
-<edge source="we" target="Marketing Campaign Participation" id="edge_collect_We_Marketing Campaign Participation">
+<edge source="we" target="Marketing Campaign Participation" id="edge_collect_we_Marketing Campaign Participation">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us.</data>
 </edge>
 
-<edge source="we" target="Event Participation" id="edge_collect_We_Event Participation">
+<edge source="we" target="Event Participation" id="edge_collect_we_Event Participation">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us.</data>
 </edge>
 
-<edge source="we" target="Proof of Identity" id="edge_collect_We_Proof of Identity">
+<edge source="we" target="Proof of Identity" id="edge_collect_we_Proof of Identity">
     <data key="d2">COLLECT</data>
     <data key="d3">When you contact us, we collect the information you send us, such as proof of identity.</data>
 </edge>
 
-<edge source="we" target="Proof of Age" id="edge_collect_We_Proof of Age">
+<edge source="we" target="Proof of Age" id="edge_collect_we_Proof of Age">
     <data key="d2">COLLECT</data>
     <data key="d3">When you contact us, we collect the information you send us, such as proof of... age.</data>
 </edge>
 
-<edge source="we" target="Feedback or Inquiries" id="edge_collect_We_Feedback or Inquiries">
-    <data key="d2">COLLECT</data>
-    <data key="d3">When you contact us, we collect the information you send us, such as... feedback or inquiries about your use of the Platform.</data>
-</edge>
-
-<edge source="we" target="Information about Possible Violations" id="edge_collect_We_Information about Possible Violations">
+<edge source="we" target="Policy Violation Reports" id="edge_collect_we_Policy Violation Reports">
     <data key="d2">COLLECT</data>
     <data key="d3">When you contact us, we collect the information you send us, such as... information about possible violations of our Terms of Service.</data>
 </edge>
 
-<edge source="we" target="Form Data" id="edge_collect_We_Form Data">
+<edge source="we" target="Form Data" id="edge_collect_we_Form Data">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the Information You Provide when you fill in a form on the Platform.</data>
 </edge>
 
-<edge source="we" target="Device Model" id="edge_collect_We_Device Model">
+<edge source="we" target="Device Model" id="edge_collect_we_Device Model">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
 </edge>
 
-<edge source="we" target="Operating System" id="edge_collect_We_Operating System">
+<edge source="we" target="Operating System" id="edge_collect_we_Operating System">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
 </edge>
 
-<edge source="we" target="Keystroke Patterns or Rhythms" id="edge_collect_We_Keystroke Patterns or Rhythms">
+<edge source="we" target="Keystroke Patterns or Rhythms" id="edge_collect_we_Keystroke Patterns or Rhythms">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
 </edge>
 
-<edge source="we" target="IP Address" id="edge_collect_We_IP Address">
+<edge source="we" target="IP Address" id="edge_collect_we_IP Address">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
 </edge>
 
-<edge source="we" target="System Language" id="edge_collect_We_System Language">
+<edge source="we" target="System Language" id="edge_collect_we_System Language">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language.</data>
 </edge>
 
-<edge source="we" target="Crash Reports" id="edge_collect_We_Crash Reports">
+<edge source="we" target="Crash Reports" id="edge_collect_we_Crash Reports">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect service-related, diagnostic, and performance information, including crash reports.</data>
 </edge>
 
-<edge source="we" target="Performance Logs" id="edge_collect_We_Performance Logs">
+<edge source="we" target="Performance Logs" id="edge_collect_we_Performance Logs">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect service-related, diagnostic, and performance information, including... performance logs.</data>
 </edge>
 
-<edge source="we" target="Device ID" id="edge_collect_We_Device ID">
+<edge source="we" target="Device ID" id="edge_collect_we_Device ID">
     <data key="d2">COLLECT</data>
     <data key="d3">We automatically assign you a device ID and user ID.</data>
 </edge>
 
-<edge source="we" target="User ID" id="edge_collect_We_User ID">
+<edge source="we" target="User ID" id="edge_collect_we_User ID">
     <data key="d2">COLLECT</data>
     <data key="d3">We automatically assign you a device ID and user ID.</data>
 </edge>
 
-<edge source="we" target="Approximate Location (SIM and IP)" id="edge_collect_We_Approximate Location (SIM and IP)">
+<edge source="we" target="Approximate Location (SIM and IP)" id="edge_collect_we_Approximate Location (SIM and IP)">
     <data key="d2">COLLECT</data>
     <data key="d3">We automatically collect information about your approximate location (e.g., country, state, or city) based on your Technical Information (such as SIM card and IP address).</data>
 </edge>
 
-<edge source="we" target="Approximate Location (Device)" id="edge_collect_We_Approximate Location (Device)">
+<edge source="we" target="Approximate Location (Device)" id="edge_collect_we_Approximate Location (Device)">
     <data key="d2">COLLECT</data>
     <data key="d3">Also, where you enable location services for the TikTok app within your device settings, we collect approximate location information from your device.</data>
 </edge>
 
-<edge source="we" target="Content Viewed" id="edge_collect_We_Content Viewed">
+<edge source="we" target="Content Viewed" id="edge_collect_we_Content Viewed">
     <data key="d2">COLLECT</data>
-    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view.</data>
+    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
 </edge>
 
-<edge source="we" target="Duration of Use" id="edge_collect_We_Duration of Use">
+<edge source="we" target="Duration of Use" id="edge_collect_we_Duration of Use">
     <data key="d2">COLLECT</data>
-    <data key="d3">We collect information about how you engage with the Platform, including... the duration... of your use.</data>
+    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
 </edge>
 
-<edge source="we" target="Frequency of Use" id="edge_collect_We_Frequency of Use">
+<edge source="we" target="Frequency of Use" id="edge_collect_we_Frequency of Use">
     <data key="d2">COLLECT</data>
-    <data key="d3">We collect information about how you engage with the Platform, including... the... frequency of your use.</data>
+    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
 </edge>
 
-<edge source="we" target="Engagement with Other Users" id="edge_collect_We_Engagement with Other Users">
+<edge source="we" target="Interactions with Other Users" id="edge_collect_we_Interactions with Other Users">
     <data key="d2">COLLECT</data>
-    <data key="d3">We collect information about how you engage with the Platform, including... your engagement with other users.</data>
+    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
 </edge>
 
-<edge source="we" target="Search History" id="edge_collect_We_Search History">
+<edge source="we" target="Search History" id="edge_collect_we_Search History">
     <data key="d2">COLLECT</data>
-    <data key="d3">We collect information about how you engage with the Platform, including... your search history.</data>
+    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
 </edge>
 
-<edge source="we" target="Settings" id="edge_collect_We_Settings">
+<edge source="we" target="Settings" id="edge_collect_we_Settings">
     <data key="d2">COLLECT</data>
-    <data key="d3">We collect information about how you engage with the Platform, including... your settings.</data>
+    <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings.</data>
 </edge>
 
-<edge source="we" target="Objects and Scenery Recognition" id="edge_collect_We_Objects and Scenery Recognition">
+<edge source="we" target="Objects and Scenery Recognition" id="edge_collect_we_Objects and Scenery Recognition">
     <data key="d2">COLLECT</data>
     <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content.</data>
 </edge>
 
-<edge source="we" target="Face or Body Part Detection" id="edge_collect_We_Face or Body Part Detection">
+<edge source="we" target="Face or Body Part Detection" id="edge_collect_we_Face or Body Part Detection">
     <data key="d2">COLLECT</data>
     <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content... the existence or location within an image of a face or other body parts.</data>
 </edge>
 
-<edge source="we" target="Speech-to-Text Transcriptions" id="edge_collect_We_Speech-to-Text Transcriptions">
+<edge source="we" target="Speech-to-Text Transcriptions" id="edge_collect_we_Speech-to-Text Transcriptions">
     <data key="d2">COLLECT</data>
     <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content... and the text of words spoken in your User Content.</data>
 </edge>
 
-<edge source="we" target="Inferred Age-Range" id="edge_collect_We_Inferred Age-Range">
+<edge source="we" target="Inferred Age-Range" id="edge_collect_we_Inferred Age-Range">
     <data key="d2">COLLECT</data>
     <data key="d3">We infer your attributes (such as age-range and gender).</data>
 </edge>
 
-<edge source="we" target="Inferred Gender" id="edge_collect_We_Inferred Gender">
+<edge source="we" target="Inferred Gender" id="edge_collect_we_Inferred Gender">
     <data key="d2">COLLECT</data>
     <data key="d3">We infer your attributes (such as age-range and gender).</data>
 </edge>
 
-<edge source="we" target="Interests and Preferences" id="edge_collect_We_Interests and Preferences">
+<edge source="we" target="Interests and Preferences" id="edge_collect_we_Interests and Preferences">
     <data key="d2">COLLECT</data>
     <data key="d3">We infer your attributes... and interests based on the information we have about you.</data>
 </edge>
 
-<edge source="we" target="Cookie Identifiers" id="edge_collect_We_Cookie Identifiers">
+<edge source="we" target="Cookie Identifiers" id="edge_collect_we_Cookie Identifiers">
     <data key="d2">COLLECT</data>
     <data key="d3">We use cookies and similar tracking technologies to operate and provide the Platform.</data>
 </edge>
 
-<edge source="we" target="Session Tokens" id="edge_collect_We_Session Tokens">
+<edge source="we" target="Session Tokens" id="edge_collect_we_Session Tokens">
     <data key="d2">COLLECT</data>
     <data key="d3">We use cookies and similar tracking technologies to operate and provide the Platform.</data>
 </edge>
 
-<edge source="we" target="Web Beacons" id="edge_collect_We_Web Beacons">
+<edge source="we" target="Web Beacons" id="edge_collect_we_Web Beacons">
     <data key="d2">COLLECT</data>
     <data key="d3">We use cookies and similar tracking technologies to operate and provide the Platform.</data>
 </edge>
 
-<edge source="we" target="Pixel Tags" id="edge_collect_We_Pixel Tags">
+<edge source="we" target="Pixel Tags" id="edge_collect_we_Pixel Tags">
     <data key="d2">COLLECT</data>
     <data key="d3">We use cookies and similar tracking technologies to operate and provide the Platform.</data>
 </edge>
@@ -2366,7 +2210,8 @@
 
 <edge source="Service Providers" target="Feedback" id="edge_collect_Service Providers_Feedback">
     <data key="d2">COLLECT</data>
-    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.
+We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
 <edge source="Service Providers" target="Reviews" id="edge_collect_Service Providers_Reviews">
@@ -2374,22 +2219,37 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Content Metadata" id="edge_collect_Service Providers_Content Metadata">
+<edge source="Service Providers" target="Creation Time" id="edge_collect_Service Providers_Creation Time">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Clipboard Text" id="edge_collect_Service Providers_Clipboard Text">
+<edge source="Service Providers" target="Creation Date" id="edge_collect_Service Providers_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Clipboard Images" id="edge_collect_Service Providers_Clipboard Images">
+<edge source="Service Providers" target="Location of Content Creation" id="edge_collect_Service Providers_Location of Content Creation">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Clipboard Videos" id="edge_collect_Service Providers_Clipboard Videos">
+<edge source="Service Providers" target="Creator Identity" id="edge_collect_Service Providers_Creator Identity">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+<edge source="Service Providers" target="Text from Clipboard" id="edge_collect_Service Providers_Text from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+<edge source="Service Providers" target="Images from Clipboard" id="edge_collect_Service Providers_Images from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+<edge source="Service Providers" target="Videos from Clipboard" id="edge_collect_Service Providers_Videos from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -2454,7 +2314,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Payment Card Information" id="edge_collect_Service Providers_Payment Card Information">
+<edge source="Service Providers" target="Payment Card Details" id="edge_collect_Service Providers_Payment Card Details">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -2509,12 +2369,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Feedback or Inquiries" id="edge_collect_Service Providers_Feedback or Inquiries">
-    <data key="d2">COLLECT</data>
-    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
-</edge>
-
-<edge source="Service Providers" target="Information about Possible Violations" id="edge_collect_Service Providers_Information about Possible Violations">
+<edge source="Service Providers" target="Policy Violation Reports" id="edge_collect_Service Providers_Policy Violation Reports">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -2594,7 +2449,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Service Providers" target="Engagement with Other Users" id="edge_collect_Service Providers_Engagement with Other Users">
+<edge source="Service Providers" target="Interactions with Other Users" id="edge_collect_Service Providers_Interactions with Other Users">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -2824,22 +2679,37 @@
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Content Metadata" id="edge_collect_Third Party Platforms and Partners_Content Metadata">
+<edge source="Third Party Platforms and Partners" target="Creation Time" id="edge_collect_Third Party Platforms and Partners_Creation Time">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Clipboard Text" id="edge_collect_Third Party Platforms and Partners_Clipboard Text">
+<edge source="Third Party Platforms and Partners" target="Creation Date" id="edge_collect_Third Party Platforms and Partners_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Clipboard Images" id="edge_collect_Third Party Platforms and Partners_Clipboard Images">
+<edge source="Third Party Platforms and Partners" target="Location of Content Creation" id="edge_collect_Third Party Platforms and Partners_Location of Content Creation">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Clipboard Videos" id="edge_collect_Third Party Platforms and Partners_Clipboard Videos">
+<edge source="Third Party Platforms and Partners" target="Creator Identity" id="edge_collect_Third Party Platforms and Partners_Creator Identity">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
+</edge>
+
+<edge source="Third Party Platforms and Partners" target="Text from Clipboard" id="edge_collect_Third Party Platforms and Partners_Text from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
+</edge>
+
+<edge source="Third Party Platforms and Partners" target="Images from Clipboard" id="edge_collect_Third Party Platforms and Partners_Images from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
+</edge>
+
+<edge source="Third Party Platforms and Partners" target="Videos from Clipboard" id="edge_collect_Third Party Platforms and Partners_Videos from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
@@ -2934,7 +2804,7 @@
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Engagement with Other Users" id="edge_collect_Third Party Platforms and Partners_Engagement with Other Users">
+<edge source="Third Party Platforms and Partners" target="Interactions with Other Users" id="edge_collect_Third Party Platforms and Partners_Interactions with Other Users">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform.</data>
 </edge>
@@ -3024,22 +2894,37 @@
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Content Metadata" id="edge_collect_Third Party Measurement Providers_Content Metadata">
+<edge source="Third Party Measurement Providers" target="Creation Time" id="edge_collect_Third Party Measurement Providers_Creation Time">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Clipboard Text" id="edge_collect_Third Party Measurement Providers_Clipboard Text">
+<edge source="Third Party Measurement Providers" target="Creation Date" id="edge_collect_Third Party Measurement Providers_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Clipboard Images" id="edge_collect_Third Party Measurement Providers_Clipboard Images">
+<edge source="Third Party Measurement Providers" target="Location of Content Creation" id="edge_collect_Third Party Measurement Providers_Location of Content Creation">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Clipboard Videos" id="edge_collect_Third Party Measurement Providers_Clipboard Videos">
+<edge source="Third Party Measurement Providers" target="Creator Identity" id="edge_collect_Third Party Measurement Providers_Creator Identity">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
+</edge>
+
+<edge source="Third Party Measurement Providers" target="Text from Clipboard" id="edge_collect_Third Party Measurement Providers_Text from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
+</edge>
+
+<edge source="Third Party Measurement Providers" target="Images from Clipboard" id="edge_collect_Third Party Measurement Providers_Images from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
+</edge>
+
+<edge source="Third Party Measurement Providers" target="Videos from Clipboard" id="edge_collect_Third Party Measurement Providers_Videos from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
@@ -3104,7 +2989,7 @@
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Engagement with Other Users" id="edge_collect_Third Party Measurement Providers_Engagement with Other Users">
+<edge source="Third Party Measurement Providers" target="Interactions with Other Users" id="edge_collect_Third Party Measurement Providers_Interactions with Other Users">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information, and Usage Information with third party measurement providers who help us measure advertising served on the Platform.</data>
 </edge>
@@ -3271,7 +3156,8 @@
 
 <edge source="Entities within our corporate group" target="Feedback" id="edge_collect_Entities within our corporate group_Feedback">
     <data key="d2">COLLECT</data>
-    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.
+We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
 <edge source="Entities within our corporate group" target="Reviews" id="edge_collect_Entities within our corporate group_Reviews">
@@ -3279,22 +3165,37 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Content Metadata" id="edge_collect_Entities within our corporate group_Content Metadata">
+<edge source="Entities within our corporate group" target="Creation Time" id="edge_collect_Entities within our corporate group_Creation Time">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Clipboard Text" id="edge_collect_Entities within our corporate group_Clipboard Text">
+<edge source="Entities within our corporate group" target="Creation Date" id="edge_collect_Entities within our corporate group_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Clipboard Images" id="edge_collect_Entities within our corporate group_Clipboard Images">
+<edge source="Entities within our corporate group" target="Location of Content Creation" id="edge_collect_Entities within our corporate group_Location of Content Creation">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Clipboard Videos" id="edge_collect_Entities within our corporate group_Clipboard Videos">
+<edge source="Entities within our corporate group" target="Creator Identity" id="edge_collect_Entities within our corporate group_Creator Identity">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+<edge source="Entities within our corporate group" target="Text from Clipboard" id="edge_collect_Entities within our corporate group_Text from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+<edge source="Entities within our corporate group" target="Images from Clipboard" id="edge_collect_Entities within our corporate group_Images from Clipboard">
+    <data key="d2">COLLECT</data>
+    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
+</edge>
+
+<edge source="Entities within our corporate group" target="Videos from Clipboard" id="edge_collect_Entities within our corporate group_Videos from Clipboard">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -3314,7 +3215,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Merchant Communications" id="edge_collect_Entities within our corporate group_Merchant Communications">
+<edge source="Entities within our corporate group" target="Chats with Merchants" id="edge_collect_Entities within our corporate group_Chats with Merchants">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -3359,7 +3260,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Payment Card Information" id="edge_collect_Entities within our corporate group_Payment Card Information">
+<edge source="Entities within our corporate group" target="Payment Card Details" id="edge_collect_Entities within our corporate group_Payment Card Details">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -3414,12 +3315,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Feedback or Inquiries" id="edge_collect_Entities within our corporate group_Feedback or Inquiries">
-    <data key="d2">COLLECT</data>
-    <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
-</edge>
-
-<edge source="Entities within our corporate group" target="Information about Possible Violations" id="edge_collect_Entities within our corporate group_Information about Possible Violations">
+<edge source="Entities within our corporate group" target="Policy Violation Reports" id="edge_collect_Entities within our corporate group_Policy Violation Reports">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -3499,7 +3395,7 @@
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Engagement with Other Users" id="edge_collect_Entities within our corporate group_Engagement with Other Users">
+<edge source="Entities within our corporate group" target="Interactions with Other Users" id="edge_collect_Entities within our corporate group_Interactions with Other Users">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services.</data>
 </edge>
@@ -3767,7 +3663,13 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account.</data>
 </edge>
 
-<edge source="Users and the Public" target="Creation Time and Date" id="edge_collect_Users and the Public_Creation Time and Date">
+<edge source="Users and the Public" target="Creation Time" id="edge_collect_Users and the Public_Creation Time">
+    <data key="d2">COLLECT</data>
+    <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.
+For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account.</data>
+</edge>
+
+<edge source="Users and the Public" target="Creation Date" id="edge_collect_Users and the Public_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account.</data>
@@ -3790,7 +3692,12 @@ For example, if you have a public account and have not restricted the visibility
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
 </edge>
 
-<edge source="Users and the Public" target="Duration and Frequency of Use" id="edge_collect_Users and the Public_Duration and Frequency of Use">
+<edge source="Users and the Public" target="Duration of Use" id="edge_collect_Users and the Public_Duration of Use">
+    <data key="d2">COLLECT</data>
+    <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
+</edge>
+
+<edge source="Users and the Public" target="Frequency of Use" id="edge_collect_Users and the Public_Frequency of Use">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
 </edge>
@@ -3800,12 +3707,7 @@ For example, if you have a public account and have not restricted the visibility
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
 </edge>
 
-<edge source="Users and the Public" target="Search Queries" id="edge_collect_Users and the Public_Search Queries">
-    <data key="d2">COLLECT</data>
-    <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
-</edge>
-
-<edge source="Users and the Public" target="Browsing History" id="edge_collect_Users and the Public_Browsing History">
+<edge source="Users and the Public" target="Search History" id="edge_collect_Users and the Public_Search History">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
 </edge>
@@ -3910,7 +3812,12 @@ For example, if you have a public account and have not restricted the visibility
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites.</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Creation Time and Date" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Creation Time and Date">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Creation Time" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Creation Time">
+    <data key="d2">COLLECT</data>
+    <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites.</data>
+</edge>
+
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Creation Date" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Creation Date">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites.</data>
 </edge>

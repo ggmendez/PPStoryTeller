@@ -20,7 +20,11 @@ categories.tiktok = {
     actorCategories: {
         "Advertisers": ["Advertisers", "advertiser"],
         "Analytic Providers": ["Third Party Measurement Providers", "Measurement Partner", "Other Partner", "Third Party Providers"],
-        "Corporations": ["Entities within our corporate group", "Corporate Transaction Parties"],
+        "Corporations": [
+            "Entities within our corporate group", 
+            "Corporate Transaction Parties",
+            "Copyright Holders"
+        ],
         "Geographic Entities": ["Search Engines, Content Aggregators, and News Sites"],
         "We": ["we", "We (TikTok)", "TikTok"],
         "Researchers": ["Researchers"],
@@ -37,7 +41,8 @@ categories.tiktok = {
             "Other Users",
             "Other Third Parties",
             "Third Party Platforms and Partners",
-            "Third Party Services with TikTok Developer Tools"
+            "Third Party Services with TikTok Developer Tools",
+            "Users and the Public",
         ]
     },
 
@@ -116,30 +121,28 @@ categories.tiktok = {
             "Hashtags",
             "Feedback",
             "Reviews",
-            "Clipboard Text",
-            "Clipboard Images",
-            "Clipboard Videos",
+            "Text from Clipboard",
+            "Images from Clipboard",
+            "Videos from Clipboard",
             "Survey Responses",
             "Research Participation Data",
             "Contest Entries",
             "Marketing Campaign Participation",
             "Event Participation",
-            "Form Data"
-        ],
-        "Content Metadata": [
+            "Form Data",
             "Creation Time",
             "Creation Date",
-            "Creator Identity",
-            "Location of Content Creation"
-        ],
+            "Creator Identity"
+        ],        
         "Communication Data": [
             "Message Content",
             "Timestamps",
             "Chats with Merchants",
-            "Virtual Assistant Interactions"
+            "Virtual Assistant Interactions",
+            "Policy Violation Reports",
         ],
         "Transaction and Financial Information": [
-            "Payment Card Information",
+            "Payment Card Details",
             "Billing Information",
             "Delivery Information",
             "Contact Information (Purchases)",
@@ -159,7 +162,8 @@ categories.tiktok = {
             "Crash Reports",
             "Performance Logs",
             "Device ID",
-            "User ID"
+            "User ID",
+            "Network Type"
         ],
         "Location Data": [
             "Approximate Location (SIM and IP)",
@@ -171,7 +175,7 @@ categories.tiktok = {
             "Content Viewed",
             "Duration of Use",
             "Frequency of Use",
-            "Engagement with Other Users",
+            "Interactions with Other Users",
             "Search History",
             "Settings"
         ],

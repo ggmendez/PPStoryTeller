@@ -825,7 +825,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log(item);
         console.log(categorization);
         console.log(normalizedItem);
-        return "Unknown Category";
+        return "UnknownActorCategory";
     }
 
     fetch('graphmls/' + who + '.graphml')
