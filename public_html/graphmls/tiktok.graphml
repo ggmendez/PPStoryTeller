@@ -1011,19 +1011,10 @@
     <data key="d1">DATA</data>
 </node>
 
-<node id="Language Preferences">
-    <data key="level_0">Language Preferences</data>
-    <data key="level_1">Settings and Preferences</data>
-    <data key="level_2">Usage and Interaction Data</data>
-    <data key="level_3">Automatically Collected Information</data>
-    <data key="d0">Language Preferences</data>
-    <data key="d1">DATA</data>
-</node>
-
 <node id="Notification Settings">
     <data key="level_0">Notification Settings</data>
-    <data key="level_1">Settings and Preferences</data>
-    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_1">Device Information</data>
+    <data key="level_2">Device and Technical Information</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Notification Settings</data>
     <data key="d1">DATA</data>
@@ -1655,11 +1646,7 @@
     <data key="d2">SUBSUM</data>
 </edge>
 
-<edge source="Settings and Preferences" target="Language Preferences" id="edge_subsum_Settings and Preferences_Language Preferences">
-    <data key="d2">SUBSUM</data>
-</edge>
-
-<edge source="Settings and Preferences" target="Notification Settings" id="edge_subsum_Settings and Preferences_Notification Settings">
+<edge source="Device Information" target="Notification Settings" id="edge_subsum_Device Information_Notification Settings">
     <data key="d2">SUBSUM</data>
 </edge>
 
@@ -3712,7 +3699,7 @@ For example, if you have a public account and have not restricted the visibility
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
 </edge>
 
-<edge source="Users and the Public" target="Language Preferences" id="edge_collect_Users and the Public_Language Preferences">
+<edge source="Users and the Public" target="System Language" id="edge_collect_Users and the Public_System Language">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public.</data>
 </edge>

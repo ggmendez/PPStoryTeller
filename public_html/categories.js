@@ -163,7 +163,8 @@ categories.tiktok = {
             "Performance Logs",
             "Device ID",
             "User ID",
-            "Network Type"
+            "Network Type",
+            "Notification Settings",
         ],
         "Location Data": [
             "Approximate Location (SIM and IP)",
