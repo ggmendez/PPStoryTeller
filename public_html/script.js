@@ -2,7 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    const sizeScaleMultiplier = 12;
+    const sizeScaleMultiplier = 10;
+
+    const maxFontSize = 16; // Maximum font size cap
+    const minFontSize = 8;  // Minimum readable font size
 
     let currentPermanentTooltip = null;
     let searcher = null;
@@ -669,7 +672,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         // Calculate half-diagonal for the iconNode
         const iconWidthWithPadding = centerIconWidth + 20;
         const iconHeightWithPadding = centerIconHeight + 20;
-        const iconR = maxConnections * sizeScaleMultiplier;
+        const iconR = maxConnections * sizeScaleMultiplier + 30;
 
         // Define the icon node with fixed position
         const iconNode = {
@@ -1580,8 +1583,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 // Set initial fontSize proportional to rectangle size
                 const initialFontSize = rectHeight * 0.5; // Adjust multiplier as needed
-                const maxFontSize = 18; // Maximum font size cap
-                const minFontSize = 10;  // Minimum readable font size
+
 
                 let fontSize = Math.min(initialFontSize, maxFontSize);
 
