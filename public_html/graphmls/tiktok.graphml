@@ -111,12 +111,71 @@
 </node>
 
 
+<node id="Information You Provide">
+    <data key="level_0">Information You Provide</data>
+    <data key="d0">Information You Provide</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Personally Identifiable Information">
+    <data key="level_0">Personally Identifiable Information</data>
+    <data key="level_1">Personally Identifiable Information</data>
+    <data key="level_2">Information You Provide</data>
+    <data key="d0">Personally Identifiable Information</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Basic Personal Details">
     <data key="level_0">Basic Personal Details</data>
     <data key="level_1">Basic Personal Details</data>
     <data key="level_2">Personally Identifiable Information</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Basic Personal Details</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Date of Birth">
+    <data key="level_0">Date of Birth</data>
+    <data key="level_1">Basic Personal Details</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Date of Birth</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Username">
+    <data key="level_0">Username</data>
+    <data key="level_1">Basic Personal Details</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Username</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Email Address">
+    <data key="level_0">Email Address</data>
+    <data key="level_1">Basic Personal Details</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Email Address</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Telephone Number">
+    <data key="level_0">Telephone Number</data>
+    <data key="level_1">Basic Personal Details</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Telephone Number</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Password">
+    <data key="level_0">Password</data>
+    <data key="level_1">Basic Personal Details</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Password</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -129,12 +188,74 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Profile Bio">
+    <data key="level_0">Profile Bio</data>
+    <data key="level_1">Profile Information</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Profile Bio</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Profile Photo">
+    <data key="level_0">Profile Photo</data>
+    <data key="level_1">Profile Information</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Profile Photo</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="User-Generated Content">
+    <data key="level_0">User-Generated Content</data>
+    <data key="level_1">User-Generated Content</data>
+    <data key="level_2">Information You Provide</data>
+    <data key="d0">User-Generated Content</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Media Content">
     <data key="level_0">Media Content</data>
     <data key="level_1">Media Content</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Media Content</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Photographs">
+    <data key="level_0">Photographs</data>
+    <data key="level_1">Media Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Photographs</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Videos">
+    <data key="level_0">Videos</data>
+    <data key="level_1">Media Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Videos</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Audio Recordings">
+    <data key="level_0">Audio Recordings</data>
+    <data key="level_1">Media Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Audio Recordings</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Livestreams">
+    <data key="level_0">Livestreams</data>
+    <data key="level_1">Media Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Livestreams</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -147,12 +268,48 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Comments">
+    <data key="level_0">Comments</data>
+    <data key="level_1">Textual Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Comments</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Hashtags">
+    <data key="level_0">Hashtags</data>
+    <data key="level_1">Textual Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Hashtags</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Support and Feedback">
     <data key="level_0">Support and Feedback</data>
     <data key="level_1">Support and Feedback</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Support and Feedback</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Feedback">
+    <data key="level_0">Feedback</data>
+    <data key="level_1">Support and Feedback</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Feedback</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Reviews">
+    <data key="level_0">Reviews</data>
+    <data key="level_1">Textual Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Reviews</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -165,12 +322,56 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Creation Time">
+    <data key="level_0">Creation Time</data>
+    <data key="level_1">Content Metadata</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Creation Time</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Creation Date">
+    <data key="level_0">Creation Date</data>
+    <data key="level_1">Content Metadata</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Creation Date</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Location Data">
+    <data key="level_0">Location Data</data>
+    <data key="level_1">Location Data</data>
+    <data key="level_2">Information You Provide</data>
+    <data key="d0">Location Data</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Location Tags in Content">
     <data key="level_0">Location Tags in Content</data>
     <data key="level_1">Location Tags in Content</data>
     <data key="level_2">Location Data</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Location Tags in Content</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Location of Content Creation">
+    <data key="level_0">Location of Content Creation</data>
+    <data key="level_1">Location Tags in Content</data>
+    <data key="level_2">Location Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Location of Content Creation</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Creator Identity">
+    <data key="level_0">Creator Identity</data>
+    <data key="level_1">Content Metadata</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Creator Identity</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -183,12 +384,74 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Text from Clipboard">
+    <data key="level_0">Text from Clipboard</data>
+    <data key="level_1">Clipboard Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Text from Clipboard</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Images from Clipboard">
+    <data key="level_0">Images from Clipboard</data>
+    <data key="level_1">Clipboard Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Images from Clipboard</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Videos from Clipboard">
+    <data key="level_0">Videos from Clipboard</data>
+    <data key="level_1">Clipboard Content</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Videos from Clipboard</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Location Information">
+    <data key="level_0">Location Information</data>
+    <data key="level_1">Location Tags in Content</data>
+    <data key="level_2">Location Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Location Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Communication Data">
+    <data key="level_0">Communication Data</data>
+    <data key="level_1">Communication Data</data>
+    <data key="level_2">Information You Provide</data>
+    <data key="d0">Communication Data</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Direct Messages">
     <data key="level_0">Direct Messages</data>
     <data key="level_1">Direct Messages</data>
     <data key="level_2">Communication Data</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Direct Messages</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Message Content">
+    <data key="level_0">Message Content</data>
+    <data key="level_1">Direct Messages</data>
+    <data key="level_2">Communication Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Message Content</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Timestamps">
+    <data key="level_0">Timestamps</data>
+    <data key="level_1">Direct Messages</data>
+    <data key="level_2">Communication Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Timestamps</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -201,12 +464,65 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Chats with Merchants">
+    <data key="level_0">Chats with Merchants</data>
+    <data key="level_1">Merchant Communications</data>
+    <data key="level_2">Communication Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Chats with Merchants</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Virtual Assistant Interactions">
+    <data key="level_0">Virtual Assistant Interactions</data>
+    <data key="level_1">Merchant Communications</data>
+    <data key="level_2">Communication Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Virtual Assistant Interactions</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Contact Information">
+    <data key="level_0">Contact Information</data>
+    <data key="level_1">Contact Information</data>
+    <data key="level_2">Information You Provide</data>
+    <data key="d0">Contact Information</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Device Contacts">
     <data key="level_0">Device Contacts</data>
     <data key="level_1">Device Contacts</data>
     <data key="level_2">Contact Information</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Device Contacts</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Names from Phone Book">
+    <data key="level_0">Names from Phone Book</data>
+    <data key="level_1">Device Contacts</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Names from Phone Book</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Phone Numbers from Phone Book">
+    <data key="level_0">Phone Numbers from Phone Book</data>
+    <data key="level_1">Device Contacts</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Phone Numbers from Phone Book</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Email Addresses from Phone Book">
+    <data key="level_0">Email Addresses from Phone Book</data>
+    <data key="level_1">Device Contacts</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Email Addresses from Phone Book</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -219,6 +535,33 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Your Social Network Public Profile Information">
+    <data key="level_0">Your Social Network Public Profile Information</data>
+    <data key="level_1">Social Network Contacts</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Your Social Network Public Profile Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Names of Social Network Contacts">
+    <data key="level_0">Names of Social Network Contacts</data>
+    <data key="level_1">Social Network Contacts</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Names of Social Network Contacts</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Profiles of Social Network Contacts">
+    <data key="level_0">Profiles of Social Network Contacts</data>
+    <data key="level_1">Social Network Contacts</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Profiles of Social Network Contacts</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Contacts Provided by Others">
     <data key="level_0">Contacts Provided by Others</data>
     <data key="level_1">Contacts Provided by Others</data>
@@ -228,12 +571,38 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Transaction and Financial Information">
+    <data key="level_0">Transaction and Financial Information</data>
+    <data key="level_1">Transaction and Financial Information</data>
+    <data key="level_2">Information You Provide</data>
+    <data key="d0">Transaction and Financial Information</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Payment Information">
     <data key="level_0">Payment Information</data>
     <data key="level_1">Payment Information</data>
     <data key="level_2">Transaction and Financial Information</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">Payment Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Payment Card Details">
+    <data key="level_0">Payment Card Details</data>
+    <data key="level_1">Payment Information</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Payment Card Details</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Billing Information">
+    <data key="level_0">Billing Information</data>
+    <data key="level_1">Payment Information</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Billing Information</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -255,12 +624,75 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Contact Information (Purchases)">
+    <data key="level_0">Contact Information (Purchases)</data>
+    <data key="level_1">Purchase Details</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Contact Information (Purchases)</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Items Purchased">
+    <data key="level_0">Items Purchased</data>
+    <data key="level_1">Purchase Details</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Items Purchased</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="User Participation Data">
     <data key="level_0">User Participation Data</data>
     <data key="level_1">User Participation Data</data>
     <data key="level_2">User-Generated Content</data>
     <data key="level_3">Information You Provide</data>
     <data key="d0">User Participation Data</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Survey Responses">
+    <data key="level_0">Survey Responses</data>
+    <data key="level_1">User Participation Data</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Survey Responses</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Research Participation Data">
+    <data key="level_0">Research Participation Data</data>
+    <data key="level_1">User Participation Data</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Research Participation Data</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Contest Entries">
+    <data key="level_0">Contest Entries</data>
+    <data key="level_1">User Participation Data</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Contest Entries</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Marketing Campaign Participation">
+    <data key="level_0">Marketing Campaign Participation</data>
+    <data key="level_1">User Participation Data</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Marketing Campaign Participation</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Event Participation">
+    <data key="level_0">Event Participation</data>
+    <data key="level_1">User Participation Data</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Event Participation</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -273,12 +705,80 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Proof of Identity">
+    <data key="level_0">Proof of Identity</data>
+    <data key="level_1">Identification Documents</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Proof of Identity</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Proof of Age">
+    <data key="level_0">Proof of Age</data>
+    <data key="level_1">Identification Documents</data>
+    <data key="level_2">Personally Identifiable Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Proof of Age</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Policy Violation Reports">
+    <data key="level_0">Policy Violation Reports</data>
+    <data key="level_1">Support and Feedback</data>
+    <data key="level_2">Communication Data</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Policy Violation Reports</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Form Data">
+    <data key="level_0">Form Data</data>
+    <data key="level_1">User Participation Data</data>
+    <data key="level_2">User-Generated Content</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Form Data</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Automatically Collected Information">
+    <data key="level_0">Automatically Collected Information</data>
+    <data key="d0">Automatically Collected Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Device and Technical Information">
+    <data key="level_0">Device and Technical Information</data>
+    <data key="level_1">Device and Technical Information</data>
+    <data key="level_2">Automatically Collected Information</data>
+    <data key="d0">Device and Technical Information</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Device Information">
     <data key="level_0">Device Information</data>
     <data key="level_1">Device Information</data>
     <data key="level_2">Device and Technical Information</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Device Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Device Model">
+    <data key="level_0">Device Model</data>
+    <data key="level_1">Device Information</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Device Model</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Operating System">
+    <data key="level_0">Operating System</data>
+    <data key="level_1">Device Information</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Operating System</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -291,12 +791,57 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Keystroke Patterns or Rhythms">
+    <data key="level_0">Keystroke Patterns or Rhythms</data>
+    <data key="level_1">Technical Diagnostics</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Keystroke Patterns or Rhythms</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Network Information">
     <data key="level_0">Network Information</data>
     <data key="level_1">Network Information</data>
     <data key="level_2">Device and Technical Information</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Network Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="IP Address">
+    <data key="level_0">IP Address</data>
+    <data key="level_1">Network Information</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">IP Address</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="System Language">
+    <data key="level_0">System Language</data>
+    <data key="level_1">Device Information</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">System Language</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Crash Reports">
+    <data key="level_0">Crash Reports</data>
+    <data key="level_1">Technical Diagnostics</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Crash Reports</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Performance Logs">
+    <data key="level_0">Performance Logs</data>
+    <data key="level_1">Technical Diagnostics</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Performance Logs</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -309,12 +854,56 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Device ID">
+    <data key="level_0">Device ID</data>
+    <data key="level_1">Automatically Assigned Identifiers</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Device ID</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="User ID">
+    <data key="level_0">User ID</data>
+    <data key="level_1">Automatically Assigned Identifiers</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">User ID</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Approximate Location">
     <data key="level_0">Approximate Location</data>
     <data key="level_1">Approximate Location</data>
     <data key="level_2">Location Data</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Approximate Location</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Approximate Location (SIM and IP)">
+    <data key="level_0">Approximate Location (SIM and IP)</data>
+    <data key="level_1">Approximate Location</data>
+    <data key="level_2">Location Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Approximate Location (SIM and IP)</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Approximate Location (Device)">
+    <data key="level_0">Approximate Location (Device)</data>
+    <data key="level_1">Approximate Location</data>
+    <data key="level_2">Location Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Approximate Location (Device)</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Usage and Interaction Data">
+    <data key="level_0">Usage and Interaction Data</data>
+    <data key="level_1">Usage and Interaction Data</data>
+    <data key="level_2">Automatically Collected Information</data>
+    <data key="d0">Usage and Interaction Data</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -327,12 +916,57 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Content Viewed">
+    <data key="level_0">Content Viewed</data>
+    <data key="level_1">Engagement Metrics</data>
+    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Content Viewed</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Duration of Use">
+    <data key="level_0">Duration of Use</data>
+    <data key="level_1">Engagement Metrics</data>
+    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Duration of Use</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Frequency of Use">
+    <data key="level_0">Frequency of Use</data>
+    <data key="level_1">Engagement Metrics</data>
+    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Frequency of Use</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Interactions with Other Users">
+    <data key="level_0">Interactions with Other Users</data>
+    <data key="level_1">Engagement Metrics</data>
+    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Interactions with Other Users</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Search and Activity History">
     <data key="level_0">Search and Activity History</data>
     <data key="level_1">Search and Activity History</data>
     <data key="level_2">Usage and Interaction Data</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Search and Activity History</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Search History">
+    <data key="level_0">Search History</data>
+    <data key="level_1">Search and Activity History</data>
+    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Search History</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -345,12 +979,56 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Settings">
+    <data key="level_0">Settings</data>
+    <data key="level_1">Settings and Preferences</data>
+    <data key="level_2">Usage and Interaction Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Settings</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Inferred and Analytical Data">
+    <data key="level_0">Inferred and Analytical Data</data>
+    <data key="level_1">Inferred and Analytical Data</data>
+    <data key="level_2">Automatically Collected Information</data>
+    <data key="d0">Inferred and Analytical Data</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Content Analysis">
     <data key="level_0">Content Analysis</data>
     <data key="level_1">Content Analysis</data>
     <data key="level_2">Inferred and Analytical Data</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Content Analysis</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Objects and Scenery Recognition">
+    <data key="level_0">Objects and Scenery Recognition</data>
+    <data key="level_1">Content Analysis</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Objects and Scenery Recognition</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Face or Body Part Detection">
+    <data key="level_0">Face or Body Part Detection</data>
+    <data key="level_1">Content Analysis</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Face or Body Part Detection</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Speech-to-Text Transcriptions">
+    <data key="level_0">Speech-to-Text Transcriptions</data>
+    <data key="level_1">Content Analysis</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Speech-to-Text Transcriptions</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -363,12 +1041,65 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Inferred Age-Range">
+    <data key="level_0">Inferred Age-Range</data>
+    <data key="level_1">Inferred Attributes</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Inferred Age-Range</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Inferred Gender">
+    <data key="level_0">Inferred Gender</data>
+    <data key="level_1">Inferred Attributes</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Inferred Gender</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Interests and Preferences">
+    <data key="level_0">Interests and Preferences</data>
+    <data key="level_1">Inferred Attributes</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Interests and Preferences</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Cookies and Tracking Technologies">
+    <data key="level_0">Cookies and Tracking Technologies</data>
+    <data key="level_1">Cookies and Tracking Technologies</data>
+    <data key="level_2">Automatically Collected Information</data>
+    <data key="d0">Cookies and Tracking Technologies</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Cookie Data">
     <data key="level_0">Cookie Data</data>
     <data key="level_1">Cookie Data</data>
     <data key="level_2">Cookies and Tracking Technologies</data>
     <data key="level_3">Automatically Collected Information</data>
     <data key="d0">Cookie Data</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Cookie Identifiers">
+    <data key="level_0">Cookie Identifiers</data>
+    <data key="level_1">Cookie Data</data>
+    <data key="level_2">Cookies and Tracking Technologies</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Cookie Identifiers</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Session Tokens">
+    <data key="level_0">Session Tokens</data>
+    <data key="level_1">Cookie Data</data>
+    <data key="level_2">Cookies and Tracking Technologies</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Session Tokens</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -381,12 +1112,89 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Web Beacons">
+    <data key="level_0">Web Beacons</data>
+    <data key="level_1">Tracking Information</data>
+    <data key="level_2">Cookies and Tracking Technologies</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Web Beacons</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Pixel Tags">
+    <data key="level_0">Pixel Tags</data>
+    <data key="level_1">Tracking Information</data>
+    <data key="level_2">Cookies and Tracking Technologies</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Pixel Tags</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Information From Other Sources">
+    <data key="level_0">Information From Other Sources</data>
+    <data key="d0">Information From Other Sources</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Third-Party and External Data">
+    <data key="level_0">Third-Party and External Data</data>
+    <data key="level_1">Third-Party and External Data</data>
+    <data key="level_2">Information From Other Sources</data>
+    <data key="d0">Third-Party and External Data</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Data from Advertising and Analytics Partners">
     <data key="level_0">Data from Advertising and Analytics Partners</data>
     <data key="level_1">Data from Advertising and Analytics Partners</data>
     <data key="level_2">Third-Party and External Data</data>
     <data key="level_3">Information From Other Sources</data>
     <data key="d0">Data from Advertising and Analytics Partners</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Activities on Other Websites and Apps">
+    <data key="level_0">Activities on Other Websites and Apps</data>
+    <data key="level_1">Data from Advertising and Analytics Partners</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Activities on Other Websites and Apps</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Products or Services Purchased Elsewhere">
+    <data key="level_0">Products or Services Purchased Elsewhere</data>
+    <data key="level_1">Data from Advertising and Analytics Partners</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Products or Services Purchased Elsewhere</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Mobile Identifiers for Advertising">
+    <data key="level_0">Mobile Identifiers for Advertising</data>
+    <data key="level_1">Data from Advertising and Analytics Partners</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Mobile Identifiers for Advertising</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Hashed Email Addresses">
+    <data key="level_0">Hashed Email Addresses</data>
+    <data key="level_1">Data from Advertising and Analytics Partners</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Hashed Email Addresses</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Hashed Phone Numbers">
+    <data key="level_0">Hashed Phone Numbers</data>
+    <data key="level_1">Data from Advertising and Analytics Partners</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Hashed Phone Numbers</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -399,12 +1207,75 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Payment Confirmation Details">
+    <data key="level_0">Payment Confirmation Details</data>
+    <data key="level_1">Data from Merchants and Service Providers</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Payment Confirmation Details</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Data from Third-Party Platforms">
     <data key="level_0">Data from Third-Party Platforms</data>
     <data key="level_1">Data from Third-Party Platforms</data>
     <data key="level_2">Third-Party and External Data</data>
     <data key="level_3">Information From Other Sources</data>
     <data key="d0">Data from Third-Party Platforms</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Email Address from Third Parties">
+    <data key="level_0">Email Address from Third Parties</data>
+    <data key="level_1">Data from Third-Party Platforms</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Email Address from Third Parties</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="User ID from Third Parties">
+    <data key="level_0">User ID from Third Parties</data>
+    <data key="level_1">Data from Third-Party Platforms</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">User ID from Third Parties</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Public Profile from Third Parties">
+    <data key="level_0">Public Profile from Third Parties</data>
+    <data key="level_1">Data from Third-Party Platforms</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Public Profile from Third Parties</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Contact Information Synced by Others">
+    <data key="level_0">Contact Information Synced by Others</data>
+    <data key="level_1">Contacts Provided by Others</data>
+    <data key="level_2">Contact Information</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Contact Information Synced by Others</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Data from TikTok Developer Tools Integrations">
+    <data key="level_0">Data from TikTok Developer Tools Integrations</data>
+    <data key="level_1">Data from Third-Party Platforms</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Data from TikTok Developer Tools Integrations</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Safety and Content Moderation Data">
+    <data key="level_0">Safety and Content Moderation Data</data>
+    <data key="level_1">Data from Third-Party Platforms</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Safety and Content Moderation Data</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -417,12 +1288,66 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Publicly Available Information">
+    <data key="level_0">Publicly Available Information</data>
+    <data key="level_1">Data from Public and External Sources</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Publicly Available Information</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Data from Government Authorities">
+    <data key="level_0">Data from Government Authorities</data>
+    <data key="level_1">Data from Public and External Sources</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Data from Government Authorities</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Data from Professional Organisations">
+    <data key="level_0">Data from Professional Organisations</data>
+    <data key="level_1">Data from Public and External Sources</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Data from Professional Organisations</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Data from Charity Groups">
+    <data key="level_0">Data from Charity Groups</data>
+    <data key="level_1">Data from Public and External Sources</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Data from Charity Groups</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="Mentions in Content">
     <data key="level_0">Mentions in Content</data>
     <data key="level_1">Mentions in Content</data>
     <data key="level_2">Third-Party and External Data</data>
     <data key="level_3">Information From Other Sources</data>
     <data key="d0">Mentions in Content</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Cookie Identifiers (Third Parties)">
+    <data key="level_0">Cookie Identifiers (Third Parties)</data>
+    <data key="level_1">Data from Advertising and Analytics Partners</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Cookie Identifiers (Third Parties)</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Delivery Information (from Merchants)">
+    <data key="level_0">Delivery Information (from Merchants)</data>
+    <data key="level_1">Data from Merchants and Service Providers</data>
+    <data key="level_2">Third-Party and External Data</data>
+    <data key="level_3">Information From Other Sources</data>
+    <data key="d0">Delivery Information (from Merchants)</data>
     <data key="d1">DATA</data>
 </node>
 
@@ -435,12 +1360,80 @@
     <data key="d1">DATA</data>
 </node>
 
+<node id="Information about ad performance">
+    <data key="level_0">Information about ad performance</data>
+    <data key="level_1">Aggregated Statistics</data>
+    <data key="level_2">Inferred and Analytical Data</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Information about ad performance</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Transaction Amounts">
+    <data key="level_0">Transaction Amounts</data>
+    <data key="level_1">Purchase Details</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Transaction Amounts</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Purchase or Payment Dates">
+    <data key="level_0">Purchase or Payment Dates</data>
+    <data key="level_1">Purchase Details</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Purchase or Payment Dates</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Shipping Address">
+    <data key="level_0">Shipping Address</data>
+    <data key="level_1">Delivery Information</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Shipping Address</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Delivery Status">
+    <data key="level_0">Delivery Status</data>
+    <data key="level_1">Delivery Information</data>
+    <data key="level_2">Transaction and Financial Information</data>
+    <data key="level_3">Information You Provide</data>
+    <data key="d0">Delivery Status</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Network Type">
+    <data key="level_0">Network Type</data>
+    <data key="level_1">Network Information</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Network Type</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Notification Settings">
+    <data key="level_0">Notification Settings</data>
+    <data key="level_1">Device Information</data>
+    <data key="level_2">Device and Technical Information</data>
+    <data key="level_3">Automatically Collected Information</data>
+    <data key="d0">Notification Settings</data>
+    <data key="d1">DATA</data>
+</node>
+
 <node id="All Data">
     <data key="level_0">All Data</data>
-    <data key="level_1">All Data</data>
-    <data key="level_2">Ambiguous or Non-specified Data</data>
-    <data key="level_3">All Data</data>
     <data key="d0">All Data</data>
+    <data key="d1">DATA</data>
+</node>
+
+<node id="Ambiguous or Non-specified Data">
+    <data key="level_0">Ambiguous or Non-specified Data</data>
+    <data key="level_1">Ambiguous or Non-specified Data</data>
+    <data key="level_2">All Data</data>
+    <data key="d0">Ambiguous or Non-specified Data</data>
     <data key="d1">DATA</data>
 </node>
 

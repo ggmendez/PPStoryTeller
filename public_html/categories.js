@@ -90,205 +90,369 @@ categories.tiktok = {
     // }
 
 
-    /*dataCategories: {
-        "Personally Identifiable Information": [
-            "Date of Birth",
-            "Email Address",
-            "Telephone Number",
-            "Username",
-            "Password",
-            "Profile Bio",
-            "Profile Photo",
-            "Proof of Identity",
-            "Proof of Age"
-        ],
-        "Contact Information": [
-            "Names from Phone Book",
-            "Phone Numbers from Phone Book",
-            "Email Addresses from Phone Book",
-            "Your Social Network Public Profile Information",
-            "Names of Social Network Contacts",
-            "Profiles of Social Network Contacts",
-            "Contacts Provided by Others",
-            "Contact Information Synced by Others"
-        ],
-        "User-Generated Content": [
-            "Photographs",
-            "Videos",
-            "Audio Recordings",
-            "Livestreams",
-            "Comments",
-            "Hashtags",
-            "Feedback",
-            "Reviews",
-            "Text from Clipboard",
-            "Images from Clipboard",
-            "Videos from Clipboard",
-            "Survey Responses",
-            "Research Participation Data",
-            "Contest Entries",
-            "Marketing Campaign Participation",
-            "Event Participation",
-            "Form Data",
-            "Creation Time",
-            "Creation Date",
-            "Creator Identity"
-        ],
-        "Communication Data": [
-            "Message Content",
-            "Timestamps",
-            "Chats with Merchants",
-            "Virtual Assistant Interactions",
-            "Policy Violation Reports",
-        ],
-        "Transaction and Financial Information": [
-            "Payment Card Details",
-            "Billing Information",
-            "Delivery Information",
-            "Contact Information (Purchases)",
-            "Items Purchased",
-            "Payment Confirmation Details",
-            "Transaction Amounts",
-            "Purchase or Payment Dates",
-            "Shipping Address",
-            "Delivery Status"
-        ],
-        "Device and Technical Information": [
-            "Device Model",
-            "Operating System",
-            "Keystroke Patterns or Rhythms",
-            "IP Address",
-            "System Language",
-            "Crash Reports",
-            "Performance Logs",
-            "Device ID",
-            "User ID",
-            "Network Type",
-            "Notification Settings",
-        ],
-        "Location Data": [
-            "Approximate Location (SIM and IP)",
-            "Approximate Location (Device)",
-            "Location Information",
-            "Location of Content Creation"
-        ],
-        "Usage and Interaction Data": [
-            "Content Viewed",
-            "Duration of Use",
-            "Frequency of Use",
-            "Interactions with Other Users",
-            "Search History",
-            "Settings"
-        ],
-        "Cookies and Tracking Technologies": [
-            "Cookie Identifiers",
-            "Session Tokens",
-            "Web Beacons",
-            "Pixel Tags"
-        ],
-        "Inferred and Analytical Data": [
-            "Inferred Age-Range",
-            "Inferred Gender",
-            "Interests and Preferences",
-            "Objects and Scenery Recognition",
-            "Face or Body Part Detection",
-            "Speech-to-Text Transcriptions",
-            "Information about ad performance"
-        ],
-        "Third-Party and External Data": [
-            "Activities on Other Websites and Apps",
-            "Products or Services Purchased Elsewhere",
-            "Mobile Identifiers for Advertising",
-            "Hashed Email Addresses",
-            "Hashed Phone Numbers",
-            "Email Address from Third Parties",
-            "User ID from Third Parties",
-            "Public Profile from Third Parties",
-            "Data from TikTok Developer Tools Integrations",
-            "Safety and Content Moderation Data",
-            "Publicly Available Information",
-            "Data from Government Authorities",
-            "Data from Professional Organisations",
-            "Data from Charity Groups",
-            "Mentions in Content",
-            "Cookie Identifiers (Third Parties)",
-            "Delivery Information (from Merchants)"
-        ],
-        "Ambiguous or Non-specified Data": [
-            "Ambiguous or Non-specified Data"
-        ]
-    },*/
+    // dataCategories: {
+    //     "Personally Identifiable Information": [
+    //         "Date of Birth",
+    //         "Email Address",
+    //         "Telephone Number",
+    //         "Username",
+    //         "Password",
+    //         "Profile Bio",
+    //         "Profile Photo",
+    //         "Proof of Identity",
+    //         "Proof of Age"
+    //     ],
+    //     "Contact Information": [
+    //         "Names from Phone Book",
+    //         "Phone Numbers from Phone Book",
+    //         "Email Addresses from Phone Book",
+    //         "Your Social Network Public Profile Information",
+    //         "Names of Social Network Contacts",
+    //         "Profiles of Social Network Contacts",
+    //         "Contacts Provided by Others",
+    //         "Contact Information Synced by Others"
+    //     ],
+    //     "User-Generated Content": [
+    //         "Photographs",
+    //         "Videos",
+    //         "Audio Recordings",
+    //         "Livestreams",
+    //         "Comments",
+    //         "Hashtags",
+    //         "Feedback",
+    //         "Reviews",
+    //         "Text from Clipboard",
+    //         "Images from Clipboard",
+    //         "Videos from Clipboard",
+    //         "Survey Responses",
+    //         "Research Participation Data",
+    //         "Contest Entries",
+    //         "Marketing Campaign Participation",
+    //         "Event Participation",
+    //         "Form Data",
+    //         "Creation Time",
+    //         "Creation Date",
+    //         "Creator Identity"
+    //     ],
+    //     "Communication Data": [
+    //         "Message Content",
+    //         "Timestamps",
+    //         "Chats with Merchants",
+    //         "Virtual Assistant Interactions",
+    //         "Policy Violation Reports",
+    //     ],
+    //     "Transaction and Financial Information": [
+    //         "Payment Card Details",
+    //         "Billing Information",
+    //         "Delivery Information",
+    //         "Contact Information (Purchases)",
+    //         "Items Purchased",
+    //         "Payment Confirmation Details",
+    //         "Transaction Amounts",
+    //         "Purchase or Payment Dates",
+    //         "Shipping Address",
+    //         "Delivery Status"
+    //     ],
+    //     "Device and Technical Information": [
+    //         "Device Model",
+    //         "Operating System",
+    //         "Keystroke Patterns or Rhythms",
+    //         "IP Address",
+    //         "System Language",
+    //         "Crash Reports",
+    //         "Performance Logs",
+    //         "Device ID",
+    //         "User ID",
+    //         "Network Type",
+    //         "Notification Settings",
+    //     ],
+    //     "Location Data": [
+    //         "Approximate Location (SIM and IP)",
+    //         "Approximate Location (Device)",
+    //         "Location Information",
+    //         "Location of Content Creation"
+    //     ],
+    //     "Usage and Interaction Data": [
+    //         "Content Viewed",
+    //         "Duration of Use",
+    //         "Frequency of Use",
+    //         "Interactions with Other Users",
+    //         "Search History",
+    //         "Settings"
+    //     ],
+    //     "Cookies and Tracking Technologies": [
+    //         "Cookie Identifiers",
+    //         "Session Tokens",
+    //         "Web Beacons",
+    //         "Pixel Tags"
+    //     ],
+    //     "Inferred and Analytical Data": [
+    //         "Inferred Age-Range",
+    //         "Inferred Gender",
+    //         "Interests and Preferences",
+    //         "Objects and Scenery Recognition",
+    //         "Face or Body Part Detection",
+    //         "Speech-to-Text Transcriptions",
+    //         "Information about ad performance"
+    //     ],
+    //     "Third-Party and External Data": [
+    //         "Activities on Other Websites and Apps",
+    //         "Products or Services Purchased Elsewhere",
+    //         "Mobile Identifiers for Advertising",
+    //         "Hashed Email Addresses",
+    //         "Hashed Phone Numbers",
+    //         "Email Address from Third Parties",
+    //         "User ID from Third Parties",
+    //         "Public Profile from Third Parties",
+    //         "Data from TikTok Developer Tools Integrations",
+    //         "Safety and Content Moderation Data",
+    //         "Publicly Available Information",
+    //         "Data from Government Authorities",
+    //         "Data from Professional Organisations",
+    //         "Data from Charity Groups",
+    //         "Mentions in Content",
+    //         "Cookie Identifiers (Third Parties)",
+    //         "Delivery Information (from Merchants)"
+    //     ],
+    //     "Ambiguous or Non-specified Data": [
+    //         "Ambiguous or Non-specified Data"
+    //     ]
+    // },
+
+
+    // dataCategories: {
+    //     "Personally Identifiable Information": [
+    //         "Basic Personal Details",
+    //         "Profile Information",
+    //         "Identification Documents"
+    //     ],
+    //     "Contact Information": [
+    //         "Device Contacts",
+    //         "Social Network Contacts",
+    //         "Contacts Provided by Others"
+    //     ],
+    //     "User-Generated Content": [
+    //         "Media Content",
+    //         "Textual Content",
+    //         "Clipboard Content",
+    //         "Content Metadata",
+    //         "User Participation Data"
+    //     ],
+    //     "Communication Data": [
+    //         "Direct Messages",
+    //         "Merchant Communications",
+    //         "Support and Feedback"
+    //     ],
+    //     "Transaction and Financial Information": [
+    //         "Payment Information",
+    //         "Purchase Details",
+    //         "Delivery Information"
+    //     ],
+    //     "Device and Technical Information": [
+    //         "Device Information",
+    //         "Network Information",
+    //         "Technical Diagnostics",
+    //         "Automatically Assigned Identifiers"
+    //     ],
+    //     "Location Data": [
+    //         "Approximate Location",
+    //         "Precise Location (with Permission)",
+    //         "Location Tags in Content"
+    //     ],
+    //     "Usage and Interaction Data": [
+    //         "Engagement Metrics",
+    //         "Search and Activity History",
+    //         "Settings and Preferences"
+    //     ],
+    //     "Cookies and Tracking Technologies": [
+    //         "Cookie Data",
+    //         "Tracking Information",
+    //         "Usage Purposes"
+    //     ],
+    //     "Inferred and Analytical Data": [
+    //         "Inferred Attributes",
+    //         "Content Analysis",
+    //         "Behavioral Profiles",
+    //         "Aggregated Statistics"
+    //     ],
+    //     "Third-Party and External Data": [
+    //         "Data from Advertising and Analytics Partners",
+    //         "Data from Merchants and Service Providers",
+    //         "Data from Third-Party Platforms",
+    //         "Data from Public and External Sources",
+    //         "Mentions in Content"
+    //     ],
+    //     "Ambiguous or Non-specified Data": [
+    //         "All Data"
+    //     ]
+    // }
 
 
     dataCategories: {
         "Personally Identifiable Information": [
             "Basic Personal Details",
+            "Date of Birth",
+            "Email Address",
+            "Identification Documents",
+            "Password",
+            "Profile Bio",
             "Profile Information",
-            "Identification Documents"
+            "Profile Photo",
+            "Proof of Age",
+            "Proof of Identity",
+            "Telephone Number",
+            "Username"
         ],
         "Contact Information": [
+            "Contact Information Synced by Others",
+            "Contacts Provided by Others",
             "Device Contacts",
+            "Email Addresses from Phone Book",
+            "Names from Phone Book",
+            "Names of Social Network Contacts",
+            "Phone Numbers from Phone Book",
+            "Profiles of Social Network Contacts",
             "Social Network Contacts",
-            "Contacts Provided by Others"
+            "Your Social Network Public Profile Information"
         ],
         "User-Generated Content": [
-            "Media Content",
-            "Textual Content",
+            "Audio Recordings",
             "Clipboard Content",
+            "Comments",
             "Content Metadata",
-            "User Participation Data"
+            "Contest Entries",
+            "Creation Date",
+            "Creation Time",
+            "Creator Identity",
+            "Event Participation",
+            "Feedback",
+            "Form Data",
+            "Hashtags",
+            "Images from Clipboard",
+            "Livestreams",
+            "Marketing Campaign Participation",
+            "Media Content",
+            "Photographs",
+            "Research Participation Data",
+            "Reviews",
+            "Survey Responses",
+            "Text from Clipboard",
+            "Textual Content",
+            "User Participation Data",
+            "Videos",
+            "Videos from Clipboard"
         ],
         "Communication Data": [
+            "Chats with Merchants",
             "Direct Messages",
             "Merchant Communications",
-            "Support and Feedback"
+            "Message Content",
+            "Policy Violation Reports",
+            "Support and Feedback",
+            "Timestamps",
+            "Virtual Assistant Interactions"
         ],
         "Transaction and Financial Information": [
+            "Billing Information",
+            "Contact Information (Purchases)",
+            "Delivery Information",
+            "Delivery Status",
+            "Items Purchased",
+            "Payment Card Details",
+            "Payment Confirmation Details",
             "Payment Information",
             "Purchase Details",
-            "Delivery Information"
+            "Purchase or Payment Dates",
+            "Shipping Address",
+            "Transaction Amounts"
         ],
         "Device and Technical Information": [
+            "Automatically Assigned Identifiers",
+            "Crash Reports",
+            "Device ID",
             "Device Information",
+            "Device Model",
+            "IP Address",
+            "Keystroke Patterns or Rhythms",
             "Network Information",
+            "Network Type",
+            "Notification Settings",
+            "Operating System",
+            "Performance Logs",
+            "System Language",
             "Technical Diagnostics",
-            "Automatically Assigned Identifiers"
+            "User ID"
         ],
         "Location Data": [
             "Approximate Location",
-            "Precise Location (with Permission)",
-            "Location Tags in Content"
+            "Approximate Location (Device)",
+            "Approximate Location (SIM and IP)",
+            "Location Information",
+            "Location Tags in Content",
+            "Location of Content Creation",
+            "Precise Location (with Permission)"
         ],
         "Usage and Interaction Data": [
+            "Content Viewed",
+            "Duration of Use",
             "Engagement Metrics",
+            "Frequency of Use",
+            "Interactions with Other Users",
+            "Search History",
             "Search and Activity History",
+            "Settings",
             "Settings and Preferences"
         ],
         "Cookies and Tracking Technologies": [
             "Cookie Data",
+            "Cookie Identifiers",
+            "Pixel Tags",
+            "Session Tokens",
             "Tracking Information",
-            "Usage Purposes"
+            "Usage Purposes",
+            "Web Beacons"
         ],
         "Inferred and Analytical Data": [
-            "Inferred Attributes",
-            "Content Analysis",
+            "Aggregated Statistics",
             "Behavioral Profiles",
-            "Aggregated Statistics"
+            "Content Analysis",
+            "Face or Body Part Detection",
+            "Inferred Age-Range",
+            "Inferred Attributes",
+            "Inferred Gender",
+            "Information about ad performance",
+            "Interests and Preferences",
+            "Objects and Scenery Recognition",
+            "Speech-to-Text Transcriptions"
         ],
         "Third-Party and External Data": [
+            "Activities on Other Websites and Apps",
+            "Cookie Identifiers (Third Parties)",
             "Data from Advertising and Analytics Partners",
+            "Data from Charity Groups",
+            "Data from Government Authorities",
             "Data from Merchants and Service Providers",
-            "Data from Third-Party Platforms",
+            "Data from Professional Organisations",
             "Data from Public and External Sources",
-            "Mentions in Content"
+            "Data from Third-Party Platforms",
+            "Data from TikTok Developer Tools Integrations",
+            "Delivery Information (from Merchants)",
+            "Email Address from Third Parties",
+            "Hashed Email Addresses",
+            "Hashed Phone Numbers",
+            "Mentions in Content",
+            "Mobile Identifiers for Advertising",
+            "Products or Services Purchased Elsewhere",
+            "Public Profile from Third Parties",
+            "Publicly Available Information",
+            "Safety and Content Moderation Data",
+            "User ID from Third Parties"
         ],
         "Ambiguous or Non-specified Data": [
-            "All Data"
+            "All Data",
+            "Ambiguous or Non-specified Data"
         ]
     }
-
-
-
 
 };
 

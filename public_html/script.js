@@ -231,22 +231,29 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 // TMP
                 // Get the button element by ID
-                const topButton = document.getElementById('topButton');
+                // const topButton = document.getElementById('topButton');
 
-                // Check if the button exists before triggering the event
-                if (topButton) {
-                    // Programmatically create a click event
-                    const clickEvent = new MouseEvent('click', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window
-                    });
+                // // Check if the button exists before triggering the event
+                // if (topButton) {
+                //     // Programmatically create a click event
+                //     const clickEvent = new MouseEvent('click', {
+                //         bubbles: true,
+                //         cancelable: true,
+                //         view: window
+                //     });
 
-                    // Dispatch the event, triggering the attached event listener
-                    topButton.dispatchEvent(clickEvent);
-                }
+                //     // Dispatch the event, triggering the attached event listener
+                //     topButton.dispatchEvent(clickEvent);
+                // }
 
-                // end of popup
+
+
+
+
+
+
+                
+
 
 
             };
@@ -925,7 +932,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 // console.log(dataEntities);
 
 
-                console.log("dataName: " + dataName);
+                // console.log("dataName: " + dataName);
 
                 let dataCategory = dataEntities.find(d => d.label === dataName)?.category;
                 if (!dataCategory) {
@@ -2998,7 +3005,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // TMP
-        mainTimeline.play("actorsColumn");
+        // mainTimeline.play("actorsColumn");
 
 
     }
