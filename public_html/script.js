@@ -1,6 +1,6 @@
 /* global d3, XLSX, gsap, ScrollTrigger, ScrollToPlugin */
 
-document.addEventListener("DOMContentLoaded", (event) => {
+document.addEventListener("DOMContentLoaded", (event) => {  
 
     const sizeScaleMultiplier = 10;
 
@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                
+
 
 
 
@@ -654,9 +654,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     loadIconAt(cursorIcon, './icons/cursor.svg', svgWidth / 2, svgHeight / 2);
 
 
-
-
-
     function computeInitialPackingData(dataEntities, centerIconWidth, centerIconHeight) {
         // Define a scale for the rectangle sizes based on IncomingConnections
         const maxConnections = d3.max(dataEntities, d => d.Indegree);
@@ -955,6 +952,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     text: edge.text,
                     actor: actorName
                 });
+
+
+                
             });
 
             const subsums = Array.from(xmlDoc.querySelectorAll('edge'))
@@ -965,9 +965,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     text: edge.querySelector('data[key="d3"]')?.textContent || ''
                 }));
 
-                console.log("subsums");
-                console.log(subsums);
-                
+            console.log("subsums");
+            console.log(subsums);
+
 
             subsums.forEach(subsum => {
                 const parentData = sanitizeId(subsum.source);
@@ -2446,7 +2446,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const actorType = removeSpaces(formatedNames[who].toUpperCase());
 
-        console.log("actorType: " + actorType);
+        
 
 
 
@@ -2540,10 +2540,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             const collectedData = actorDataMap[actorType] || {};
 
-            // console.log("collectedData:");
-            // console.log(collectedData);
+            
 
+            console.log("actorType: " + actorType);
 
+            console.log("collectedData:");
+            console.log(collectedData);
 
             // Generate rect copies first
             const rectCopies = generateRectCopies(collectedData, actorType, globalFrequencyMap, splitRectData);
