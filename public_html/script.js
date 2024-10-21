@@ -1,6 +1,6 @@
 /* global d3, XLSX, gsap, ScrollTrigger, ScrollToPlugin */
 
-document.addEventListener("DOMContentLoaded", (event) => {  
+document.addEventListener("DOMContentLoaded", (event) => {
 
     const sizeScaleMultiplier = 10;
 
@@ -234,20 +234,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 // TMP
                 // Get the button element by ID
-                // const topButton = document.getElementById('topButton');
+                const topButton = document.getElementById('topButton');
 
-                // // Check if the button exists before triggering the event
-                // if (topButton) {
-                //     // Programmatically create a click event
-                //     const clickEvent = new MouseEvent('click', {
-                //         bubbles: true,
-                //         cancelable: true,
-                //         view: window
-                //     });
+                // Check if the button exists before triggering the event
+                if (topButton) {
+                    // Programmatically create a click event
+                    const clickEvent = new MouseEvent('click', {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window
+                    });
 
-                //     // Dispatch the event, triggering the attached event listener
-                //     topButton.dispatchEvent(clickEvent);
-                // }
+                    // Dispatch the event, triggering the attached event listener
+                    topButton.dispatchEvent(clickEvent);
+                }
 
 
 
@@ -947,15 +947,42 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     actorDataMap[cleanActorCategory][cleanDataCategory] = [];
                 }
 
-                actorDataMap[cleanActorCategory][cleanDataCategory].push({
-                    name: dataName,
-                    text: edge.text,
-                    actor: actorName
-                });
+                var existingEntry = actorDataMap[cleanActorCategory][cleanDataCategory].find(entry => entry.name === dataName);
 
 
-                
+
+                if (existingEntry) {
+
+                    console.log("Antes");
+                    console.log(existingEntry);
+
+
+                    // If an existing entry is found, concatenate the new text
+                    existingEntry.text.push(edge.text);  // Concatenating with a space between texts
+                    existingEntry.actor.push(actorName);
+
+
+                    console.log("Después");
+                    console.log(existingEntry);
+
+                } else {
+                    // Otherwise, push a new entry
+                    actorDataMap[cleanActorCategory][cleanDataCategory].push({
+                        name: dataName,
+                        text: [edge.text],
+                        actor: [actorName]
+                    });
+                }
+
+
+
+
+
+
             });
+
+
+            window.actorDataMap = actorDataMap;
 
             const subsums = Array.from(xmlDoc.querySelectorAll('edge'))
                 .filter(edge => edge.querySelector('data[key="d2"]')?.textContent === 'SUBSUM')
@@ -2446,7 +2473,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const actorType = removeSpaces(formatedNames[who].toUpperCase());
 
-        
+
 
 
 
@@ -2540,7 +2567,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             const collectedData = actorDataMap[actorType] || {};
 
-            
+
 
             console.log("actorType: " + actorType);
 
@@ -3009,7 +3036,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
         // TMP
-        // mainTimeline.play("actorsColumn");
+        mainTimeline.play("actorsColumn");
 
 
     }
@@ -3084,30 +3111,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
 
-    function generateInitialTooltipContent(name, dataCategory, lines, actor, inheritances, showFinalActor) {
+    function generateInitialTooltipContent(name, dataCategory, lines, actors, inheritances, showFinalActor) {
 
         let highlightedLines = lines.map(line => highlightNameInText(line, name));
 
-        let finalActor = actor;
-        if (actor === 'UNSPECIFIED_ACTOR') {
-            finalActor = 'Unspecified actor';
-        } else if (actor === 'we') {
-            finalActor = formatedNames[who];
-        } else {
-            finalActor = actor.charAt(0).toUpperCase() + actor.slice(1);
-        }
+        // let finalActor = actors;
+        // if (actors === 'UNSPECIFIED_ACTOR') {
+        //     finalActor = 'Unspecified actor';
+        // } else if (actors === 'we') {
+        //     finalActor = formatedNames[who];
+        // } else {
+        //     finalActor = actors.charAt(0).toUpperCase() + actors.slice(1);
+        // }        
 
         // let initialContent = '<span style="color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
 
         let initialContent = '';
 
         if (showFinalActor) {
-            initialContent = '<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div style="text-align: center; margin-top: 5px;">' + finalActor + '</div>';
+            initialContent = '<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div class="inheritances"><ul>' + actors.map(actor => '<li>' + actor + '</li>').join('') + '</ul></div>';
         }
 
 
 
-        let inheritanceElements = `<div class="inheritances" style = "${showFinalActor ? "border-bottom: 1px solid #eee;" : ""}"><ul>`;
+        let inheritanceElements = `<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Such as:</span><br/> <div class="inheritances" style = "${showFinalActor ? "border-bottom: 1px solid #eee;" : ""}"><ul>`;
 
         if (inheritances && inheritances.length) {
             inheritances.forEach((inheritance, index) => {
@@ -3972,9 +3999,20 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // console.log("----- item.text:");
                     // console.log(item.text);
 
-                    let lines = processString(item.text)
-                        .filter(d => !isHeader(d)) // to remove headers
-                        .map(line => normalizeText(line));
+
+                    // TMP
+                    // rename .text becuase not it is an array
+                    let lines = new Array();
+                    item.text.forEach(function (text) {
+                        let tmp = processString(text)
+                            .filter(d => !isHeader(d)) // to remove headers
+                            .map(line => normalizeText(line));
+                            lines.concat(tmp);
+                    });
+
+                    // let lines = processString(item.text)
+                    //     .filter(d => !isHeader(d)) // to remove headers
+                    //     .map(line => normalizeText(line));
 
 
                     // console.log("lines: ");
@@ -4125,9 +4163,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // console.log("inheritances for " + itemName);
                         // console.log(inheritances);
 
+
+                        // tmp fix this
                         let actor = item.actor;
 
-                        showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
+                        // showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
+                        showFinalActor = true;
 
                         let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, actor, inheritances, showFinalActor);
 
