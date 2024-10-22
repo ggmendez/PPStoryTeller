@@ -4080,39 +4080,44 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                    
-
-                    // let theRect = svg.selectAll(null)  // Create an empty selection to append different shapes
-                    //     .data([dataRectCopy])  // Binding data here
-                    //     .enter()
-                    //     .append(function (d) {
-                    //         let n = getRandomBetween(0, 100, true);
-                    //         d.shapeType = n % 3;
-                    //         // Conditionally return different shape elements based on shapeType
-                    //         if (d.shapeType === 0) {
-                    //             return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    //         } else if (d.shapeType === 1) {
-                    //             return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                    //         } else if (d.shapeType === 2) {
-                    //             return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                    //         }
-                    //     })
-                    //     .attr('id', uniqueId)
-                    //     .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
-                    //     .attr('opacity', 0)
-                    //     .attr('fill', dataRectCopy.fill)
-                    //     .attr('data-name', itemName)
-                    //     .attr('data-data-category', makeID(dataCategory));
-                 
 
 
-                    let theRect = svg.append('rect')
+                    let theRect = svg.selectAll(null)  // Create an empty selection to append different shapes
+                        .data([dataRectCopy])  // Binding data here
+                        .enter()
+                        .append(function (d) {
+
+                            const found = item.name === "All Data";
+
+                            if (found) {
+                                return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                            } else {
+                                return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            }
+
+
+                            // let n = getRandomBetween(0, 100, true);
+                            // d.shapeType = n % 3;
+                            // // Conditionally return different shape elements based on shapeType
+                            // if (d.shapeType === 0) {
+                            //     return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            // } else if (d.shapeType === 1) {
+                            //     return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                            // } else if (d.shapeType === 2) {
+                            //     return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                            // }
+                        })
+
+
+
+                        // let theRect = svg.append('rect')
+
+
                         .data([dataRectCopy]) // Binding data here
                         .attr('id', uniqueId)
                         .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
                         .attr('opacity', 0)
-                        .attr('x', -rectRadius)
-                        .attr('y', -rectRadius)
+
                         .attr('width', rectRadius * 2)
                         .attr('height', rectRadius * 2)
                         .attr('rx', rectRadius)
@@ -4121,7 +4126,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('stroke-width', 1)
                         .attr('fill', function () {
 
-                            const found = item.isConditional.find(element => element === true);                        
+                            const found = item.isConditional.find(element => element === true);
                             if (found) {
                                 // Create a unique pattern ID for each circle
                                 const patternId = `striped-pattern-${uniqueId}`;
@@ -4129,13 +4134,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // Define a new pattern for this specific circle
                                 defs.append("pattern")
                                     .attr("id", patternId)
-                                    .attr("width", rectRadius/2)
-                                    .attr("height", rectRadius/2)
+                                    .attr("width", rectRadius / 2)
+                                    .attr("height", rectRadius / 2)
                                     .attr("patternUnits", "userSpaceOnUse")
                                     .attr("patternTransform", "rotate(45)")
                                     .append("rect")
-                                    .attr("width", rectRadius/2 - 1)
-                                    .attr("height", rectRadius/2)
+                                    .attr("width", rectRadius / 2 - 1)
+                                    .attr("height", rectRadius / 2)
                                     .attr("fill", dataRectCopy.fill); // Use the specific circle's fill color
                                 // Apply the unique striped pattern
                                 return `url(#${patternId})`;
@@ -4149,9 +4154,23 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .attr('data-name', itemName)
                         .attr('data-data-category', makeID(dataCategory));
 
-                        
 
 
+                    theRect
+                        .each(function (d) {
+                            const shape = d3.select(this);
+
+                            const found = item.name === "All Data";
+
+                            if (found) {
+                                shape.attr('points', calculateTrianglePoints(d));
+                            } else {
+                                shape.attr('x', -rectRadius + 0.5)
+                                    .attr('y', -rectRadius + 0.5)
+                            }
+
+
+                        });
 
 
                     theRect.each(function (d) {
