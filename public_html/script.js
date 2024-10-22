@@ -4,6 +4,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const sizeScaleMultiplier = 10;
 
+    const rectRadius = 10;
+    const spaceBetweenRects = 3;
+
     const maxFontSize = 16; // Maximum font size cap
     const minFontSize = 8;  // Minimum readable font size
 
@@ -741,7 +744,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let categoryStartPositions = {};
 
-    const rectRadius = 8;
+    
 
     // console.log("svgWidth: " + svgWidth);
     // console.log("svgHeight: " + svgHeight);
@@ -788,10 +791,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin);
 
 
-    const padding = 2;
-    const minLabelSize = 40; // Minimum size for a rectangle to have a label
+    
 
-    // Define entities globally
+
     let entities;
 
     const actorDataMap = {};
@@ -827,7 +829,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log(item);
         console.log(categorization);
         console.log(normalizedItem);
-        return "UnknownActorCategory";
+        return "Unknown Category";
     }
 
     fetch('graphmls/' + who + '.graphml')
@@ -1234,6 +1236,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
         const uniqueCategories = [...new Set(dataEntities.map(d => d.category))];
         document.querySelector("#totalCategories").textContent = uniqueCategories.length;
 
+
+
         // azul #ED5952 
 
         const customSchemePaired = d3.schemePaired.map((color, index) => {
@@ -1259,22 +1263,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
             }
         });
 
+        // console.log("customSchemePaired:");
+        // console.log(customSchemePaired);
+
         uniqueCategories.sort();
 
-        categoriesColorScale = d3.scaleOrdinal(customSchemePaired).domain([
-            "Identifiers",
-            "General Data",
-            "Derived & Inferred Data",
-            "Contacts",
-            "Media Content",
-            "Personal Information",
-            "Behavioral Data",
-            "Location Data",
-            "Tracking",
-            "Messages and Assistance",
-            "Technical Data",
-            "Financial Data"
-        ]);
+        const colorMapping = {
+            'Personally Identifiable Information': '#e21f26',
+            'Contact Information': '#b4d88a',
+            'User-Generated Content': '#4a7e7e',
+            'Communication Data': '#6b3e98',
+            'Transaction and Financial Information': '#f38ebb',
+            'Device and Technical Information': '#f57e20',
+            'Location Data': '#b15a28',
+            'Usage and Interaction Data': '#a6cee2',
+            'Cookies and Tracking Technologies': '#7786c2',
+            'Inferred and Analytical Data': '#1f78b4',
+            'Third-Party and External Data': '#fdbf6e',
+            'Ambiguous or Non-specified Data': '#ffd107',
+            'Unknown Category': '#696969',
+            'Other 1': '#34a048',
+            'Other 2': '#6b3e98',
+            'Other 3': '#fbf49b',
+            'Other 4': '#f69999'
+        };
+
+        const categoryColors = Object.keys(colorMapping);
+        const aaa = Object.values(colorMapping);
+
+        categoriesColorScale = d3.scaleOrdinal()
+            .domain(categoryColors)
+            .range(aaa);
 
         // Define a scale for the rectangle sizes based on IncomingConnections
         const maxConnections = d3.max(dataEntities, d => d.Indegree);
@@ -2467,11 +2486,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const actorType = removeSpaces(formatedNames[who].toUpperCase());
 
-
-
-
-
-
         const rectsOfLogo = generateRectCopies(actorDataMap[actorType], actorType, globalFrequencyMap, splitRectData);
 
         let distanceFromLogo = 50;
@@ -2486,13 +2500,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
                     // x: rightAlignX + distanceFromLogo,
-                    x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (rectRadius * 2 + padding * 0.75),
+                    x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (rectRadius * 2 + spaceBetweenRects * 0.75),
                     y: startY + rectRadius / 2,
                     opacity: 0,
 
 
                 }, {
-                    x: rightAlignX + distanceFromLogo + rectIndex * (rectRadius * 2 + padding * 0.75),
+                    x: rightAlignX + distanceFromLogo + rectIndex * (rectRadius * 2 + spaceBetweenRects * 0.75),
                     y: startY + rectRadius / 2,
                     opacity: 1,
                     duration: animationDuration,
@@ -2500,12 +2514,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     // }, `actorsColumn+=${1}`)
                 }, `actorsColumn+=${1 + rectIndex * 0.015}`)
 
-            // .to(`#${rect.id}`, {
-            //     rx: 0,
-            //     ry: 0,
-            //     duration: animationDuration,
-            //     ease: "none",
-            // }, `actorsColumn+=${3 + rectIndex * 0.015}`);
+                .to(`#${rect.id}`, {
+                    rx: 0,
+                    ry: 0,
+                    duration: animationDuration,
+                    ease: "none",
+                }, `actorsColumn+=${3 + rectIndex * 0.015}`);
         });
 
 
@@ -2591,11 +2605,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // x: svgWidth * 1.25,
                         // y: getRandomBetween(-100, svgHeight + 100),
                         // x: rightAlignX + distanceFromLogo,
-                        x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (rectRadius * 2 + padding * 0.75),
+                        x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (rectRadius * 2 + spaceBetweenRects * 0.75),
                         y: offsetY + rectRadius / 2,
 
                     }, {
-                        x: rightAlignX + distanceFromLogo + rectIndex * (rectRadius * 2 + padding * 0.75),
+                        x: rightAlignX + distanceFromLogo + rectIndex * (rectRadius * 2 + spaceBetweenRects * 0.75),
                         y: offsetY + rectRadius / 2,
                         opacity: 1,
                         duration: animationDuration,
@@ -2603,19 +2617,18 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // }, `actorsColumn+=${1}`)
                     }, `actorsColumn+=${1 + rectIndex * 0.015}`)
 
-                // .to(`#${rect.id}`, {
-                //     rx: 0,
-                //     ry: 0,
-                //     duration: animationDuration,
-                //     ease: "none",
-
-                //     onUpdate: () => {
-                //         shouldShowDataCategories = false;
-                //     },
-                //     onComplete: () => {
-                //         shouldShowDataCategories = true;
-                //     },
-                // }, `actorsColumn+=${3 + rectIndex * 0.015}`);
+                    .to(`#${rect.id}`, {
+                        rx: 0,
+                        ry: 0,
+                        duration: animationDuration,
+                        ease: "none",
+                        onUpdate: () => {
+                            shouldShowDataCategories = false;
+                        },
+                        onComplete: () => {
+                            shouldShowDataCategories = true;
+                        },
+                    }, `actorsColumn+=${3 + rectIndex * 0.015}`);
             });
 
         });
@@ -4106,32 +4119,31 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             // } else if (d.shapeType === 2) {
                             //     return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                             // }
+
                         })
-
-
-
-                        // let theRect = svg.append('rect')
-
 
                         .data([dataRectCopy]) // Binding data here
                         .attr('id', uniqueId)
                         .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
                         .attr('opacity', 0)
-
                         .attr('width', rectRadius * 2)
                         .attr('height', rectRadius * 2)
                         .attr('rx', rectRadius)
                         .attr('ry', rectRadius)
                         .attr('fill', dataRectCopy.fill)
-                        .attr('stroke-width', 1)
+                        .attr('stroke-width', 2)
+                        .attr('data-name', itemName)
+                        .attr('data-data-category', makeID(dataCategory))
+
+
                         .attr('fill', function () {
 
                             const found = item.isConditional.find(element => element === true);
                             if (found) {
-                                // Create a unique pattern ID for each circle
+                                // Create a unique pattern ID for each rect
                                 const patternId = `striped-pattern-${uniqueId}`;
 
-                                // Define a new pattern for this specific circle
+                                // Define a new pattern for this specific rect
                                 defs.append("pattern")
                                     .attr("id", patternId)
                                     .attr("width", rectRadius / 2)
@@ -4141,8 +4153,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                     .append("rect")
                                     .attr("width", rectRadius / 2 - 1)
                                     .attr("height", rectRadius / 2)
-                                    .attr("fill", dataRectCopy.fill); // Use the specific circle's fill color
-                                // Apply the unique striped pattern
+                                    .attr("fill", dataRectCopy.fill);
+
                                 return `url(#${patternId})`;
                             } else {
                                 //     // Use the solid fill color when isConditional is false
@@ -4150,157 +4162,156 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             }
                         })
 
-
-                        .attr('data-name', itemName)
-                        .attr('data-data-category', makeID(dataCategory));
-
-
-
-                    theRect
                         .each(function (d) {
                             const shape = d3.select(this);
-
                             const found = item.name === "All Data";
-
                             if (found) {
                                 shape.attr('points', calculateTrianglePoints(d));
+
+                                shape.attr('stroke', '#000000');
+                                shape.attr('stroke-linecap', 'round ');
+                                shape.attr('stroke-linejoin', 'round');
                             } else {
                                 shape.attr('x', -rectRadius + 0.5)
                                     .attr('y', -rectRadius + 0.5)
+
+                                // shape.attr('stroke', dataRectCopy.fill);
+                                shape.attr('stroke', '#ffffff');
                             }
 
 
-                        });
+
+                        })
 
 
-                    theRect.each(function (d) {
+                        .each(function (d) {
 
-                        // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-                        // console.log(this);
-                        // console.log("*********************************");
-                        // console.log("item.text");
-                        // console.log(item.text);
-                        // console.log("*********************************");
-                        // console.log("Processed string:");
-                        // console.log(processString(item.text));
-
-
-                        // window.dataInheritances = dataInheritances;
-
-                        // console.log(dataInheritances);
+                            // console.log("this >>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+                            // console.log(this);
+                            // console.log("*********************************");
+                            // console.log("item.text");
+                            // console.log(item.text);
+                            // console.log("*********************************");
+                            // console.log("Processed string:");
+                            // console.log(processString(item.text));
 
 
-                        // const inheritances = dataInheritances[itemName.toLowerCase()];
-                        const inheritances = dataInheritances[sanitizeId(itemName)];
+                            // window.dataInheritances = dataInheritances;
 
-                        // console.log("inheritances for " + itemName);
-                        // console.log(inheritances);
+                            // console.log(dataInheritances);
 
 
-                        // tmp fix this
-                        let actor = item.actor;
+                            // const inheritances = dataInheritances[itemName.toLowerCase()];
+                            const inheritances = dataInheritances[sanitizeId(itemName)];
 
-                        // showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
-                        showFinalActor = true;
-
-                        let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, actor, inheritances, showFinalActor);
-
-                        const tooltipInstance = tippy(this, {
-                            theme: 'light-border',
-                            content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
-                            allowHTML: true,
-                            trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
-                            hideOnClick: false,
-                            interactive: true,      // Set to false to make the tooltip non-interactive
-                            placement: 'top',        // Prefer placement at the top
-                            fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
-                            appendTo: () => document.body
-                        });
-
-                        this.addEventListener('mouseenter', () => {
-
-                            const opacity = window.getComputedStyle(this).opacity;
-
-                            // console.log("opacity: " + opacity);
-                            // console.log(typeof opacity);
-
-                            if (opacity !== "1") {
-                                return;
-                            }
-
-                            if (mainTimeline.currentLabel() !== "actorsColumn") {
-                                return;
-                            }
-
-                            // console.log("theRect.style('opacity'):");
-                            // console.log(theRect.style('opacity'));
-
-                            if (theRect.style('opacity') === '1') {
-                                tooltipInstance.show();
-                            }
-
-                            if (shouldShowDataCategories && !dataCategoryClicked) {
-
-                                changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
-                            }
-                        });
-
-                        this.addEventListener('mouseleave', () => {
-
-                            const opacity = window.getComputedStyle(this).opacity;
-
-                            // console.log("opacity: " + opacity);
-                            // console.log(typeof opacity);
+                            // console.log("inheritances for " + itemName);
+                            // console.log(inheritances);
 
 
-                            if (opacity !== "1") {
-                                return;
-                            }
+                            // tmp fix this
+                            let actor = item.actor;
 
-                            if (currentPermanentTooltip !== tooltipInstance) {
-                                tooltipInstance.hide();
-                            }
-                            if (shouldShowDataCategories && !dataCategoryClicked) {
-                                restoreDataCategoriesLabelsOpacity();
-                            }
-                        });
+                            // showFinalActor = actor.toLowerCase() !== 'we' && actor.toLowerCase() !== who;
+                            showFinalActor = true;
 
-                        // Make the tooltip permanent on click
-                        this.addEventListener('click', () => {
+                            let tooltipContent = generateInitialTooltipContent(itemName, originalNames[dataCategory], lines, actor, inheritances, showFinalActor);
 
-                            tooltipInstance.show();
+                            const tooltipInstance = tippy(this, {
+                                theme: 'light-border',
+                                content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
+                                allowHTML: true,
+                                trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
+                                hideOnClick: false,
+                                interactive: true,      // Set to false to make the tooltip non-interactive
+                                placement: 'top',        // Prefer placement at the top
+                                fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
+                                appendTo: () => document.body
+                            });
 
-                            dataCategoryClicked = true;
+                            this.addEventListener('mouseenter', () => {
 
-                            // Hide the currently permanent tooltip, if any
-                            if (currentPermanentTooltip) {
-                                currentPermanentTooltip.hide();
-                            }
+                                const opacity = window.getComputedStyle(this).opacity;
 
-                            // Set the clicked tooltip as the permanent one
-                            currentPermanentTooltip = tooltipInstance;
+                                // console.log("opacity: " + opacity);
+                                // console.log(typeof opacity);
 
-                            const rectangles = document.querySelectorAll('.copyOfDataRect');
+                                if (opacity !== "1") {
+                                    return;
+                                }
 
-                            // reducing the opacity of the other rectangles
-                            rectangles.forEach(rect => {
-                                const name = rect.getAttribute('data-name').toLowerCase();
-                                if (name === this.getAttribute('data-name').toLowerCase()) {
-                                    rect.style.opacity = '1';
-                                } else {
-                                    rect.style.opacity = '0.15';
+                                if (mainTimeline.currentLabel() !== "actorsColumn") {
+                                    return;
+                                }
+
+                                // console.log("theRect.style('opacity'):");
+                                // console.log(theRect.style('opacity'));
+
+                                if (theRect.style('opacity') === '1') {
+                                    tooltipInstance.show();
+                                }
+
+                                if (shouldShowDataCategories && !dataCategoryClicked) {
+
+                                    changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'normal');
                                 }
                             });
 
-                            // console.log("sanitizedDataCategory: ");
-                            // console.log(sanitizedDataCategory);
+                            this.addEventListener('mouseleave', () => {
 
-                            changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
+                                const opacity = window.getComputedStyle(this).opacity;
+
+                                // console.log("opacity: " + opacity);
+                                // console.log(typeof opacity);
+
+
+                                if (opacity !== "1") {
+                                    return;
+                                }
+
+                                if (currentPermanentTooltip !== tooltipInstance) {
+                                    tooltipInstance.hide();
+                                }
+                                if (shouldShowDataCategories && !dataCategoryClicked) {
+                                    restoreDataCategoriesLabelsOpacity();
+                                }
+                            });
+
+                            // Make the tooltip permanent on click
+                            this.addEventListener('click', () => {
+
+                                tooltipInstance.show();
+
+                                dataCategoryClicked = true;
+
+                                // Hide the currently permanent tooltip, if any
+                                if (currentPermanentTooltip) {
+                                    currentPermanentTooltip.hide();
+                                }
+
+                                // Set the clicked tooltip as the permanent one
+                                currentPermanentTooltip = tooltipInstance;
+
+                                const rectangles = document.querySelectorAll('.copyOfDataRect');
+
+                                // reducing the opacity of the other rectangles
+                                rectangles.forEach(rect => {
+                                    const name = rect.getAttribute('data-name').toLowerCase();
+                                    if (name === this.getAttribute('data-name').toLowerCase()) {
+                                        rect.style.opacity = '1';
+                                    } else {
+                                        rect.style.opacity = '0.15';
+                                    }
+                                });
+
+                                // console.log("sanitizedDataCategory: ");
+                                // console.log(sanitizedDataCategory);
+
+                                changeDataCategoriesLabelsOpacity(sanitizedDataCategory, 'bold');
+
+                            });
+
 
                         });
-
-
-                    });
 
 
 
