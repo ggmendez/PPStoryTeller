@@ -744,7 +744,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let categoryStartPositions = {};
 
-    
+
 
     // console.log("svgWidth: " + svgWidth);
     // console.log("svgHeight: " + svgHeight);
@@ -791,7 +791,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gsap.registerPlugin(ScrollTrigger, ScrollToPlugin, MotionPathPlugin);
 
 
-    
+
 
 
     let entities;
@@ -891,7 +891,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     target: edge.getAttribute('target') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : edge.getAttribute('target'),
                     text: edge.querySelector('data[key="d3"]')?.textContent || '',
                     category: getCategory(edge.getAttribute('source'), categories[who].actorCategories),
-                    isConditional: edge.getAttribute('isConditional') === 'true'
+                    isConditional: edge.getAttribute('isConditional') === 'True'
                 }));
 
             // Compute Indegree for each node
@@ -1275,11 +1275,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
             'Communication Data': '#6b3e98',
             'Transaction and Financial Information': '#f38ebb',
             'Device and Technical Information': '#f57e20',
-            'Location Data': '#b15a28',
+            'Location Data': '#fdbf6e',
             'Usage and Interaction Data': '#a6cee2',
             'Cookies and Tracking Technologies': '#7786c2',
             'Inferred and Analytical Data': '#1f78b4',
-            'Third-Party and External Data': '#fdbf6e',
+            'Third-Party and External Data': '#c6642f',
             'Ambiguous or Non-specified Data': '#ffd107',
             'Unknown Category': '#696969',
             'Other 1': '#34a048',
@@ -3950,7 +3950,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     function calculateTrianglePoints(d) {
-        const size = rectRadius;
+        const size = rectRadius - 1.5;
         const x = 0, y = 0; // Center the triangle
         return `${x},${y - size} ${x - size},${y + size} ${x + size},${y + size}`;
     }
@@ -4099,47 +4099,30 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         .data([dataRectCopy])  // Binding data here
                         .enter()
                         .append(function (d) {
-
-                            const found = item.name === "All Data";
-
-                            if (found) {
+                            const isAmbiguousData = item.name === "All Data";
+                            if (isAmbiguousData) {
                                 return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
                             } else {
                                 return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                             }
-
-
-                            // let n = getRandomBetween(0, 100, true);
-                            // d.shapeType = n % 3;
-                            // // Conditionally return different shape elements based on shapeType
-                            // if (d.shapeType === 0) {
-                            //     return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                            // } else if (d.shapeType === 1) {
-                            //     return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                            // } else if (d.shapeType === 2) {
-                            //     return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                            // }
-
                         })
 
                         .data([dataRectCopy]) // Binding data here
                         .attr('id', uniqueId)
                         .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
                         .attr('opacity', 0)
-                        .attr('width', rectRadius * 2)
-                        .attr('height', rectRadius * 2)
                         .attr('rx', rectRadius)
                         .attr('ry', rectRadius)
                         .attr('fill', dataRectCopy.fill)
-                        .attr('stroke-width', 2)
                         .attr('data-name', itemName)
                         .attr('data-data-category', makeID(dataCategory))
 
 
                         .attr('fill', function () {
 
-                            const found = item.isConditional.find(element => element === true);
-                            if (found) {
+                            const isConditional = item.isConditional.find(element => element === true);
+
+                            if (isConditional) {
                                 // Create a unique pattern ID for each rect
                                 const patternId = `striped-pattern-${uniqueId}`;
 
@@ -4163,20 +4146,28 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         })
 
                         .each(function (d) {
-                            const shape = d3.select(this);
-                            const found = item.name === "All Data";
-                            if (found) {
-                                shape.attr('points', calculateTrianglePoints(d));
 
-                                shape.attr('stroke', '#000000');
-                                shape.attr('stroke-linecap', 'round ');
-                                shape.attr('stroke-linejoin', 'round');
+                            const shape = d3.select(this);
+                            const isAmbiguousData = item.name === "All Data";
+                            if (isAmbiguousData) {
+
+                                shape.attr('points', calculateTrianglePoints(d))
+                                    .attr('stroke', '#000000')
+                                    .attr('stroke-linecap', 'round ')
+                                    .attr('stroke-linejoin', 'round')
+                                    .attr('stroke-width', 1.5)
                             } else {
+
                                 shape.attr('x', -rectRadius + 0.5)
                                     .attr('y', -rectRadius + 0.5)
+                                    .attr('width', rectRadius * 2)
+                                    .attr('height', rectRadius * 2)
+                                    .attr('stroke-width', 2)
+                                    .attr('stroke', '#ffffff');
+                                // .attr('stroke-width', 0.5)
+                                // .attr('stroke', dataRectCopy.fill);
 
-                                // shape.attr('stroke', dataRectCopy.fill);
-                                shape.attr('stroke', '#ffffff');
+
                             }
 
 
@@ -4221,10 +4212,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 content: tooltipContent.header + (inheritances && inheritances.length ? tooltipContent.inheritances : '') + tooltipContent.content,
                                 allowHTML: true,
                                 trigger: 'manual',  // Changed from 'click' to 'mouseenter' for hover activation
+                                // animation: 'perspective',
                                 hideOnClick: false,
                                 interactive: true,      // Set to false to make the tooltip non-interactive
                                 placement: 'top',        // Prefer placement at the top
-                                fallbackPlacements: ['right', 'bottom', 'left'], // Fallback placements if 'top' doesn't fit
+                                fallbackPlacements: ['right', 'left', 'bottom'], // Fallback placements if 'top' doesn't fit
                                 appendTo: () => document.body
                             });
 
