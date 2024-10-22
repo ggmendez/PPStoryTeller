@@ -175,7 +175,6 @@ class IframeSearcher {
 
         this.search(result, true, false);
 
-
     }
 
     next() {

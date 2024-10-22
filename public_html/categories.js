@@ -278,6 +278,7 @@ categories.tiktok = {
     //     "Third-Party and External Data": [
     //         "Data from Advertising and Analytics Partners",
     //         "Data from Merchants and Service Providers",
+    //         "Data from Merchants and Service Providers",
     //         "Data from Third-Party Platforms",
     //         "Data from Public and External Sources",
     //         "Mentions in Content"
@@ -427,7 +428,7 @@ categories.tiktok = {
         ],
         "Third-Party and External Data": [
             "Activities on Other Websites and Apps",
-            "Cookie Identifiers (Third Parties)",
+            "Cookie Identifiers",
             "Data from Advertising and Analytics Partners",
             "Data from Charity Groups",
             "Data from Government Authorities",
@@ -441,6 +442,7 @@ categories.tiktok = {
             "Hashed Email Addresses",
             "Hashed Phone Numbers",
             "Mentions in Content",
+            "Information About You from Other Users",
             "Mobile Identifiers for Advertising",
             "Products or Services Purchased Elsewhere",
             "Public Profile from Third Parties",

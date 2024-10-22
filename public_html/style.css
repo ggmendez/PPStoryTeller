@@ -1067,7 +1067,7 @@ code .token.url {
 }
 
 .tippy-box[data-theme~='light-border'] {
-  background-color: #ffffffef;
+  background-color: #fffffff5;
   color: #333;
   border: 1px solid #ccc;
   font-family: Mori, sans-serif;
@@ -1652,8 +1652,7 @@ code .token.url {
   font-weight: 100;
 }
 
-.inheritances ul {
-  list-style-type: square;
+.inheritances ol {  
   margin: 0;
   padding-left: 20px;
 }

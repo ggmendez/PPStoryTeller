@@ -285,13 +285,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         searchTextInPP(normalizedText);
 
-        // Perform the search or other logic here
-        // searcher.search(normalizedText);
-
-        // if (!searcher.currentMatches.length) {
-        //     searcher.retry(normalizedText);
-        // }
-
         // Update the page info display
         document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
     });
@@ -315,15 +308,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
         console.log(normalizedText);
 
         searchTextInPP(normalizedText);
-
-        // Perform the search or other logic here
-        // searcher.search(normalizedText);
-
-        // if no results, we will retry by considering parts of the string,
-        // as it may contain colons
-        // if (!searcher.currentMatches.length) {
-        //     searcher.retry(normalizedText);
-        // }
 
         // Update the page info display
         document.querySelector("#pageInfo").textContent = (currentLineIndex + 1) + "/" + currentLinesArray.length;
@@ -484,6 +468,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     function searchTextInPP(normalizedText) {
 
+        console.log("normalizedText:");
+        console.log(normalizedText);
+
+
+
         searcher.search(normalizedText);
 
         if (!searcher.currentMatches.length) {
@@ -558,7 +547,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     const svg = d3.select('#circle-packing-svg');
+    const defs = svg.append("defs");
+
+
     const svgElement = document.getElementById('circle-packing-svg');
+
+
+
 
 
 
@@ -746,7 +741,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     let categoryStartPositions = {};
 
-    const targetSize = 8;
+    const rectRadius = 8;
 
     // console.log("svgWidth: " + svgWidth);
     // console.log("svgHeight: " + svgHeight);
@@ -803,7 +798,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     const dataInheritances = {};
 
-    // window.actorDataMap = actorDataMap;
+    window.actorDataMap = actorDataMap;
 
     document.querySelector("#who").textContent = formatedNames[who];
     document.querySelector("#they").textContent = formatedNames[who];
@@ -894,6 +889,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     target: edge.getAttribute('target') === "UNSPECIFIED_DATA" ? UNSPECIFIED_DATA_RENAME : edge.getAttribute('target'),
                     text: edge.querySelector('data[key="d3"]')?.textContent || '',
                     category: getCategory(edge.getAttribute('source'), categories[who].actorCategories),
+                    isConditional: edge.getAttribute('isConditional') === 'true'
                 }));
 
             // Compute Indegree for each node
@@ -904,6 +900,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 }
             });
 
+            // window.edges = edges;
+
             // console.log("Updated nodes with Indegree");
             // console.log(entities);
             // console.log("edges:");
@@ -913,6 +911,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             edges.forEach(edge => {
                 const actorName = edge.source;
                 const dataName = edge.target;
+                const isConditional = edge.isConditional;
 
                 let actorCategory = edge.category;
 
@@ -953,24 +952,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                 if (existingEntry) {
 
-                    console.log("Antes");
-                    console.log(existingEntry);
-
-
                     // If an existing entry is found, concatenate the new text
                     existingEntry.text.push(edge.text);  // Concatenating with a space between texts
                     existingEntry.actor.push(actorName);
+                    existingEntry.isConditional.push(isConditional);
 
-
-                    console.log("Después");
-                    console.log(existingEntry);
 
                 } else {
                     // Otherwise, push a new entry
                     actorDataMap[cleanActorCategory][cleanDataCategory].push({
                         name: dataName,
                         text: [edge.text],
-                        actor: [actorName]
+                        actor: [actorName],
+                        isConditional: [isConditional],
                     });
                 }
 
@@ -1155,7 +1149,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 const actorNames = entities.filter(d => d.type === 'ACTOR' && removeSpaces(d.category.toUpperCase()) === cleanCategory).map(d => d.label);
                 const numberOfActors = actorNames.length;
 
-                let allActors = "<ul>";
+                let allActors = "<ol>";
                 actorNames.forEach((name, index) => {
                     if (name === 'UNSPECIFIED_ACTOR') {
                         allActors += `<li style="padding-right: 20px;">${capitalizeFirstLetter(UNSPECIFIED_ACTOR_RENAME)}</li>`;
@@ -1164,7 +1158,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     }
 
                 });
-                allActors += "</ul>";
+                allActors += "</ol>";
 
                 // Define the content of the tooltip                    
                 const tooltipContent = `Including:<br/>${allActors}`;
@@ -1486,7 +1480,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr('id', d => makeID(d)); // here i need an ID for the category, it should be the same id used in the tect 
 
 
-        const categoryRectSize = targetSize;
+        const categoryRectSize = rectRadius;
         svgCategoryGroups.append('rect')
             .attr('x', -categoryRectSize)
             .attr('y', -categoryRectSize)
@@ -2047,7 +2041,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
         const point1 = { x: deltaX, y: deltaY };
         const point2 = { x: svgWidth - deltaX, y: deltaY };
-        const splitRectData = getPackedDataForSplitRects(point1, point2, svgHeight - (2 * deltaY), targetSize);
+        const splitRectData = getPackedDataForSplitRects(point1, point2, svgHeight - (2 * deltaY), rectRadius);
 
         // ***** CATEGORIES *****
         mainTimeline.addLabel("categories")
@@ -2317,8 +2311,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
             {
                 x: (i) => thirdData[i].x,
                 y: (i) => thirdData[i].y,
-                width: targetSize * 2.5,
-                height: targetSize * 2.5,
+                width: rectRadius * 2.5,
+                height: rectRadius * 2.5,
                 opacity: 0,
                 duration: animationDuration,
                 ease: "none",
@@ -2356,7 +2350,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             const cellHeight = 30; // Adjust height as needed
             const x = column * cellWidth + cellWidth / 2;
             const y = svgHeight - (rows * cellHeight) + row * cellHeight + cellHeight / 2;
-            categoryTargetPositions[node.id] = { x: x, y: y - 20 };
+            categoryTargetPositions[node.id] = { x: x - 140, y: y - 20 };
         });
 
         // console.log("categorTargetPositions");
@@ -2492,14 +2486,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
                     // x: rightAlignX + distanceFromLogo,
-                    x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (targetSize * 2 + padding * 0.75),
-                    y: startY + targetSize / 2,
+                    x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (rectRadius * 2 + padding * 0.75),
+                    y: startY + rectRadius / 2,
                     opacity: 0,
 
 
                 }, {
-                    x: rightAlignX + distanceFromLogo + rectIndex * (targetSize * 2 + padding * 0.75),
-                    y: startY + targetSize / 2,
+                    x: rightAlignX + distanceFromLogo + rectIndex * (rectRadius * 2 + padding * 0.75),
+                    y: startY + rectRadius / 2,
                     opacity: 1,
                     duration: animationDuration,
                     ease: "power1.inOut",
@@ -2597,12 +2591,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         // x: svgWidth * 1.25,
                         // y: getRandomBetween(-100, svgHeight + 100),
                         // x: rightAlignX + distanceFromLogo,
-                        x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (targetSize * 2 + padding * 0.75),
-                        y: offsetY + targetSize / 2,
+                        x: rightAlignX + distanceFromLogo + (rectIndex - 2) * (rectRadius * 2 + padding * 0.75),
+                        y: offsetY + rectRadius / 2,
 
                     }, {
-                        x: rightAlignX + distanceFromLogo + rectIndex * (targetSize * 2 + padding * 0.75),
-                        y: offsetY + targetSize / 2,
+                        x: rightAlignX + distanceFromLogo + rectIndex * (rectRadius * 2 + padding * 0.75),
+                        y: offsetY + rectRadius / 2,
                         opacity: 1,
                         duration: animationDuration,
                         ease: "power1.inOut",
@@ -3129,12 +3123,12 @@ document.addEventListener("DOMContentLoaded", (event) => {
         let initialContent = '';
 
         if (showFinalActor) {
-            initialContent = '<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div class="inheritances"><ul>' + actors.map(actor => '<li>' + actor + '</li>').join('') + '</ul></div>';
+            initialContent = '<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Collected by/shared with:</span><br/> ' + '<div class="inheritances"><ol>' + actors.map(actor => '<li>' + ((actor === 'we' || actor === 'We') ? formatedNames[who] : capitalizeFirstLetter(actor)) + '</li>').join('') + '</ol></div>';
         }
 
 
 
-        let inheritanceElements = `<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Such as:</span><br/> <div class="inheritances" style = "${showFinalActor ? "border-bottom: 1px solid #eee;" : ""}"><ul>`;
+        let inheritanceElements = `<span style="padding-top: 8px; margin-top: 8px; color: #a0a0a0; font-size: smaller; letter-spacing: 0.05em; font-family: \'Roboto\', sans-serif; font-weight: 100;">Such as:</span><br/> <div class="inheritances" style = "${showFinalActor ? "border-bottom: 1px solid #eee;" : ""}"><ol>`;
 
         if (inheritances && inheritances.length) {
             inheritances.forEach((inheritance, index) => {
@@ -3142,7 +3136,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
             });
         }
 
-        inheritanceElements += '</ul></div>';
+        inheritanceElements += '</ol></div>';
 
         return {
             header: `<div class="tooltip-header" style = "${showFinalActor ? "border-bottom: 1px solid #eee; padding-bottom: 8px;" : ""}"><b>${name}</div>`,
@@ -3680,13 +3674,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
             if (inheritances && inheritances.length) {
                 inheritances.forEach(inheritance => {
-                    if (inheritance.toLocaleLowerCase().includes(searchTerm)) {
+                    if (inheritance.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())) {
                         foundInInheritances = true;
                     }
                 });
             }
 
-            if ((name.toLocaleLowerCase().includes(searchTerm) || foundInInheritances) && !uniqueResults.has(name)) {
+            if ((name.toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase()) || foundInInheritances) && !uniqueResults.has(name)) {
                 uniqueResults.add(name); // Add name to the set to ensure uniqueness
             }
         });
@@ -3740,7 +3734,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 if (!selectedItem) { // Only apply hover effects if no item is selected
                     rectangles1.forEach(rect => {
                         const rectName = rect.getAttribute('data-name').toLowerCase();
-                        if (rectName === name) {
+                        if (rectName === name.toLowerCase()) {
                             rect.style.opacity = '1'; // Highlight the corresponding rects
                         } else {
                             rect.style.opacity = '0.15'; // Dim others
@@ -3777,7 +3771,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 selectedItem = name; // Set the selected item
                 rectangles1.forEach(rect => {
                     const rectName = rect.getAttribute('data-name').toLowerCase();
-                    if (rectName === name) {
+                    if (rectName === name.toLowerCase()) {
                         rect.style.opacity = '1'; // Keep the clicked result fully visible
                     } else {
                         rect.style.opacity = '0.15'; // Fade unrelated rectangles
@@ -3943,14 +3937,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
 
     function calculateTrianglePoints(d) {
-        const size = targetSize;
+        const size = rectRadius;
         const x = 0, y = 0; // Center the triangle
         return `${x},${y - size} ${x - size},${y + size} ${x + size},${y + size}`;
     }
 
 
     function calculateHexagonPoints(d) {
-        const size = targetSize;
+        const size = rectRadius;
         const x = 0, y = 0; // Center the hexagon
         return `${x + size},${y} ${x + size / 2},${y + size * Math.sqrt(3) / 2} 
             ${x - size / 2},${y + size * Math.sqrt(3) / 2} ${x - size},${y} 
@@ -3960,6 +3954,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
     function generateRectCopies(collectedData, actorIconCategory, globalFrequencyMap, splitRectData) {
+
         const newRects = [];
         let rectIndex = 0;
 
@@ -3981,6 +3976,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
             items.forEach((item, innerIndex) => {
+
+
+
                 const dataRect = splitRectData.find(d => capitalizeFirstLetter(d.name) === capitalizeFirstLetter(item.name));
                 if (dataRect) {
                     const uniqueId = sanitizeId(`${actorIconCategory}_${dataRect.id}_${rectIndex}_${innerIndex}`);
@@ -4007,8 +4005,16 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         let tmp = processString(text)
                             .filter(d => !isHeader(d)) // to remove headers
                             .map(line => normalizeText(line));
-                            lines.concat(tmp);
+                        lines = lines.concat(tmp);
                     });
+
+                    lines = [...new Set(lines)];
+
+
+                    // console.log("((((( lines:");
+                    // console.log(lines);
+
+
 
                     // let lines = processString(item.text)
                     //     .filter(d => !isHeader(d)) // to remove headers
@@ -4072,70 +4078,78 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     const sanitizedActorCategory = sanitizeId(actorIconCategory);
                     const sanitizedDataCategory = sanitizeId(dataCategory);
 
-                    let theRect = svg.selectAll(null)  // Create an empty selection to append different shapes
-                        .data([dataRectCopy])  // Binding data here
-                        .enter()
-                        .append(function (d) {
-                            let n = getRandomBetween(0, 100, true);
-                            d.shapeType = n % 3;
-                            // Conditionally return different shape elements based on shapeType
-                            if (d.shapeType === 0) {
-                                return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                            } else if (d.shapeType === 1) {
-                                return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-                            } else if (d.shapeType === 2) {
-                                return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-                            }
-                        })
-                        .attr('id', uniqueId)
-                        .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
-                        .attr('opacity', 0)
-                        .attr('fill', dataRectCopy.fill)
-                        .attr('data-name', itemName)
-                        .attr('data-data-category', makeID(dataCategory));
 
-                    // // Set attributes specific to each shape
-                    // theRect
-                    //     .each(function (d) {
-                    //         const shape = d3.select(this);
+
+                    
+
+                    // let theRect = svg.selectAll(null)  // Create an empty selection to append different shapes
+                    //     .data([dataRectCopy])  // Binding data here
+                    //     .enter()
+                    //     .append(function (d) {
+                    //         let n = getRandomBetween(0, 100, true);
+                    //         d.shapeType = n % 3;
+                    //         // Conditionally return different shape elements based on shapeType
                     //         if (d.shapeType === 0) {
-                    //             shape.attr('x', -targetSize + 0.5)
-                    //                 .attr('y', -targetSize + 0.5)
-                    //                 .attr('width', targetSize * 2 - 1)
-                    //                 .attr('height', targetSize * 2 - 1);
+                    //             return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     //         } else if (d.shapeType === 1) {
-                    //             shape.attr('points', calculateTrianglePoints(d));
+                    //             return document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
                     //         } else if (d.shapeType === 2) {
-                    //             shape.attr('x', -targetSize)
-                    //                 .attr('y', -targetSize)
-                    //                 .attr('width', targetSize * 2)
-                    //                 .attr('height', targetSize * 2)
-                    //                 .attr('rx', targetSize)
-                    //                 .attr('ry', targetSize);
+                    //             return document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     //         }
-                    //     });
+                    //     })
+                    //     .attr('id', uniqueId)
+                    //     .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
+                    //     .attr('opacity', 0)
+                    //     .attr('fill', dataRectCopy.fill)
+                    //     .attr('data-name', itemName)
+                    //     .attr('data-data-category', makeID(dataCategory));
+                 
 
 
-                    theRect = svg.append('rect')
+                    let theRect = svg.append('rect')
                         .data([dataRectCopy]) // Binding data here
                         .attr('id', uniqueId)
                         .attr('class', 'copyOfDataRect ' + sanitizedActorCategory + ' ' + sanitizedDataCategory)
                         .attr('opacity', 0)
-                        .attr('x', -targetSize)
-                        .attr('y', -targetSize)
-                        .attr('width', targetSize * 2)
-                        .attr('height', targetSize * 2)
-                        .attr('rx', targetSize)
-                        .attr('ry', targetSize)
+                        .attr('x', -rectRadius)
+                        .attr('y', -rectRadius)
+                        .attr('width', rectRadius * 2)
+                        .attr('height', rectRadius * 2)
+                        .attr('rx', rectRadius)
+                        .attr('ry', rectRadius)
                         .attr('fill', dataRectCopy.fill)
-
                         .attr('stroke-width', 1)
-                        // .attr('stroke', darkenColor(dataRectCopy.fill))
+                        .attr('fill', function () {
 
-                        .attr('stroke', '#ffffff')
+                            const found = item.isConditional.find(element => element === true);                        
+                            if (found) {
+                                // Create a unique pattern ID for each circle
+                                const patternId = `striped-pattern-${uniqueId}`;
+
+                                // Define a new pattern for this specific circle
+                                defs.append("pattern")
+                                    .attr("id", patternId)
+                                    .attr("width", rectRadius/2)
+                                    .attr("height", rectRadius/2)
+                                    .attr("patternUnits", "userSpaceOnUse")
+                                    .attr("patternTransform", "rotate(45)")
+                                    .append("rect")
+                                    .attr("width", rectRadius/2 - 1)
+                                    .attr("height", rectRadius/2)
+                                    .attr("fill", dataRectCopy.fill); // Use the specific circle's fill color
+                                // Apply the unique striped pattern
+                                return `url(#${patternId})`;
+                            } else {
+                                //     // Use the solid fill color when isConditional is false
+                                return dataRectCopy.fill;
+                            }
+                        })
+
 
                         .attr('data-name', itemName)
                         .attr('data-data-category', makeID(dataCategory));
+
+                        
 
 
 
@@ -4277,6 +4291,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                     // event to see the corresponding texts within the privacy policy
                     theRect.on('click', () => {
+
+
+
+                        console.log("lines to search:");
+                        console.log(lines);
+
+
 
                         const opacity = window.getComputedStyle(theRect.node()).opacity;
                         if (opacity !== "1") {
