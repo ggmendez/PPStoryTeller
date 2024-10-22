@@ -2063,11 +2063,7 @@
 </edge>
 
 
-<edge source="we" target="Basic Personal Details" id="edge_collect_we_Basic Personal Details" isConditional="False
-False
-False
-False
-False">
+<edge source="we" target="Basic Personal Details" id="edge_collect_we_Basic Personal Details" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password
 We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password
@@ -2076,17 +2072,13 @@ We collect information that you provide when you set up an account, such as your
 We collect information that you provide when you set up an account, such as your date of birth, username, email address and/or telephone number, and password</data>
 </edge>
 
-<edge source="we" target="Profile Information" id="edge_collect_we_Profile Information" isConditional="False
-False">
+<edge source="we" target="Profile Information" id="edge_collect_we_Profile Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">You can add other information to your profile, such as a bio or a profile photo
 You can add other information to your profile, such as a bio or a profile photo</data>
 </edge>
 
-<edge source="we" target="Media Content" id="edge_collect_we_Media Content" isConditional="False
-False
-False
-False">
+<edge source="we" target="Media Content" id="edge_collect_we_Media Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams
 We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams
@@ -2094,75 +2086,60 @@ We collect the content you create or publish through the Platform, such as photo
 We collect the content you create or publish through the Platform, such as photographs, videos, audio recordings, livestreams</data>
 </edge>
 
-<edge source="we" target="Textual Content" id="edge_collect_we_Textual Content" isConditional="False
-False
-False">
+<edge source="we" target="Textual Content" id="edge_collect_we_Textual Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">comments, hashtags, feedback, reviews
 comments, hashtags, feedback, reviews
 comments, hashtags, feedback, reviews</data>
 </edge>
 
-<edge source="we" target="Support and Feedback" id="edge_collect_we_Support and Feedback" isConditional="False
-False
-False">
+<edge source="we" target="Support and Feedback" id="edge_collect_we_Support and Feedback" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">comments, hashtags, feedback, reviews
 When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform
 When you contact us, we collect the information you send us, such as proof of identity or age, feedback or inquiries about your use of the Platform or information about possible violations of our Terms of Service</data>
 </edge>
 
-<edge source="we" target="Content Metadata" id="edge_collect_we_Content Metadata" isConditional="False
-False
-False">
+<edge source="we" target="Content Metadata" id="edge_collect_we_Content Metadata" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">and the associated metadata (such as when, where, and by whom the content was created)
 and the associated metadata (such as when, where, and by whom the content was created)
 and the associated metadata (such as when, where, and by whom the content was created)</data>
 </edge>
 
-<edge source="we" target="Location Tags in Content" id="edge_collect_we_Location Tags in Content" isConditional="False
-False">
+<edge source="we" target="Location Tags in Content" id="edge_collect_we_Location Tags in Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">and the associated metadata (such as when, where, and by whom the content was created)
 In addition, we collect location information (such as tourist attractions, shops, or other points of interest) if you choose to add the location information to your User Content</data>
 </edge>
 
-<edge source="we" target="Clipboard Content" id="edge_collect_we_Clipboard Content" isConditional="False
-False
-False">
+<edge source="we" target="Clipboard Content" id="edge_collect_we_Clipboard Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform
 We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform
 We also collect content (such as text, images, and video) from your device's clipboard if you choose to copy and paste content to or from the Platform</data>
 </edge>
 
-<edge source="we" target="Direct Messages" id="edge_collect_we_Direct Messages" isConditional="False
-False">
+<edge source="we" target="Direct Messages" id="edge_collect_we_Direct Messages" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">If you communicate with others using direct messages, we collect the content of the message
 If you communicate with others using direct messages, we collect the content of the message and the associated metadata (such as the time the message was sent, received and/or read, as well as the participants in the communication)</data>
 </edge>
 
-<edge source="we" target="Merchant Communications" id="edge_collect_we_Merchant Communications" isConditional="False
-False">
+<edge source="we" target="Merchant Communications" id="edge_collect_we_Merchant Communications" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also collect the messages you send or receive through our chat functionality when communicating with merchants who sell goods to you.
 ...and your use of virtual assistants when purchasing items through the Platform.</data>
 </edge>
 
-<edge source="we" target="Device Contacts" id="edge_collect_we_Device Contacts" isConditional="False
-False
-False">
+<edge source="we" target="Device Contacts" id="edge_collect_we_Device Contacts" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">If you choose to sync your contacts, we will collect information from your device's phone book such as names
 If you choose to sync your contacts, we will collect information from your device's phone book such as... phone numbers
 If you choose to sync your contacts, we will collect information from your device's phone book such as... email addresses</data>
 </edge>
 
-<edge source="we" target="Social Network Contacts" id="edge_collect_we_Social Network Contacts" isConditional="False
-False
-False">
+<edge source="we" target="Social Network Contacts" id="edge_collect_we_Social Network Contacts" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">If you choose to find other users through your social network contacts, we will collect your public profile information
 ...as well as names and profiles of your social network contacts.
@@ -2174,8 +2151,7 @@ False">
     <data key="d3">We may also receive contact information that you hold or is held about you when contact information is synced with our Platform by you or another user.</data>
 </edge>
 
-<edge source="we" target="Payment Information" id="edge_collect_we_Payment Information" isConditional="False
-False">
+<edge source="we" target="Payment Information" id="edge_collect_we_Payment Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information
 When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased</data>
@@ -2186,19 +2162,13 @@ When you make a purchase or payment on or through the Platform, including when y
     <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased.</data>
 </edge>
 
-<edge source="we" target="Purchase Details" id="edge_collect_we_Purchase Details" isConditional="False
-False">
+<edge source="we" target="Purchase Details" id="edge_collect_we_Purchase Details" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased
 When you make a purchase or payment on or through the Platform, including when you buy TikTok Coins or purchase goods through our shopping features, we collect information about the purchase or payment transaction, such as payment card information, billing, delivery, and contact information, and items you purchased</data>
 </edge>
 
-<edge source="we" target="User Participation Data" id="edge_collect_we_User Participation Data" isConditional="False
-False
-False
-False
-False
-False">
+<edge source="we" target="User Participation Data" id="edge_collect_we_User Participation Data" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us
 We collect Information You Provide if you choose to participate in a survey, research, promotion, contest, marketing campaign, or event conducted or sponsored by us
@@ -2208,25 +2178,20 @@ We collect Information You Provide if you choose to participate in a survey, res
 We collect the Information You Provide when you fill in a form on the Platform.</data>
 </edge>
 
-<edge source="we" target="Identification Documents" id="edge_collect_we_Identification Documents" isConditional="False
-False">
+<edge source="we" target="Identification Documents" id="edge_collect_we_Identification Documents" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">When you contact us, we collect the information you send us, such as proof of identity
 When you contact us, we collect the information you send us, such as proof of identity or age</data>
 </edge>
 
-<edge source="we" target="Device Information" id="edge_collect_we_Device Information" isConditional="False
-False
-False">
+<edge source="we" target="Device Information" id="edge_collect_we_Device Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language
 We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language
 We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language</data>
 </edge>
 
-<edge source="we" target="Technical Diagnostics" id="edge_collect_we_Technical Diagnostics" isConditional="False
-False
-False">
+<edge source="we" target="Technical Diagnostics" id="edge_collect_we_Technical Diagnostics" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language
 We also collect service-related, diagnostic, and performance information, including crash reports
@@ -2238,24 +2203,19 @@ We also collect service-related, diagnostic, and performance information, includ
     <data key="d3">We collect certain device and network connection information when you access the Platform. This information includes your device model, operating system, keystroke patterns or rhythms, IP address, and system language</data>
 </edge>
 
-<edge source="we" target="Automatically Assigned Identifiers" id="edge_collect_we_Automatically Assigned Identifiers" isConditional="False
-False">
+<edge source="we" target="Automatically Assigned Identifiers" id="edge_collect_we_Automatically Assigned Identifiers" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We automatically assign you a device ID and user ID.
 We automatically assign you a device ID and user ID.</data>
 </edge>
 
-<edge source="we" target="Approximate Location" id="edge_collect_we_Approximate Location" isConditional="False
-False">
+<edge source="we" target="Approximate Location" id="edge_collect_we_Approximate Location" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We automatically collect information about your approximate location (e.g., country, state, or city) based on your Technical Information (such as SIM card and IP address)
 Also, where you enable location services for the TikTok app within your device settings, we collect approximate location information from your device</data>
 </edge>
 
-<edge source="we" target="Engagement Metrics" id="edge_collect_we_Engagement Metrics" isConditional="False
-False
-False
-False">
+<edge source="we" target="Engagement Metrics" id="edge_collect_we_Engagement Metrics" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings
 We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings
@@ -2273,44 +2233,33 @@ We collect information about how you engage with the Platform, including informa
     <data key="d3">We collect information about how you engage with the Platform, including information about the content you view, the duration and frequency of your use, your engagement with other users, your search history and your settings</data>
 </edge>
 
-<edge source="we" target="Content Analysis" id="edge_collect_we_Content Analysis" isConditional="False
-False
-False">
+<edge source="we" target="Content Analysis" id="edge_collect_we_Content Analysis" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content
 We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content... the existence or location within an image of a face or other body parts
 We detect and collect characteristics and features about the videos, images, and audio recordings that are part of your User Content... and the text of words spoken in your User Content</data>
 </edge>
 
-<edge source="we" target="Inferred Attributes" id="edge_collect_we_Inferred Attributes" isConditional="False
-False
-False">
+<edge source="we" target="Inferred Attributes" id="edge_collect_we_Inferred Attributes" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We infer your attributes (such as age-range and gender).
 We infer your attributes (such as age-range and gender).
 We infer your attributes... and interests based on the information we have about you.</data>
 </edge>
 
-<edge source="we" target="Cookie Data" id="edge_collect_we_Cookie Data" isConditional="False
-False">
+<edge source="we" target="Cookie Data" id="edge_collect_we_Cookie Data" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We use cookies and similar tracking technologies to operate and provide the Platform.
 We use cookies and similar tracking technologies to operate and provide the Platform.</data>
 </edge>
 
-<edge source="we" target="Tracking Information" id="edge_collect_we_Tracking Information" isConditional="False
-False">
+<edge source="we" target="Tracking Information" id="edge_collect_we_Tracking Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We use cookies and similar tracking technologies to operate and provide the Platform.
 We use cookies and similar tracking technologies to operate and provide the Platform.</data>
 </edge>
 
-<edge source="we" target="Data from Advertising and Analytics Partners" id="edge_collect_we_Data from Advertising and Analytics Partners" isConditional="False
-False
-False
-False
-False
-False">
+<edge source="we" target="Data from Advertising and Analytics Partners" id="edge_collect_we_Data from Advertising and Analytics Partners" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person
 Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person
@@ -2320,18 +2269,13 @@ These partners also share information with us, such as mobile identifiers for ad
 These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers</data>
 </edge>
 
-<edge source="we" target="Data from Merchants and Service Providers" id="edge_collect_we_Data from Merchants and Service Providers" isConditional="False
-False">
+<edge source="we" target="Data from Merchants and Service Providers" id="edge_collect_we_Data from Merchants and Service Providers" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details
 We receive information about you from merchants as well as payment and transaction fulfillment providers... and information about the delivery of products you have purchased.</data>
 </edge>
 
-<edge source="we" target="Data from Third-Party Platforms" id="edge_collect_we_Data from Third-Party Platforms" isConditional="False
-False
-False
-False
-True">
+<edge source="we" target="Data from Third-Party Platforms" id="edge_collect_we_Data from Third-Party Platforms" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform
 Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties
@@ -2340,10 +2284,7 @@ When you interact with any third party service... that integrate TikTok Develope
 We may also receive information from third party providers which we use for safety purposes.</data>
 </edge>
 
-<edge source="we" target="Data from Public and External Sources" id="edge_collect_we_Data from Public and External Sources" isConditional="True
-True
-True
-True">
+<edge source="we" target="Data from Public and External Sources" id="edge_collect_we_Data from Public and External Sources" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2356,12 +2297,7 @@ We share Information You Provide, Automatically Collected Information, and Infor
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Advertising, Measurement and Other Partners" target="Data from Advertising and Analytics Partners" id="edge_collect_Advertising, Measurement and Other Partners_Data from Advertising and Analytics Partners" isConditional="False
-False
-False
-False
-False
-False">
+<edge source="Advertising, Measurement and Other Partners" target="Data from Advertising and Analytics Partners" id="edge_collect_Advertising, Measurement and Other Partners_Data from Advertising and Analytics Partners" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person
 Advertisers, measurement and other partners share information with us about you and the actions you have taken outside of the Platform, such as your activities on other websites and apps or in stores, including the products or services you purchased, online or in person
@@ -2371,16 +2307,13 @@ These partners also share information with us, such as mobile identifiers for ad
 These partners also share information with us, such as mobile identifiers for advertising, hashed email addresses and phone numbers, and cookie identifiers</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfillment Providers" target="Data from Merchants and Service Providers" id="edge_collect_Merchants, Payment and Transaction Fulfillment Providers_Data from Merchants and Service Providers" isConditional="False
-False">
+<edge source="Merchants, Payment and Transaction Fulfillment Providers" target="Data from Merchants and Service Providers" id="edge_collect_Merchants, Payment and Transaction Fulfillment Providers_Data from Merchants and Service Providers" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We receive information about you from merchants as well as payment and transaction fulfillment providers, such as payment confirmation details
 We receive information about you from merchants as well as payment and transaction fulfillment providers... and information about the delivery of products you have purchased.</data>
 </edge>
 
-<edge source="Third Party Platforms" target="Data from Third-Party Platforms" id="edge_collect_Third Party Platforms_Data from Third-Party Platforms" isConditional="False
-False
-False">
+<edge source="Third Party Platforms" target="Data from Third-Party Platforms" id="edge_collect_Third Party Platforms_Data from Third-Party Platforms" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform
 Third party platforms provide us with information (such as your email address, user ID, and public profile) when you choose to sign up for or log in to the Platform using sign-in features provided by those third parties
@@ -2402,10 +2335,7 @@ Third party platforms provide us with information (such as your email address, u
     <data key="d3">We may also receive information from third party providers which we use for safety purposes.</data>
 </edge>
 
-<edge source="Organisations, Businesses, People, and Others" target="Data from Public and External Sources" id="edge_collect_Organisations, Businesses, People, and Others_Data from Public and External Sources" isConditional="True
-True
-True
-True">
+<edge source="Organisations, Businesses, People, and Others" target="Data from Public and External Sources" id="edge_collect_Organisations, Businesses, People, and Others_Data from Public and External Sources" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We may collect or receive information about you from organisations, businesses, people, and others, including, for example, publicly available sources
 We may collect or receive information about you from... government authorities.
@@ -2418,11 +2348,7 @@ We may collect or receive information about you from... charity groups.</data>
     <data key="d3">We also collect information about you where you are included or mentioned in User Content, Direct Messages</data>
 </edge>
 
-<edge source="Service Providers" target="Basic Personal Details" id="edge_collect_Service Providers_Basic Personal Details" isConditional="False
-False
-False
-False
-False">
+<edge source="Service Providers" target="Basic Personal Details" id="edge_collect_Service Providers_Basic Personal Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2431,17 +2357,13 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Profile Information" id="edge_collect_Service Providers_Profile Information" isConditional="False
-False">
+<edge source="Service Providers" target="Profile Information" id="edge_collect_Service Providers_Profile Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Media Content" id="edge_collect_Service Providers_Media Content" isConditional="False
-False
-False
-False">
+<edge source="Service Providers" target="Media Content" id="edge_collect_Service Providers_Media Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2449,112 +2371,90 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Textual Content" id="edge_collect_Service Providers_Textual Content" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Textual Content" id="edge_collect_Service Providers_Textual Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Support and Feedback" id="edge_collect_Service Providers_Support and Feedback" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Support and Feedback" id="edge_collect_Service Providers_Support and Feedback" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Content Metadata" id="edge_collect_Service Providers_Content Metadata" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Content Metadata" id="edge_collect_Service Providers_Content Metadata" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Location Tags in Content" id="edge_collect_Service Providers_Location Tags in Content" isConditional="False
-False">
+<edge source="Service Providers" target="Location Tags in Content" id="edge_collect_Service Providers_Location Tags in Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Clipboard Content" id="edge_collect_Service Providers_Clipboard Content" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Clipboard Content" id="edge_collect_Service Providers_Clipboard Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Direct Messages" id="edge_collect_Service Providers_Direct Messages" isConditional="False
-False">
+<edge source="Service Providers" target="Direct Messages" id="edge_collect_Service Providers_Direct Messages" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Merchant Communications" id="edge_collect_Service Providers_Merchant Communications" isConditional="False
-False">
+<edge source="Service Providers" target="Merchant Communications" id="edge_collect_Service Providers_Merchant Communications" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Device Contacts" id="edge_collect_Service Providers_Device Contacts" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Device Contacts" id="edge_collect_Service Providers_Device Contacts" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Social Network Contacts" id="edge_collect_Service Providers_Social Network Contacts" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Social Network Contacts" id="edge_collect_Service Providers_Social Network Contacts" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Contacts Provided by Others" id="edge_collect_Service Providers_Contacts Provided by Others" isConditional="False
-False">
+<edge source="Service Providers" target="Contacts Provided by Others" id="edge_collect_Service Providers_Contacts Provided by Others" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Payment Information" id="edge_collect_Service Providers_Payment Information" isConditional="False
-False">
+<edge source="Service Providers" target="Payment Information" id="edge_collect_Service Providers_Payment Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Delivery Information" id="edge_collect_Service Providers_Delivery Information" isConditional="False">
+<edge source="Service Providers" target="Delivery Information" id="edge_collect_Service Providers_Delivery Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Purchase Details" id="edge_collect_Service Providers_Purchase Details" isConditional="False
-False">
+<edge source="Service Providers" target="Purchase Details" id="edge_collect_Service Providers_Purchase Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="User Participation Data" id="edge_collect_Service Providers_User Participation Data" isConditional="False
-False
-False
-False
-False">
+<edge source="Service Providers" target="User Participation Data" id="edge_collect_Service Providers_User Participation Data" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2563,54 +2463,44 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Identification Documents" id="edge_collect_Service Providers_Identification Documents" isConditional="False
-False">
+<edge source="Service Providers" target="Identification Documents" id="edge_collect_Service Providers_Identification Documents" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Device Information" id="edge_collect_Service Providers_Device Information" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Device Information" id="edge_collect_Service Providers_Device Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Technical Diagnostics" id="edge_collect_Service Providers_Technical Diagnostics" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Technical Diagnostics" id="edge_collect_Service Providers_Technical Diagnostics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Network Information" id="edge_collect_Service Providers_Network Information" isConditional="False">
+<edge source="Service Providers" target="Network Information" id="edge_collect_Service Providers_Network Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Automatically Assigned Identifiers" id="edge_collect_Service Providers_Automatically Assigned Identifiers" isConditional="False
-False">
+<edge source="Service Providers" target="Automatically Assigned Identifiers" id="edge_collect_Service Providers_Automatically Assigned Identifiers" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Approximate Location" id="edge_collect_Service Providers_Approximate Location" isConditional="False
-False">
+<edge source="Service Providers" target="Approximate Location" id="edge_collect_Service Providers_Approximate Location" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Engagement Metrics" id="edge_collect_Service Providers_Engagement Metrics" isConditional="False
-False
-False
-False">
+<edge source="Service Providers" target="Engagement Metrics" id="edge_collect_Service Providers_Engagement Metrics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2618,54 +2508,43 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Search and Activity History" id="edge_collect_Service Providers_Search and Activity History" isConditional="False">
+<edge source="Service Providers" target="Search and Activity History" id="edge_collect_Service Providers_Search and Activity History" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Settings and Preferences" id="edge_collect_Service Providers_Settings and Preferences" isConditional="False">
+<edge source="Service Providers" target="Settings and Preferences" id="edge_collect_Service Providers_Settings and Preferences" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Content Analysis" id="edge_collect_Service Providers_Content Analysis" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Content Analysis" id="edge_collect_Service Providers_Content Analysis" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Inferred Attributes" id="edge_collect_Service Providers_Inferred Attributes" isConditional="False
-False
-False">
+<edge source="Service Providers" target="Inferred Attributes" id="edge_collect_Service Providers_Inferred Attributes" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Cookie Data" id="edge_collect_Service Providers_Cookie Data" isConditional="False
-False">
+<edge source="Service Providers" target="Cookie Data" id="edge_collect_Service Providers_Cookie Data" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Tracking Information" id="edge_collect_Service Providers_Tracking Information" isConditional="False
-False">
+<edge source="Service Providers" target="Tracking Information" id="edge_collect_Service Providers_Tracking Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Data from Advertising and Analytics Partners" id="edge_collect_Service Providers_Data from Advertising and Analytics Partners" isConditional="False
-False
-False
-False
-False
-False">
+<edge source="Service Providers" target="Data from Advertising and Analytics Partners" id="edge_collect_Service Providers_Data from Advertising and Analytics Partners" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2675,18 +2554,13 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Data from Merchants and Service Providers" id="edge_collect_Service Providers_Data from Merchants and Service Providers" isConditional="False
-False">
+<edge source="Service Providers" target="Data from Merchants and Service Providers" id="edge_collect_Service Providers_Data from Merchants and Service Providers" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Data from Third-Party Platforms" id="edge_collect_Service Providers_Data from Third-Party Platforms" isConditional="False
-False
-False
-False
-False">
+<edge source="Service Providers" target="Data from Third-Party Platforms" id="edge_collect_Service Providers_Data from Third-Party Platforms" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2695,10 +2569,7 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Data from Public and External Sources" id="edge_collect_Service Providers_Data from Public and External Sources" isConditional="False
-False
-False
-False">
+<edge source="Service Providers" target="Data from Public and External Sources" id="edge_collect_Service Providers_Data from Public and External Sources" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -2706,15 +2577,12 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Service Providers" target="Information About You from Other Users" id="edge_collect_Service Providers_Information About You from Other Users" isConditional="False">
+<edge source="Service Providers" target="Information About You from Other Users" id="edge_collect_Service Providers_Information About You from Other Users" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Basic Personal Details" id="edge_collect_Third Party Platforms and Partners_Basic Personal Details" isConditional="True
-True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Basic Personal Details" id="edge_collect_Third Party Platforms and Partners_Basic Personal Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
@@ -2722,17 +2590,13 @@ We share limited information which may include Information You Provide, Technica
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Profile Information" id="edge_collect_Third Party Platforms and Partners_Profile Information" isConditional="True
-True">
+<edge source="Third Party Platforms and Partners" target="Profile Information" id="edge_collect_Third Party Platforms and Partners_Profile Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Media Content" id="edge_collect_Third Party Platforms and Partners_Media Content" isConditional="True
-True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Media Content" id="edge_collect_Third Party Platforms and Partners_Media Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
@@ -2740,9 +2604,7 @@ We share limited information which may include Information You Provide, Technica
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Textual Content" id="edge_collect_Third Party Platforms and Partners_Textual Content" isConditional="True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Textual Content" id="edge_collect_Third Party Platforms and Partners_Textual Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
@@ -2754,59 +2616,47 @@ We share limited information which may include Information You Provide, Technica
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Content Metadata" id="edge_collect_Third Party Platforms and Partners_Content Metadata" isConditional="True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Content Metadata" id="edge_collect_Third Party Platforms and Partners_Content Metadata" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Location Tags in Content" id="edge_collect_Third Party Platforms and Partners_Location Tags in Content" isConditional="True
-True">
+<edge source="Third Party Platforms and Partners" target="Location Tags in Content" id="edge_collect_Third Party Platforms and Partners_Location Tags in Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Clipboard Content" id="edge_collect_Third Party Platforms and Partners_Clipboard Content" isConditional="True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Clipboard Content" id="edge_collect_Third Party Platforms and Partners_Clipboard Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Direct Messages" id="edge_collect_Third Party Platforms and Partners_Direct Messages" isConditional="True
-True">
+<edge source="Third Party Platforms and Partners" target="Direct Messages" id="edge_collect_Third Party Platforms and Partners_Direct Messages" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Device Contacts" id="edge_collect_Third Party Platforms and Partners_Device Contacts" isConditional="True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Device Contacts" id="edge_collect_Third Party Platforms and Partners_Device Contacts" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Social Network Contacts" id="edge_collect_Third Party Platforms and Partners_Social Network Contacts" isConditional="True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Social Network Contacts" id="edge_collect_Third Party Platforms and Partners_Social Network Contacts" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Device Information" id="edge_collect_Third Party Platforms and Partners_Device Information" isConditional="True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Device Information" id="edge_collect_Third Party Platforms and Partners_Device Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
@@ -2818,17 +2668,13 @@ We share limited information which may include Information You Provide, Technica
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Automatically Assigned Identifiers" id="edge_collect_Third Party Platforms and Partners_Automatically Assigned Identifiers" isConditional="True
-True">
+<edge source="Third Party Platforms and Partners" target="Automatically Assigned Identifiers" id="edge_collect_Third Party Platforms and Partners_Automatically Assigned Identifiers" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform</data>
 </edge>
 
-<edge source="Third Party Platforms and Partners" target="Engagement Metrics" id="edge_collect_Third Party Platforms and Partners_Engagement Metrics" isConditional="True
-True
-True
-True">
+<edge source="Third Party Platforms and Partners" target="Engagement Metrics" id="edge_collect_Third Party Platforms and Partners_Engagement Metrics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
 We share limited information which may include Information You Provide, Technical Information, and Usage Information with third party platforms and partners whose platform or services are integrated with the Platform
@@ -2851,10 +2697,7 @@ We share limited information which may include Information You Provide, Technica
     <data key="d3">We provide advertisers with aggregate information about the performance of their ads and other content on the Platform in order to help them measure their effectiveness.</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Basic Personal Details" id="edge_collect_Third Party Measurement Providers_Basic Personal Details" isConditional="False
-False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Basic Personal Details" id="edge_collect_Third Party Measurement Providers_Basic Personal Details" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
@@ -2862,17 +2705,13 @@ We also share Information You Provide, Technical Information and Usage Informati
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Profile Information" id="edge_collect_Third Party Measurement Providers_Profile Information" isConditional="False
-False">
+<edge source="Third Party Measurement Providers" target="Profile Information" id="edge_collect_Third Party Measurement Providers_Profile Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Media Content" id="edge_collect_Third Party Measurement Providers_Media Content" isConditional="False
-False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Media Content" id="edge_collect_Third Party Measurement Providers_Media Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
@@ -2880,9 +2719,7 @@ We also share Information You Provide, Technical Information and Usage Informati
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Textual Content" id="edge_collect_Third Party Measurement Providers_Textual Content" isConditional="False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Textual Content" id="edge_collect_Third Party Measurement Providers_Textual Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
@@ -2894,9 +2731,7 @@ We also share Information You Provide, Technical Information and Usage Informati
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Content Metadata" id="edge_collect_Third Party Measurement Providers_Content Metadata" isConditional="False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Content Metadata" id="edge_collect_Third Party Measurement Providers_Content Metadata" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
@@ -2908,27 +2743,21 @@ We also share Information You Provide, Technical Information and Usage Informati
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Clipboard Content" id="edge_collect_Third Party Measurement Providers_Clipboard Content" isConditional="False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Clipboard Content" id="edge_collect_Third Party Measurement Providers_Clipboard Content" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Device Information" id="edge_collect_Third Party Measurement Providers_Device Information" isConditional="False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Device Information" id="edge_collect_Third Party Measurement Providers_Device Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Technical Diagnostics" id="edge_collect_Third Party Measurement Providers_Technical Diagnostics" isConditional="False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Technical Diagnostics" id="edge_collect_Third Party Measurement Providers_Technical Diagnostics" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
@@ -2940,17 +2769,13 @@ We also share Information You Provide, Technical Information and Usage Informati
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Automatically Assigned Identifiers" id="edge_collect_Third Party Measurement Providers_Automatically Assigned Identifiers" isConditional="False
-False">
+<edge source="Third Party Measurement Providers" target="Automatically Assigned Identifiers" id="edge_collect_Third Party Measurement Providers_Automatically Assigned Identifiers" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Third Party Measurement Providers" target="Engagement Metrics" id="edge_collect_Third Party Measurement Providers_Engagement Metrics" isConditional="False
-False
-False
-False">
+<edge source="Third Party Measurement Providers" target="Engagement Metrics" id="edge_collect_Third Party Measurement Providers_Engagement Metrics" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
 We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform
@@ -2968,34 +2793,27 @@ We also share Information You Provide, Technical Information and Usage Informati
     <data key="d3">We also share Information You Provide, Technical Information and Usage Information with third party measurement providers who help us measure advertising served on the Platform</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Payment Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Payment Information" isConditional="False
-False
-False">
+<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Payment Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Payment Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers
 When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers
 When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Purchase Details" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Purchase Details" isConditional="False
-False
-False">
+<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Purchase Details" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Purchase Details" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers
 When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers
 When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Delivery Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Delivery Information" isConditional="False
-False">
+<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Delivery Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Delivery Information" isConditional="False">
     <data key="d2">COLLECT</data>
     <data key="d3">When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers
 When you make a purchase through the shopping features on our Platform, we share Purchase Information related to the transaction with the merchant, payment and transaction fulfilment providers, and other service providers</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Device Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Device Information" isConditional="True
-True
-True">
+<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Device Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Device Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.
 We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.
@@ -3007,27 +2825,20 @@ We may also share certain Technical Information about your device or connection 
     <data key="d3">We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Network Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Network Information" isConditional="True
-True">
+<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Network Information" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Network Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.
 We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.</data>
 </edge>
 
-<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Technical Diagnostics" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Technical Diagnostics" isConditional="True
-True
-True">
+<edge source="Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers" target="Technical Diagnostics" id="edge_collect_Merchants, Payment and Transaction Fulfilment Providers, and Other Service Providers_Technical Diagnostics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.
 We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.
 We may also share certain Technical Information about your device or connection with these parties to help ensure the security of the transaction.</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Basic Personal Details" id="edge_collect_Entities within our corporate group_Basic Personal Details" isConditional="True
-True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="Basic Personal Details" id="edge_collect_Entities within our corporate group_Basic Personal Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3036,17 +2847,13 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Profile Information" id="edge_collect_Entities within our corporate group_Profile Information" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Profile Information" id="edge_collect_Entities within our corporate group_Profile Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Media Content" id="edge_collect_Entities within our corporate group_Media Content" isConditional="True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="Media Content" id="edge_collect_Entities within our corporate group_Media Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3054,90 +2861,73 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Textual Content" id="edge_collect_Entities within our corporate group_Textual Content" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Textual Content" id="edge_collect_Entities within our corporate group_Textual Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Support and Feedback" id="edge_collect_Entities within our corporate group_Support and Feedback" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Support and Feedback" id="edge_collect_Entities within our corporate group_Support and Feedback" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Content Metadata" id="edge_collect_Entities within our corporate group_Content Metadata" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Content Metadata" id="edge_collect_Entities within our corporate group_Content Metadata" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Location Tags in Content" id="edge_collect_Entities within our corporate group_Location Tags in Content" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Location Tags in Content" id="edge_collect_Entities within our corporate group_Location Tags in Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Clipboard Content" id="edge_collect_Entities within our corporate group_Clipboard Content" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Clipboard Content" id="edge_collect_Entities within our corporate group_Clipboard Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Direct Messages" id="edge_collect_Entities within our corporate group_Direct Messages" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Direct Messages" id="edge_collect_Entities within our corporate group_Direct Messages" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Merchant Communications" id="edge_collect_Entities within our corporate group_Merchant Communications" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Merchant Communications" id="edge_collect_Entities within our corporate group_Merchant Communications" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Device Contacts" id="edge_collect_Entities within our corporate group_Device Contacts" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Device Contacts" id="edge_collect_Entities within our corporate group_Device Contacts" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Social Network Contacts" id="edge_collect_Entities within our corporate group_Social Network Contacts" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Social Network Contacts" id="edge_collect_Entities within our corporate group_Social Network Contacts" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Contacts Provided by Others" id="edge_collect_Entities within our corporate group_Contacts Provided by Others" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Contacts Provided by Others" id="edge_collect_Entities within our corporate group_Contacts Provided by Others" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Payment Information" id="edge_collect_Entities within our corporate group_Payment Information" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Payment Information" id="edge_collect_Entities within our corporate group_Payment Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
@@ -3148,18 +2938,13 @@ We share Information You Provide, Automatically Collected Information, and Infor
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Purchase Details" id="edge_collect_Entities within our corporate group_Purchase Details" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Purchase Details" id="edge_collect_Entities within our corporate group_Purchase Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="User Participation Data" id="edge_collect_Entities within our corporate group_User Participation Data" isConditional="True
-True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="User Participation Data" id="edge_collect_Entities within our corporate group_User Participation Data" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3168,25 +2953,20 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Identification Documents" id="edge_collect_Entities within our corporate group_Identification Documents" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Identification Documents" id="edge_collect_Entities within our corporate group_Identification Documents" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Device Information" id="edge_collect_Entities within our corporate group_Device Information" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Device Information" id="edge_collect_Entities within our corporate group_Device Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Technical Diagnostics" id="edge_collect_Entities within our corporate group_Technical Diagnostics" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Technical Diagnostics" id="edge_collect_Entities within our corporate group_Technical Diagnostics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3198,24 +2978,19 @@ We share Information You Provide, Automatically Collected Information, and Infor
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Automatically Assigned Identifiers" id="edge_collect_Entities within our corporate group_Automatically Assigned Identifiers" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Automatically Assigned Identifiers" id="edge_collect_Entities within our corporate group_Automatically Assigned Identifiers" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Approximate Location" id="edge_collect_Entities within our corporate group_Approximate Location" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Approximate Location" id="edge_collect_Entities within our corporate group_Approximate Location" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Engagement Metrics" id="edge_collect_Entities within our corporate group_Engagement Metrics" isConditional="True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="Engagement Metrics" id="edge_collect_Entities within our corporate group_Engagement Metrics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3233,44 +3008,33 @@ We share Information You Provide, Automatically Collected Information, and Infor
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Content Analysis" id="edge_collect_Entities within our corporate group_Content Analysis" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Content Analysis" id="edge_collect_Entities within our corporate group_Content Analysis" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Inferred Attributes" id="edge_collect_Entities within our corporate group_Inferred Attributes" isConditional="True
-True
-True">
+<edge source="Entities within our corporate group" target="Inferred Attributes" id="edge_collect_Entities within our corporate group_Inferred Attributes" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Cookie Data" id="edge_collect_Entities within our corporate group_Cookie Data" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Cookie Data" id="edge_collect_Entities within our corporate group_Cookie Data" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Tracking Information" id="edge_collect_Entities within our corporate group_Tracking Information" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Tracking Information" id="edge_collect_Entities within our corporate group_Tracking Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Data from Advertising and Analytics Partners" id="edge_collect_Entities within our corporate group_Data from Advertising and Analytics Partners" isConditional="True
-True
-True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="Data from Advertising and Analytics Partners" id="edge_collect_Entities within our corporate group_Data from Advertising and Analytics Partners" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3280,18 +3044,13 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Data from Merchants and Service Providers" id="edge_collect_Entities within our corporate group_Data from Merchants and Service Providers" isConditional="True
-True">
+<edge source="Entities within our corporate group" target="Data from Merchants and Service Providers" id="edge_collect_Entities within our corporate group_Data from Merchants and Service Providers" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Data from Third-Party Platforms" id="edge_collect_Entities within our corporate group_Data from Third-Party Platforms" isConditional="True
-True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="Data from Third-Party Platforms" id="edge_collect_Entities within our corporate group_Data from Third-Party Platforms" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3300,10 +3059,7 @@ We share Information You Provide, Automatically Collected Information, and Infor
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Entities within our corporate group" target="Data from Public and External Sources" id="edge_collect_Entities within our corporate group_Data from Public and External Sources" isConditional="True
-True
-True
-True">
+<edge source="Entities within our corporate group" target="Data from Public and External Sources" id="edge_collect_Entities within our corporate group_Data from Public and External Sources" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
 We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services
@@ -3316,16 +3072,7 @@ We share Information You Provide, Automatically Collected Information, and Infor
     <data key="d3">We share Information You Provide, Automatically Collected Information, and Information From Other Sources with these service providers as necessary to enable them to provide their services</data>
 </edge>
 
-<edge source="Users and the Public" target="Basic Personal Details" id="edge_collect_Users and the Public_Basic Personal Details" isConditional="True
-True
-True
-True
-True
-True
-True
-True
-True
-True">
+<edge source="Users and the Public" target="Basic Personal Details" id="edge_collect_Users and the Public_Basic Personal Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3339,10 +3086,7 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Profile Information" id="edge_collect_Users and the Public_Profile Information" isConditional="True
-True
-True
-True">
+<edge source="Users and the Public" target="Profile Information" id="edge_collect_Users and the Public_Profile Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3350,14 +3094,7 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Media Content" id="edge_collect_Users and the Public_Media Content" isConditional="True
-True
-True
-True
-True
-True
-True
-True">
+<edge source="Users and the Public" target="Media Content" id="edge_collect_Users and the Public_Media Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3369,12 +3106,7 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Textual Content" id="edge_collect_Users and the Public_Textual Content" isConditional="True
-True
-True
-True
-True
-True">
+<edge source="Users and the Public" target="Textual Content" id="edge_collect_Users and the Public_Textual Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3384,19 +3116,13 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Support and Feedback" id="edge_collect_Users and the Public_Support and Feedback" isConditional="True
-True">
+<edge source="Users and the Public" target="Support and Feedback" id="edge_collect_Users and the Public_Support and Feedback" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Clipboard Content" id="edge_collect_Users and the Public_Clipboard Content" isConditional="True
-True
-True
-True
-True
-True">
+<edge source="Users and the Public" target="Clipboard Content" id="edge_collect_Users and the Public_Clipboard Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3406,14 +3132,7 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Content Metadata" id="edge_collect_Users and the Public_Content Metadata" isConditional="True
-True
-True
-True
-True
-True
-True
-True">
+<edge source="Users and the Public" target="Content Metadata" id="edge_collect_Users and the Public_Content Metadata" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3425,10 +3144,7 @@ For example, if you have a public account and have not restricted the visibility
 For example, if you have a public account and have not restricted the visibility of your posts individually, your Profile Information and User Content can be viewed or shared by anyone on or off the Platform, whether or not they have a TikTok account</data>
 </edge>
 
-<edge source="Users and the Public" target="Engagement Metrics" id="edge_collect_Users and the Public_Engagement Metrics" isConditional="True
-True
-True
-True">
+<edge source="Users and the Public" target="Engagement Metrics" id="edge_collect_Users and the Public_Engagement Metrics" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
@@ -3441,18 +3157,13 @@ Based on your privacy settings, your information, including your Profile Informa
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public</data>
 </edge>
 
-<edge source="Users and the Public" target="Device Information" id="edge_collect_Users and the Public_Device Information" isConditional="True
-True">
+<edge source="Users and the Public" target="Device Information" id="edge_collect_Users and the Public_Device Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public
 Based on your privacy settings, your information, including your Profile Information, User Content, and Usage Information may be visible to other users and the public</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Basic Personal Details" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Basic Personal Details" isConditional="True
-True
-True
-True
-True">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Basic Personal Details" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Basic Personal Details" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
@@ -3461,17 +3172,13 @@ Depending on your privacy settings, your Profile Information and User Content ma
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Profile Information" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Profile Information" isConditional="True
-True">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Profile Information" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Profile Information" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Media Content" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Media Content" isConditional="True
-True
-True
-True">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Media Content" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Media Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
@@ -3479,9 +3186,7 @@ Depending on your privacy settings, your Profile Information and User Content ma
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Textual Content" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Textual Content" isConditional="True
-True
-True">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Textual Content" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Textual Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
@@ -3493,19 +3198,14 @@ Depending on your privacy settings, your Profile Information and User Content ma
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Clipboard Content" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Clipboard Content" isConditional="True
-True
-True">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Clipboard Content" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Clipboard Content" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites</data>
 </edge>
 
-<edge source="Search Engines, Content Aggregators, and News Sites" target="Content Metadata" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Content Metadata" isConditional="True
-True
-True
-True">
+<edge source="Search Engines, Content Aggregators, and News Sites" target="Content Metadata" id="edge_collect_Search Engines, Content Aggregators, and News Sites_Content Metadata" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites
@@ -3513,8 +3213,7 @@ Depending on your privacy settings, your Profile Information and User Content ma
 Depending on your privacy settings, your Profile Information and User Content may also appear on Search Engines, Content Aggregators, and News Sites</data>
 </edge>
 
-<edge source="Researchers" target="All Data" id="edge_collect_Researchers_All Data" isConditional="True
-True">
+<edge source="Researchers" target="All Data" id="edge_collect_Researchers_All Data" isConditional="True">
     <data key="d2">COLLECT</data>
     <data key="d3">We share your information with independent researchers to facilitate research that meets certain criteria
 We may access, preserve, and share the information described in "What Information We Collect" with law enforcement agencies, public authorities, researchers, copyright holders, or other third parties if we have good faith belief that it is necessary to</data>
