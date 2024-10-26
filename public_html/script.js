@@ -2,9 +2,11 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    const sizeScaleMultiplier = 10;
+    const developerMode = false;
 
-    const rectRadius = 10;
+    const sizeScaleMultiplier = 10;    
+
+    const rectRadius = 11;
     const spaceBetweenRects = 3;
 
     const maxFontSize = 16; // Maximum font size cap
@@ -235,22 +237,27 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
 
-                // TMP
-                // Get the button element by ID
-                const topButton = document.getElementById('topButton');
+                // To show the last view of the tool inmediately
+                if (developerMode) {
 
-                // Check if the button exists before triggering the event
-                if (topButton) {
-                    // Programmatically create a click event
-                    const clickEvent = new MouseEvent('click', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window
-                    });
+                    // Get the button element by ID
+                    const topButton = document.getElementById('topButton');
 
-                    // Dispatch the event, triggering the attached event listener
-                    topButton.dispatchEvent(clickEvent);
+                    // Check if the button exists before triggering the event
+                    if (topButton) {
+                        // Programmatically create a click event
+                        const clickEvent = new MouseEvent('click', {
+                            bubbles: true,
+                            cancelable: true,
+                            view: window
+                        });
+
+                        // Dispatch the event, triggering the attached event listener
+                        topButton.dispatchEvent(clickEvent);
+                    }
+
                 }
+
 
 
 
@@ -3042,8 +3049,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
         }
 
 
-        // TMP
-        mainTimeline.play("actorsColumn");
+        if (developerMode) {
+            mainTimeline.play("actorsColumn");
+        }
+        
 
 
     }
@@ -3955,6 +3964,24 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return `${x},${y - size} ${x - size},${y + size} ${x + size},${y + size}`;
     }
 
+    function calculatePolygonPoints(n, radius) {
+        const x = 0, y = 0; // Center the polygon
+        let points = [];
+
+        for (let i = 0; i < n; i++) {
+            const angle = (2 * Math.PI / n) * i; // Divide the full circle into n parts
+            const px = x + radius * Math.cos(angle);
+            const py = y + radius * Math.sin(angle);
+            points.push(`${px},${py}`);
+        }
+
+        return points.join(" ");
+    }
+
+
+
+
+
 
     function calculateHexagonPoints(d) {
         const size = rectRadius;
@@ -4012,7 +4039,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 
                     // TMP
-                    // rename .text becuase not it is an array
+                    // TODO: rename .text becuase not it is an array
                     let lines = new Array();
                     item.text.forEach(function (text) {
                         let tmp = processString(text)
@@ -4127,16 +4154,37 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 const patternId = `striped-pattern-${uniqueId}`;
 
                                 // Define a new pattern for this specific rect
+                                // defs.append("pattern")
+                                //     .attr("id", patternId)
+                                //     .attr("width", rectRadius / 2)
+                                //     .attr("height", rectRadius / 2)
+                                //     .attr("patternUnits", "userSpaceOnUse")
+                                //     .attr("patternTransform", "rotate(45)")
+                                //     .append("rect")
+                                //     .attr("width", rectRadius / 2 - 1)
+                                //     .attr("height", rectRadius / 2)
+                                //     .attr("fill", dataRectCopy.fill);
+
+
+
+
+
+                                // Define the pattern with objectBoundingBox units
                                 defs.append("pattern")
                                     .attr("id", patternId)
-                                    .attr("width", rectRadius / 2)
-                                    .attr("height", rectRadius / 2)
-                                    .attr("patternUnits", "userSpaceOnUse")
-                                    .attr("patternTransform", "rotate(45)")
+                                    .attr("patternUnits", "objectBoundingBox")
+                                    .attr("width", 0.2)
+                                    .attr("height", 0.2)
+                                    .attr("patternTransform", "rotate(-45 0.5 0.5)")
+
                                     .append("rect")
-                                    .attr("width", rectRadius / 2 - 1)
-                                    .attr("height", rectRadius / 2)
+                                    .attr("x", 0)
+                                    .attr("y", 0)
+                                    .attr("width", 10)
+                                    .attr("height", 2)
                                     .attr("fill", dataRectCopy.fill);
+
+
 
                                 return `url(#${patternId})`;
                             } else {
@@ -4151,11 +4199,84 @@ document.addEventListener("DOMContentLoaded", (event) => {
                             const isAmbiguousData = item.name === "All Data";
                             if (isAmbiguousData) {
 
+
+
+
+                                // // Create unique IDs for the patterns
+                                // const stripePatternId = `stripe-pattern-${uniqueId}`;
+                                // const patternId = `exclamation-pattern-${uniqueId}`;
+
+                                // // Ensure defs is defined
+                                // const defs = svg.select('defs').empty() ? svg.append('defs') : svg.select('defs');
+
+                                // // Define the stripe pattern (using userSpaceOnUse)
+                                // const stripePattern = defs.append("pattern")
+                                //     .attr("id", stripePatternId)
+                                //     .attr("patternUnits", "userSpaceOnUse")
+                                //     .attr("width", 8) // Adjust for stripe spacing in pixels
+                                //     .attr("height", 8)
+                                //     .attr("patternTransform", "rotate(45)");
+
+                                // // Draw the stripe
+                                // stripePattern.append("rect")
+                                //     .attr("width", 4) // Stripe thickness in pixels
+                                //     .attr("height", 8)
+                                //     .attr("fill", dataRectCopy.fill);
+
+
+
+                                // // Define the main pattern (using userSpaceOnUse)
+                                // const pattern = defs.append("pattern")
+                                //     .attr("id", patternId)
+                                //     .attr("patternUnits", "userSpaceOnUse")
+                                //     .attr("width", rectRadius)
+                                //     .attr("height", rectRadius);
+
+                                // // Apply the stripe pattern as background
+                                // pattern.append("rect")
+                                //     .attr("width", "100%")
+                                //     .attr("height", "100%")
+                                //     .attr("fill", `url(#${stripePatternId})`);
+
+                                // // Add a solid background behind the exclamation mark to cover the stripes
+                                // pattern.append("rect")
+                                //     .attr("x", 0)
+                                //     .attr("y", 0)
+                                //     .attr("width", rectRadius)
+                                //     .attr("height", rectRadius)
+                                //     .attr("fill", dataRectCopy.fill)
+
+
+                                // // Overlay the exclamation mark
+                                // pattern.append("text")
+                                //     .attr("x", 0) // Center horizontally
+                                //     .attr("y", 0) // Center vertically
+                                //     .attr("text-anchor", "middle")
+                                //     .attr("alignment-baseline", "middle")
+                                //     .attr("font-size", rectRadius * 1.5) // Adjust as needed
+                                //     .attr("font-weight", "bold")
+                                //     .attr("fill", "#000")
+                                //     .text("a");
+
+                                // // Apply the pattern to the triangle
+                                // shape.attr('points', calculateTrianglePoints(d))
+                                //     .attr('stroke', '#000000')
+                                //     .attr('stroke-linecap', 'round')
+                                //     .attr('stroke-linejoin', 'round')
+                                //     .attr('stroke-width', 1.5)
+                                //     .attr('fill', `url(#${patternId})`);
+
+
                                 shape.attr('points', calculateTrianglePoints(d))
                                     .attr('stroke', '#000000')
                                     .attr('stroke-linecap', 'round ')
                                     .attr('stroke-linejoin', 'round')
                                     .attr('stroke-width', 1.5)
+                                // TODO: make an exclamation mark out of an SGV pattern
+                                // .attr('fill', `url(#${patternId})`);    
+
+
+
                             } else {
 
                                 shape.attr('x', -rectRadius + 0.5)
@@ -4215,8 +4336,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                                 // animation: 'perspective',
                                 hideOnClick: false,
                                 interactive: true,      // Set to false to make the tooltip non-interactive
-                                placement: 'top',        // Prefer placement at the top
-                                fallbackPlacements: ['right', 'left', 'bottom'], // Fallback placements if 'top' doesn't fit
+                                placement: 'right',        // Prefer placement at the top                                
                                 appendTo: () => document.body
                             });
 
