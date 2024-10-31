@@ -2,8 +2,8 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    const developerMode = true;
-    let explanationPending = false;
+    const developerMode = false;
+    let explanationPending = true;
 
     const sizeScaleMultiplier = 10;
 
