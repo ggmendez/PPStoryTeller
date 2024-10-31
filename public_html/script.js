@@ -1011,8 +1011,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 dataInheritances[parentData].push(childData);
             });
 
-            console.log("***************** dataInheritances *****************");
-            console.log(dataInheritances);
+            // console.log("***************** dataInheritances *****************");
+            // console.log(dataInheritances);
             // console.log("***************** actorDataMap *****************");
             // console.log(actorDataMap);
 
@@ -2813,7 +2813,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                     if (explanationPending) {
                         explainDataPerActor(); // TMP
                     }
-
+                    showLegend(svg, svgWidth - 450, svgHeight - 350);
                 },
                 onUpdate: () => {
                     shouldShowDataCategories = false;
@@ -3514,39 +3514,49 @@ document.addEventListener("DOMContentLoaded", (event) => {
         return maxElement ? maxElement.attr('id') : null;
 
     }
+    
 
     function showLegend(svg, x, y) {
         const legendData = [
             { label: "Will be collected/shared", color: "gray" },
             { label: "May be collected/shared", color: "gray" }
         ];
-
+    
         // Create a legend group and position it based on x and y parameters
         const legend = svg.append("g")
             .attr("class", "legend")
-            .attr("transform", `translate(${x}, ${y})`);
-
+            .attr("transform", `translate(${x}, ${y})`)
+            .attr("opacity", 0); // Start with opacity 0 for fade-in effect
+    
+        // Add the "Legend:" title
+        legend.append("text")
+            .attr("x", 0)
+            .attr("y", -7)  // Position it slightly above the rectangle
+            .text("Legend:")
+            .attr("font-size", "12px")
+            .attr("font-weight", "bold")
+            .attr("fill", "black");
+    
         // Calculate the width and height of the border based on the legend items
         const itemHeight = 30;
         const legendWidth = 185;
         const legendHeight = legendData.length * itemHeight + 10;
-
+    
         const patternId = `striped-pattern-legend`;
-
+    
         defs.append("pattern")
             .attr("id", patternId)
             .attr("patternUnits", "objectBoundingBox")
             .attr("width", 0.2)
             .attr("height", 0.2)
             .attr("patternTransform", "rotate(-45 0.5 0.5)")
-
             .append("rect")
             .attr("x", 0)
             .attr("y", 0)
             .attr("width", 10)
             .attr("height", 2)
             .attr("fill", "gray");
-
+    
         // Add a border rectangle for the legend background
         legend.append("rect")
             .attr("width", legendWidth)
@@ -3556,33 +3566,40 @@ document.addEventListener("DOMContentLoaded", (event) => {
             .attr("stroke-width", 0.75)
             .attr("rx", 5)                   // Rounded corners (optional)
             .attr("ry", 5);
-
+    
         // Append a group for each legend item
         legendData.forEach((item, i) => {
             const legendItem = legend.append("g")
                 .attr("transform", `translate(10, ${i * itemHeight + 10})`);
-
+    
             // Add colored rectangle for the legend symbol
             legendItem.append("rect")
-                .attr("width", rectRadius*2)
-                .attr("height", rectRadius*2)
+                .attr("width", rectRadius * 2)
+                .attr("height", rectRadius * 2)
                 .attr("fill", i % 2 ? `url(#${patternId})` : item.color);
-
-
-
+    
             // Add label text next to the rectangle
             legendItem.append("text")
-                .attr("x", rectRadius*2 + 5)
+                .attr("x", rectRadius * 2 + 5)
                 .attr("y", rectRadius + 2)
                 .text(item.label)
                 .attr("font-size", "12px")
                 .attr("alignment-baseline", "middle");
         });
+    
+        // Use GSAP to fade in the legend group
+        gsap.fromTo(legend.node(), { opacity: 0 }, { opacity: 1, duration: 1 });
     }
+    
+
+
+
+
+
 
     // Usage example:
     // Assuming 'svg' is an existing D3 SVG selection and the desired position is (50, 50)
-    showLegend(svg, svgWidth - 450, svgHeight - 350);
+    
     // showLegend(svg, svgWidth - 350, svgHeight - 250);
     // showLegend(svg, svgWidth - 200, 40);
 

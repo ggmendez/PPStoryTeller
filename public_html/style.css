@@ -1625,6 +1625,7 @@ code .token.url {
   transition: width 0.3s ease, box-shadow 0.3s ease;
   width: 150px;
   text-align: center;
+  border: gray 1px solid;
 }
 
 #floatingSearchBar:focus-within {
