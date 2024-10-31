@@ -4447,8 +4447,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                                 const opacity = window.getComputedStyle(this).opacity;
 
-                                // console.log("opacity: " + opacity);
-                                // console.log(typeof opacity);
+                                console.log("opacity: " + opacity);
+                                console.log(typeof opacity);
 
                                 if (opacity !== "1") {
                                     return;
@@ -4493,6 +4493,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
                             // Make the tooltip permanent on click
                             this.addEventListener('click', () => {
+
+                                const opacity = window.getComputedStyle(this).opacity;
+                                if (opacity === "0") {
+                                    return;
+                                }
 
                                 tooltipInstance.show();
 
