@@ -2,9 +2,10 @@
 
 document.addEventListener("DOMContentLoaded", (event) => {
 
-    const developerMode = false;
+    const developerMode = true;
+    let explanationPending = false;
 
-    const sizeScaleMultiplier = 10;    
+    const sizeScaleMultiplier = 10;
 
     const rectRadius = 11;
     const spaceBetweenRects = 3;
@@ -36,6 +37,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     // Track whether the iframe container is compressed or expanded
     let ppCompressed = false;
+
+
 
     document.getElementById('topButton').addEventListener('click', function () {
 
@@ -2807,7 +2810,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
                 onComplete: () => {
                     shouldShowDataCategories = true;
                     shouldShowDataRects = true;
-                    // explainDataPerActor(); // TMP
+                    if (explanationPending) {
+                        explainDataPerActor(); // TMP
+                    }
+
                 },
                 onUpdate: () => {
                     shouldShowDataCategories = false;
@@ -3052,7 +3058,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
         if (developerMode) {
             mainTimeline.play("actorsColumn");
         }
-        
+
 
 
     }
@@ -3509,6 +3515,76 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
     }
 
+    function showLegend(svg, x, y) {
+        const legendData = [
+            { label: "Will be collected/shared", color: "gray" },
+            { label: "May be collected/shared", color: "gray" }
+        ];
+
+        // Create a legend group and position it based on x and y parameters
+        const legend = svg.append("g")
+            .attr("class", "legend")
+            .attr("transform", `translate(${x}, ${y})`);
+
+        // Calculate the width and height of the border based on the legend items
+        const itemHeight = 30;
+        const legendWidth = 185;
+        const legendHeight = legendData.length * itemHeight + 10;
+
+        const patternId = `striped-pattern-legend`;
+
+        defs.append("pattern")
+            .attr("id", patternId)
+            .attr("patternUnits", "objectBoundingBox")
+            .attr("width", 0.2)
+            .attr("height", 0.2)
+            .attr("patternTransform", "rotate(-45 0.5 0.5)")
+
+            .append("rect")
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("width", 10)
+            .attr("height", 2)
+            .attr("fill", "gray");
+
+        // Add a border rectangle for the legend background
+        legend.append("rect")
+            .attr("width", legendWidth)
+            .attr("height", legendHeight)
+            .attr("fill", "white")           // Transparent fill
+            .attr("stroke", "lightgray")         // Border color
+            .attr("stroke-width", 0.75)
+            .attr("rx", 5)                   // Rounded corners (optional)
+            .attr("ry", 5);
+
+        // Append a group for each legend item
+        legendData.forEach((item, i) => {
+            const legendItem = legend.append("g")
+                .attr("transform", `translate(10, ${i * itemHeight + 10})`);
+
+            // Add colored rectangle for the legend symbol
+            legendItem.append("rect")
+                .attr("width", rectRadius*2)
+                .attr("height", rectRadius*2)
+                .attr("fill", i % 2 ? `url(#${patternId})` : item.color);
+
+
+
+            // Add label text next to the rectangle
+            legendItem.append("text")
+                .attr("x", rectRadius*2 + 5)
+                .attr("y", rectRadius + 2)
+                .text(item.label)
+                .attr("font-size", "12px")
+                .attr("alignment-baseline", "middle");
+        });
+    }
+
+    // Usage example:
+    // Assuming 'svg' is an existing D3 SVG selection and the desired position is (50, 50)
+    showLegend(svg, svgWidth - 450, svgHeight - 350);
+    // showLegend(svg, svgWidth - 350, svgHeight - 250);
+    // showLegend(svg, svgWidth - 200, 40);
 
 
 
@@ -3588,6 +3664,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
                         opacity: 0, scale: 0, delay: 3 + animationDuration, duration: 0,
                         onComplete: () => {
                             d3.select(`#${randomElementtId}`).style('filter', '');
+                            explanationPending = false;
                         }
                     })
                 }
